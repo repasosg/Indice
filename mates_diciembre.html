@@ -1,0 +1,3171 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica de Matemáticas 5º Primaria</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100%;
+      width: 100%;
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      margin: 0 0 10px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header p {
+      font-size: 24px;
+      margin: 5px 0;
+      opacity: 0.9;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .topic-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .topic-card h3 {
+      margin: 0 0 10px 0;
+      color: #667eea;
+      font-size: 22px;
+    }
+
+    .topic-card p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .exercise-area {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .exercise-area.active {
+      display: block;
+    }
+
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .exercise-header h2 {
+      margin: 0;
+      color: #667eea;
+      font-size: 28px;
+    }
+
+    .back-btn {
+      background: #764ba2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: inherit;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #5a3a7f;
+    }
+
+    .question {
+      background: #f5f5ff;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .question-text {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: inherit;
+      transition: background 0.3s;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #5568d3;
+    }
+
+    .btn-secondary {
+      background: #95a5a6;
+    }
+
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+      display: block;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 24px;
+      color: #667eea;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .canvas-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    canvas {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .coordinate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .function-chain {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      border: 3px solid #667eea;
+    }
+
+    .function-box {
+      background: #667eea;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .function-arrow {
+      font-size: 28px;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .function-operation {
+      background: #e8f4f8;
+      color: #2c3e50;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+      border: 2px solid #3498db;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 36px;
+      }
+      
+      .header p {
+        font-size: 18px;
+      }
+      
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .coordinate-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .function-chain {
+        gap: 8px;
+        padding: 15px;
+      }
+
+      .function-box, .function-operation {
+        font-size: 16px;
+        padding: 10px 15px;
+      }
+
+      .function-arrow {
+        font-size: 20px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <main>
+   <div class="main-container">
+    <header class="header">
+     <h1 id="main-title">Práctica de Matemáticas</h1>
+     <p id="subtitle">5º de Primaria</p>
+     <p id="instructions">Selecciona un tema para practicar</p>
+    </header>
+    <div class="topics-grid" id="topics-grid">
+     <div class="topic-card" data-topic="divisiones">
+      <h3>➗ Divisiones con Decimales</h3>
+      <p>Practica divisiones con números decimales</p>
+     </div>
+     <div class="topic-card" data-topic="media">
+      <h3>📊 Calcular la Media</h3>
+      <p>Aprende a calcular la media aritmética</p>
+     </div>
+     <div class="topic-card" data-topic="rectas">
+      <h3>📐 Rectas</h3>
+      <p>Paralelas, secantes y perpendiculares</p>
+     </div>
+     <div class="topic-card" data-topic="coordenadas">
+      <h3>📍 Coordenadas</h3>
+      <p>Practica con el plano cartesiano</p>
+     </div>
+     <div class="topic-card" data-topic="sectores">
+      <h3>🥧 Gráficos de Sectores</h3>
+      <p>Practica fracciones con gráficos circulares</p>
+     </div>
+     <div class="topic-card" data-topic="operaciones">
+      <h3>➕➖ Operaciones con Enteros</h3>
+      <p>Suma y resta con números positivos y negativos</p>
+     </div>
+     <div class="topic-card" data-topic="funciones">
+      <h3>🔢 Funciones</h3>
+      <p>Practica operaciones en cadena y función inversa</p>
+     </div>
+     <div class="topic-card" data-topic="problemas">
+      <h3>🧩 Problemas de División</h3>
+      <p>Resuelve problemas de reparto y división</p>
+     </div>
+    </div>
+    <div class="exercise-area" id="exercise-area">
+     <div class="exercise-header">
+      <h2 id="exercise-title">Ejercicio</h2><button class="back-btn" id="back-btn">← Volver</button>
+     </div>
+     <div class="score" id="score">
+      Puntuación: 0 / 0
+     </div>
+     <div id="exercise-content"></div>
+    </div>
+   </div>
+  </main>
+  <script>
+    const defaultConfig = {
+      main_title: "Práctica de Matemáticas",
+      subtitle: "5º de Primaria",
+      instructions: "Selecciona un tema para practicar",
+      background_color: "#667eea",
+      card_color: "#ffffff",
+      text_color: "#333333",
+      button_color: "#667eea",
+      accent_color: "#764ba2"
+    };
+
+    let currentTopic = null;
+    let score = 0;
+    let totalQuestions = 0;
+    let currentAnswer = null;
+
+    async function onConfigChange(config) {
+      document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+      document.getElementById('instructions').textContent = config.instructions || defaultConfig.instructions;
+      
+      document.body.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color} 0%, ${config.accent_color || defaultConfig.accent_color} 100%)`;
+      
+      const cards = document.querySelectorAll('.topic-card');
+      cards.forEach(card => {
+        card.style.background = config.card_color || defaultConfig.card_color;
+      });
+      
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(btn => {
+        if (!btn.classList.contains('btn-secondary') && !btn.classList.contains('back-btn')) {
+          btn.style.background = config.button_color || defaultConfig.button_color;
+        }
+      });
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.card_color || defaultConfig.card_color,
+              set: (value) => {
+                config.card_color = value;
+                window.elementSdk.setConfig({ card_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.button_color || defaultConfig.button_color,
+              set: (value) => {
+                config.button_color = value;
+                window.elementSdk.setConfig({ button_color: value });
+              }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                config.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["subtitle", config.subtitle || defaultConfig.subtitle],
+          ["instructions", config.instructions || defaultConfig.instructions]
+        ])
+      });
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      const topicCards = document.querySelectorAll('.topic-card');
+      topicCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const topic = this.getAttribute('data-topic');
+          startTopic(topic);
+        });
+      });
+
+      document.getElementById('back-btn').addEventListener('click', backToTopics);
+    });
+
+    function startTopic(topic) {
+      currentTopic = topic;
+      score = 0;
+      totalQuestions = 0;
+      document.getElementById('topics-grid').style.display = 'none';
+      document.getElementById('exercise-area').classList.add('active');
+      updateScore();
+      
+      switch(topic) {
+        case 'divisiones':
+          document.getElementById('exercise-title').textContent = '➗ Divisiones con Decimales';
+          generateDivision();
+          break;
+        case 'media':
+          document.getElementById('exercise-title').textContent = '📊 Calcular la Media';
+          generateMedia();
+          break;
+        case 'rectas':
+          document.getElementById('exercise-title').textContent = '📐 Rectas';
+          generateRectas();
+          break;
+        case 'coordenadas':
+          document.getElementById('exercise-title').textContent = '📍 Coordenadas';
+          generateCoordenadas();
+          break;
+        case 'sectores':
+          document.getElementById('exercise-title').textContent = '🥧 Fracciones y Gráficos de Sectores';
+          generateSectores();
+          break;
+        case 'operaciones':
+          document.getElementById('exercise-title').textContent = '➕��� Operaciones con Enteros';
+          generateOperaciones();
+          break;
+        case 'funciones':
+          document.getElementById('exercise-title').textContent = '🔢 Funciones';
+          generateFunciones();
+          break;
+        case 'problemas':
+          document.getElementById('exercise-title').textContent = '🧩 Problemas de División';
+          generateProblemas();
+          break;
+      }
+    }
+
+    function backToTopics() {
+      document.getElementById('topics-grid').style.display = 'grid';
+      document.getElementById('exercise-area').classList.remove('active');
+      currentTopic = null;
+    }
+
+    function updateScore() {
+      document.getElementById('score').textContent = `Puntuación: ${score} / ${totalQuestions}`;
+    }
+
+    function generateDivision() {
+      const divisor = Math.random() < 0.5 ? 
+        Math.floor(Math.random() * 9) + 2 : 
+        Math.floor(Math.random() * 90) + 11;
+      
+      const dividendo = Math.floor(Math.random() * 400) + 50;
+      currentAnswer = (dividendo / divisor).toFixed(2);
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Realiza esta división hasta el resto 0 (con decimales):</div>
+          <div class="question-text" style="font-size: 32px; text-align: center; margin: 20px 0;">
+            ${dividendo} ÷ ${divisor} = ?
+          </div>
+          <div style="color: #666; font-size: 14px; text-align: center; margin-bottom: 20px;">
+            �� Recuerda: baja ceros y continúa dividiendo hasta llegar a resto 0
+          </div>
+          <div class="input-group">
+            <label for="answer-input">Cociente (con decimales):</label>
+            <input type="number" id="answer-input" step="0.01" placeholder="Ejemplo: 12.34">
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkAnswer()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateDivision()">Nueva División</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function generateMedia() {
+      const numbers = [];
+      const count = Math.floor(Math.random() * 3) + 4;
+      for (let i = 0; i < count; i++) {
+        numbers.push(Math.floor(Math.random() * 50) + 10);
+      }
+      const sum = numbers.reduce((a, b) => a + b, 0);
+      currentAnswer = (sum / numbers.length).toFixed(2);
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Calcula la media de estos números:</div>
+          <div class="question-text" style="font-size: 28px; text-align: center; margin: 20px 0; color: #667eea;">
+            ${numbers.join(', ')}
+          </div>
+          <div class="input-group">
+            <label for="answer-input">La media es:</label>
+            <input type="number" id="answer-input" step="0.01" placeholder="Ejemplo: 25.50">
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkAnswer()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateMedia()">Nuevo Ejercicio</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function generateRectas() {
+      const types = [
+        { question: '¿Qué tipo de rectas son las que NUNCA se cruzan?', answer: 'paralelas' },
+        { question: '¿Qué tipo de rectas son las que se cruzan formando 90°?', answer: 'perpendiculares' },
+        { question: '¿Qué tipo de rectas son las que se cruzan en un punto?', answer: 'secantes' }
+      ];
+      
+      const selected = types[Math.floor(Math.random() * types.length)];
+      currentAnswer = selected.answer;
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">${selected.question}</div>
+          <div class="canvas-container">
+            <canvas id="rectas-canvas" width="400" height="300"></canvas>
+          </div>
+          <div class="input-group">
+            <label for="answer-select">Selecciona el tipo de rectas:</label>
+            <select id="answer-select">
+              <option value="">-- Elige una opción --</option>
+              <option value="paralelas">Paralelas</option>
+              <option value="secantes">Secantes</option>
+              <option value="perpendiculares">Perpendiculares</option>
+            </select>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkSelectAnswer()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateRectas()">Nuevo Ejercicio</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawRectas(selected.answer), 100);
+    }
+
+    function drawRectas(type) {
+      const canvas = document.getElementById('rectas-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#667eea';
+      
+      if (type === 'paralelas') {
+        ctx.beginPath();
+        ctx.moveTo(50, 100);
+        ctx.lineTo(350, 100);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(50, 200);
+        ctx.lineTo(350, 200);
+        ctx.stroke();
+      } else if (type === 'perpendiculares') {
+        ctx.beginPath();
+        ctx.moveTo(50, 150);
+        ctx.lineTo(350, 150);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(200, 50);
+        ctx.lineTo(200, 250);
+        ctx.stroke();
+      } else if (type === 'secantes') {
+        ctx.beginPath();
+        ctx.moveTo(50, 80);
+        ctx.lineTo(350, 220);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(50, 220);
+        ctx.lineTo(350, 80);
+        ctx.stroke();
+      }
+    }
+
+    function generateCoordenadas() {
+      const x = Math.floor(Math.random() * 9) - 4;
+      const y = Math.floor(Math.random() * 9) - 4;
+      currentAnswer = { x, y };
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">¿Cuáles son las coordenadas del punto rojo?</div>
+          <div class="canvas-container">
+            <canvas id="coord-canvas" width="400" height="400"></canvas>
+          </div>
+          <div class="coordinate-grid">
+            <div class="input-group">
+              <label for="x-input">Coordenada X:</label>
+              <input type="number" id="x-input" placeholder="Eje horizontal">
+            </div>
+            <div class="input-group">
+              <label for="y-input">Coordenada Y:</label>
+              <input type="number" id="y-input" placeholder="Eje vertical">
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkCoordinates()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateCoordenadas()">Nuevo Punto</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawCoordinates(x, y), 100);
+    }
+
+    function drawCoordinates(x, y) {
+      const canvas = document.getElementById('coord-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const scale = 40;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = '#ddd';
+      ctx.lineWidth = 1;
+      for (let i = -5; i <= 5; i++) {
+        ctx.beginPath();
+        ctx.moveTo(centerX + i * scale, 0);
+        ctx.lineTo(centerX + i * scale, canvas.height);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(0, centerY + i * scale);
+        ctx.lineTo(canvas.width, centerY + i * scale);
+        ctx.stroke();
+      }
+      
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(centerX, 0);
+      ctx.lineTo(centerX, canvas.height);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(canvas.width, centerY);
+      ctx.stroke();
+      
+      ctx.fillStyle = '#333';
+      ctx.font = '14px Arial';
+      for (let i = -4; i <= 4; i++) {
+        if (i !== 0) {
+          ctx.fillText(i, centerX + i * scale - 5, centerY + 20);
+          ctx.fillText(i, centerX + 10, centerY - i * scale + 5);
+        }
+      }
+      
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(centerX + x * scale, centerY - y * scale, 8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function generateSectores() {
+      const exerciseType = Math.random() < 0.5 ? 'simple' : 'contextual';
+      
+      if (exerciseType === 'simple') {
+        generateSimpleSectores();
+      } else {
+        generateContextualSectores();
+      }
+    }
+
+    function generateSimpleSectores() {
+      const denominator = [4, 6, 8][Math.floor(Math.random() * 3)];
+      
+      let parts = [];
+      let remaining = denominator;
+      const numParts = Math.floor(Math.random() * 2) + 3;
+      
+      for (let i = 0; i < numParts - 1; i++) {
+        const maxVal = remaining - (numParts - i - 1);
+        const value = Math.floor(Math.random() * maxVal) + 1;
+        parts.push(value);
+        remaining -= value;
+      }
+      parts.push(remaining);
+      
+      const colors = ['Rojo', 'Azul', 'Verde', 'Amarillo'];
+      const data = parts.map((value, index) => ({
+        label: colors[index],
+        value: value,
+        color: ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'][index]
+      }));
+      
+      const randomPart = data[Math.floor(Math.random() * data.length)];
+      
+      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+      const divisor = gcd(randomPart.value, denominator);
+      const numerator = randomPart.value / divisor;
+      const simplifiedDenominator = denominator / divisor;
+      
+      currentAnswer = {
+        numerator: numerator,
+        denominator: simplifiedDenominator
+      };
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Observa este gráfico circular:</div>
+          <div class="canvas-container">
+            <canvas id="sector-canvas" width="400" height="400"></canvas>
+          </div>
+          <div class="question-text">¿Qué fracción del círculo representa la parte ${randomPart.label}?</div>
+          <div style="color: #666; font-size: 14px; text-align: center; margin-bottom: 20px;">
+            💡 Simplifica la fracción si es posible
+          </div>
+          <div class="coordinate-grid">
+            <div class="input-group">
+              <label for="numerator-input">Numerador:</label>
+              <input type="number" id="numerator-input" placeholder="Ejemplo: 1">
+            </div>
+            <div class="input-group">
+              <label for="denominator-input">Denominador:</label>
+              <input type="number" id="denominator-input" placeholder="Ejemplo: 4">
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkFraction()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateSectores()">Nuevo Gráfico</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawSectores(data, denominator), 100);
+    }
+
+    function generateContextualSectores() {
+      const contexts = [
+        {
+          title: "📚 Encuesta de Lecturas",
+          intro: "En una clase han propuesto lecturas. La maestra ha hecho un cuestionario para saber qué libro ha gustado más. Se han recogido los siguientes resultados:",
+          books: ["El Principito", "Matilda", "Charlie y la Fábrica", "Harry Potter"]
+        },
+        {
+          title: "🎮 Videojuegos Favoritos",
+          intro: "Se ha realizado una encuesta en clase sobre videojuegos favoritos. Estos son los resultados:",
+          books: ["Minecraft", "Fortnite", "Roblox", "Among Us"]
+        },
+        {
+          title: "🍕 Comidas Preferidas",
+          intro: "En el comedor escolar preguntaron a los alumnos cuál es su comida favorita. Estos son los resultados:",
+          books: ["Pizza", "Pasta", "Hamburguesa", "Tacos"]
+        },
+        {
+          title: "⚽ Deportes Favoritos",
+          intro: "En educación física hicieron una encuesta sobre deportes favoritos. Estos fueron los resultados:",
+          books: ["Fútbol", "Baloncesto", "Natación", "Voleibol"]
+        }
+      ];
+      
+      const context = contexts[Math.floor(Math.random() * contexts.length)];
+      
+      const totalStudents = [20, 24, 28, 32][Math.floor(Math.random() * 4)];
+      const numOptions = Math.random() < 0.5 ? 3 : 4;
+      
+      let votes = [];
+      let remaining = totalStudents;
+      
+      for (let i = 0; i < numOptions - 1; i++) {
+        const maxVote = remaining - (numOptions - i - 1);
+        const vote = Math.floor(Math.random() * (maxVote - 1)) + 1;
+        votes.push(vote);
+        remaining -= vote;
+      }
+      votes.push(remaining);
+      
+      votes.sort((a, b) => b - a);
+      
+      const selectedBooks = context.books.slice(0, numOptions);
+      const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
+      
+      const data = votes.map((vote, index) => ({
+        label: selectedBooks[index],
+        value: vote,
+        color: colors[index]
+      }));
+      
+      const mostVoted = data[0];
+      const leastVoted = data[data.length - 1];
+      const randomBook = data[Math.floor(Math.random() * data.length)];
+      
+      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+      const divisor = gcd(randomBook.value, totalStudents);
+      const numerator = randomBook.value / divisor;
+      const denominator = totalStudents / divisor;
+      
+      const moreThanHalf = mostVoted.value > totalStudents / 2;
+      
+      currentAnswer = {
+        type: 'contextual',
+        totalOptions: numOptions,
+        mostVoted: mostVoted.label,
+        leastVoted: leastVoted.label,
+        moreThanHalf: moreThanHalf,
+        fractionBook: randomBook.label,
+        numerator: numerator,
+        denominator: denominator,
+        currentQuestion: 0,
+        totalStudents: totalStudents
+      };
+      
+      const content = `
+        <div class="question">
+          <div class="question-text" style="font-size: 24px; color: #667eea;">${context.title}</div>
+          <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <p style="font-size: 16px; color: #333; margin: 0;">${context.intro}</p>
+          </div>
+          <div class="canvas-container">
+            <canvas id="sector-canvas" width="400" height="400"></canvas>
+          </div>
+          <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e0e0;">
+            <div id="question-1" class="contextual-question">
+              <div class="question-text" style="font-size: 18px;">1️⃣ ¿Cuántas opciones se propusieron?</div>
+              <div class="input-group">
+                <label for="q1-input">Número de opciones:</label>
+                <input type="number" id="q1-input" placeholder="¿Cuántas?">
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(1)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-1" class="feedback"></div>
+            </div>
+            
+            <div id="question-2" class="contextual-question" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+              <div class="question-text" style="font-size: 18px;">2️⃣ ¿Qué opción gustó más?</div>
+              <div class="input-group">
+                <label for="q2-select">Selecciona la opción:</label>
+                <select id="q2-select">
+                  <option value="">-- Elige --</option>
+                  ${selectedBooks.map(book => `<option value="${book}">${book}</option>`).join('')}
+                </select>
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(2)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-2" class="feedback"></div>
+            </div>
+            
+            <div id="question-3" class="contextual-question" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+              <div class="question-text" style="font-size: 18px;">3️⃣ ¿La opción más votada la eligió más de la mitad de la clase?</div>
+              <div class="input-group">
+                <label for="q3-select">Tu respuesta:</label>
+                <select id="q3-select">
+                  <option value="">-- Elige --</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(3)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-3" class="feedback"></div>
+            </div>
+            
+            <div id="question-4" class="contextual-question" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+              <div class="question-text" style="font-size: 18px;">4️⃣ ¿Qué opción gustó menos?</div>
+              <div class="input-group">
+                <label for="q4-select">Selecciona la opción:</label>
+                <select id="q4-select">
+                  <option value="">-- Elige --</option>
+                  ${selectedBooks.map(book => `<option value="${book}">${book}</option>`).join('')}
+                </select>
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(4)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-4" class="feedback"></div>
+            </div>
+          </div>
+          
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="generateSectores()">Nuevo Ejercicio</button>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawSectores(data, totalStudents), 100);
+    }
+
+    function drawSectores(data, totalParts) {
+      const canvas = document.getElementById('sector-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const centerX = canvas.width / 2;
+      const centerY = 180;
+      const radius = 120;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const total = data.reduce((sum, item) => sum + item.value, 0);
+      let currentAngle = -Math.PI / 2;
+      
+      data.forEach((item) => {
+        const sliceAngle = (item.value / total) * Math.PI * 2;
+        
+        ctx.fillStyle = item.color;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        currentAngle += sliceAngle;
+      });
+      
+      const legendStartY = 320;
+      const legendItemHeight = 25;
+      const legendX = 50;
+      
+      ctx.font = 'bold 14px Arial';
+      ctx.textAlign = 'left';
+      
+      data.forEach((item, index) => {
+        const yPos = legendStartY + (index * legendItemHeight);
+        
+        ctx.fillStyle = item.color;
+        ctx.fillRect(legendX, yPos - 12, 20, 20);
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(legendX, yPos - 12, 20, 20);
+        
+        ctx.fillStyle = '#333';
+        ctx.fillText(`${item.label}`, legendX + 30, yPos + 3);
+      });
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById('answer-input').value;
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      if (Math.abs(parseFloat(input) - parseFloat(currentAnswer)) < 0.1) {
+        score++;
+        feedback.className = 'feedback correct';
+        feedback.textContent = '¡Correcto! 🎉 ¡Muy bien!';
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.textContent = `Incorrecto. La respuesta correcta es: ${currentAnswer}`;
+      }
+      
+      updateScore();
+    }
+
+    function checkSelectAnswer() {
+      const select = document.getElementById('answer-select').value;
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      if (select === currentAnswer) {
+        score++;
+        feedback.className = 'feedback correct';
+        
+        let explanation = '¡Correcto! 🎉<br><br>';
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación de los tipos de rectas:</div>';
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        
+        explanation += '📏 <strong>Rectas Paralelas:</strong> Son rectas que NUNCA se cruzan, siempre mantienen la misma distancia entre ellas. Como las vías del tren.<br><br>';
+        explanation += '📐 <strong>Rectas Perpendiculares:</strong> Son rectas que se cruzan formando un ángulo de 90° (ángulo recto). Como las esquinas de un cuadrado.<br><br>';
+        explanation += '✂️ <strong>Rectas Secantes:</strong> Son rectas que se cruzan en un punto, pero sin formar ángulo recto. Como unas tijeras abiertas.';
+        
+        explanation += '</div></div>';
+        feedback.innerHTML = explanation;
+      } else {
+        feedback.className = 'feedback incorrect';
+        
+        let explanation = `❌ Incorrecto. La respuesta correcta es: <strong>${currentAnswer}</strong><br><br>`;
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; margin-top: 15px;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación de los tipos de rectas:</div>';
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        
+        explanation += '📏 <strong>Rectas Paralelas:</strong> Son rectas que NUNCA se cruzan, siempre mantienen la misma distancia entre ellas. Como las vías del tren.<br><br>';
+        explanation += '📐 <strong>Rectas Perpendiculares:</strong> Son rectas que se cruzan formando un ángulo de 90° (ángulo recto). Como las esquinas de un cuadrado.<br><br>';
+        explanation += '✂️ <strong>Rectas Secantes:</strong> Son rectas que se cruzan en un punto, pero sin formar ángulo recto. Como unas tijeras abiertas.';
+        
+        explanation += '</div></div>';
+        feedback.innerHTML = explanation;
+      }
+      
+      updateScore();
+    }
+
+    function checkCoordinates() {
+      const xInput = parseInt(document.getElementById('x-input').value);
+      const yInput = parseInt(document.getElementById('y-input').value);
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      if (xInput === currentAnswer.x && yInput === currentAnswer.y) {
+        score++;
+        feedback.className = 'feedback correct';
+        feedback.textContent = '¡Correcto! 🎉 ¡Perfectas coordenadas!';
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.textContent = `Incorrecto. Las coordenadas correctas son: (${currentAnswer.x}, ${currentAnswer.y})`;
+      }
+      
+      updateScore();
+    }
+
+    function checkFraction() {
+      const numeratorInput = parseInt(document.getElementById('numerator-input').value);
+      const denominatorInput = parseInt(document.getElementById('denominator-input').value);
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+      const divisor1 = gcd(numeratorInput, denominatorInput);
+      const simplifiedNum1 = numeratorInput / divisor1;
+      const simplifiedDen1 = denominatorInput / divisor1;
+      
+      if (simplifiedNum1 === currentAnswer.numerator && simplifiedDen1 === currentAnswer.denominator) {
+        score++;
+        feedback.className = 'feedback correct';
+        feedback.textContent = '¡Correcto! 🎉 ¡Excelente trabajo con las fracciones!';
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.textContent = `Incorrecto. La fracción correcta es: ${currentAnswer.numerator}/${currentAnswer.denominator}`;
+      }
+      
+      updateScore();
+    }
+
+    function checkContextualQuestion(questionNum) {
+      const feedback = document.getElementById(`feedback-${questionNum}`);
+      let isCorrect = false;
+      
+      switch(questionNum) {
+        case 1:
+          const q1Input = parseInt(document.getElementById('q1-input').value);
+          if (q1Input === currentAnswer.totalOptions) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉';
+          } else {
+            feedback.className = 'feedback incorrect';
+            feedback.textContent = `Incorrecto. Se propusieron ${currentAnswer.totalOptions} opciones.`;
+          }
+          break;
+          
+        case 2:
+          const q2Select = document.getElementById('q2-select').value;
+          if (q2Select === currentAnswer.mostVoted) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉';
+          } else {
+            feedback.className = 'feedback incorrect';
+            feedback.textContent = `Incorrecto. La opción más votada fue: ${currentAnswer.mostVoted}`;
+          }
+          break;
+          
+        case 3:
+          const q3Select = document.getElementById('q3-select').value;
+          const expectedAnswer = currentAnswer.moreThanHalf ? 'si' : 'no';
+          if (q3Select === expectedAnswer) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉';
+          } else {
+            feedback.className = 'feedback incorrect';
+            const explanation = currentAnswer.moreThanHalf 
+              ? 'Sí, porque obtuvo más de la mitad de los votos.' 
+              : 'No, porque no llegó a la mitad de los votos.';
+            feedback.textContent = `Incorrecto. ${explanation}`;
+          }
+          break;
+          
+        case 4:
+          const q4Select = document.getElementById('q4-select').value;
+          if (q4Select === currentAnswer.leastVoted) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉 ¡Excelente trabajo!';
+          } else {
+            feedback.className = 'feedback incorrect';
+            feedback.textContent = `Incorrecto. La opción menos votada fue: ${currentAnswer.leastVoted}`;
+          }
+          break;
+      }
+      
+      totalQuestions++;
+      if (isCorrect) {
+        score++;
+        setTimeout(() => {
+          if (questionNum < 4) {
+            document.getElementById(`question-${questionNum + 1}`).style.display = 'block';
+          }
+        }, 1000);
+      }
+      
+      updateScore();
+    }
+
+    let operationsList = [];
+    let currentOperationIndex = 0;
+
+    function generateOperaciones() {
+      operationsList = [];
+      currentOperationIndex = 0;
+      
+      for (let i = 0; i < 15; i++) {
+        const num1 = Math.floor(Math.random() * 51) - 25;
+        const num2 = Math.floor(Math.random() * 51) - 25;
+        const isSum = Math.random() < 0.5;
+        
+        operationsList.push({
+          num1: num1,
+          num2: num2,
+          isSum: isSum,
+          answer: isSum ? num1 + num2 : num1 - num2,
+          userAnswer: null
+        });
+      }
+      
+      displayOperations();
+    }
+
+    function displayOperations() {
+      let operationsHTML = `<div class="question">
+        <div class="question-text">Resuelve estas operaciones con números enteros:</div>
+        <div style="background: #e8f4f8; padding: 20px; margin: 20px 0; border-radius: 10px; border-left: 5px solid #3498db;">
+          <div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📋 Reglas importantes:</div>
+          <div style="margin-bottom: 10px; color: #2c3e50; font-size: 16px;">
+            <strong>Regla de la Resta:</strong> Restar un número es lo mismo que <strong>sumar su opuesto</strong>.
+          </div>
+          <div style="margin-bottom: 10px; color: #2c3e50; font-size: 16px;">
+            <strong>Regla 1 (Suma):</strong> Números con signos <strong>iguales</strong> se <strong>suman</strong> y queda el signo común.
+          </div>
+          <div style="color: #2c3e50; font-size: 16px;">
+            <strong>Regla 2 (Suma):</strong> Números con signos <strong>diferentes</strong> se <strong>restan</strong> y queda el signo del número mayor.
+          </div>
+        </div>`;
+      
+      operationsList.forEach((op, index) => {
+        const operator = op.isSum ? '+' : '-';
+        const inputId = `op-input-${index}`;
+        const feedbackId = `op-feedback-${index}`;
+        
+        operationsHTML += `
+          <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border: 2px solid #ddd;">
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+              <span style="font-size: 20px; font-weight: bold; min-width: 200px;">
+                (${op.num1}) ${operator} (${op.num2}) =
+              </span>
+              <input type="number" id="${inputId}" 
+                     style="width: 100px; padding: 8px; border: 2px solid #ddd; border-radius: 5px; font-size: 18px;"
+                     placeholder="?">
+              <button onclick="checkOperation(${index})" 
+                      style="background: #667eea; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                ✓
+              </button>
+            </div>
+            <div id="${feedbackId}" style="margin-top: 10px; display: none;"></div>
+          </div>
+        `;
+      });
+      
+      operationsHTML += `
+        <div class="btn-group" style="margin-top: 20px;">
+          <button class="btn btn-secondary" onclick="generateOperaciones()">Nuevas Operaciones</button>
+        </div>
+      </div>`;
+      
+      document.getElementById('exercise-content').innerHTML = operationsHTML;
+    }
+
+    function checkOperation(index) {
+      const op = operationsList[index];
+      const inputId = `op-input-${index}`;
+      const feedbackId = `op-feedback-${index}`;
+      const input = document.getElementById(inputId);
+      const feedback = document.getElementById(feedbackId);
+      const userAnswer = parseInt(input.value);
+      
+      if (isNaN(userAnswer)) {
+        feedback.style.display = 'block';
+        feedback.style.background = '#fff3cd';
+        feedback.style.color = '#856404';
+        feedback.style.padding = '10px';
+        feedback.style.borderRadius = '5px';
+        feedback.textContent = '⚠️ Por favor, introduce un número';
+        return;
+      }
+      
+      if (op.userAnswer !== null) {
+        return;
+      }
+      
+      totalQuestions++;
+      op.userAnswer = userAnswer;
+      
+      if (userAnswer === op.answer) {
+        score++;
+        feedback.style.display = 'block';
+        feedback.style.background = '#d4edda';
+        feedback.style.color = '#155724';
+        feedback.style.padding = '10px';
+        feedback.style.borderRadius = '5px';
+        feedback.style.fontWeight = 'bold';
+        feedback.innerHTML = '✅ ¡Correcto! 🎉';
+        input.style.borderColor = '#28a745';
+        input.disabled = true;
+      } else {
+        feedback.style.display = 'block';
+        feedback.style.background = '#f8d7da';
+        feedback.style.color = '#721c24';
+        feedback.style.padding = '10px';
+        feedback.style.borderRadius = '5px';
+        feedback.style.fontWeight = 'bold';
+        
+        const operator = op.isSum ? '+' : '-';
+        let explanation = `❌ Incorrecto. La respuesta correcta es: ${op.answer}<br><br>`;
+        
+        if (op.isSum) {
+          if (op.num1 >= 0 && op.num2 >= 0) {
+            explanation += `📘 <strong>Explicación:</strong> <strong>Regla 1:</strong> Ambos números son positivos (signos iguales), entonces se <strong>suman</strong> y queda el signo común (+).<br>${op.num1} + ${op.num2} = ${op.answer}`;
+          } else if (op.num1 < 0 && op.num2 < 0) {
+            explanation += `📘 <strong>Explicación:</strong> <strong>Regla 1:</strong> Ambos números son negativos (signos iguales), entonces se <strong>suman</strong> sus valores absolutos y queda el signo común (-).<br>${Math.abs(op.num1)} + ${Math.abs(op.num2)} = ${Math.abs(op.answer)}, y como ambos son negativos: ${op.answer}`;
+          } else {
+            const biggerNum = Math.abs(op.num1) > Math.abs(op.num2) ? op.num1 : op.num2;
+            const biggerSign = biggerNum >= 0 ? 'positivo' : 'negativo';
+            explanation += `📘 <strong>Explicación:</strong> <strong>Regla 2:</strong> Los números tienen signos diferentes, entonces se <strong>restan</strong> y queda el signo del número mayor.<br>`;
+            explanation += `|${Math.abs(op.num1)}| ${Math.abs(op.num1) > Math.abs(op.num2) ? '>' : '<'} |${Math.abs(op.num2)}|, entonces: ${Math.max(Math.abs(op.num1), Math.abs(op.num2))} - ${Math.min(Math.abs(op.num1), Math.abs(op.num2))} = ${Math.abs(op.answer)}<br>`;
+            explanation += `El número mayor es ${biggerSign}, por eso el resultado es: ${op.answer}`;
+          }
+        } else {
+          explanation += `📘 <strong>Explicación:</strong> Restar ${op.num2} es lo mismo que sumar su opuesto ${-op.num2}.<br>`;
+          explanation += `(${op.num1}) - (${op.num2}) = (${op.num1}) + (${-op.num2})<br>`;
+          
+          const num1 = op.num1;
+          const num2opposite = -op.num2;
+          
+          if ((num1 >= 0 && num2opposite >= 0) || (num1 < 0 && num2opposite < 0)) {
+            explanation += `Ahora aplicamos la <strong>Regla 1:</strong> signos iguales se suman → ${op.answer}`;
+          } else {
+            explanation += `Ahora aplicamos la <strong>Regla 2:</strong> signos diferentes se restan y queda el signo del mayor → ${op.answer}`;
+          }
+        }
+        
+        feedback.innerHTML = explanation;
+        input.style.borderColor = '#dc3545';
+        input.disabled = true;
+      }
+      
+      updateScore();
+    }
+
+    // FUNCIONES - Nueva sección
+    function generateFunciones() {
+      const questionType = Math.random() < 0.5 ? 'forward' : 'inverse';
+      
+      const operations = [
+        { op: 'multiply', symbol: '×', values: [2, 3, 4, 5, 6] },
+        { op: 'add', symbol: '+', values: [2, 3, 4, 5, 6, 7, 8, 9, 10] },
+        { op: 'subtract', symbol: '-', values: [2, 3, 4, 5, 6, 7, 8, 9, 10] }
+      ];
+      
+      const op1 = operations[Math.floor(Math.random() * operations.length)];
+      const val1 = op1.values[Math.floor(Math.random() * op1.values.length)];
+      
+      const op2 = operations[Math.floor(Math.random() * operations.length)];
+      const val2 = op2.values[Math.floor(Math.random() * op2.values.length)];
+      
+      let xValue, yValue;
+      
+      if (questionType === 'forward') {
+        xValue = Math.floor(Math.random() * 8) + 2;
+        
+        let intermediate = xValue;
+        if (op1.op === 'multiply') intermediate *= val1;
+        else if (op1.op === 'add') intermediate += val1;
+        else intermediate -= val1;
+        
+        if (op2.op === 'multiply') yValue = intermediate * val2;
+        else if (op2.op === 'add') yValue = intermediate + val2;
+        else yValue = intermediate - val2;
+        
+        currentAnswer = yValue;
+      } else {
+        yValue = Math.floor(Math.random() * 30) + 20;
+        
+        let intermediate = yValue;
+        if (op2.op === 'multiply') intermediate = yValue / val2;
+        else if (op2.op === 'add') intermediate = yValue - val2;
+        else intermediate = yValue + val2;
+        
+        if (op1.op === 'multiply') xValue = intermediate / val1;
+        else if (op1.op === 'add') xValue = intermediate - val1;
+        else xValue = intermediate + val1;
+        
+        if (Number.isInteger(xValue) && xValue > 0 && xValue < 20) {
+          currentAnswer = xValue;
+        } else {
+          generateFunciones();
+          return;
+        }
+      }
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Observa esta cadena de operaciones:</div>
+          
+          <div class="function-chain">
+            <div class="function-box">x</div>
+            <div class="function-arrow">→</div>
+            <div class="function-operation">${op1.symbol}${val1}</div>
+            <div class="function-arrow">→</div>
+            <div class="function-box">n</div>
+            <div class="function-arrow">→</div>
+            <div class="function-operation">${op2.symbol}${val2}</div>
+            <div class="function-arrow">→</div>
+            <div class="function-box">y</div>
+          </div>
+          
+          <div style="background: #e8f4f8; padding: 20px; margin: 20px 0; border-radius: 10px; border-left: 5px solid #3498db;">
+            <div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 10px;">💡 Cómo funciona:</div>
+            <div style="color: #2c3e50; font-size: 16px; line-height: 1.6;">
+              ${questionType === 'forward' 
+                ? `Se toma el valor de <strong>x</strong>, se le aplica la primera operación (<strong>${op1.symbol}${val1}</strong>), y al resultado se le aplica la segunda operación (<strong>${op2.symbol}${val2}</strong>) para obtener <strong>y</strong>.`
+                : `Para encontrar <strong>x</strong>, debes hacer las operaciones <strong>al revés</strong>: empiezas desde <strong>y</strong> y deshaces las operaciones en orden inverso.`
+              }
+            </div>
+          </div>
+          
+          <div class="question-text" style="font-size: 24px; color: #667eea; text-align: center; margin: 25px 0;">
+            ${questionType === 'forward' 
+              ? `Si x = ${xValue}, ¿cuánto vale y?`
+              : `Si y = ${yValue}, ¿cuánto vale x?`
+            }
+          </div>
+          
+          ${questionType === 'inverse' ? `
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #ffc107;">
+              <div style="font-size: 16px; color: #856404; font-weight: bold; margin-bottom: 8px;">🔄 Pista para la operación inversa:</div>
+              <div style="font-size: 15px; color: #856404; line-height: 1.5;">
+                1️⃣ Deshaz la última operación (${op2.symbol}${val2}): ${op2.op === 'multiply' ? `divide y entre ${val2}` : op2.op === 'add' ? `resta ${val2} a y` : `suma ${val2} a y`}<br>
+                2️⃣ Deshaz la primera operación (${op1.symbol}${val1}): ${op1.op === 'multiply' ? `divide el resultado entre ${val1}` : op1.op === 'add' ? `resta ${val1} al resultado` : `suma ${val1} al resultado`}
+              </div>
+            </div>
+          ` : ''}
+          
+          <div class="input-group">
+            <label for="answer-input">${questionType === 'forward' ? 'El valor de y es:' : 'El valor de x es:'}</label>
+            <input type="number" id="answer-input" placeholder="Tu respuesta">
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkFunctionAnswer('${questionType}', ${xValue}, ${yValue}, '${op1.op}', ${val1}, '${op2.op}', ${val2})">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateFunciones()">Nueva Función</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function checkFunctionAnswer(type, xValue, yValue, op1Type, val1, op2Type, val2) {
+      const input = document.getElementById('answer-input').value;
+      const feedback = document.getElementById('feedback');
+      const userAnswer = parseInt(input);
+      
+      if (isNaN(userAnswer)) {
+        feedback.style.display = 'block';
+        feedback.style.background = '#fff3cd';
+        feedback.style.color = '#856404';
+        feedback.style.padding = '15px';
+        feedback.style.borderRadius = '8px';
+        feedback.textContent = '⚠️ Por favor, introduce un número';
+        return;
+      }
+      
+      totalQuestions++;
+      
+      if (userAnswer === currentAnswer) {
+        score++;
+        feedback.className = 'feedback correct';
+        
+        let explanation = '¡Correcto! 🎉<br><br>📝 <strong>Resolución paso a paso:</strong><br>';
+        
+        if (type === 'forward') {
+          let step1, step2;
+          if (op1Type === 'multiply') step1 = xValue * val1;
+          else if (op1Type === 'add') step1 = xValue + val1;
+          else step1 = xValue - val1;
+          
+          explanation += `1️⃣ Empezamos con x = ${xValue}<br>`;
+          explanation += `2️⃣ Aplicamos la primera operación: ${xValue} ${op1Type === 'multiply' ? '×' : op1Type === 'add' ? '+' : '-'} ${val1} = ${step1}<br>`;
+          
+          if (op2Type === 'multiply') step2 = step1 * val2;
+          else if (op2Type === 'add') step2 = step1 + val2;
+          else step2 = step1 - val2;
+          
+          explanation += `3️⃣ Aplicamos la segunda operación: ${step1} ${op2Type === 'multiply' ? '×' : op2Type === 'add' ? '+' : '-'} ${val2} = ${step2}<br>`;
+          explanation += `✅ Por lo tanto, <strong>y = ${step2}</strong>`;
+        } else {
+          let step1, step2;
+          
+          explanation += `1️⃣ Empezamos con y = ${yValue}<br>`;
+          
+          if (op2Type === 'multiply') step1 = yValue / val2;
+          else if (op2Type === 'add') step1 = yValue - val2;
+          else step1 = yValue + val2;
+          
+          explanation += `2️⃣ Deshacemos la segunda operación (${op2Type === 'multiply' ? '÷' : op2Type === 'add' ? '-' : '+'}${val2}): ${yValue} ${op2Type === 'multiply' ? '÷' : op2Type === 'add' ? '-' : '+'} ${val2} = ${step1}<br>`;
+          
+          if (op1Type === 'multiply') step2 = step1 / val1;
+          else if (op1Type === 'add') step2 = step1 - val1;
+          else step2 = step1 + val1;
+          
+          explanation += `3️⃣ Deshacemos la primera operación (${op1Type === 'multiply' ? '÷' : op1Type === 'add' ? '-' : '+'}${val1}): ${step1} ${op1Type === 'multiply' ? '÷' : op1Type === 'add' ? '-' : '+'} ${val1} = ${step2}<br>`;
+          explanation += `✅ Por lo tanto, <strong>x = ${step2}</strong>`;
+        }
+        
+        feedback.innerHTML = explanation;
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.innerHTML = `❌ Incorrecto. La respuesta correcta es: <strong>${currentAnswer}</strong><br><br>💡 Revisa los pasos y vuelve a intentarlo.`;
+      }
+      
+      updateScore();
+    }
+
+    // PROBLEMAS - Nueva sección
+    function generateProblemas() {
+      const problemTemplates = [
+        {
+          template: (name, total, parts) => `${name} tiene ${total} metros de cuerda que quiere dividir en ${parts} partes iguales. ¿Cuánto medirá cada una de las ${parts} partes?`,
+          unit: 'm',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} quiere repartir de manera equitativa entre sus ${parts} hermanos pequeños ${total} juguetes. ¿Cuántos juguetes dará a cada hermano?`,
+          unit: 'juguetes',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} ha comprado ${total} caramelos y quiere repartirlos entre ${parts} amigos. ¿Cuántos caramelos recibirá cada amigo?`,
+          unit: 'caramelos',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} tiene ${total} litros de agua y quiere llenar ${parts} botellas iguales. ¿Cuántos litros pondrá en cada botella?`,
+          unit: 'litros',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} quiere cortar una cinta de ${total} centímetros en ${parts} trozos iguales. ¿Cuánto medirá cada trozo?`,
+          unit: 'cm',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} tiene ${total} cromos y quiere hacer ${parts} montones iguales. ¿Cuántos cromos habrá en cada montón?`,
+          unit: 'cromos',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} ha recogido ${total} naranjas y las quiere poner en ${parts} bolsas iguales. ¿Cuántas naranjas pondrá en cada bolsa?`,
+          unit: 'naranjas',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} tiene ${total} euros y quiere repartirlos entre ${parts} hijos. ¿Cuántos euros recibirá cada hijo?`,
+          unit: 'euros',
+          type: 'division'
+        }
+      ];
+      
+      const names = ['Marcos', 'Carolina', 'Pedro', 'Ana', 'Luis', 'María', 'Diego', 'Laura', 'Javier', 'Sara'];
+      
+      const selectedTemplate = problemTemplates[Math.floor(Math.random() * problemTemplates.length)];
+      const name = names[Math.floor(Math.random() * names.length)];
+      
+      let total, parts, answer;
+      
+      if (Math.random() < 0.6) {
+        parts = [2, 3, 4, 5][Math.floor(Math.random() * 4)];
+        total = parts * (Math.floor(Math.random() * 8) + 2);
+        answer = total / parts;
+      } else {
+        parts = [2, 3, 4, 5, 6][Math.floor(Math.random() * 5)];
+        total = Math.floor(Math.random() * 20) + 10;
+        answer = (total / parts).toFixed(2);
+      }
+      
+      currentAnswer = {
+        value: parseFloat(answer),
+        total: total,
+        parts: parts,
+        unit: selectedTemplate.unit,
+        name: name
+      };
+      
+      const problemText = selectedTemplate.template(name, total, parts);
+      
+      const content = `
+        <div class="question">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
+            <div style="font-size: 22px; font-weight: bold; line-height: 1.6;">
+              ${problemText}
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="answer-input">Tu respuesta:</label>
+            <input type="number" id="answer-input" step="0.01" placeholder="Escribe tu respuesta">
+          </div>
+          
+          <div class="btn-group">
+            <button class="btn" onclick="checkProblema()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateProblemas()">Nuevo Problema</button>
+          </div>
+          
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function checkProblema() {
+      const input = document.getElementById('answer-input').value;
+      const feedback = document.getElementById('feedback');
+      const userAnswer = parseFloat(input);
+      
+      if (isNaN(userAnswer) || input.trim() === '') {
+        feedback.style.display = 'block';
+        feedback.style.background = '#fff3cd';
+        feedback.style.color = '#856404';
+        feedback.style.padding = '15px';
+        feedback.style.borderRadius = '8px';
+        feedback.textContent = '⚠️ Por favor, introduce un número';
+        return;
+      }
+      
+      totalQuestions++;
+      
+      const tolerance = 0.05;
+      const isCorrect = Math.abs(userAnswer - currentAnswer.value) < tolerance;
+      
+      if (isCorrect) {
+        score++;
+        feedback.className = 'feedback correct';
+        
+        let explanation = '¡Correcto! 🎉<br><br>';
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación paso a paso:</div>';
+        
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        explanation += `1️⃣ <strong>Datos del problema:</strong><br>`;
+        explanation += `   • ${currentAnswer.name} tiene <strong>${currentAnswer.total} ${currentAnswer.unit}</strong><br>`;
+        explanation += `   • Quiere dividir en <strong>${currentAnswer.parts} partes iguales</strong><br><br>`;
+        
+        explanation += `2️⃣ <strong>Operación a realizar:</strong><br>`;
+        explanation += `   Para repartir en partes iguales usamos la <strong>división</strong><br><br>`;
+        
+        explanation += `3️⃣ <strong>Cálculo:</strong><br>`;
+        explanation += `   ${currentAnswer.total} ÷ ${currentAnswer.parts} = <strong>${currentAnswer.value}</strong><br><br>`;
+        
+        explanation += `✅ <strong>Respuesta:</strong> Cada parte tendrá <strong>${currentAnswer.value} ${currentAnswer.unit}</strong>`;
+        
+        if (currentAnswer.value % 1 !== 0) {
+          explanation += `<br><br>💡 <strong>Nota:</strong> El resultado tiene decimales porque ${currentAnswer.total} no es divisible exactamente entre ${currentAnswer.parts}.`;
+        }
+        
+        explanation += '</div></div>';
+        
+        feedback.innerHTML = explanation;
+      } else {
+        feedback.className = 'feedback incorrect';
+        
+        let explanation = `❌ Incorrecto. La respuesta correcta es: <strong>${currentAnswer.value} ${currentAnswer.unit}</strong><br><br>`;
+        
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; margin-top: 15px;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación paso a paso:</div>';
+        
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        explanation += `1️⃣ <strong>Identifica los datos:</strong><br>`;
+        explanation += `   • Total: <strong>${currentAnswer.total} ${currentAnswer.unit}</strong><br>`;
+        explanation += `   • Partes: <strong>${currentAnswer.parts}</strong><br><br>`;
+        
+        explanation += `2️⃣ <strong>Elige la operación:</strong><br>`;
+        explanation += `   Cuando queremos <strong>repartir</strong> o <strong>dividir en partes iguales</strong>, usamos la <strong>división</strong><br><br>`;
+        
+        explanation += `3️⃣ <strong>Realiza el cálculo:</strong><br>`;
+        explanation += `   ${currentAnswer.total} ÷ ${currentAnswer.parts} = <strong>${currentAnswer.value}</strong><br><br>`;
+        
+        explanation += `✅ Por lo tanto, cada parte tendrá <strong>${currentAnswer.value} ${currentAnswer.unit}</strong>`;
+        
+        if (currentAnswer.value % 1 !== 0) {
+          explanation += `<br><br>💡 Como ${currentAnswer.total} no es divisible exactamente entre ${currentAnswer.parts}, el resultado tiene decimales.`;
+        }
+        
+        explanation += '</div></div>';
+        
+        feedback.innerHTML = explanation;
+      }
+      
+      updateScore();
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica de Matemáticas 5º Primaria</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100%;
+      width: 100%;
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      margin: 0 0 10px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header p {
+      font-size: 24px;
+      margin: 5px 0;
+      opacity: 0.9;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .topic-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .topic-card h3 {
+      margin: 0 0 10px 0;
+      color: #667eea;
+      font-size: 22px;
+    }
+
+    .topic-card p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .exercise-area {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .exercise-area.active {
+      display: block;
+    }
+
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .exercise-header h2 {
+      margin: 0;
+      color: #667eea;
+      font-size: 28px;
+    }
+
+    .back-btn {
+      background: #764ba2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: inherit;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #5a3a7f;
+    }
+
+    .question {
+      background: #f5f5ff;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .question-text {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: inherit;
+      transition: background 0.3s;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #5568d3;
+    }
+
+    .btn-secondary {
+      background: #95a5a6;
+    }
+
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+      display: block;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 24px;
+      color: #667eea;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .canvas-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    canvas {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .coordinate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 36px;
+      }
+      
+      .header p {
+        font-size: 18px;
+      }
+      
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .coordinate-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <main>
+   <div class="main-container">
+    <header class="header">
+     <h1 id="main-title">Práctica de Matemáticas</h1>
+     <p id="subtitle">5º de Primaria</p>
+     <p id="instructions">Selecciona un tema para practicar</p>
+    </header>
+    <div class="topics-grid" id="topics-grid">
+     <div class="topic-card" data-topic="divisiones">
+      <h3>➗ Divisiones con Decimales</h3>
+      <p>Practica divisiones con números decimales</p>
+     </div>
+     <div class="topic-card" data-topic="media">
+      <h3>📊 Calcular la Media</h3>
+      <p>Aprende a calcular la media aritmética</p>
+     </div>
+     <div class="topic-card" data-topic="rectas">
+      <h3>📐 Rectas</h3>
+      <p>Paralelas, secantes y perpendiculares</p>
+     </div>
+     <div class="topic-card" data-topic="coordenadas">
+      <h3>📍 Coordenadas</h3>
+      <p>Practica con el plano cartesiano</p>
+     </div>
+     <div class="topic-card" data-topic="sectores">
+      <h3>🥧 Gr����ficos de Sectores</h3>
+      <p>Practica fracciones con gráficos circulares</p>
+     </div>
+     <div class="topic-card" data-topic="operaciones">
+      <h3>➕➖ Operaciones con Enteros</h3>
+      <p>Suma y resta con números positivos y negativos</p>
+     </div>
+     <div class="topic-card" data-topic="funciones">
+      <h3>🔢 Funciones</h3>
+      <p>Practica operaciones en cadena y función inversa</p>
+     </div>
+     <div class="topic-card" data-topic="problemas">
+      <h3>🧩 Problemas de División</h3>
+      <p>Resuelve problemas de reparto y división</p>
+     </div>
+    </div>
+    <div class="exercise-area" id="exercise-area">
+     <div class="exercise-header">
+      <h2 id="exercise-title">Ejercicio</h2><button class="back-btn" id="back-btn">← Volver</button>
+     </div>
+     <div class="score" id="score">
+      Puntuación: 0 / 0
+     </div>
+     <div id="exercise-content"></div>
+    </div>
+   </div>
+  </main>
+  <script>
+    const defaultConfig = {
+      main_title: "Práctica de Matemáticas",
+      subtitle: "5º de Primaria",
+      instructions: "Selecciona un tema para practicar",
+      background_color: "#667eea",
+      card_color: "#ffffff",
+      text_color: "#333333",
+      button_color: "#667eea",
+      accent_color: "#764ba2"
+    };
+
+    let currentTopic = null;
+    let score = 0;
+    let totalQuestions = 0;
+    let currentAnswer = null;
+
+    async function onConfigChange(config) {
+      document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+      document.getElementById('instructions').textContent = config.instructions || defaultConfig.instructions;
+      
+      document.body.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color} 0%, ${config.accent_color || defaultConfig.accent_color} 100%)`;
+      
+      const cards = document.querySelectorAll('.topic-card');
+      cards.forEach(card => {
+        card.style.background = config.card_color || defaultConfig.card_color;
+      });
+      
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(btn => {
+        if (!btn.classList.contains('btn-secondary') && !btn.classList.contains('back-btn')) {
+          btn.style.background = config.button_color || defaultConfig.button_color;
+        }
+      });
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.card_color || defaultConfig.card_color,
+              set: (value) => {
+                config.card_color = value;
+                window.elementSdk.setConfig({ card_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.button_color || defaultConfig.button_color,
+              set: (value) => {
+                config.button_color = value;
+                window.elementSdk.setConfig({ button_color: value });
+              }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                config.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["subtitle", config.subtitle || defaultConfig.subtitle],
+          ["instructions", config.instructions || defaultConfig.instructions]
+        ])
+      });
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      const topicCards = document.querySelectorAll('.topic-card');
+      topicCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const topic = this.getAttribute('data-topic');
+          startTopic(topic);
+        });
+      });
+
+      document.getElementById('back-btn').addEventListener('click', backToTopics);
+    });
+
+    function startTopic(topic) {
+      currentTopic = topic;
+      score = 0;
+      totalQuestions = 0;
+      document.getElementById('topics-grid').style.display = 'none';
+      document.getElementById('exercise-area').classList.add('active');
+      updateScore();
+      
+      switch(topic) {
+        case 'divisiones':
+          document.getElementById('exercise-title').textContent = '➗ Divisiones con Decimales';
+          generateDivision();
+          break;
+        case 'media':
+          document.getElementById('exercise-title').textContent = '📊 Calcular la Media';
+          generateMedia();
+          break;
+        case 'rectas':
+          document.getElementById('exercise-title').textContent = '📐 Rectas';
+          generateRectas();
+          break;
+        case 'coordenadas':
+          document.getElementById('exercise-title').textContent = '📍 Coordenadas';
+          generateCoordenadas();
+          break;
+        case 'sectores':
+          document.getElementById('exercise-title').textContent = '🥧 Fracciones y Gráficos de Sectores';
+          generateSectores();
+          break;
+        case 'operaciones':
+          document.getElementById('exercise-title').textContent = '➕��� Operaciones con Enteros';
+          generateOperaciones();
+          break;
+      }
+    }
+
+    function backToTopics() {
+      document.getElementById('topics-grid').style.display = 'grid';
+      document.getElementById('exercise-area').classList.remove('active');
+      currentTopic = null;
+    }
+
+    function updateScore() {
+      document.getElementById('score').textContent = `Puntuación: ${score} / ${totalQuestions}`;
+    }
+
+    function generateDivision() {
+      const divisor = Math.random() < 0.5 ? 
+        Math.floor(Math.random() * 9) + 2 : 
+        Math.floor(Math.random() * 90) + 11;
+      
+      const dividendo = Math.floor(Math.random() * 400) + 50;
+      currentAnswer = (dividendo / divisor).toFixed(2);
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Realiza esta divisi��n hasta el resto 0 (con decimales):</div>
+          <div class="question-text" style="font-size: 32px; text-align: center; margin: 20px 0;">
+            ${dividendo} ÷ ${divisor} = ?
+          </div>
+          <div style="color: #666; font-size: 14px; text-align: center; margin-bottom: 20px;">
+            💡 Recuerda: baja ceros y continúa dividiendo hasta llegar a resto 0
+          </div>
+          <div class="input-group">
+            <label for="answer-input">Cociente (con decimales):</label>
+            <input type="number" id="answer-input" step="0.01" placeholder="Ejemplo: 12.34">
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkAnswer()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateDivision()">Nueva División</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function generateMedia() {
+      const numbers = [];
+      const count = Math.floor(Math.random() * 3) + 4;
+      for (let i = 0; i < count; i++) {
+        numbers.push(Math.floor(Math.random() * 50) + 10);
+      }
+      const sum = numbers.reduce((a, b) => a + b, 0);
+      currentAnswer = (sum / numbers.length).toFixed(2);
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Calcula la media de estos números:</div>
+          <div class="question-text" style="font-size: 28px; text-align: center; margin: 20px 0; color: #667eea;">
+            ${numbers.join(', ')}
+          </div>
+          <div class="input-group">
+            <label for="answer-input">La media es:</label>
+            <input type="number" id="answer-input" step="0.01" placeholder="Ejemplo: 25.50">
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkAnswer()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateMedia()">Nuevo Ejercicio</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function generateRectas() {
+      const types = [
+        { question: '��Qué tipo de rectas son las que NUNCA se cruzan?', answer: 'paralelas' },
+        { question: '¿Qué tipo de rectas son las que se cruzan formando 90°?', answer: 'perpendiculares' },
+        { question: '¿Qué tipo de rectas son las que se cruzan en un punto?', answer: 'secantes' }
+      ];
+      
+      const selected = types[Math.floor(Math.random() * types.length)];
+      currentAnswer = selected.answer;
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">${selected.question}</div>
+          <div class="canvas-container">
+            <canvas id="rectas-canvas" width="400" height="300"></canvas>
+          </div>
+          <div class="input-group">
+            <label for="answer-select">Selecciona el tipo de rectas:</label>
+            <select id="answer-select">
+              <option value="">-- Elige una opción --</option>
+              <option value="paralelas">Paralelas</option>
+              <option value="secantes">Secantes</option>
+              <option value="perpendiculares">Perpendiculares</option>
+            </select>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkSelectAnswer()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateRectas()">Nuevo Ejercicio</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawRectas(selected.answer), 100);
+    }
+
+    function drawRectas(type) {
+      const canvas = document.getElementById('rectas-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#667eea';
+      
+      if (type === 'paralelas') {
+        ctx.beginPath();
+        ctx.moveTo(50, 100);
+        ctx.lineTo(350, 100);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(50, 200);
+        ctx.lineTo(350, 200);
+        ctx.stroke();
+      } else if (type === 'perpendiculares') {
+        ctx.beginPath();
+        ctx.moveTo(50, 150);
+        ctx.lineTo(350, 150);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(200, 50);
+        ctx.lineTo(200, 250);
+        ctx.stroke();
+      } else if (type === 'secantes') {
+        ctx.beginPath();
+        ctx.moveTo(50, 80);
+        ctx.lineTo(350, 220);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(50, 220);
+        ctx.lineTo(350, 80);
+        ctx.stroke();
+      }
+    }
+
+    function generateCoordenadas() {
+      const x = Math.floor(Math.random() * 9) - 4;
+      const y = Math.floor(Math.random() * 9) - 4;
+      currentAnswer = { x, y };
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">¿Cuáles son las coordenadas del punto rojo?</div>
+          <div class="canvas-container">
+            <canvas id="coord-canvas" width="400" height="400"></canvas>
+          </div>
+          <div class="coordinate-grid">
+            <div class="input-group">
+              <label for="x-input">Coordenada X:</label>
+              <input type="number" id="x-input" placeholder="Eje horizontal">
+            </div>
+            <div class="input-group">
+              <label for="y-input">Coordenada Y:</label>
+              <input type="number" id="y-input" placeholder="Eje vertical">
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkCoordinates()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateCoordenadas()">Nuevo Punto</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawCoordinates(x, y), 100);
+    }
+
+    function drawCoordinates(x, y) {
+      const canvas = document.getElementById('coord-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const scale = 40;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = '#ddd';
+      ctx.lineWidth = 1;
+      for (let i = -5; i <= 5; i++) {
+        ctx.beginPath();
+        ctx.moveTo(centerX + i * scale, 0);
+        ctx.lineTo(centerX + i * scale, canvas.height);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(0, centerY + i * scale);
+        ctx.lineTo(canvas.width, centerY + i * scale);
+        ctx.stroke();
+      }
+      
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(centerX, 0);
+      ctx.lineTo(centerX, canvas.height);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(canvas.width, centerY);
+      ctx.stroke();
+      
+      ctx.fillStyle = '#333';
+      ctx.font = '14px Arial';
+      for (let i = -4; i <= 4; i++) {
+        if (i !== 0) {
+          ctx.fillText(i, centerX + i * scale - 5, centerY + 20);
+          ctx.fillText(i, centerX + 10, centerY - i * scale + 5);
+        }
+      }
+      
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(centerX + x * scale, centerY - y * scale, 8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function generateSectores() {
+      const exerciseType = Math.random() < 0.5 ? 'simple' : 'contextual';
+      
+      if (exerciseType === 'simple') {
+        generateSimpleSectores();
+      } else {
+        generateContextualSectores();
+      }
+    }
+
+    function generateSimpleSectores() {
+      const denominator = [4, 6, 8][Math.floor(Math.random() * 3)];
+      
+      let parts = [];
+      let remaining = denominator;
+      const numParts = Math.floor(Math.random() * 2) + 3; // 3 o 4 partes
+      
+      for (let i = 0; i < numParts - 1; i++) {
+        const maxVal = remaining - (numParts - i - 1);
+        const value = Math.floor(Math.random() * maxVal) + 1;
+        parts.push(value);
+        remaining -= value;
+      }
+      parts.push(remaining);
+      
+      const colors = ['Rojo', 'Azul', 'Verde', 'Amarillo'];
+      const data = parts.map((value, index) => ({
+        label: colors[index],
+        value: value,
+        color: ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'][index]
+      }));
+      
+      const randomPart = data[Math.floor(Math.random() * data.length)];
+      
+      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+      const divisor = gcd(randomPart.value, denominator);
+      const numerator = randomPart.value / divisor;
+      const simplifiedDenominator = denominator / divisor;
+      
+      currentAnswer = {
+        numerator: numerator,
+        denominator: simplifiedDenominator
+      };
+      
+      const content = `
+        <div class="question">
+          <div class="question-text">Observa este gráfico circular:</div>
+          <div class="canvas-container">
+            <canvas id="sector-canvas" width="400" height="400"></canvas>
+          </div>
+          <div class="question-text">¿Qué fracción del círculo representa la parte ${randomPart.label}?</div>
+          <div style="color: #666; font-size: 14px; text-align: center; margin-bottom: 20px;">
+            💡 Simplifica la fracción si es posible
+          </div>
+          <div class="coordinate-grid">
+            <div class="input-group">
+              <label for="numerator-input">Numerador:</label>
+              <input type="number" id="numerator-input" placeholder="Ejemplo: 1">
+            </div>
+            <div class="input-group">
+              <label for="denominator-input">Denominador:</label>
+              <input type="number" id="denominator-input" placeholder="Ejemplo: 4">
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="checkFraction()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateSectores()">Nuevo Gráfico</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawSectores(data, denominator), 100);
+    }
+
+    function generateContextualSectores() {
+      const contexts = [
+        {
+          title: "📚 Encuesta de Lecturas",
+          intro: "En una clase han propuesto lecturas. La maestra ha hecho un cuestionario para saber qué libro ha gustado más. Se han recogido los siguientes resultados:",
+          books: ["El Principito", "Matilda", "Charlie y la Fábrica", "Harry Potter"]
+        },
+        {
+          title: "🎮 Videojuegos Favoritos",
+          intro: "Se ha realizado una encuesta en clase sobre videojuegos favoritos. Estos son los resultados:",
+          books: ["Minecraft", "Fortnite", "Roblox", "Among Us"]
+        },
+        {
+          title: "🍕 Comidas Preferidas",
+          intro: "En el comedor escolar preguntaron a los alumnos cuál es su comida favorita. Estos son los resultados:",
+          books: ["Pizza", "Pasta", "Hamburguesa", "Tacos"]
+        },
+        {
+          title: "⚽ Deportes Favoritos",
+          intro: "En educación física hicieron una encuesta sobre deportes favoritos. Estos fueron los resultados:",
+          books: ["Fútbol", "Baloncesto", "Natación", "Voleibol"]
+        }
+      ];
+      
+      const context = contexts[Math.floor(Math.random() * contexts.length)];
+      
+      const totalStudents = [20, 24, 28, 32][Math.floor(Math.random() * 4)];
+      const numOptions = Math.random() < 0.5 ? 3 : 4;
+      
+      let votes = [];
+      let remaining = totalStudents;
+      
+      for (let i = 0; i < numOptions - 1; i++) {
+        const maxVote = remaining - (numOptions - i - 1);
+        const vote = Math.floor(Math.random() * (maxVote - 1)) + 1;
+        votes.push(vote);
+        remaining -= vote;
+      }
+      votes.push(remaining);
+      
+      votes.sort((a, b) => b - a);
+      
+      const selectedBooks = context.books.slice(0, numOptions);
+      const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
+      
+      const data = votes.map((vote, index) => ({
+        label: selectedBooks[index],
+        value: vote,
+        color: colors[index]
+      }));
+      
+      const mostVoted = data[0];
+      const leastVoted = data[data.length - 1];
+      const randomBook = data[Math.floor(Math.random() * data.length)];
+      
+      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+      const divisor = gcd(randomBook.value, totalStudents);
+      const numerator = randomBook.value / divisor;
+      const denominator = totalStudents / divisor;
+      
+      const moreThanHalf = mostVoted.value > totalStudents / 2;
+      
+      currentAnswer = {
+        type: 'contextual',
+        totalOptions: numOptions,
+        mostVoted: mostVoted.label,
+        leastVoted: leastVoted.label,
+        moreThanHalf: moreThanHalf,
+        fractionBook: randomBook.label,
+        numerator: numerator,
+        denominator: denominator,
+        currentQuestion: 0,
+        totalStudents: totalStudents
+      };
+      
+      const content = `
+        <div class="question">
+          <div class="question-text" style="font-size: 24px; color: #667eea;">${context.title}</div>
+          <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <p style="font-size: 16px; color: #333; margin: 0;">${context.intro}</p>
+          </div>
+          <div class="canvas-container">
+            <canvas id="sector-canvas" width="400" height="400"></canvas>
+          </div>
+          <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e0e0;">
+            <div id="question-1" class="contextual-question">
+              <div class="question-text" style="font-size: 18px;">1️⃣ ¿Cu��ntas opciones se propusieron?</div>
+              <div class="input-group">
+                <label for="q1-input">Número de opciones:</label>
+                <input type="number" id="q1-input" placeholder="¿Cuántas?">
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(1)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-1" class="feedback"></div>
+            </div>
+            
+            <div id="question-2" class="contextual-question" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+              <div class="question-text" style="font-size: 18px;">2️⃣ ¿Qué opción gustó más?</div>
+              <div class="input-group">
+                <label for="q2-select">Selecciona la opción:</label>
+                <select id="q2-select">
+                  <option value="">-- Elige --</option>
+                  ${selectedBooks.map(book => `<option value="${book}">${book}</option>`).join('')}
+                </select>
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(2)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-2" class="feedback"></div>
+            </div>
+            
+            <div id="question-3" class="contextual-question" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+              <div class="question-text" style="font-size: 18px;">3️⃣ ¿La opción más votada la eligió más de la mitad de la clase?</div>
+              <div class="input-group">
+                <label for="q3-select">Tu respuesta:</label>
+                <select id="q3-select">
+                  <option value="">-- Elige --</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(3)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-3" class="feedback"></div>
+            </div>
+            
+            <div id="question-4" class="contextual-question" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+              <div class="question-text" style="font-size: 18px;">4️⃣ ¿Qué opción gustó menos?</div>
+              <div class="input-group">
+                <label for="q4-select">Selecciona la opción:</label>
+                <select id="q4-select">
+                  <option value="">-- Elige --</option>
+                  ${selectedBooks.map(book => `<option value="${book}">${book}</option>`).join('')}
+                </select>
+              </div>
+              <button class="btn" onclick="checkContextualQuestion(4)" style="margin-top: 10px;">Comprobar</button>
+              <div id="feedback-4" class="feedback"></div>
+            </div>
+          </div>
+          
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="generateSectores()">Nuevo Ejercicio</button>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+      setTimeout(() => drawSectores(data, totalStudents), 100);
+    }
+
+    function drawSectores(data, totalParts) {
+      const canvas = document.getElementById('sector-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const centerX = canvas.width / 2;
+      const centerY = 180;
+      const radius = 120;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const total = data.reduce((sum, item) => sum + item.value, 0);
+      let currentAngle = -Math.PI / 2;
+      
+      data.forEach((item) => {
+        const sliceAngle = (item.value / total) * Math.PI * 2;
+        
+        ctx.fillStyle = item.color;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        currentAngle += sliceAngle;
+      });
+      
+      // Dibujar leyenda
+      const legendStartY = 320;
+      const legendItemHeight = 25;
+      const legendX = 50;
+      
+      ctx.font = 'bold 14px Arial';
+      ctx.textAlign = 'left';
+      
+      data.forEach((item, index) => {
+        const yPos = legendStartY + (index * legendItemHeight);
+        
+        // Dibujar cuadrado de color
+        ctx.fillStyle = item.color;
+        ctx.fillRect(legendX, yPos - 12, 20, 20);
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(legendX, yPos - 12, 20, 20);
+        
+        // Dibujar texto
+        ctx.fillStyle = '#333';
+        ctx.fillText(`${item.label}`, legendX + 30, yPos + 3);
+      });
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById('answer-input').value;
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      if (Math.abs(parseFloat(input) - parseFloat(currentAnswer)) < 0.1) {
+        score++;
+        feedback.className = 'feedback correct';
+        feedback.textContent = '¡Correcto! 🎉 ¡Muy bien!';
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.textContent = `Incorrecto. La respuesta correcta es: ${currentAnswer}`;
+      }
+      
+      updateScore();
+    }
+
+    function checkSelectAnswer() {
+      const select = document.getElementById('answer-select').value;
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      if (select === currentAnswer) {
+        score++;
+        feedback.className = 'feedback correct';
+        
+        let explanation = '¡Correcto! 🎉<br><br>';
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación de los tipos de rectas:</div>';
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        
+        explanation += '📏 <strong>Rectas Paralelas:</strong> Son rectas que NUNCA se cruzan, siempre mantienen la misma distancia entre ellas. Como las vías del tren.<br><br>';
+        explanation += '📐 <strong>Rectas Perpendiculares:</strong> Son rectas que se cruzan formando un ángulo de 90° (ángulo recto). Como las esquinas de un cuadrado.<br><br>';
+        explanation += '✂️ <strong>Rectas Secantes:</strong> Son rectas que se cruzan en un punto, pero sin formar ángulo recto. Como unas tijeras abiertas.';
+        
+        explanation += '</div></div>';
+        feedback.innerHTML = explanation;
+      } else {
+        feedback.className = 'feedback incorrect';
+        
+        let explanation = `❌ Incorrecto. La respuesta correcta es: <strong>${currentAnswer}</strong><br><br>`;
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; margin-top: 15px;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación de los tipos de rectas:</div>';
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        
+        explanation += '📏 <strong>Rectas Paralelas:</strong> Son rectas que NUNCA se cruzan, siempre mantienen la misma distancia entre ellas. Como las vías del tren.<br><br>';
+        explanation += '📐 <strong>Rectas Perpendiculares:</strong> Son rectas que se cruzan formando un ángulo de 90° (ángulo recto). Como las esquinas de un cuadrado.<br><br>';
+        explanation += '✂️ <strong>Rectas Secantes:</strong> Son rectas que se cruzan en un punto, pero sin formar ángulo recto. Como unas tijeras abiertas.';
+        
+        explanation += '</div></div>';
+        feedback.innerHTML = explanation;
+      }
+      
+      updateScore();
+    }
+
+    function checkCoordinates() {
+      const xInput = parseInt(document.getElementById('x-input').value);
+      const yInput = parseInt(document.getElementById('y-input').value);
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      if (xInput === currentAnswer.x && yInput === currentAnswer.y) {
+        score++;
+        feedback.className = 'feedback correct';
+        feedback.textContent = '¡Correcto! 🎉 ¡Perfectas coordenadas!';
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.textContent = `Incorrecto. Las coordenadas correctas son: (${currentAnswer.x}, ${currentAnswer.y})`;
+      }
+      
+      updateScore();
+    }
+
+    function checkFraction() {
+      const numeratorInput = parseInt(document.getElementById('numerator-input').value);
+      const denominatorInput = parseInt(document.getElementById('denominator-input').value);
+      const feedback = document.getElementById('feedback');
+      totalQuestions++;
+      
+      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+      const divisor1 = gcd(numeratorInput, denominatorInput);
+      const simplifiedNum1 = numeratorInput / divisor1;
+      const simplifiedDen1 = denominatorInput / divisor1;
+      
+      if (simplifiedNum1 === currentAnswer.numerator && simplifiedDen1 === currentAnswer.denominator) {
+        score++;
+        feedback.className = 'feedback correct';
+        feedback.textContent = '¡Correcto! 🎉 ¡Excelente trabajo con las fracciones!';
+      } else {
+        feedback.className = 'feedback incorrect';
+        feedback.textContent = `Incorrecto. La fracción correcta es: ${currentAnswer.numerator}/${currentAnswer.denominator}`;
+      }
+      
+      updateScore();
+    }
+
+    function checkContextualQuestion(questionNum) {
+      const feedback = document.getElementById(`feedback-${questionNum}`);
+      let isCorrect = false;
+      
+      switch(questionNum) {
+        case 1:
+          const q1Input = parseInt(document.getElementById('q1-input').value);
+          if (q1Input === currentAnswer.totalOptions) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉';
+          } else {
+            feedback.className = 'feedback incorrect';
+            feedback.textContent = `Incorrecto. Se propusieron ${currentAnswer.totalOptions} opciones.`;
+          }
+          break;
+          
+        case 2:
+          const q2Select = document.getElementById('q2-select').value;
+          if (q2Select === currentAnswer.mostVoted) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉';
+          } else {
+            feedback.className = 'feedback incorrect';
+            feedback.textContent = `Incorrecto. La opción más votada fue: ${currentAnswer.mostVoted}`;
+          }
+          break;
+          
+        case 3:
+          const q3Select = document.getElementById('q3-select').value;
+          const expectedAnswer = currentAnswer.moreThanHalf ? 'si' : 'no';
+          if (q3Select === expectedAnswer) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉';
+          } else {
+            feedback.className = 'feedback incorrect';
+            const explanation = currentAnswer.moreThanHalf 
+              ? 'Sí, porque obtuvo más de la mitad de los votos.' 
+              : 'No, porque no llegó a la mitad de los votos.';
+            feedback.textContent = `Incorrecto. ${explanation}`;
+          }
+          break;
+          
+        case 4:
+          const q4Select = document.getElementById('q4-select').value;
+          if (q4Select === currentAnswer.leastVoted) {
+            isCorrect = true;
+            feedback.className = 'feedback correct';
+            feedback.textContent = '¡Correcto! 🎉 ¡Excelente trabajo!';
+          } else {
+            feedback.className = 'feedback incorrect';
+            feedback.textContent = `Incorrecto. La opción menos votada fue: ${currentAnswer.leastVoted}`;
+          }
+          break;
+      }
+      
+      totalQuestions++;
+      if (isCorrect) {
+        score++;
+        setTimeout(() => {
+          if (questionNum < 4) {
+            document.getElementById(`question-${questionNum + 1}`).style.display = 'block';
+          }
+        }, 1000);
+      }
+      
+      updateScore();
+    }
+
+    let operationsList = [];
+    let currentOperationIndex = 0;
+
+    function generateOperaciones() {
+      operationsList = [];
+      currentOperationIndex = 0;
+      
+      // Generar 15 operaciones aleatorias
+      for (let i = 0; i < 15; i++) {
+        const num1 = Math.floor(Math.random() * 51) - 25; // -25 a 25
+        const num2 = Math.floor(Math.random() * 51) - 25; // -25 a 25
+        const isSum = Math.random() < 0.5;
+        
+        operationsList.push({
+          num1: num1,
+          num2: num2,
+          isSum: isSum,
+          answer: isSum ? num1 + num2 : num1 - num2,
+          userAnswer: null
+        });
+      }
+      
+      displayOperations();
+    }
+
+    function displayOperations() {
+      let operationsHTML = `<div class="question">
+        <div class="question-text">Resuelve estas operaciones con números enteros:</div>
+        <div style="background: #e8f4f8; padding: 20px; margin: 20px 0; border-radius: 10px; border-left: 5px solid #3498db;">
+          <div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📋 Reglas importantes:</div>
+          <div style="margin-bottom: 10px; color: #2c3e50; font-size: 16px;">
+            <strong>Regla de la Resta:</strong> Restar un número es lo mismo que <strong>sumar su opuesto</strong>.
+          </div>
+          <div style="margin-bottom: 10px; color: #2c3e50; font-size: 16px;">
+            <strong>Regla 1 (Suma):</strong> Números con signos <strong>iguales</strong> se <strong>suman</strong> y queda el signo común.
+          </div>
+          <div style="color: #2c3e50; font-size: 16px;">
+            <strong>Regla 2 (Suma):</strong> Números con signos <strong>diferentes</strong> se <strong>restan</strong> y queda el signo del número mayor.
+          </div>
+        </div>`;
+      
+      operationsList.forEach((op, index) => {
+        const operator = op.isSum ? '+' : '-';
+        const inputId = `op-input-${index}`;
+        const feedbackId = `op-feedback-${index}`;
+        
+        operationsHTML += `
+          <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border: 2px solid #ddd;">
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+              <span style="font-size: 20px; font-weight: bold; min-width: 200px;">
+                (${op.num1}) ${operator} (${op.num2}) =
+              </span>
+              <input type="number" id="${inputId}" 
+                     style="width: 100px; padding: 8px; border: 2px solid #ddd; border-radius: 5px; font-size: 18px;"
+                     placeholder="?">
+              <button onclick="checkOperation(${index})" 
+                      style="background: #667eea; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                ✓
+              </button>
+            </div>
+            <div id="${feedbackId}" style="margin-top: 10px; display: none;"></div>
+          </div>
+        `;
+      });
+      
+      operationsHTML += `
+        <div class="btn-group" style="margin-top: 20px;">
+          <button class="btn btn-secondary" onclick="generateOperaciones()">Nuevas Operaciones</button>
+        </div>
+      </div>`;
+      
+      document.getElementById('exercise-content').innerHTML = operationsHTML;
+    }
+
+    function checkOperation(index) {
+      const op = operationsList[index];
+      const inputId = `op-input-${index}`;
+      const feedbackId = `op-feedback-${index}`;
+      const input = document.getElementById(inputId);
+      const feedback = document.getElementById(feedbackId);
+      const userAnswer = parseInt(input.value);
+      
+      if (isNaN(userAnswer)) {
+        feedback.style.display = 'block';
+        feedback.style.background = '#fff3cd';
+        feedback.style.color = '#856404';
+        feedback.style.padding = '10px';
+        feedback.style.borderRadius = '5px';
+        feedback.textContent = '⚠️ Por favor, introduce un número';
+        return;
+      }
+      
+      if (op.userAnswer !== null) {
+        return;
+      }
+      
+      totalQuestions++;
+      op.userAnswer = userAnswer;
+      
+      if (userAnswer === op.answer) {
+        score++;
+        feedback.style.display = 'block';
+        feedback.style.background = '#d4edda';
+        feedback.style.color = '#155724';
+        feedback.style.padding = '10px';
+        feedback.style.borderRadius = '5px';
+        feedback.style.fontWeight = 'bold';
+        feedback.innerHTML = '✅ ¡Correcto! 🎉';
+        input.style.borderColor = '#28a745';
+        input.disabled = true;
+      } else {
+        feedback.style.display = 'block';
+        feedback.style.background = '#f8d7da';
+        feedback.style.color = '#721c24';
+        feedback.style.padding = '10px';
+        feedback.style.borderRadius = '5px';
+        feedback.style.fontWeight = 'bold';
+        
+        const operator = op.isSum ? '+' : '-';
+        let explanation = `���� Incorrecto. La respuesta correcta es: ${op.answer}<br><br>`;
+        
+        if (op.isSum) {
+          if (op.num1 >= 0 && op.num2 >= 0) {
+            explanation += `📘 <strong>Explicación:</strong> <strong>Regla 1:</strong> Ambos números son positivos (signos iguales), entonces se <strong>suman</strong> y queda el signo común (+).<br>${op.num1} + ${op.num2} = ${op.answer}`;
+          } else if (op.num1 < 0 && op.num2 < 0) {
+            explanation += `📘 <strong>Explicación:</strong> <strong>Regla 1:</strong> Ambos números son negativos (signos iguales), entonces se <strong>suman</strong> sus valores absolutos y queda el signo común (-).<br>${Math.abs(op.num1)} + ${Math.abs(op.num2)} = ${Math.abs(op.answer)}, y como ambos son negativos: ${op.answer}`;
+          } else {
+            const biggerNum = Math.abs(op.num1) > Math.abs(op.num2) ? op.num1 : op.num2;
+            const biggerSign = biggerNum >= 0 ? 'positivo' : 'negativo';
+            explanation += `📘 <strong>Explicación:</strong> <strong>Regla 2:</strong> Los números tienen signos diferentes, entonces se <strong>restan</strong> y queda el signo del número mayor.<br>`;
+            explanation += `|${Math.abs(op.num1)}| ${Math.abs(op.num1) > Math.abs(op.num2) ? '>' : '<'} |${Math.abs(op.num2)}|, entonces: ${Math.max(Math.abs(op.num1), Math.abs(op.num2))} - ${Math.min(Math.abs(op.num1), Math.abs(op.num2))} = ${Math.abs(op.answer)}<br>`;
+            explanation += `El número mayor es ${biggerSign}, por eso el resultado es: ${op.answer}`;
+          }
+        } else {
+          explanation += `📘 <strong>Explicación:</strong> Restar ${op.num2} es lo mismo que sumar su opuesto ${-op.num2}.<br>`;
+          explanation += `(${op.num1}) - (${op.num2}) = (${op.num1}) + (${-op.num2})<br>`;
+          
+          const num1 = op.num1;
+          const num2opposite = -op.num2;
+          
+          if ((num1 >= 0 && num2opposite >= 0) || (num1 < 0 && num2opposite < 0)) {
+            explanation += `Ahora aplicamos la <strong>Regla 1:</strong> signos iguales se suman → ${op.answer}`;
+          } else {
+            explanation += `Ahora aplicamos la <strong>Regla 2:</strong> signos diferentes se restan y queda el signo del mayor → ${op.answer}`;
+          }
+        }
+        
+        feedback.innerHTML = explanation;
+        input.style.borderColor = '#dc3545';
+        input.disabled = true;
+      }
+      
+      updateScore();
+    }
+
+    // PROBLEMAS - Nueva sección
+    function generateProblemas() {
+      const problemTemplates = [
+        {
+          template: (name, total, parts) => `${name} tiene ${total} metros de cuerda que quiere dividir en ${parts} partes iguales. ¿Cuánto medirá cada una de las ${parts} partes?`,
+          unit: 'm',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} quiere repartir de manera equitativa entre sus ${parts} hermanos pequeños ${total} juguetes. ¿Cuántos juguetes dará a cada hermano?`,
+          unit: 'juguetes',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} ha comprado ${total} caramelos y quiere repartirlos entre ${parts} amigos. ¿Cuántos caramelos recibirá cada amigo?`,
+          unit: 'caramelos',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} tiene ${total} litros de agua y quiere llenar ${parts} botellas iguales. ¿Cuántos litros pondrá en cada botella?`,
+          unit: 'litros',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} quiere cortar una cinta de ${total} centímetros en ${parts} trozos iguales. ¿Cuánto medirá cada trozo?`,
+          unit: 'cm',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} tiene ${total} cromos y quiere hacer ${parts} montones iguales. ¿Cuántos cromos habrá en cada montón?`,
+          unit: 'cromos',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} ha recogido ${total} naranjas y las quiere poner en ${parts} bolsas iguales. ¿Cuántas naranjas pondrá en cada bolsa?`,
+          unit: 'naranjas',
+          type: 'division'
+        },
+        {
+          template: (name, total, parts) => `${name} tiene ${total} euros y quiere repartirlos entre ${parts} hijos. ¿Cuántos euros recibirá cada hijo?`,
+          unit: 'euros',
+          type: 'division'
+        }
+      ];
+      
+      const names = ['Marcos', 'Carolina', 'Pedro', 'Ana', 'Luis', 'María', 'Diego', 'Laura', 'Javier', 'Sara'];
+      
+      const selectedTemplate = problemTemplates[Math.floor(Math.random() * problemTemplates.length)];
+      const name = names[Math.floor(Math.random() * names.length)];
+      
+      let total, parts, answer;
+      
+      if (Math.random() < 0.6) {
+        parts = [2, 3, 4, 5][Math.floor(Math.random() * 4)];
+        total = parts * (Math.floor(Math.random() * 8) + 2);
+        answer = total / parts;
+      } else {
+        parts = [2, 3, 4, 5, 6][Math.floor(Math.random() * 5)];
+        total = Math.floor(Math.random() * 20) + 10;
+        answer = (total / parts).toFixed(2);
+      }
+      
+      currentAnswer = {
+        value: parseFloat(answer),
+        total: total,
+        parts: parts,
+        unit: selectedTemplate.unit,
+        name: name
+      };
+      
+      const problemText = selectedTemplate.template(name, total, parts);
+      
+      const content = `
+        <div class="question">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
+            <div style="font-size: 22px; font-weight: bold; line-height: 1.6;">
+              ${problemText}
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="answer-input">Tu respuesta:</label>
+            <input type="number" id="answer-input" step="0.01" placeholder="Escribe tu respuesta">
+          </div>
+          
+          <div class="btn-group">
+            <button class="btn" onclick="checkProblema()">Comprobar</button>
+            <button class="btn btn-secondary" onclick="generateProblemas()">Nuevo Problema</button>
+          </div>
+          
+          <div class="feedback" id="feedback"></div>
+        </div>
+      `;
+      
+      document.getElementById('exercise-content').innerHTML = content;
+    }
+
+    function checkProblema() {
+      const input = document.getElementById('answer-input').value;
+      const feedback = document.getElementById('feedback');
+      const userAnswer = parseFloat(input);
+      
+      if (isNaN(userAnswer) || input.trim() === '') {
+        feedback.style.display = 'block';
+        feedback.style.background = '#fff3cd';
+        feedback.style.color = '#856404';
+        feedback.style.padding = '15px';
+        feedback.style.borderRadius = '8px';
+        feedback.textContent = '⚠️ Por favor, introduce un número';
+        return;
+      }
+      
+      totalQuestions++;
+      
+      const tolerance = 0.05;
+      const isCorrect = Math.abs(userAnswer - currentAnswer.value) < tolerance;
+      
+      if (isCorrect) {
+        score++;
+        feedback.className = 'feedback correct';
+        
+        let explanation = '¡Correcto! 🎉<br><br>';
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación paso a paso:</div>';
+        
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        explanation += `1️⃣ <strong>Datos del problema:</strong><br>`;
+        explanation += `   • ${currentAnswer.name} tiene <strong>${currentAnswer.total} ${currentAnswer.unit}</strong><br>`;
+        explanation += `   • Quiere dividir en <strong>${currentAnswer.parts} partes iguales</strong><br><br>`;
+        
+        explanation += `2️⃣ <strong>Operación a realizar:</strong><br>`;
+        explanation += `   Para repartir en partes iguales usamos la <strong>división</strong><br><br>`;
+        
+        explanation += `3️⃣ <strong>Cálculo:</strong><br>`;
+        explanation += `   ${currentAnswer.total} ÷ ${currentAnswer.parts} = <strong>${currentAnswer.value}</strong><br><br>`;
+        
+        explanation += `✅ <strong>Respuesta:</strong> Cada parte tendrá <strong>${currentAnswer.value} ${currentAnswer.unit}</strong>`;
+        
+        if (currentAnswer.value % 1 !== 0) {
+          explanation += `<br><br>💡 <strong>Nota:</strong> El resultado tiene decimales porque ${currentAnswer.total} no es divisible exactamente entre ${currentAnswer.parts}.`;
+        }
+        
+        explanation += '</div></div>';
+        
+        feedback.innerHTML = explanation;
+      } else {
+        feedback.className = 'feedback incorrect';
+        
+        let explanation = `❌ Incorrecto. La respuesta correcta es: <strong>${currentAnswer.value} ${currentAnswer.unit}</strong><br><br>`;
+        
+        explanation += '<div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; margin-top: 15px;">';
+        explanation += '<div style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">📝 Explicación paso a paso:</div>';
+        
+        explanation += '<div style="color: #2c3e50; font-size: 16px; line-height: 1.8;">';
+        explanation += `1️⃣ <strong>Identifica los datos:</strong><br>`;
+        explanation += `   • Total: <strong>${currentAnswer.total} ${currentAnswer.unit}</strong><br>`;
+        explanation += `   • Partes: <strong>${currentAnswer.parts}</strong><br><br>`;
+        
+        explanation += `2️⃣ <strong>Elige la operación:</strong><br>`;
+        explanation += `   Cuando queremos <strong>repartir</strong> o <strong>dividir en partes iguales</strong>, usamos la <strong>división</strong><br><br>`;
+        
+        explanation += `3️⃣ <strong>Realiza el cálculo:</strong><br>`;
+        explanation += `   ${currentAnswer.total} ÷ ${currentAnswer.parts} = <strong>${currentAnswer.value}</strong><br><br>`;
+        
+        explanation += `✅ Por lo tanto, cada parte tendrá <strong>${currentAnswer.value} ${currentAnswer.unit}</strong>`;
+        
+        if (currentAnswer.value % 1 !== 0) {
+          explanation += `<br><br>💡 Como ${currentAnswer.total} no es divisible exactamente entre ${currentAnswer.parts}, el resultado tiene decimales.`;
+        }
+        
+        explanation += '</div></div>';
+        
+        feedback.innerHTML = explanation;
+      }
+      
+      updateScore();
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dc93c509fd781',t:'MTc2NDg3NzMzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

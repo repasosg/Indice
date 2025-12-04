@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemáticas Divertidas - Sumas y Restas</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100%;
+        }
+        
+        html {
+            height: 100%;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #e91e63;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .mode-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .mode-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .mode-btn.active {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+        
+        .game-area {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            color: white;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .problem {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .answer-input {
+            font-size: 2rem;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 15px;
+            text-align: center;
+            width: 120px;
+            margin: 0 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .check-btn {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .feedback {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .correct {
+            color: #4caf50;
+        }
+        
+        .incorrect {
+            color: #f44336;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e91e63;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .new-problem-btn {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .new-problem-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .emoji {
+            font-size: 2rem;
+            margin: 0 10px;
+        }
+        
+        .timer-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .timer-display {
+            margin-bottom: 15px;
+        }
+        
+        .timer-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .timer-time {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e91e63;
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .timer-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .timer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .correct-stat .stat-number {
+            color: #4caf50;
+        }
+        
+        .incorrect-stat .stat-number {
+            color: #f44336;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .problem {
+                font-size: 2.5rem;
+            }
+            
+            .answer-input {
+                font-size: 1.5rem;
+                width: 100px;
+            }
+            
+            .mode-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Matemáticas Divertidas 🌟</h1>
+        <p class="subtitle">¡Practica sumas y restas rápidas!</p>
+        
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="setMode('suma')">
+                ➕ Sumas
+            </button>
+            <button class="mode-btn" onclick="setMode('resta')">
+                ➖ Restas
+            </button>
+            <button class="mode-btn" onclick="setMode('mixto')">
+                🎲 Mixto
+            </button>
+        </div>
+        
+        <div class="game-area">
+            <div class="problem" id="problem">5 + 3 = ?</div>
+            <div>
+                <input type="number" class="answer-input" id="answer" placeholder="?" min="0" max="18">
+                <button class="check-btn" onclick="checkAnswer()">¡Comprobar!</button>
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <button class="new-problem-btn" onclick="generateProblem()">Nuevo Problema</button>
+        </div>
+        
+        <div class="timer-section">
+            <div class="timer-display">
+                <span class="timer-label">⏱️ Tiempo:</span>
+                <span class="timer-time" id="timer">00:00</span>
+            </div>
+            <div class="timer-controls">
+                <button class="timer-btn" id="start-btn" onclick="startTimer()">▶️ Iniciar</button>
+                <button class="timer-btn" id="pause-btn" onclick="pauseTimer()" style="display: none;">⏸️ Pausar</button>
+                <button class="timer-btn" onclick="resetTimer()">🔄 Reiniciar</button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item correct-stat">
+                <div class="stat-number" id="correct-count">0</div>
+                <div class="stat-label">✅ Correctas</div>
+            </div>
+            <div class="stat-item incorrect-stat">
+                <div class="stat-number" id="incorrect-count">0</div>
+                <div class="stat-label">❌ Incorrectas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="total-count">0</div>
+                <div class="stat-label">📊 Total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="percentage">0%</div>
+                <div class="stat-label">🎯 Aciertos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="streak">0</div>
+                <div class="stat-label">🔥 Racha</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'suma';
+        let currentProblem = {};
+        let stats = {
+            correct: 0,
+            incorrect: 0,
+            total: 0,
+            streak: 0
+        };
+        
+        let timer = {
+            seconds: 0,
+            minutes: 0,
+            interval: null,
+            isRunning: false
+        };
+
+        function setMode(mode) {
+            currentMode = mode;
+            
+            // Update button styles
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            generateProblem();
+            clearFeedback();
+        }
+
+        function generateProblem() {
+            let num1, num2, operation, answer;
+            
+            if (currentMode === 'suma') {
+                num1 = Math.floor(Math.random() * 9) + 1;
+                num2 = Math.floor(Math.random() * 9) + 1;
+                operation = '+';
+                answer = num1 + num2;
+            } else if (currentMode === 'resta') {
+                num1 = Math.floor(Math.random() * 9) + 1;
+                num2 = Math.floor(Math.random() * num1) + 1;
+                operation = '-';
+                answer = num1 - num2;
+            } else { // mixto
+                if (Math.random() < 0.5) {
+                    num1 = Math.floor(Math.random() * 9) + 1;
+                    num2 = Math.floor(Math.random() * 9) + 1;
+                    operation = '+';
+                    answer = num1 + num2;
+                } else {
+                    num1 = Math.floor(Math.random() * 9) + 1;
+                    num2 = Math.floor(Math.random() * num1) + 1;
+                    operation = '-';
+                    answer = num1 - num2;
+                }
+            }
+            
+            currentProblem = { num1, num2, operation, answer };
+            
+            document.getElementById('problem').textContent = `${num1} ${operation} ${num2} = ?`;
+            document.getElementById('answer').value = '';
+            document.getElementById('answer').focus();
+            clearFeedback();
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const feedbackEl = document.getElementById('feedback');
+            
+            if (isNaN(userAnswer)) {
+                feedbackEl.innerHTML = '🤔 ¡Escribe un número!';
+                feedbackEl.className = 'feedback incorrect';
+                return;
+            }
+            
+            stats.total++;
+            
+            if (userAnswer === currentProblem.answer) {
+                stats.correct++;
+                stats.streak++;
+                feedbackEl.innerHTML = `🎉 ¡Correcto! <span class="emoji">⭐</span>`;
+                feedbackEl.className = 'feedback correct';
+                
+                // Auto-generate new problem after correct answer
+                setTimeout(() => {
+                    generateProblem();
+                }, 1500);
+            } else {
+                stats.incorrect++;
+                stats.streak = 0;
+                feedbackEl.innerHTML = `❌ No es correcto. La respuesta es ${currentProblem.answer} <span class="emoji">💪</span>`;
+                feedbackEl.className = 'feedback incorrect';
+            }
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('correct-count').textContent = stats.correct;
+            document.getElementById('incorrect-count').textContent = stats.incorrect;
+            document.getElementById('total-count').textContent = stats.total;
+            document.getElementById('streak').textContent = stats.streak;
+            
+            const percentage = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+            document.getElementById('percentage').textContent = percentage + '%';
+        }
+
+        function clearFeedback() {
+            document.getElementById('feedback').innerHTML = '';
+            document.getElementById('feedback').className = 'feedback';
+        }
+
+        // Allow Enter key to check answer
+        document.getElementById('answer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        function startTimer() {
+            if (!timer.isRunning) {
+                timer.isRunning = true;
+                timer.interval = setInterval(updateTimer, 1000);
+                document.getElementById('start-btn').style.display = 'none';
+                document.getElementById('pause-btn').style.display = 'inline-block';
+            }
+        }
+        
+        function pauseTimer() {
+            if (timer.isRunning) {
+                timer.isRunning = false;
+                clearInterval(timer.interval);
+                document.getElementById('start-btn').style.display = 'inline-block';
+                document.getElementById('pause-btn').style.display = 'none';
+            }
+        }
+        
+        function resetTimer() {
+            timer.isRunning = false;
+            clearInterval(timer.interval);
+            timer.seconds = 0;
+            timer.minutes = 0;
+            updateTimerDisplay();
+            document.getElementById('start-btn').style.display = 'inline-block';
+            document.getElementById('pause-btn').style.display = 'none';
+            
+            // Reset stats too
+            stats.correct = 0;
+            stats.incorrect = 0;
+            stats.total = 0;
+            stats.streak = 0;
+            updateStats();
+            generateProblem();
+        }
+        
+        function updateTimer() {
+            timer.seconds++;
+            if (timer.seconds >= 60) {
+                timer.seconds = 0;
+                timer.minutes++;
+            }
+            updateTimerDisplay();
+        }
+        
+        function updateTimerDisplay() {
+            const displayMinutes = timer.minutes.toString().padStart(2, '0');
+            const displaySeconds = timer.seconds.toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${displayMinutes}:${displaySeconds}`;
+        }
+
+        // Initialize with first problem
+        generateProblem();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dcd3ae4a4d781',t:'MTc2NDg3NzUwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

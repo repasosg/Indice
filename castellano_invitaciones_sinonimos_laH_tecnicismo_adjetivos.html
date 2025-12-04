@@ -1,0 +1,1571 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica de Castellano 5º Primaria</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gradient-to-br from-purple-400 via-pink-300 to-blue-400 font-sans">
+  <div class="min-h-full p-4"><!-- Header -->
+   <header class="text-center mb-8">
+    <h1 id="main-title" class="text-4xl font-bold text-white mb-2 drop-shadow-lg">Práctica de Castellano</h1>
+    <p id="subtitle" class="text-xl text-white/90 drop-shadow">5º de Primaria</p>
+    <div class="mt-4 bg-white/20 backdrop-blur-sm rounded-lg p-3 inline-block">
+     <p class="text-white font-medium">¡Puntuación total: <span id="total-score" class="font-bold">0</span> puntos!</p>
+    </div>
+   </header><!-- Navigation -->
+   <nav class="flex flex-wrap justify-center gap-3 mb-8"><button onclick="showSection('invitacion')" class="nav-btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 px-4 py-2 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"> 📧 Invitaciones </button> <button onclick="showSection('sinonimos')" class="nav-btn bg-green-400 hover:bg-green-500 text-green-900 px-4 py-2 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"> 🔤 Sinónimos y Polisemia </button> <button onclick="showSection('h')" class="nav-btn bg-blue-400 hover:bg-blue-500 text-blue-900 px-4 py-2 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"> ✏️ La H </button> <button onclick="showSection('tecnicismos')" class="nav-btn bg-red-400 hover:bg-red-500 text-red-900 px-4 py-2 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"> 🔬 Tecnicismos </button> <button onclick="showSection('adjetivos')" class="nav-btn bg-pink-400 hover:bg-pink-500 text-pink-900 px-4 py-2 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"> 📝 Tipos de Adjetivos </button> <button onclick="showSection('estadisticas')" class="nav-btn bg-purple-400 hover:bg-purple-500 text-purple-900 px-4 py-2 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"> 📊 Estadísticas </button>
+   </nav><!-- Sections -->
+   <main class="max-w-4xl mx-auto"><!-- Invitaciones Section -->
+    <section id="invitacion-section" class="section hidden bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+     <h2 class="text-3xl font-bold text-yellow-800 mb-6 text-center">📧 Elementos de una Invitación</h2><!-- Elementos de una invitación -->
+     <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-5 rounded-xl mb-6 border-2 border-yellow-300">
+      <h3 class="text-2xl font-bold text-yellow-800 mb-4 text-center">📋 Los 8 Elementos Principales</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">1️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Encabezado o saludo</h4>
+          <p class="text-sm text-gray-600">Ejemplo: ¡Te invito a mi cumpleaños!</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">2️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Nombre de quien invita</h4>
+          <p class="text-sm text-gray-600">Ejemplo: Marcos te invita…</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">3️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Motivo de la invitación</h4>
+          <p class="text-sm text-gray-600">Ejemplo: para celebrar mi fiesta de cumpleaños</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">4️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Fecha</h4>
+          <p class="text-sm text-gray-600">Día, mes y año</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">5️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Hora</h4>
+          <p class="text-sm text-gray-600">Ejemplo: a las 17:00 h.</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">6️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Lugar</h4>
+          <p class="text-sm text-gray-600">Dirección o sitio del evento</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">7️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Mensaje especial (opcional)</h4>
+          <p class="text-sm text-gray-600">Ejemplo: ¡No faltes!, Será muy divertido</p>
+         </div>
+        </div>
+       </div>
+       <div class="bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex items-start gap-2"><span class="text-2xl">8️⃣</span>
+         <div>
+          <h4 class="font-bold text-yellow-700">Nombre o firma del remitente</h4>
+          <p class="text-sm text-gray-600">Ejemplo: Un abrazo, Ana / Atentamente, La Dirección</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300">
+       <h3 class="text-xl font-semibold text-yellow-700 mb-3 text-center">Invitación Informal</h3>
+       <div class="bg-white p-4 rounded border-2 border-dashed border-yellow-400 shadow-md">
+        <p class="font-bold text-lg text-center bg-yellow-100 p-2 rounded mb-3">¡Ven a mi cumpleaños! 🎉</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="bg-pink-100 px-2 py-1 rounded text-xs font-semibold">1. Saludo:</span> Hola María,</p>
+         <p><span class="bg-blue-100 px-2 py-1 rounded text-xs font-semibold">2. Quién invita:</span> Ana te invita</p>
+         <p><span class="bg-green-100 px-2 py-1 rounded text-xs font-semibold">3. Motivo:</span> a mi fiesta de cumpleaños</p>
+         <p><span class="bg-purple-100 px-2 py-1 rounded text-xs font-semibold">4. Fecha:</span> el sábado 15 de mayo</p>
+         <p><span class="bg-orange-100 px-2 py-1 rounded text-xs font-semibold">5. Hora:</span> a las 4 de la tarde</p>
+         <p><span class="bg-red-100 px-2 py-1 rounded text-xs font-semibold">6. Lugar:</span> en mi casa (Calle Luna 23)</p>
+         <p class="mt-3 italic"><span class="bg-yellow-100 px-2 py-1 rounded text-xs font-semibold">7. Mensaje:</span> ¡Habrá tarta y juegos!</p>
+         <p class="mt-3 text-right"><span class="bg-gray-100 px-2 py-1 rounded text-xs font-semibold">8. Firma:</span> Un abrazo, <strong>Ana</strong></p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-300">
+       <h3 class="text-xl font-semibold text-blue-700 mb-3 text-center">Invitación Formal</h3>
+       <div class="bg-white p-4 rounded border-2 border-solid border-blue-400 shadow-md">
+        <p class="font-bold text-lg text-center bg-blue-100 p-2 rounded mb-3">INVITACIÓN</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="bg-pink-100 px-2 py-1 rounded text-xs font-semibold">1. Saludo:</span> Estimada Sra. García,</p>
+         <p><span class="bg-blue-100 px-2 py-1 rounded text-xs font-semibold">2. Quién invita:</span> La Dirección del Centro</p>
+         <p><span class="bg-green-100 px-2 py-1 rounded text-xs font-semibold">3. Motivo:</span> tiene el honor de invitarla a la ceremonia de graduación</p>
+         <p><span class="bg-purple-100 px-2 py-1 rounded text-xs font-semibold">4. Fecha:</span> el día 20 de junio de 2024</p>
+         <p><span class="bg-orange-100 px-2 py-1 rounded text-xs font-semibold">5. Hora:</span> a las 18:00 horas</p>
+         <p><span class="bg-red-100 px-2 py-1 rounded text-xs font-semibold">6. Lugar:</span> en el Salón de Actos del colegio</p>
+         <p class="mt-4 text-right"><span class="bg-gray-100 px-2 py-1 rounded text-xs font-semibold">8. Firma:</span><br>
+           Atentamente,<br><strong>La Dirección del Centro</strong></p>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="mt-6 bg-gradient-to-r from-yellow-100 to-blue-100 p-4 rounded-lg">
+      <h4 class="font-semibold text-lg mb-4">🎯 Ejercicios sobre los Elementos de una Invitación</h4><!-- Contenedor de ejercicios dinámicos -->
+      <div id="invitacion-quiz-container" class="space-y-4"><!-- Los ejercicios se cargarán aqu���� dinámicamente -->
+      </div><!-- Botón para corregir -->
+      <div class="mt-6 text-center"><button id="check-invitacion-btn" onclick="checkInvitacionBatch()" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> ✅ Corregir ejercicios </button>
+      </div><!-- Resultado global -->
+      <div id="invitacion-global-result" class="mt-6 hidden"></div><!-- Botón para más ejercicios -->
+      <div id="more-invitacion-btn-container" class="mt-6 text-center hidden"><button onclick="loadMoreInvitacionExercises()" class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-6 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> 🎯 ¡Más ejercicios de invitaciones! </button>
+      </div>
+     </div>
+    </section><!-- Sinónimos y Polisemia Section -->
+    <section id="sinonimos-section" class="section hidden bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+     <h2 class="text-3xl font-bold text-green-800 mb-6 text-center">🔤 Sinónimos y Polisemia</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-green-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-green-700 mb-3">Sinónimos</h3>
+       <p class="mb-3">Palabras con <strong>significado similar</strong>:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         Casa = Hogar = Vivienda
+        </div>
+        <div class="bg-white p-2 rounded">
+         Grande = Enorme = Gigante
+        </div>
+        <div class="bg-white p-2 rounded">
+         Bonito = Hermoso = Bello
+        </div>
+       </div>
+      </div>
+      <div class="bg-purple-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-purple-700 mb-3">Polisemia</h3>
+       <p class="mb-3">Una palabra con <strong>varios significados</strong>:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         <strong>Banco:</strong> asiento / entidad financiera
+        </div>
+        <div class="bg-white p-2 rounded">
+         <strong>Hoja:</strong> de árbol / de papel
+        </div>
+        <div class="bg-white p-2 rounded">
+         <strong>Pico:</strong> de ave / de montaña
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="mt-6 bg-gradient-to-r from-green-100 to-purple-100 p-4 rounded-lg">
+      <h4 class="font-semibold text-lg mb-4">🎯 Ejercicios de Sinónimos y Polisemia</h4><!-- Contenedor de ejercicios dinámicos -->
+      <div id="sinonimos-quiz-container" class="space-y-4"><!-- Los ejercicios se cargarán aquí dinámicamente -->
+      </div><!-- Botón para corregir -->
+      <div class="mt-6 text-center"><button id="check-sinonimos-btn" onclick="checkSinonimosBatch()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> ✅ Corregir ejercicios </button>
+      </div><!-- Resultado global -->
+      <div id="sinonimos-global-result" class="mt-6 hidden"></div><!-- Botón para más ejercicios -->
+      <div id="more-sinonimos-btn-container" class="mt-6 text-center hidden"><button onclick="loadMoreSinonimosExercises()" class="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-6 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> 🔄 ¡Más ejercicios de sinónimos! </button>
+      </div>
+     </div>
+    </section><!-- La H Section -->
+    <section id="h-section" class="section hidden bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+     <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">���️ La H</h2>
+     <div class="bg-blue-50 p-4 rounded-lg mb-6">
+      <h3 class="text-xl font-semibold text-blue-700 mb-3">📚 Reglas principales</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+       <div class="bg-white p-3 rounded"><strong>Se escriben con H:</strong>
+        <ul class="mt-2 space-y-1">
+         <li>• Palabras que empiezan por hie-, hue-: hielo, huevo</li>
+         <li>• Formas del verbo haber: he, has, ha, hay</li>
+         <li>• Palabras que empiezan por hum-: humano</li>
+         <li>• Palabras que empiezan por hiper-, hipo-: hipermercado</li>
+        </ul>
+       </div>
+       <div class="bg-white p-3 rounded"><strong>Excepciones comunes:</strong>
+        <ul class="mt-2 space-y-1">
+         <li>• Algunas palabras con "ue" NO llevan H: hueco pero oquedad, hueso pero osario</li>
+         <li>• Algunas con "ie": hierba (también se acepta yerba)</li>
+         <li>• Palabras como: orfanato, oquedad, osamenta (sin H)</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <div class="bg-gradient-to-r from-blue-100 to-cyan-100 p-4 rounded-lg">
+      <h4 class="font-semibold text-lg mb-4">🎯 Ejercicio: Completa con H o sin H</h4><!-- Contenedor de ejercicios dinámicos -->
+      <div id="h-quiz-container" class="space-y-4"><!-- Los ejercicios se cargarán aquí dinámicamente -->
+      </div><!-- Botón para corregir -->
+      <div class="mt-6 text-center"><button id="check-h-btn" onclick="checkHBatch()" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> ✅ Corregir ejercicios </button>
+      </div><!-- Resultado global -->
+      <div id="h-global-result" class="mt-6 hidden"></div><!-- Botón para más ejercicios -->
+      <div id="more-h-btn-container" class="mt-6 text-center hidden"><button onclick="loadMoreHExercises()" class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> ✏️ ¡Más ejercicios de la H! </button>
+      </div>
+     </div>
+    </section><!-- Tecnicismos Section -->
+    <section id="tecnicismos-section" class="section hidden bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+     <h2 class="text-3xl font-bold text-red-800 mb-6 text-center">🔬 Tecnicismos y Neologismos</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-red-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-red-700 mb-3">Tecnicismos</h3>
+       <p class="mb-3">Palabras <strong>especializadas</strong> de una ciencia o profesión:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         <strong>Medicina:</strong> estetoscopio, diagnóstico
+        </div>
+        <div class="bg-white p-2 rounded">
+         <strong>Informática:</strong> software, hardware
+        </div>
+        <div class="bg-white p-2 rounded">
+         <strong>Cocina:</strong> emulsionar, flamear
+        </div>
+       </div>
+      </div>
+      <div class="bg-orange-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-orange-700 mb-3">Neologismos</h3>
+       <p class="mb-3">Palabras <strong>nuevas</strong> que aparecen en el idioma:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         <strong>Tecnología:</strong> selfie, hashtag
+        </div>
+        <div class="bg-white p-2 rounded">
+         <strong>Redes sociales:</strong> tuitear, bloguear
+        </div>
+        <div class="bg-white p-2 rounded">
+         <strong>Vida moderna:</strong> multitarea, wifi
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="mt-6 bg-gradient-to-r from-red-100 to-orange-100 p-4 rounded-lg">
+      <h4 class="font-semibold text-lg mb-4">🎯 Ejercicios de Tecnicismos y Neologismos</h4><!-- Contenedor de ejercicios dinámicos -->
+      <div id="tecnicismos-quiz-container" class="space-y-4"><!-- Los ejercicios se cargarán aquí dinámicamente -->
+      </div><!-- Botón para corregir -->
+      <div class="mt-6 text-center"><button id="check-tecnicismos-btn" onclick="checkTecnicismosBatch()" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> ✅ Corregir ejercicios </button>
+      </div><!-- Resultado global -->
+      <div id="tecnicismos-global-result" class="mt-6 hidden"></div><!-- Botón para más ejercicios -->
+      <div id="more-tecnicismos-btn-container" class="mt-6 text-center hidden"><button onclick="loadMoreTecnicismosExercises()" class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-6 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> 🔬 ¡Más ejercicios de tecnicismos! </button>
+      </div>
+     </div>
+    </section><!-- Adjetivos Section -->
+    <section id="adjetivos-section" class="section hidden bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+     <h2 class="text-3xl font-bold text-pink-800 mb-6 text-center">📝 Tipos de Adjetivos</h2>
+     <div class="grid md:grid-cols-2 gap-6 mb-6"><!-- Adjetivos Calificativos -->
+      <div class="bg-pink-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-pink-700 mb-3">🎨 Adjetivos Calificativos</h3>
+       <p class="mb-3"><strong>Describen cualidades o características</strong></p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         Casa <span class="text-pink-600 font-bold">grande</span>
+        </div>
+        <div class="bg-white p-2 rounded">
+         Perro <span class="text-pink-600 font-bold">feliz</span>
+        </div>
+        <div class="bg-white p-2 rounded">
+         Cielo <span class="text-pink-600 font-bold">azul</span>
+        </div>
+       </div>
+      </div><!-- Adjetivos Demostrativos -->
+      <div class="bg-purple-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-purple-700 mb-3">👉 Adjetivos Demostrativos</h3>
+       <p class="mb-3"><strong>Indican cercanía o lejanía</strong></p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         <span class="text-purple-600 font-bold">Este</span> libro (cerca)
+        </div>
+        <div class="bg-white p-2 rounded">
+         <span class="text-purple-600 font-bold">Esa</span> mochila (media distancia)
+        </div>
+        <div class="bg-white p-2 rounded">
+         <span class="text-purple-600 font-bold">Aquella</span> casa (lejos)
+        </div>
+       </div>
+      </div><!-- Adjetivos Posesivos -->
+      <div class="bg-blue-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-blue-700 mb-3">👤 Adjetivos Posesivos</h3>
+       <p class="mb-3"><strong>Expresan posesión o pertenencia</strong></p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         <span class="text-blue-600 font-bold">Mi</span> bicicleta
+        </div>
+        <div class="bg-white p-2 rounded">
+         <span class="text-blue-600 font-bold">Tu</span> mochila
+        </div>
+        <div class="bg-white p-2 rounded">
+         <span class="text-blue-600 font-bold">Nuestro</span> perro
+        </div>
+       </div>
+      </div><!-- Adjetivos Numerales -->
+      <div class="bg-orange-50 p-4 rounded-lg">
+       <h3 class="text-xl font-semibold text-orange-700 mb-3">🔢 Adjetivos Numerales</h3>
+       <p class="mb-3"><strong>Indican cantidad o orden</strong></p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded">
+         <span class="text-orange-600 font-bold">Dos</span> libros (cantidad)
+        </div>
+        <div class="bg-white p-2 rounded">
+         <span class="text-orange-600 font-bold">Tercer</span> lugar (orden)
+        </div>
+        <div class="bg-white p-2 rounded">
+         <span class="text-orange-600 font-bold">Cinco</span> galletas (cantidad)
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-lg">
+      <h4 class="font-semibold text-lg mb-4">🎯 Ejercicios de Adjetivos</h4><!-- Contenedor de ejercicios dinámicos -->
+      <div id="adjetivos-quiz-container" class="space-y-4"><!-- Los ejercicios se cargarán aquí dinámicamente -->
+      </div><!-- Botón para corregir -->
+      <div class="mt-6 text-center"><button id="check-adjetivos-btn" onclick="checkAdjetivosBatch()" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> ✅ Corregir ejercicios </button>
+      </div><!-- Resultado global -->
+      <div id="adjetivos-global-result" class="mt-6 hidden"></div><!-- Botón para más ejercicios -->
+      <div id="more-adjetivos-btn-container" class="mt-6 text-center hidden"><button onclick="loadMoreAdjetivosExercises()" class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 py-3 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-200 shadow-lg"> 📝 ¡Más ejercicios de adjetivos! </button>
+      </div>
+     </div>
+    </section><!-- Estadísticas Section -->
+    <section id="estadisticas-section" class="section hidden bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+     <h2 class="text-3xl font-bold text-purple-800 mb-6 text-center">📊 Tus Estadísticas</h2>
+     <div id="stats-content" class="text-center">
+      <p class="text-lg text-gray-600 mb-4">¡Completa algunos ejercicios para ver tus estadísticas!</p>
+      <div id="stats-list" class="space-y-3"></div>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script>
+        // Configuration and SDK setup
+        const defaultConfig = {
+            main_title: "Práctica de Castellano",
+            subtitle: "5º de Primaria"
+        };
+
+        let currentStats = [];
+        let totalScore = 0;
+
+        // H quiz data
+        const hWords = [
+            { word: "_ielo", correct: "hielo", rule: "Palabras que empiezan por hie-" },
+            { word: "_uevo", correct: "huevo", rule: "Palabras que empiezan por hue-" },
+            { word: "_ay", correct: "hay", rule: "Formas del verbo haber" },
+            { word: "_umano", correct: "humano", rule: "Palabras que empiezan por hum-" },
+            { word: "_ormiga", correct: "hormiga", rule: "Palabras que empiezan por hor-" },
+            { word: "_ola", correct: "ola", rule: "Esta palabra NO lleva H" },
+            { word: "_ierba", correct: "hierba", rule: "Palabras que empiezan por hie-" },
+            { word: "_ueso", correct: "hueso", rule: "Palabras que empiezan por hue-" },
+            { word: "_e", correct: "he", rule: "Formas del verbo haber" },
+            { word: "_úmedo", correct: "húmedo", rule: "Palabras que empiezan por hum-" },
+            { word: "_ipopótamo", correct: "hipopótamo", rule: "Palabras que empiezan por hipo-" },
+            { word: "_orno", correct: "horno", rule: "Palabras que empiezan por hor-" },
+            { word: "_uelga", correct: "huelga", rule: "Palabras que empiezan por hue-" },
+            { word: "_abía", correct: "había", rule: "Formas del verbo haber" },
+            { word: "_ijo", correct: "hijo", rule: "Palabras que empiezan por hij-" },
+            { word: "_ola", correct: "ola", rule: "Esta palabra NO lleva H (excepción)" },
+            { word: "_uir", correct: "huir", rule: "Palabras que empiezan por hui-" },
+            { word: "_ospital", correct: "hospital", rule: "Palabras que empiezan por hos-" }
+        ];
+
+        // Data SDK setup
+        const dataHandler = {
+            onDataChanged(data) {
+                currentStats = data;
+                updateStatsDisplay();
+                updateTotalScore();
+            }
+        };
+
+        // Element SDK setup
+        const elementConfig = {
+            defaultConfig,
+            onConfigChange: async (config) => {
+                const mainTitle = document.getElementById('main-title');
+                const subtitle = document.getElementById('subtitle');
+                
+                if (mainTitle) {
+                    mainTitle.textContent = config.main_title || defaultConfig.main_title;
+                }
+                if (subtitle) {
+                    subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+                }
+            },
+            mapToCapabilities: (config) => ({
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            }),
+            mapToEditPanelValues: (config) => new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle]
+            ])
+        };
+
+        // Initialize SDKs
+        async function initializeApp() {
+            try {
+                if (window.dataSdk) {
+                    const initResult = await window.dataSdk.init(dataHandler);
+                    if (!initResult.isOk) {
+                        console.error("Failed to initialize data SDK");
+                    }
+                }
+
+                if (window.elementSdk) {
+                    await window.elementSdk.init(elementConfig);
+                }
+
+                // Load initial exercises for all sections
+                loadInvitacionExercises();
+                loadSinonimosExercises();
+                loadHExercises();
+                loadTecnicismosExercises();
+                loadAdjetivosExercises();
+                
+                // Show first section
+                showSection('invitacion');
+            } catch (error) {
+                console.error("Error initializing app:", error);
+            }
+        }
+
+        // Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.classList.add('bounce-in');
+            }
+
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-white');
+            });
+            event.target.classList.add('ring-2', 'ring-white');
+        }
+
+        // Save score function
+        async function saveScore(section, score, total) {
+            if (!window.dataSdk) return;
+
+            const scoreData = {
+                section: section,
+                score: score,
+                total_questions: total,
+                timestamp: new Date().toISOString()
+            };
+
+            const result = await window.dataSdk.create(scoreData);
+            if (result.isOk) {
+                totalScore += score;
+                updateTotalScore();
+            }
+        }
+
+        function updateTotalScore() {
+            const totalScoreElement = document.getElementById('total-score');
+            if (totalScoreElement) {
+                const total = currentStats.reduce((sum, stat) => sum + stat.score, 0);
+                totalScoreElement.textContent = total;
+            }
+        }
+
+        function updateStatsDisplay() {
+            const statsList = document.getElementById('stats-list');
+            if (!statsList) return;
+
+            if (currentStats.length === 0) {
+                statsList.innerHTML = '<p class="text-gray-500">No hay estadísticas aún. ¡Completa algunos ejercicios!</p>';
+                return;
+            }
+
+            const statsHtml = currentStats.map(stat => {
+                const date = new Date(stat.timestamp).toLocaleDateString('es-ES');
+                const percentage = Math.round((stat.score / stat.total_questions) * 100);
+                return `
+                    <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold">${stat.section}</span>
+                            <span class="text-sm text-gray-600">${date}</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="text-lg font-bold text-purple-600">${stat.score}/${stat.total_questions}</span>
+                            <span class="ml-2 text-sm">(${percentage}%)</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            statsList.innerHTML = statsHtml;
+        }
+
+        // Frases motivadoras
+        const frasesMotivadonas = [
+            "¡Increíble! 🌟 ¡Sigue así!",
+            "¡Eres una campeona! 💪",
+            "¡Excelente trabajo! 🎉",
+            "¡Lo estás haciendo genial! ⭐",
+            "¡Qué bien lo haces! 🚀",
+            "¡Sigue adelante! 💫",
+            "¡Vas por muy buen camino! 🌈",
+            "¡Fantástica! 🎯",
+            "¡Eres una estrella! ✨",
+            "¡Magnífico esfuerzo! 🏆",
+            "¡Brava! 👏",
+            "¡Cada vez mejor! 📈",
+            "¡Impresionante! 🌟",
+            "¡Qué bien aprendes! 📚",
+            "¡Sigue brillando! 💎"
+        ];
+
+        function getFraseMotivadora() {
+            return frasesMotivadonas[Math.floor(Math.random() * frasesMotivadonas.length)];
+        }
+
+        // Bancos de ejercicios
+        
+        // Banco de ejercicios de sinónimos
+        const sinonimosExercises = [
+            {
+                question: "¿Cuál es sinónimo de 'ALEGRE'?",
+                options: ["Triste", "Feliz", "Enfadado"],
+                correct: 1,
+                explanation: "'Alegre' y 'Feliz' son sinónimos, significan lo mismo."
+            },
+            {
+                question: "Encuentra el sinónimo de 'RÁPIDO':",
+                options: ["Veloz", "Lento", "Pesado"],
+                correct: 0,
+                explanation: "'Rápido' y 'Veloz' significan lo mismo."
+            },
+            {
+                question: "La palabra 'RATÓN' tiene varios significados. ¿Cuáles son?",
+                options: ["Animal roedor / Dispositivo de ordenador", "Solo significa animal"],
+                correct: 0,
+                explanation: "'Ratón' es polisemia: animal roedor y dispositivo informático."
+            },
+            {
+                question: "¿Cuál es sinónimo de 'DIFÍCIL'?",
+                options: ["Complicado", "Fácil", "Simple"],
+                correct: 0,
+                explanation: "'Difícil' y 'Complicado' son sinónimos."
+            },
+            {
+                question: "'PICO' es una palabra polisémica. ¿Cuáles son sus significados?",
+                options: ["De ave / De montaña / Herramienta", "Solo significa parte de un ave"],
+                correct: 0,
+                explanation: "'Pico' tiene múltiples significados: de ave, de montaña y herramienta."
+            },
+            {
+                question: "Sinónimo de 'HERMOSO':",
+                options: ["Feo", "Bello", "Horrible"],
+                correct: 1,
+                explanation: "'Hermoso' y 'Bello' son sinónimos."
+            },
+            {
+                question: "¿Cuál es sinónimo de 'COMENZAR'?",
+                options: ["Empezar", "Terminar", "Acabar"],
+                correct: 0,
+                explanation: "'Comenzar' y 'Empezar' significan lo mismo."
+            },
+            {
+                question: "'GATO' es polisemia: ¿Qué significados tiene?",
+                options: ["Animal / Herramienta para levantar coches", "Solo significa el animal"],
+                correct: 0,
+                explanation: "'Gato' significa tanto el animal como la herramienta mecánica."
+            },
+            {
+                question: "¿Cuál NO es sinónimo de 'GRANDE'?",
+                options: ["Enorme", "Gigante", "Pequeño"],
+                correct: 2,
+                explanation: "'Pequeño' es antónimo de 'Grande', no sinónimo."
+            },
+            {
+                question: "Sinónimo de 'VALIENTE':",
+                options: ["Valeroso", "Cobarde", "Miedoso"],
+                correct: 0,
+                explanation: "'Valiente' y 'Valeroso' son sinónimos."
+            },
+            {
+                question: "'HOJA' es polisémica. ¿Qué significa en 'Lee la primera hoja del libro'?",
+                options: ["Página de papel", "Hoja de un árbol"],
+                correct: 0,
+                explanation: "En este contexto, 'hoja' significa página de papel."
+            },
+            {
+                question: "¿Cuál es sinónimo de 'CONTENTO'?",
+                options: ["Triste", "Alegre", "Enfadado"],
+                correct: 1,
+                explanation: "'Contento' y 'Alegre' son sinónimos."
+            },
+            {
+                question: "'VELA' tiene varios significados:",
+                options: ["Objeto para iluminar / Tela de barco", "Solo significa objeto de cera"],
+                correct: 0,
+                explanation: "'Vela' es polisémica: objeto de cera para iluminar y tela de barco."
+            },
+            {
+                question: "Sinónimo de 'PEQUE��O':",
+                options: ["Diminuto", "Grande", "Enorme"],
+                correct: 0,
+                explanation: "'Pequeño' y 'Diminuto' son sinónimos."
+            },
+            {
+                question: "¿Cuál es sinónimo de 'MIRAR'?",
+                options: ["Observar", "Escuchar", "Tocar"],
+                correct: 0,
+                explanation: "'Mirar' y 'Observar' son sinónimos."
+            },
+            {
+                question: "'LIMA' es polisémica:",
+                options: ["Fruta / Herramienta / Ciudad", "Solo significa la fruta"],
+                correct: 0,
+                explanation: "'Lima' tiene varios significados: fruta cítrica, herramienta para limar, y ciudad."
+            },
+            {
+                question: "Sinónimo de 'HABLAR':",
+                options: ["Conversar", "Callar", "Silencio"],
+                correct: 0,
+                explanation: "'Hablar' y 'Conversar' son sinónimos."
+            },
+            {
+                question: "¿Cuál es sinónimo de 'FRÍO'?",
+                options: ["Caliente", "Gélido", "Caluroso"],
+                correct: 1,
+                explanation: "'Frío' y 'Gélido' son sinónimos."
+            },
+            {
+                question: "¿Cuál es sinónimo de 'ENOJADO'?",
+                options: ["Contento", "Enfadado", "Feliz"],
+                correct: 1,
+                explanation: "'Enojado' y 'Enfadado' son sinónimos."
+            },
+            {
+                question: "'BANCO' es polisemia:",
+                options: ["Asiento / Entidad financiera", "Solo significa asiento"],
+                correct: 0,
+                explanation: "'Banco' puede ser un asiento o una entidad financiera."
+            }
+        ];
+
+        // Banco de ejercicios de la H
+        const hExercises = [
+            { word: "_ielo", correct: "hielo", hasH: true, explanation: "Palabras que empiezan por hie- llevan H" },
+            { word: "_uevo", correct: "huevo", hasH: true, explanation: "Palabras que empiezan por hue- llevan H" },
+            { word: "_ay", correct: "hay", hasH: true, explanation: "Formas del verbo haber llevan H" },
+            { word: "_umano", correct: "humano", hasH: true, explanation: "Palabras que empiezan por hum- llevan H" },
+            { word: "_ormiga", correct: "hormiga", hasH: true, explanation: "Palabras que empiezan por hor- llevan H" },
+            { word: "_ierba", correct: "hierba", hasH: true, explanation: "Palabras que empiezan por hie- llevan H" },
+            { word: "_ueso", correct: "hueso", hasH: true, explanation: "Palabras que empiezan por hue- llevan H" },
+            { word: "_e", correct: "he", hasH: true, explanation: "Formas del verbo haber llevan H" },
+            { word: "_��medo", correct: "húmedo", hasH: true, explanation: "Palabras que empiezan por hum- llevan H" },
+            { word: "_ipopótamo", correct: "hipopótamo", hasH: true, explanation: "Palabras que empiezan por hipo- llevan H" },
+            { word: "_orno", correct: "horno", hasH: true, explanation: "Palabras que empiezan por hor- llevan H" },
+            { word: "_uelga", correct: "huelga", hasH: true, explanation: "Palabras que empiezan por hue- llevan H" },
+            { word: "_abía", correct: "había", hasH: true, explanation: "Formas del verbo haber llevan H" },
+            { word: "_ijo", correct: "hijo", hasH: true, explanation: "Palabras que empiezan por hij- llevan H" },
+            { word: "_uir", correct: "huir", hasH: true, explanation: "Palabras que empiezan por hui- llevan H" },
+            { word: "_ospital", correct: "hospital", hasH: true, explanation: "Palabras que empiezan por hos- llevan H" },
+            { word: "_ablar", correct: "hablar", hasH: true, explanation: "Formas del verbo haber y derivados llevan H" },
+            { word: "_uella", correct: "huella", hasH: true, explanation: "Palabras que empiezan por hue- llevan H" },
+            { word: "_iedra", correct: "hiedra", hasH: true, explanation: "Palabras que empiezan por hie- llevan H" },
+            { word: "_umilde", correct: "humilde", hasH: true, explanation: "Palabras que empiezan por hum- llevan H" }
+        ];
+
+        // Banco de ejercicios de tecnicismos
+        const tecnicismosExercises = [
+            {
+                question: "¿'Smartphone' es un tecnicismo o un neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 1,
+                explanation: "'Smartphone' es un neologismo, una palabra nueva que apareció con la tecnología."
+            },
+            {
+                question: "¿A qué campo pertenece el tecnicismo 'estetoscopio'?",
+                options: ["Medicina", "Informática", "Cocina"],
+                correct: 0,
+                explanation: "El estetoscopio es un instrumento médico."
+            },
+            {
+                question: "¿Cuál de estas es una característica de los neologismos?",
+                options: ["Son palabras muy antiguas", "Son palabras nuevas que aparecen en el idioma", "Solo las usan los médicos"],
+                correct: 1,
+                explanation: "Los neologismos son palabras nuevas incorporadas al idioma."
+            },
+            {
+                question: "¿A qué campo pertenece 'radiografía'?",
+                options: ["Cocina", "Medicina", "Informática"],
+                correct: 1,
+                explanation: "Radiografía es un tecnicismo médico."
+            },
+            {
+                question: "¿'Streaming' es un tecnicismo o neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 1,
+                explanation: "Streaming es un neologismo de la era digital."
+            },
+            {
+                question: "¿Cuál de estos es un tecnicismo de cocina?",
+                options: ["Saltear", "Caminar", "Estudiar"],
+                correct: 0,
+                explanation: "Saltear es un tecnicismo culinario."
+            },
+            {
+                question: "¿'Hashtag' es tecnicismo o neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 1,
+                explanation: "'Hashtag' es un neologismo de las redes sociales."
+            },
+            {
+                question: "¿A qué campo pertenece 'algoritmo'?",
+                options: ["Informática", "Medicina", "Cocina"],
+                correct: 0,
+                explanation: "'Algoritmo' es un tecnicismo informático."
+            },
+            {
+                question: "¿'Selfie' es qué tipo de palabra?",
+                options: ["Neologismo", "Tecnicismo", "Palabra antigua"],
+                correct: 0,
+                explanation: "'Selfie' es un neologismo moderno."
+            },
+            {
+                question: "¿A qué campo pertenece 'bisturí'?",
+                options: ["Medicina", "Cocina", "Informática"],
+                correct: 0,
+                explanation: "'Bisturí' es un tecnicismo médico."
+            },
+            {
+                question: "¿'Bloguear' es tecnicismo o neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 1,
+                explanation: "'Bloguear' es un neologismo de internet."
+            },
+            {
+                question: "¿A qué campo pertenece 'emulsionar'?",
+                options: ["Cocina", "Medicina", "Informática"],
+                correct: 0,
+                explanation: "'Emulsionar' es un tecnicismo de cocina."
+            },
+            {
+                question: "¿'Wifi' es tecnicismo o neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 1,
+                explanation: "'Wifi' es un neologismo tecnológico."
+            },
+            {
+                question: "¿A qué campo pertenece 'diagnóstico'?",
+                options: ["Medicina", "Cocina", "Informática"],
+                correct: 0,
+                explanation: "'Diagnóstico' es un tecnicismo médico."
+            },
+            {
+                question: "¿'Tuitear' es qué tipo de palabra?",
+                options: ["Neologismo", "Tecnicismo", "Palabra antigua"],
+                correct: 0,
+                explanation: "'Tuitear' es un neologismo de Twitter."
+            },
+            {
+                question: "¿A qué campo pertenece 'software'?",
+                options: ["Informática", "Medicina", "Cocina"],
+                correct: 0,
+                explanation: "'Software' es un tecnicismo informático."
+            },
+            {
+                question: "¿'Flamear' (en cocina) es tecnicismo o neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 0,
+                explanation: "'Flamear' es un tecnicismo culinario."
+            },
+            {
+                question: "¿A qué campo pertenece 'hardware'?",
+                options: ["Informática", "Medicina", "Cocina"],
+                correct: 0,
+                explanation: "'Hardware' es un tecnicismo informático."
+            },
+            {
+                question: "¿'Multitarea' es tecnicismo o neologismo?",
+                options: ["Tecnicismo", "Neologismo"],
+                correct: 1,
+                explanation: "'Multitarea' es un neologismo moderno."
+            },
+            {
+                question: "¿Cuál es un neologismo de redes sociales?",
+                options: ["Like", "Bisturí", "Humano"],
+                correct: 0,
+                explanation: "'Like' es un neologismo de redes sociales."
+            }
+        ];
+
+        // Banco de ejercicios de adjetivos
+        const adjetivosExercises = [
+            {
+                question: "¿Qué tipo de adjetivo es 'RÁPIDO' en 'coche rápido'?",
+                options: ["Calificativo", "Demostrativo", "Posesivo", "Numeral"],
+                correct: 0,
+                explanation: "'Rápido' es un adjetivo calificativo porque describe una cualidad."
+            },
+            {
+                question: "Identifica el adjetivo demostrativo: 'ESA mochila es nueva'",
+                options: ["Esa", "Mochila", "Nueva"],
+                correct: 0,
+                explanation: "'Esa' es el adjetivo demostrativo que indica distancia."
+            },
+            {
+                question: "En 'NUESTRO equipo ganó', ¿qué tipo de adjetivo es 'nuestro'?",
+                options: ["Calificativo", "Posesivo"],
+                correct: 1,
+                explanation: "'Nuestro' es posesivo, indica pertenencia."
+            },
+            {
+                question: "¿Cuál es un adjetivo numeral?",
+                options: ["Bonito", "Tres", "Este"],
+                correct: 1,
+                explanation: "'Tres' es numeral, indica cantidad."
+            },
+            {
+                question: "En 'AQUEL perro es muy GRANDE', ¿qué tipos de adjetivos hay?",
+                options: ["Aquel=Demostrativo, Grande=Calificativo", "Ambos son calificativos"],
+                correct: 0,
+                explanation: "'Aquel' indica lejanía y 'Grande' describe tamaño."
+            },
+            {
+                question: "¿Qué tipo de adjetivo es 'PRIMER' en 'primer lugar'?",
+                options: ["Numeral ordinal", "Calificativo"],
+                correct: 0,
+                explanation: "'Primer' es numeral ordinal, indica orden."
+            },
+            {
+                question: "Identifica el adjetivo posesivo: 'MI casa es grande'",
+                options: ["Mi", "Casa", "Grande"],
+                correct: 0,
+                explanation: "'Mi' es posesivo, indica que la casa me pertenece."
+            },
+            {
+                question: "¿Qué tipo es 'ESTE' en 'este libro'?",
+                options: ["Demostrativo", "Posesivo", "Calificativo"],
+                correct: 0,
+                explanation: "'Este' es demostrativo, indica cercanía."
+            },
+            {
+                question: "En 'SEGUNDO premio', ¿qué tipo es 'segundo'?",
+                options: ["Numeral ordinal", "Calificativo"],
+                correct: 0,
+                explanation: "'Segundo' es numeral ordinal, indica posición."
+            },
+            {
+                question: "¿Cuál es calificativo?",
+                options: ["Bonito", "Mi", "Este", "Dos"],
+                correct: 0,
+                explanation: "'Bonito' describe una cualidad, es calificativo."
+            },
+            {
+                question: "¿Qué tipo es 'TU' en 'tu perro'?",
+                options: ["Posesivo", "Demostrativo"],
+                correct: 0,
+                explanation: "'Tu' es posesivo, indica pertenencia."
+            },
+            {
+                question: "En 'AQUELLA casa', ¿qué tipo es 'aquella'?",
+                options: ["Demostrativo", "Posesivo"],
+                correct: 0,
+                explanation: "'Aquella' es demostrativo, indica lejanía."
+            },
+            {
+                question: "¿Cuál NO es adjetivo calificativo?",
+                options: ["Rápido", "Alto", "Nuestro"],
+                correct: 2,
+                explanation: "'Nuestro' es posesivo, no calificativo."
+            },
+            {
+                question: "En 'CINCO libros', ¿qué tipo es 'cinco'?",
+                options: ["Numeral cardinal", "Calificativo"],
+                correct: 0,
+                explanation: "'Cinco' es numeral cardinal, indica cantidad exacta."
+            },
+            {
+                question: "¿Qué tipo es 'HERMOSO'?",
+                options: ["Calificativo", "Demostrativo", "Posesivo"],
+                correct: 0,
+                explanation: "'Hermoso' describe una cualidad, es calificativo."
+            },
+            {
+                question: "En 'SUS zapatos', ¿qué tipo es 'sus'?",
+                options: ["Posesivo", "Demostrativo"],
+                correct: 0,
+                explanation: "'Sus' es posesivo, indica que los zapatos pertenecen a alguien."
+            },
+            {
+                question: "¿Cuál es demostrativo de cercanía?",
+                options: ["Este", "Ese", "Aquel"],
+                correct: 0,
+                explanation: "'Este' indica cercanía (aquí)."
+            },
+            {
+                question: "En 'TERCER día', ¿qué tipo es 'tercer'?",
+                options: ["Numeral ordinal", "Calificativo"],
+                correct: 0,
+                explanation: "'Tercer' es numeral ordinal, indica orden."
+            },
+            {
+                question: "¿Qué tipo es 'VERDE' en 'coche verde'?",
+                options: ["Calificativo", "Demostrativo"],
+                correct: 0,
+                explanation: "'Verde' describe el color, es calificativo."
+            },
+            {
+                question: "En 'ESE niño', ¿qué tipo es 'ese'?",
+                options: ["Demostrativo de distancia media", "Posesivo"],
+                correct: 0,
+                explanation: "'Ese' es demostrativo de distancia media (ahí)."
+            }
+        ];
+
+        // Banco de ejercicios de invitación
+        const invitacionExercises = [
+            {
+                question: "¿Cuántos elementos principales tiene una invitación completa?",
+                options: ["6 elementos", "7 elementos", "8 elementos"],
+                correct: 2,
+                explanation: "Una invitación completa tiene 8 elementos principales (el mensaje especial es opcional)."
+            },
+            {
+                question: "En 'Ana te invita a su cumpleaños', ¿qué elemento es 'Ana'?",
+                options: ["Nombre de quien invita", "Encabezado o saludo"],
+                correct: 0,
+                explanation: "'Ana' es el elemento 2: nombre de quien invita."
+            },
+            {
+                question: "¿Qué elemento falta en esta invitación? 'Hola Juan, te invito a mi fiesta el sábado 20 de mayo. ¡No faltes! Saludos, María'",
+                options: ["La fecha", "La hora y el lugar", "El saludo"],
+                correct: 1,
+                explanation: "Faltan la hora y el lugar. Solo dice la fecha pero no dice a qué hora ni dónde."
+            },
+            {
+                question: "¿Cuál es el elemento 3 de una invitación?",
+                options: ["La fecha", "El motivo de la invitación"],
+                correct: 1,
+                explanation: "El elemento 3 es el motivo de la invitación (¿para qué te invitan?)."
+            },
+            {
+                question: "Identifica el elemento: '¡No faltes! Será muy divertido'",
+                options: ["Encabezado", "Mensaje especial", "Motivo"],
+                correct: 1,
+                explanation: "'¡No faltes! Será muy divertido' es el mensaje especial (elemento 7), que es opcional."
+            },
+            {
+                question: "¿Qué información debe incluir el elemento 'LUGAR'?",
+                options: ["La dirección o sitio del evento", "El día y la hora"],
+                correct: 0,
+                explanation: "El lugar debe indicar la dirección o el sitio donde será el evento."
+            },
+            {
+                question: "¿Cuál de estos es un encabezado apropiado para una invitación?",
+                options: ["¡Estás invitado a mi fiesta!", "Calle Mayor 45"],
+                correct: 0,
+                explanation: "El encabezado debe invitar de forma clara y amigable."
+            },
+            {
+                question: "Si falta la HORA en una invitación, ¿qué problema hay?",
+                options: ["Los invitados no sabrán a qué hora llegar", "No es importante la hora"],
+                correct: 0,
+                explanation: "Sin la hora, los invitados no sabrán cuándo llegar exactamente."
+            },
+            {
+                question: "¿Qué tipo de invitación usarías para un cumpleaños infantil?",
+                options: ["Informal y divertida", "Muy formal y seria"],
+                correct: 0,
+                explanation: "Los cumpleaños infantiles usan invitaciones informales y alegres."
+            },
+            {
+                question: "En 'Carlos te invita', ¿cuál es el elemento 2?",
+                options: ["Carlos (nombre)", "te invita", "Todo junto"],
+                correct: 0,
+                explanation: "'Carlos' es el nombre de quien invita (elemento 2)."
+            },
+            {
+                question: "¿El mensaje especial es obligatorio en una invitación?",
+                options: ["Sí, siempre es obligatorio", "No, es opcional"],
+                correct: 1,
+                explanation: "El mensaje especial es opcional, no obligatorio."
+            },
+            {
+                question: "Identifica el MOTIVO: 'Te invito a celebrar mi graduación'",
+                options: ["Celebrar mi graduación", "Te invito"],
+                correct: 0,
+                explanation: "El motivo es 'celebrar mi graduación'."
+            },
+            {
+                question: "¿Cómo debe escribirse la FECHA correctamente?",
+                options: ["Día, mes y año completos", "Solo el día"],
+                correct: 0,
+                explanation: "La fecha debe incluir día, mes y año para evitar confusiones."
+            },
+            {
+                question: "¿Qué saludo es más formal?",
+                options: ["Estimada señora García", "Hola amiga"],
+                correct: 0,
+                explanation: "'Estimada señora García' es formal y respetuoso."
+            },
+            {
+                question: "¿Qué es el elemento 8 de una invitación?",
+                options: ["El lugar", "Nombre o firma del remitente", "La hora"],
+                correct: 1,
+                explanation: "El elemento 8 es el nombre o firma del remitente (quien envía la invitación)."
+            },
+            {
+                question: "¿Cuál es la diferencia principal entre una invitación formal e informal?",
+                options: ["El color del papel", "El lenguaje y tratamiento usado", "El tamaño de la letra"],
+                correct: 1,
+                explanation: "El lenguaje formal usa tratamientos corteses como 'Estimado/a' mientras que el informal usa saludos cercanos."
+            },
+            {
+                question: "¿Qué información NO puede faltar en una invitación?",
+                options: ["El menú de la comida", "Fecha, hora y lugar", "El número de teléfono"],
+                correct: 1,
+                explanation: "Toda invitación debe incluir fecha, hora y lugar."
+            },
+            {
+                question: "¿Cuál de estos saludos es apropiado para una invitación de boda?",
+                options: ["¡Ey, qué tal!", "Estimados señores", "Hola guapo"],
+                correct: 1,
+                explanation: "Las bodas requieren invitaciones formales con tratamientos respetuosos."
+            },
+            {
+                question: "¿Qué formato de hora es correcto?",
+                options: ["A las 17:00 horas", "Algún día por la tarde"],
+                correct: 0,
+                explanation: "La hora debe ser específica con formato claro."
+            },
+            {
+                question: "¿Cuántos elementos son obligatorios como mínimo?",
+                options: ["7 elementos (salvo mensaje especial)", "Solo 3 elementos"],
+                correct: 0,
+                explanation: "Los 7 primeros elementos son obligatorios, el mensaje especial (elemento 7) es opcional."
+            }
+        ];
+
+        // Índices y respuestas para cada sección
+        let currentInvitacionIndex = 0;
+        let currentSinonimosIndex = 0;
+        let currentHIndex = 0;
+        let currentTecnicismosIndex = 0;
+        let currentAdjetivosIndex = 0;
+
+        let invitacionAnswers = {};
+        let sinonimosAnswers = {};
+        let hAnswers = {};
+        let tecnicismosAnswers = {};
+        let adjetivosAnswers = {};
+
+        // FUNCIONES DE SINÓNIMOS
+        function loadSinonimosExercises() {
+            const container = document.getElementById('sinonimos-quiz-container');
+            const exercises = sinonimosExercises.slice(currentSinonimosIndex, currentSinonimosIndex + 5);
+            
+            const html = exercises.map((ex, index) => {
+                const globalIndex = currentSinonimosIndex + index;
+                return `
+                    <div class="bg-white p-4 rounded-lg" data-question="${globalIndex}">
+                        <p class="font-medium mb-3">${index + 1}. ${ex.question}</p>
+                        <div class="grid gap-2" style="grid-template-columns: repeat(${ex.options.length > 2 ? 3 : 2}, 1fr);">
+                            ${ex.options.map((option, optIndex) => `
+                                <button onclick="selectSinonimosAnswer(${globalIndex}, ${optIndex})" 
+                                        class="sinonimos-option bg-gray-50 hover:bg-gray-100 p-3 rounded border text-left text-sm"
+                                        data-question="${globalIndex}" data-option="${optIndex}">
+                                    ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="sinonimos-feedback-${globalIndex}" class="mt-3 p-3 rounded hidden"></div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
+            sinonimosAnswers = {};
+        }
+
+        function selectSinonimosAnswer(questionIndex, optionIndex) {
+            sinonimosAnswers[questionIndex] = optionIndex;
+            
+            const buttons = document.querySelectorAll(`.sinonimos-option[data-question="${questionIndex}"]`);
+            buttons.forEach((btn, idx) => {
+                if (idx === optionIndex) {
+                    btn.classList.remove('bg-gray-50', 'hover:bg-gray-100');
+                    btn.classList.add('bg-blue-200', 'border-blue-500', 'border-2');
+                } else {
+                    btn.classList.remove('bg-blue-200', 'border-blue-500', 'border-2');
+                    btn.classList.add('bg-gray-50', 'hover:bg-gray-100');
+                }
+            });
+        }
+
+        function checkSinonimosBatch() {
+            let correct = 0;
+            const total = Math.min(5, sinonimosExercises.length - currentSinonimosIndex);
+            
+            for (let i = 0; i < total; i++) {
+                const globalIndex = currentSinonimosIndex + i;
+                const exercise = sinonimosExercises[globalIndex];
+                const userAnswer = sinonimosAnswers[globalIndex];
+                const feedback = document.getElementById(`sinonimos-feedback-${globalIndex}`);
+                
+                feedback.classList.remove('hidden');
+                
+                if (userAnswer === exercise.correct) {
+                    feedback.className = 'mt-3 p-3 rounded bg-green-100 text-green-800';
+                    feedback.innerHTML = `✅ ¡Correcto! ${exercise.explanation}`;
+                    correct++;
+                } else {
+                    feedback.className = 'mt-3 p-3 rounded bg-red-100 text-red-800';
+                    feedback.innerHTML = `❌ Incorrecto. ${exercise.explanation}`;
+                }
+            }
+            
+            const globalResult = document.getElementById('sinonimos-global-result');
+            globalResult.classList.remove('hidden');
+            globalResult.className = 'mt-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 to-blue-100 text-center';
+            globalResult.innerHTML = `
+                <h4 class="font-bold text-2xl mb-2">Resultado: ${correct}/${total}</h4>
+                <p class="text-lg">${correct === total ? '🎉 ¡Perfecto! Dominas sinónimos y polisemia.' : `💪 ¡Bien! Has acertado ${correct} de ${total}.`}</p>
+                <p class="text-xl font-bold mt-3 text-purple-700">${getFraseMotivadora()}</p>
+            `;
+            
+            document.getElementById('check-sinonimos-btn').classList.add('hidden');
+            if (currentSinonimosIndex + 5 < sinonimosExercises.length) {
+                document.getElementById('more-sinonimos-btn-container').classList.remove('hidden');
+            }
+            
+            saveScore('Sinónimos', correct, total);
+        }
+
+        function loadMoreSinonimosExercises() {
+            currentSinonimosIndex += 5;
+            loadSinonimosExercises();
+            
+            document.getElementById('sinonimos-global-result').classList.add('hidden');
+            document.getElementById('check-sinonimos-btn').classList.remove('hidden');
+            document.getElementById('more-sinonimos-btn-container').classList.add('hidden');
+            
+            document.getElementById('sinonimos-quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // FUNCIONES DE LA H
+        function loadHExercises() {
+            const container = document.getElementById('h-quiz-container');
+            const exercises = hExercises.slice(currentHIndex, currentHIndex + 5);
+            
+            const html = exercises.map((ex, index) => {
+                const globalIndex = currentHIndex + index;
+                return `
+                    <div class="bg-white p-4 rounded-lg" data-question="${globalIndex}">
+                        <p class="font-medium mb-3">${index + 1}. Completa la palabra: <strong>${ex.word}</strong></p>
+                        <div class="flex gap-2">
+                            <button onclick="selectHAnswer(${globalIndex}, 'con')" 
+                                    class="h-option bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded border"
+                                    data-question="${globalIndex}" data-choice="con">
+                                Con H
+                            </button>
+                            <button onclick="selectHAnswer(${globalIndex}, 'sin')" 
+                                    class="h-option bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded border"
+                                    data-question="${globalIndex}" data-choice="sin">
+                                Sin H
+                            </button>
+                        </div>
+                        <div id="h-feedback-${globalIndex}" class="mt-3 p-3 rounded hidden"></div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
+            hAnswers = {};
+        }
+
+        function selectHAnswer(questionIndex, choice) {
+            hAnswers[questionIndex] = choice;
+            
+            const buttons = document.querySelectorAll(`.h-option[data-question="${questionIndex}"]`);
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-blue-300', 'bg-gray-300', 'border-2', 'border-blue-600', 'border-gray-600');
+                if (btn.dataset.choice === choice) {
+                    btn.classList.add(choice === 'con' ? 'bg-blue-300' : 'bg-gray-300');
+                    btn.classList.add(choice === 'con' ? 'border-blue-600' : 'border-gray-600', 'border-2');
+                }
+            });
+        }
+
+        function checkHBatch() {
+            let correct = 0;
+            const total = Math.min(5, hExercises.length - currentHIndex);
+            
+            for (let i = 0; i < total; i++) {
+                const globalIndex = currentHIndex + i;
+                const exercise = hExercises[globalIndex];
+                const userAnswer = hAnswers[globalIndex];
+                const feedback = document.getElementById(`h-feedback-${globalIndex}`);
+                
+                feedback.classList.remove('hidden');
+                
+                const shouldHaveH = exercise.hasH;
+                const userSaidH = userAnswer === 'con';
+                
+                if ((shouldHaveH && userSaidH) || (!shouldHaveH && !userSaidH)) {
+                    feedback.className = 'mt-3 p-3 rounded bg-green-100 text-green-800';
+                    feedback.innerHTML = `✅ ¡Correcto! <strong>${exercise.correct}</strong><br><small>${exercise.explanation}</small>`;
+                    correct++;
+                } else {
+                    feedback.className = 'mt-3 p-3 rounded bg-red-100 text-red-800';
+                    feedback.innerHTML = `❌ Incorrecto. Es <strong>${exercise.correct}</strong><br><small>${exercise.explanation}</small>`;
+                }
+            }
+            
+            const globalResult = document.getElementById('h-global-result');
+            globalResult.classList.remove('hidden');
+            globalResult.className = 'mt-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 to-blue-100 text-center';
+            globalResult.innerHTML = `
+                <h4 class="font-bold text-2xl mb-2">Resultado: ${correct}/${total}</h4>
+                <p class="text-lg">${correct === total ? '🎉 ¡Perfecto! Dominas las reglas de la H.' : `💪 ¡Bien! Has acertado ${correct} de ${total}.`}</p>
+                <p class="text-xl font-bold mt-3 text-blue-700">${getFraseMotivadora()}</p>
+            `;
+            
+            document.getElementById('check-h-btn').classList.add('hidden');
+            if (currentHIndex + 5 < hExercises.length) {
+                document.getElementById('more-h-btn-container').classList.remove('hidden');
+            }
+            
+            saveScore('La H', correct, total);
+        }
+
+        function loadMoreHExercises() {
+            currentHIndex += 5;
+            loadHExercises();
+            
+            document.getElementById('h-global-result').classList.add('hidden');
+            document.getElementById('check-h-btn').classList.remove('hidden');
+            document.getElementById('more-h-btn-container').classList.add('hidden');
+            
+            document.getElementById('h-quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // FUNCIONES DE TECNICISMOS
+        function loadTecnicismosExercises() {
+            const container = document.getElementById('tecnicismos-quiz-container');
+            const exercises = tecnicismosExercises.slice(currentTecnicismosIndex, currentTecnicismosIndex + 5);
+            
+            const html = exercises.map((ex, index) => {
+                const globalIndex = currentTecnicismosIndex + index;
+                return `
+                    <div class="bg-white p-4 rounded-lg" data-question="${globalIndex}">
+                        <p class="font-medium mb-3">${index + 1}. ${ex.question}</p>
+                        <div class="grid gap-2" style="grid-template-columns: repeat(${ex.options.length > 2 ? 3 : 2}, 1fr);">
+                            ${ex.options.map((option, optIndex) => `
+                                <button onclick="selectTecnicismosAnswer(${globalIndex}, ${optIndex})" 
+                                        class="tecnicismos-option bg-gray-50 hover:bg-gray-100 p-3 rounded border text-left text-sm"
+                                        data-question="${globalIndex}" data-option="${optIndex}">
+                                    ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="tecnicismos-feedback-${globalIndex}" class="mt-3 p-3 rounded hidden"></div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
+            tecnicismosAnswers = {};
+        }
+
+        function selectTecnicismosAnswer(questionIndex, optionIndex) {
+            tecnicismosAnswers[questionIndex] = optionIndex;
+            
+            const buttons = document.querySelectorAll(`.tecnicismos-option[data-question="${questionIndex}"]`);
+            buttons.forEach((btn, idx) => {
+                if (idx === optionIndex) {
+                    btn.classList.remove('bg-gray-50', 'hover:bg-gray-100');
+                    btn.classList.add('bg-blue-200', 'border-blue-500', 'border-2');
+                } else {
+                    btn.classList.remove('bg-blue-200', 'border-blue-500', 'border-2');
+                    btn.classList.add('bg-gray-50', 'hover:bg-gray-100');
+                }
+            });
+        }
+
+        function checkTecnicismosBatch() {
+            let correct = 0;
+            const total = Math.min(5, tecnicismosExercises.length - currentTecnicismosIndex);
+            
+            for (let i = 0; i < total; i++) {
+                const globalIndex = currentTecnicismosIndex + i;
+                const exercise = tecnicismosExercises[globalIndex];
+                const userAnswer = tecnicismosAnswers[globalIndex];
+                const feedback = document.getElementById(`tecnicismos-feedback-${globalIndex}`);
+                
+                feedback.classList.remove('hidden');
+                
+                if (userAnswer === exercise.correct) {
+                    feedback.className = 'mt-3 p-3 rounded bg-green-100 text-green-800';
+                    feedback.innerHTML = `✅ ¡Correcto! ${exercise.explanation}`;
+                    correct++;
+                } else {
+                    feedback.className = 'mt-3 p-3 rounded bg-red-100 text-red-800';
+                    feedback.innerHTML = `❌ Incorrecto. ${exercise.explanation}`;
+                }
+            }
+            
+            const globalResult = document.getElementById('tecnicismos-global-result');
+            globalResult.classList.remove('hidden');
+            globalResult.className = 'mt-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 to-blue-100 text-center';
+            globalResult.innerHTML = `
+                <h4 class="font-bold text-2xl mb-2">Resultado: ${correct}/${total}</h4>
+                <p class="text-lg">${correct === total ? '🎉 ¡Perfecto! Dominas tecnicismos y neologismos.' : `💪 ¡Bien! Has acertado ${correct} de ${total}.`}</p>
+                <p class="text-xl font-bold mt-3 text-red-700">${getFraseMotivadora()}</p>
+            `;
+            
+            document.getElementById('check-tecnicismos-btn').classList.add('hidden');
+            if (currentTecnicismosIndex + 5 < tecnicismosExercises.length) {
+                document.getElementById('more-tecnicismos-btn-container').classList.remove('hidden');
+            }
+            
+            saveScore('Tecnicismos', correct, total);
+        }
+
+        function loadMoreTecnicismosExercises() {
+            currentTecnicismosIndex += 5;
+            loadTecnicismosExercises();
+            
+            document.getElementById('tecnicismos-global-result').classList.add('hidden');
+            document.getElementById('check-tecnicismos-btn').classList.remove('hidden');
+            document.getElementById('more-tecnicismos-btn-container').classList.add('hidden');
+            
+            document.getElementById('tecnicismos-quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // FUNCIONES DE ADJETIVOS
+        function loadAdjetivosExercises() {
+            const container = document.getElementById('adjetivos-quiz-container');
+            const exercises = adjetivosExercises.slice(currentAdjetivosIndex, currentAdjetivosIndex + 5);
+            
+            const html = exercises.map((ex, index) => {
+                const globalIndex = currentAdjetivosIndex + index;
+                return `
+                    <div class="bg-white p-4 rounded-lg" data-question="${globalIndex}">
+                        <p class="font-medium mb-3">${index + 1}. ${ex.question}</p>
+                        <div class="grid gap-2" style="grid-template-columns: repeat(${ex.options.length > 2 ? 3 : 2}, 1fr);">
+                            ${ex.options.map((option, optIndex) => `
+                                <button onclick="selectAdjetivosAnswer(${globalIndex}, ${optIndex})" 
+                                        class="adjetivos-option bg-gray-50 hover:bg-gray-100 p-3 rounded border text-left text-sm"
+                                        data-question="${globalIndex}" data-option="${optIndex}">
+                                    ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="adjetivos-feedback-${globalIndex}" class="mt-3 p-3 rounded hidden"></div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
+            adjetivosAnswers = {};
+        }
+
+        function selectAdjetivosAnswer(questionIndex, optionIndex) {
+            adjetivosAnswers[questionIndex] = optionIndex;
+            
+            const buttons = document.querySelectorAll(`.adjetivos-option[data-question="${questionIndex}"]`);
+            buttons.forEach((btn, idx) => {
+                if (idx === optionIndex) {
+                    btn.classList.remove('bg-gray-50', 'hover:bg-gray-100');
+                    btn.classList.add('bg-blue-200', 'border-blue-500', 'border-2');
+                } else {
+                    btn.classList.remove('bg-blue-200', 'border-blue-500', 'border-2');
+                    btn.classList.add('bg-gray-50', 'hover:bg-gray-100');
+                }
+            });
+        }
+
+        function checkAdjetivosBatch() {
+            let correct = 0;
+            const total = Math.min(5, adjetivosExercises.length - currentAdjetivosIndex);
+            
+            for (let i = 0; i < total; i++) {
+                const globalIndex = currentAdjetivosIndex + i;
+                const exercise = adjetivosExercises[globalIndex];
+                const userAnswer = adjetivosAnswers[globalIndex];
+                const feedback = document.getElementById(`adjetivos-feedback-${globalIndex}`);
+                
+                feedback.classList.remove('hidden');
+                
+                if (userAnswer === exercise.correct) {
+                    feedback.className = 'mt-3 p-3 rounded bg-green-100 text-green-800';
+                    feedback.innerHTML = `✅ ¡Correcto! ${exercise.explanation}`;
+                    correct++;
+                } else {
+                    feedback.className = 'mt-3 p-3 rounded bg-red-100 text-red-800';
+                    feedback.innerHTML = `❌ Incorrecto. ${exercise.explanation}`;
+                }
+            }
+            
+            const globalResult = document.getElementById('adjetivos-global-result');
+            globalResult.classList.remove('hidden');
+            globalResult.className = 'mt-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 to-blue-100 text-center';
+            globalResult.innerHTML = `
+                <h4 class="font-bold text-2xl mb-2">Resultado: ${correct}/${total}</h4>
+                <p class="text-lg">${correct === total ? '🎉 ¡Perfecto! Dominas los tipos de adjetivos.' : `💪 ¡Bien! Has acertado ${correct} de ${total}.`}</p>
+                <p class="text-xl font-bold mt-3 text-pink-700">${getFraseMotivadora()}</p>
+            `;
+            
+            document.getElementById('check-adjetivos-btn').classList.add('hidden');
+            if (currentAdjetivosIndex + 5 < adjetivosExercises.length) {
+                document.getElementById('more-adjetivos-btn-container').classList.remove('hidden');
+            }
+            
+            saveScore('Adjetivos', correct, total);
+        }
+
+        function loadMoreAdjetivosExercises() {
+            currentAdjetivosIndex += 5;
+            loadAdjetivosExercises();
+            
+            document.getElementById('adjetivos-global-result').classList.add('hidden');
+            document.getElementById('check-adjetivos-btn').classList.remove('hidden');
+            document.getElementById('more-adjetivos-btn-container').classList.add('hidden');
+            
+            document.getElementById('adjetivos-quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // FUNCIONES DE INVITACIONES
+        function loadInvitacionExercises() {
+            const container = document.getElementById('invitacion-quiz-container');
+            const exercises = invitacionExercises.slice(currentInvitacionIndex, currentInvitacionIndex + 5);
+            
+            const html = exercises.map((ex, index) => {
+                const globalIndex = currentInvitacionIndex + index;
+                return `
+                    <div class="bg-white p-4 rounded-lg" data-question="${globalIndex}">
+                        <p class="font-medium mb-3">${index + 1}. ${ex.question}</p>
+                        <div class="grid gap-2" style="grid-template-columns: repeat(${ex.options.length > 2 ? 3 : 2}, 1fr);">
+                            ${ex.options.map((option, optIndex) => `
+                                <button onclick="selectInvitacionAnswer(${globalIndex}, ${optIndex})" 
+                                        class="invitacion-option bg-gray-50 hover:bg-gray-100 p-3 rounded border text-left text-sm"
+                                        data-question="${globalIndex}" data-option="${optIndex}">
+                                    ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="invitacion-feedback-${globalIndex}" class="mt-3 p-3 rounded hidden"></div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
+            invitacionAnswers = {};
+        }
+
+        function selectInvitacionAnswer(questionIndex, optionIndex) {
+            invitacionAnswers[questionIndex] = optionIndex;
+            
+            const buttons = document.querySelectorAll(`.invitacion-option[data-question="${questionIndex}"]`);
+            buttons.forEach((btn, idx) => {
+                if (idx === optionIndex) {
+                    btn.classList.remove('bg-gray-50', 'hover:bg-gray-100');
+                    btn.classList.add('bg-blue-200', 'border-blue-500', 'border-2');
+                } else {
+                    btn.classList.remove('bg-blue-200', 'border-blue-500', 'border-2');
+                    btn.classList.add('bg-gray-50', 'hover:bg-gray-100');
+                }
+            });
+        }
+
+        function checkInvitacionBatch() {
+            let correct = 0;
+            const total = Math.min(5, invitacionExercises.length - currentInvitacionIndex);
+            
+            for (let i = 0; i < total; i++) {
+                const globalIndex = currentInvitacionIndex + i;
+                const exercise = invitacionExercises[globalIndex];
+                const userAnswer = invitacionAnswers[globalIndex];
+                const feedback = document.getElementById(`invitacion-feedback-${globalIndex}`);
+                
+                feedback.classList.remove('hidden');
+                
+                if (userAnswer === exercise.correct) {
+                    feedback.className = 'mt-3 p-3 rounded bg-green-100 text-green-800';
+                    feedback.innerHTML = `✅ ¡Correcto! ${exercise.explanation}`;
+                    correct++;
+                } else {
+                    feedback.className = 'mt-3 p-3 rounded bg-red-100 text-red-800';
+                    feedback.innerHTML = `❌ Incorrecto. ${exercise.explanation}`;
+                }
+            }
+            
+            const globalResult = document.getElementById('invitacion-global-result');
+            globalResult.classList.remove('hidden');
+            globalResult.className = 'mt-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 to-blue-100 text-center';
+            globalResult.innerHTML = `
+                <h4 class="font-bold text-2xl mb-2">Resultado: ${correct}/${total}</h4>
+                <p class="text-lg">${correct === total ? '🎉 ¡Perfecto! Dominas los elementos de la invitación.' : `💪 ¡Bien! Has acertado ${correct} de ${total}.`}</p>
+                <p class="text-xl font-bold mt-3 text-yellow-700">${getFraseMotivadora()}</p>
+            `;
+            
+            document.getElementById('check-invitacion-btn').classList.add('hidden');
+            if (currentInvitacionIndex + 5 < invitacionExercises.length) {
+                document.getElementById('more-invitacion-btn-container').classList.remove('hidden');
+            }
+            
+            saveScore('Invitaciones', correct, total);
+        }
+
+        function loadMoreInvitacionExercises() {
+            currentInvitacionIndex += 5;
+            loadInvitacionExercises();
+            
+            document.getElementById('invitacion-global-result').classList.add('hidden');
+            document.getElementById('check-invitacion-btn').classList.remove('hidden');
+            document.getElementById('more-invitacion-btn-container').classList.add('hidden');
+            
+            document.getElementById('invitacion-quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dc455f73ed781',t:'MTc2NDg3NzEzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

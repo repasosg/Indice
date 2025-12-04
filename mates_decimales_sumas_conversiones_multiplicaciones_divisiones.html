@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica de Matemáticas 5º Primaria</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        .math-card {
+            transition: all 0.3s ease;
+        }
+        .math-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .correct-answer {
+            animation: bounce 0.6s ease-in-out;
+        }
+        .wrong-answer {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gradient-to-br from-purple-400 via-pink-300 to-blue-400 font-sans">
+  <div class="min-h-full p-4">
+   <header class="text-center mb-8">
+    <h1 id="main-title" class="text-4xl font-bold text-white mb-2 drop-shadow-lg">Práctica de Matemáticas</h1>
+    <h2 id="subtitle" class="text-2xl text-white/90 mb-4">5º de Primaria</h2>
+    <p id="encouragement-text" class="text-lg text-white/80 font-medium">¡Tú puedes! 🌟</p>
+   </header>
+   <main class="max-w-4xl mx-auto"><!-- Menu de temas -->
+    <div id="topic-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('decimals')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        🔢
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Sumas y Restas con Decimales</h3>
+       <p class="text-gray-600">Practica operaciones con números decimales</p>
+      </div>
+     </div>
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('units')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        📏
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Conversiones de Unidades</h3>
+       <p class="text-gray-600">Convierte metros, litros, gramos y más</p>
+      </div>
+     </div>
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('multiplication')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        ✖️
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Multiplicaciones con Decimales</h3>
+       <p class="text-gray-600">Multiplica números con coma decimal</p>
+      </div>
+     </div>
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('polygons')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        🔷
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Elementos de Polígonos</h3>
+       <p class="text-gray-600">Vértices, lados y diagonales</p>
+      </div>
+     </div>
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('division')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        ➗
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Divisiones con Decimales</h3>
+       <p class="text-gray-600">Divisiones exactas con resultado decimal</p>
+      </div>
+     </div>
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('two-digit-division')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        🔢
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Divisiones de Dos Cifras</h3>
+       <p class="text-gray-600">Divisiones con divisor de dos cifras</p>
+      </div>
+     </div>
+     <div class="math-card bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="startTopic('decimal-operations')">
+      <div class="text-center">
+       <div class="text-4xl mb-3">
+        🔄
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">Multiplicar/Dividir x10, x100, x1000</h3>
+       <p class="text-gray-600">Mueve la coma decimal</p>
+      </div>
+     </div>
+    </div><!-- Area de ejercicios -->
+    <div id="exercise-area" class="hidden">
+     <div class="bg-white rounded-xl p-8 shadow-lg">
+      <div class="flex justify-between items-center mb-6"><button onclick="backToMenu()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"> ← Volver al Menú </button>
+       <div class="text-right">
+        <div class="text-sm text-gray-600">
+         Puntuación
+        </div>
+        <div id="score" class="text-2xl font-bold text-green-600">
+         0
+        </div>
+       </div>
+      </div>
+      <div id="exercise-content" class="text-center"><!-- El contenido del ejercicio se genera aquí -->
+      </div>
+      <div class="mt-8 text-center"><button id="next-exercise" onclick="generateExercise()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors"> Siguiente Ejercicio </button>
+      </div>
+     </div>
+    </div><!-- Estadísticas -->
+    <div id="stats-section" class="mt-8 bg-white/20 backdrop-blur-sm rounded-xl p-6">
+     <h3 class="text-xl font-bold text-white mb-4 text-center">📊 Tus Estadísticas</h3>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="bg-white/30 rounded-lg p-3">
+       <div id="total-exercises" class="text-2xl font-bold text-white">
+        0
+       </div>
+       <div class="text-sm text-white/80">
+        Ejercicios
+       </div>
+      </div>
+      <div class="bg-white/30 rounded-lg p-3">
+       <div id="correct-answers" class="text-2xl font-bold text-green-200">
+        0
+       </div>
+       <div class="text-sm text-white/80">
+        Correctas
+       </div>
+      </div>
+      <div class="bg-white/30 rounded-lg p-3">
+       <div id="accuracy-rate" class="text-2xl font-bold text-blue-200">
+        0%
+       </div>
+       <div class="text-sm text-white/80">
+        Precisión
+       </div>
+      </div>
+      <div class="bg-white/30 rounded-lg p-3">
+       <div id="current-streak" class="text-2xl font-bold text-yellow-200">
+        0
+       </div>
+       <div class="text-sm text-white/80">
+        Racha
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <script>
+        // Configuración por defecto
+        const defaultConfig = {
+            main_title: "Práctica de Matemáticas",
+            subtitle: "5º de Primaria",
+            encouragement_text: "¡Tú puedes! 🌟",
+            background_color: "#8B5CF6",
+            surface_color: "#FFFFFF",
+            text_color: "#1F2937",
+            primary_action_color: "#3B82F6",
+            secondary_action_color: "#6B7280",
+            font_family: "Inter",
+            font_size: 16
+        };
+
+        // Variables globales
+        let currentTopic = '';
+        let currentExercise = {};
+        let score = 0;
+        let streak = 0;
+        let exerciseData = [];
+
+        // Configuración del Data SDK
+        const dataHandler = {
+            onDataChanged(data) {
+                exerciseData = data;
+                updateStats();
+            }
+        };
+
+        // Configuración del Element SDK
+        async function onConfigChange(config) {
+            const mainTitle = config.main_title || defaultConfig.main_title;
+            const subtitle = config.subtitle || defaultConfig.subtitle;
+            const encouragementText = config.encouragement_text || defaultConfig.encouragement_text;
+            const backgroundColor = config.background_color || defaultConfig.background_color;
+            const surfaceColor = config.surface_color || defaultConfig.surface_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+            const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+            const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+            const fontFamily = config.font_family || defaultConfig.font_family;
+            const fontSize = config.font_size || defaultConfig.font_size;
+
+            // Actualizar texto
+            document.getElementById('main-title').textContent = mainTitle;
+            document.getElementById('subtitle').textContent = subtitle;
+            document.getElementById('encouragement-text').textContent = encouragementText;
+
+            // Actualizar colores
+            document.body.style.background = `linear-gradient(135deg, ${backgroundColor}, ${primaryActionColor})`;
+            
+            // Actualizar fuentes
+            const baseFontStack = 'system-ui, -apple-system, sans-serif';
+            document.body.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+            
+            // Actualizar tamaños de fuente
+            document.getElementById('main-title').style.fontSize = `${fontSize * 2.5}px`;
+            document.getElementById('subtitle').style.fontSize = `${fontSize * 1.5}px`;
+            document.getElementById('encouragement-text').style.fontSize = `${fontSize * 1.125}px`;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            config.background_color = value;
+                            window.elementSdk.setConfig({ background_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.surface_color || defaultConfig.surface_color,
+                        set: (value) => {
+                            config.surface_color = value;
+                            window.elementSdk.setConfig({ surface_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            config.text_color = value;
+                            window.elementSdk.setConfig({ text_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                        set: (value) => {
+                            config.primary_action_color = value;
+                            window.elementSdk.setConfig({ primary_action_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                        set: (value) => {
+                            config.secondary_action_color = value;
+                            window.elementSdk.setConfig({ secondary_action_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => {
+                        config.font_family = value;
+                        window.elementSdk.setConfig({ font_family: value });
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => {
+                        config.font_size = value;
+                        window.elementSdk.setConfig({ font_size: value });
+                    }
+                }
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle],
+                ["encouragement_text", config.encouragement_text || defaultConfig.encouragement_text]
+            ]);
+        }
+
+        // Inicialización
+        async function init() {
+            if (window.dataSdk) {
+                const initResult = await window.dataSdk.init(dataHandler);
+                if (!initResult.isOk) {
+                    console.error("Error inicializando Data SDK");
+                }
+            }
+
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities,
+                    mapToEditPanelValues
+                });
+            }
+        }
+
+        // Funciones de navegación
+        function startTopic(topic) {
+            currentTopic = topic;
+            document.getElementById('topic-menu').classList.add('hidden');
+            document.getElementById('exercise-area').classList.remove('hidden');
+            generateExercise();
+        }
+
+        function backToMenu() {
+            document.getElementById('topic-menu').classList.remove('hidden');
+            document.getElementById('exercise-area').classList.add('hidden');
+            currentTopic = '';
+        }
+
+        // Generadores de ejercicios
+        function generateExercise() {
+            const content = document.getElementById('exercise-content');
+            
+            switch(currentTopic) {
+                case 'decimals':
+                    generateDecimalExercise(content);
+                    break;
+                case 'units':
+                    generateUnitExercise(content);
+                    break;
+                case 'multiplication':
+                    generateMultiplicationExercise(content);
+                    break;
+                case 'polygons':
+                    generatePolygonExercise(content);
+                    break;
+                case 'division':
+                    generateDivisionExercise(content);
+                    break;
+                case 'two-digit-division':
+                    generateTwoDigitDivisionExercise(content);
+                    break;
+                case 'decimal-operations':
+                    generateDecimalOperationExercise(content);
+                    break;
+            }
+        }
+
+        function generateDecimalExercise(content) {
+            const isAddition = Math.random() > 0.5;
+            const num1 = (Math.random() * 50 + 1).toFixed(2);
+            const num2 = (Math.random() * 30 + 1).toFixed(2);
+            
+            let question, answer;
+            if (isAddition) {
+                question = `${num1} + ${num2} = ?`;
+                answer = (parseFloat(num1) + parseFloat(num2)).toFixed(2);
+            } else {
+                const larger = Math.max(parseFloat(num1), parseFloat(num2));
+                const smaller = Math.min(parseFloat(num1), parseFloat(num2));
+                question = `${larger.toFixed(2)} - ${smaller.toFixed(2)} = ?`;
+                answer = (larger - smaller).toFixed(2);
+            }
+
+            currentExercise = { question, answer, type: 'decimals' };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Sumas y Restas con Decimales</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <input type="number" step="0.01" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-48" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        function generateUnitExercise(content) {
+            const conversions = [
+                { from: 'metros', to: 'centímetros', factor: 100, symbol: 'm → cm' },
+                { from: 'kilómetros', to: 'metros', factor: 1000, symbol: 'km → m' },
+                { from: 'litros', to: 'mililitros', factor: 1000, symbol: 'l → ml' },
+                { from: 'kilogramos', to: 'gramos', factor: 1000, symbol: 'kg → g' },
+                { from: 'centímetros', to: 'metros', factor: 0.01, symbol: 'cm → m' }
+            ];
+            
+            const conversion = conversions[Math.floor(Math.random() * conversions.length)];
+            const value = Math.floor(Math.random() * 20) + 1;
+            const answer = (value * conversion.factor).toString();
+            
+            const question = `${value} ${conversion.from} = ? ${conversion.to}`;
+            
+            currentExercise = { question, answer, type: 'units' };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Conversiones de Unidades</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <input type="number" step="any" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-48" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        function generateMultiplicationExercise(content) {
+            const num1 = (Math.random() * 20 + 1).toFixed(1);
+            const num2 = (Math.random() * 10 + 1).toFixed(1);
+            const answer = (parseFloat(num1) * parseFloat(num2)).toFixed(2);
+            
+            const question = `${num1} × ${num2} = ?`;
+            
+            currentExercise = { question, answer, type: 'multiplication' };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Multiplicaciones con Decimales</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <input type="number" step="0.01" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-48" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        function generatePolygonExercise(content) {
+            const polygons = [
+                { name: 'triángulo', sides: 3 },
+                { name: 'cuadrado', sides: 4 },
+                { name: 'pentágono', sides: 5 },
+                { name: 'hexágono', sides: 6 },
+                { name: 'heptágono', sides: 7 },
+                { name: 'octágono', sides: 8 }
+            ];
+            
+            const polygon = polygons[Math.floor(Math.random() * polygons.length)];
+            const questionTypes = ['vertices', 'lados', 'diagonales'];
+            const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+            
+            let answer;
+            let question;
+            
+            let formula = null;
+            
+            switch(questionType) {
+                case 'vertices':
+                    answer = polygon.sides.toString();
+                    question = `¿Cuántos vértices tiene un ${polygon.name}?`;
+                    break;
+                case 'lados':
+                    answer = polygon.sides.toString();
+                    question = `¿Cuántos lados tiene un ${polygon.name}?`;
+                    break;
+                case 'diagonales':
+                    answer = (polygon.sides * (polygon.sides - 3) / 2).toString();
+                    question = `¿Cuántas diagonales tiene un ${polygon.name}?`;
+                    formula = `${polygon.sides} × (${polygon.sides} - 3) / 2`;
+                    break;
+            }
+            
+            currentExercise = { question, answer, type: 'polygons', formula };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Elementos de Polígonos</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <input type="number" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-48" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        function generateDivisionExercise(content) {
+            // Tipos de divisiones: enteras que dan decimal o decimales entre enteros
+            const divisionTypes = [
+                // Divisiones enteras que dan decimales
+                { dividend: 36, divisor: 5 }, // 7.2
+                { dividend: 10, divisor: 4 }, // 2.5
+                { dividend: 15, divisor: 4 }, // 3.75
+                { dividend: 25, divisor: 8 }, // 3.125
+                { dividend: 45, divisor: 6 }, // 7.5
+                { dividend: 35, divisor: 8 }, // 4.375
+                { dividend: 21, divisor: 4 }, // 5.25
+                { dividend: 27, divisor: 8 }, // 3.375
+                // Divisiones con decimales
+                { dividend: 6.25, divisor: 5 }, // 1.25
+                { dividend: 1.35, divisor: 3 }, // 0.45
+                { dividend: 5.16, divisor: 4 }, // 1.29
+                { dividend: 8.4, divisor: 6 }, // 1.4
+                { dividend: 9.6, divisor: 8 }, // 1.2
+                { dividend: 7.5, divisor: 5 }, // 1.5
+                { dividend: 12.8, divisor: 4 }, // 3.2
+                { dividend: 15.6, divisor: 6 } // 2.6
+            ];
+            
+            const selectedDivision = divisionTypes[Math.floor(Math.random() * divisionTypes.length)];
+            const dividend = selectedDivision.dividend;
+            const divisor = selectedDivision.divisor;
+            const answer = (dividend / divisor).toString();
+            
+            const question = `${dividend} ÷ ${divisor} = ?`;
+            
+            currentExercise = { question, answer, type: 'division' };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Divisiones con Decimales</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <p class="text-lg mb-4 text-gray-600">Calcula hasta obtener un resultado exacto (sin resto)</p>
+                <input type="number" step="any" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-64" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        function generateTwoDigitDivisionExercise(content) {
+            // Divisiones de dos cifras con resto
+            const twoDigitDivisions = [
+                { dividend: 612, divisor: 42 }, // 14 resto 24
+                { dividend: 835, divisor: 23 }, // 36 resto 7
+                { dividend: 503, divisor: 67 }, // 7 resto 34
+                { dividend: 92, divisor: 15 },  // 6 resto 2
+                { dividend: 92, divisor: 23 },  // 4 resto 0
+                { dividend: 150, divisor: 12 }, // 12 resto 6
+                { dividend: 234, divisor: 92 }, // 2 resto 50
+                { dividend: 999, divisor: 52 }, // 19 resto 11
+                { dividend: 987, divisor: 87 }, // 11 resto 30
+                { dividend: 778, divisor: 19 }, // 40 resto 18
+                { dividend: 456, divisor: 34 }, // 13 resto 14
+                { dividend: 625, divisor: 28 }, // 22 resto 9
+                { dividend: 384, divisor: 16 }, // 24 resto 0
+                { dividend: 567, divisor: 45 }, // 12 resto 27
+                { dividend: 789, divisor: 56 }, // 14 resto 5
+                { dividend: 234, divisor: 17 }  // 13 resto 13
+            ];
+            
+            const selectedDivision = twoDigitDivisions[Math.floor(Math.random() * twoDigitDivisions.length)];
+            const dividend = selectedDivision.dividend;
+            const divisor = selectedDivision.divisor;
+            const quotient = Math.floor(dividend / divisor);
+            const remainder = dividend % divisor;
+            
+            const answer = remainder === 0 ? quotient.toString() : `${quotient} resto ${remainder}`;
+            const question = `${dividend} ÷ ${divisor} = ?`;
+            
+            currentExercise = { question, answer, type: 'two-digit-division' };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Divisiones de Dos Cifras</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <p class="text-lg mb-4 text-gray-600">Si hay resto, escríbelo como: "12 resto 5"</p>
+                <input type="text" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-64" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        function generateDecimalOperationExercise(content) {
+            // Operaciones específicas con x10, x100, x1000
+            const specificOperations = [
+                // Ejemplos que proporcionaste
+                { number: 42.7, operation: '÷', factor: 10 },
+                { number: 423, operation: '÷', factor: 100 },
+                { number: 0.3, operation: '÷', factor: 100 },
+                { number: 48.20, operation: '÷', factor: 100 },
+                { number: 0.004, operation: '×', factor: 100 },
+                
+                // 20 operaciones adicionales similares
+                { number: 35.6, operation: '÷', factor: 10 },
+                { number: 789, operation: '÷', factor: 100 },
+                { number: 0.7, operation: '÷', factor: 100 },
+                { number: 25.40, operation: '÷', factor: 100 },
+                { number: 0.008, operation: '×', factor: 100 },
+                { number: 156.3, operation: '÷', factor: 10 },
+                { number: 234, operation: '÷', factor: 1000 },
+                { number: 0.05, operation: '×', factor: 100 },
+                { number: 67.80, operation: '÷', factor: 100 },
+                { number: 0.012, operation: '×', factor: 1000 },
+                { number: 89.4, operation: '÷', factor: 10 },
+                { number: 567, operation: '÷', factor: 100 },
+                { number: 0.9, operation: '÷', factor: 10 },
+                { number: 12.50, operation: '÷', factor: 100 },
+                { number: 0.006, operation: '×', factor: 100 },
+                { number: 234.7, operation: '÷', factor: 10 },
+                { number: 890, operation: '÷', factor: 1000 },
+                { number: 0.02, operation: '×', factor: 1000 },
+                { number: 45.60, operation: '÷', factor: 100 },
+                { number: 0.015, operation: '×', factor: 100 },
+                { number: 678.9, operation: '÷', factor: 10 },
+                { number: 345, operation: '÷', factor: 100 },
+                { number: 0.4, operation: '÷', factor: 10 },
+                { number: 78.30, operation: '÷', factor: 100 },
+                { number: 0.007, operation: '×', factor: 1000 }
+            ];
+            
+            const selectedOperation = specificOperations[Math.floor(Math.random() * specificOperations.length)];
+            const number = selectedOperation.number;
+            const operation = selectedOperation.operation;
+            const factor = selectedOperation.factor;
+            
+            let question, answer;
+            if (operation === '×') {
+                question = `${number} × ${factor} = ?`;
+                // Calcular correctamente y eliminar ceros innecesarios
+                const result = number * factor;
+                answer = result.toString();
+            } else {
+                question = `${number} ÷ ${factor} = ?`;
+                // Calcular correctamente y eliminar ceros innecesarios
+                const result = number / factor;
+                answer = result.toString();
+            }
+            
+            currentExercise = { question, answer, type: 'decimal-operations' };
+            
+            content.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6">Multiplicar/Dividir por 10, 100, 1000</h3>
+                <div class="text-3xl font-bold mb-6">${question}</div>
+                <p class="text-lg mb-4 text-gray-600">Recuerda: al multiplicar, la coma se mueve hacia la derecha. Al dividir, hacia la izquierda.</p>
+                <input type="number" step="any" id="user-answer" class="text-2xl p-4 border-2 rounded-lg text-center w-64" placeholder="Tu respuesta">
+                <br><br>
+                <button onclick="checkAnswer()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold transition-colors">
+                    Comprobar
+                </button>
+                <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+            `;
+        }
+
+        // Función para comprobar respuestas
+        async function checkAnswer() {
+            const userAnswer = document.getElementById('user-answer').value.trim();
+            const feedback = document.getElementById('feedback');
+            const isCorrect = userAnswer === currentExercise.answer;
+            
+            if (isCorrect) {
+                feedback.innerHTML = '🎉 ¡Correcto! ¡Muy bien!';
+                feedback.className = 'mt-4 text-xl font-semibold text-green-600 correct-answer';
+                score += 10;
+                streak += 1;
+            } else {
+                let feedbackMessage = `❌ Incorrecto. La respuesta correcta es: ${currentExercise.answer}`;
+                
+                // Si es una pregunta de diagonales, añadir la fórmula
+                if (currentExercise.type === 'polygons' && currentExercise.formula) {
+                    feedbackMessage += `<br><span class="text-base text-gray-700 mt-2 inline-block">Fórmula: D = ${currentExercise.formula}</span>`;
+                }
+                
+                feedback.innerHTML = feedbackMessage;
+                feedback.className = 'mt-4 text-xl font-semibold text-red-600 wrong-answer';
+                streak = 0;
+            }
+            
+            document.getElementById('score').textContent = score;
+            
+            // Guardar en Data SDK
+            if (window.dataSdk) {
+                const exerciseRecord = {
+                    exercise_type: currentExercise.type,
+                    question: currentExercise.question,
+                    user_answer: userAnswer,
+                    correct_answer: currentExercise.answer,
+                    is_correct: isCorrect,
+                    timestamp: new Date().toISOString()
+                };
+                
+                const result = await window.dataSdk.create(exerciseRecord);
+                if (!result.isOk) {
+                    console.error("Error guardando ejercicio");
+                }
+            }
+        }
+
+        // Función para actualizar estadísticas
+        function updateStats() {
+            const totalExercises = exerciseData.length;
+            const correctAnswers = exerciseData.filter(ex => ex.is_correct).length;
+            const accuracyRate = totalExercises > 0 ? Math.round((correctAnswers / totalExercises) * 100) : 0;
+            
+            document.getElementById('total-exercises').textContent = totalExercises;
+            document.getElementById('correct-answers').textContent = correctAnswers;
+            document.getElementById('accuracy-rate').textContent = accuracyRate + '%';
+            document.getElementById('current-streak').textContent = streak;
+        }
+
+        // Inicializar cuando la página carga
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dd573c092d781',t:'MTc2NDg3NzgzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

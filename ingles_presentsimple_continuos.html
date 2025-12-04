@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Grammar Practice</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100%;
+      width: 100%;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin: 0 0 0.5rem 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .section h2 {
+      color: #667eea;
+      font-size: 1.8rem;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grammar-box {
+      background: #f8f9ff;
+      border-left: 4px solid #667eea;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .grammar-box h3 {
+      color: #764ba2;
+      font-size: 1.3rem;
+      margin: 0 0 1rem 0;
+    }
+
+    .grammar-box p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .example {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      border: 2px dashed #667eea;
+    }
+
+    .example-item {
+      margin: 0.5rem 0;
+      color: #555;
+    }
+
+    .instructions {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .instructions p {
+      margin: 0.5rem 0;
+      color: #92400e;
+      line-height: 1.6;
+    }
+
+    .exercise {
+      background: #fff;
+      border: 3px solid #e0e7ff;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .exercise.correct {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    .exercise.incorrect {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .exercise-question {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .exercise-input {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      font-family: inherit;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    button:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    button:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.correct {
+      background: #d1fae5;
+      color: #065f46;
+      border: 2px solid #10b981;
+    }
+
+    .feedback.incorrect {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 2px solid #ef4444;
+    }
+
+    .feedback-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feedback-text {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+    }
+
+    .score-box {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .next-block-button {
+      background: #10b981;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+    }
+
+    .next-block-button:hover {
+      background: #059669;
+    }
+
+    .reset-button {
+      background: #764ba2;
+    }
+
+    .reset-button:hover {
+      background: #6b3f8f;
+    }
+
+    .completion-message {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+      animation: celebrate 0.5s ease;
+    }
+
+    @keyframes celebrate {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container"><!-- HEADER -->
+   <div class="header">
+    <h1 id="main-title">🌟 English Grammar Practice 🌟</h1>
+    <p id="subtitle">Present Simple &amp; Present Continuous</p>
+   </div><!-- INSTRUCTIONS -->
+   <div class="instructions">
+    <p id="instructions-text"><strong>📝 Instrucciones:</strong> Lee las explicaciones y completa los 10 ejercicios. Cuando termines, aparecerá un botón para cargar más ejercicios.</p>
+   </div><!-- GRAMMAR EXPLANATION -->
+   <div class="section">
+    <h2><span>📚</span> Explicación</h2>
+    <div class="grammar-box">
+     <h3>🔵 Present Simple</h3>
+     <p><strong>¿Cuándo lo usamos?</strong> Para hablar de rutinas, hábitos y cosas que son siempre verdad.</p>
+     <p><strong>¿Cómo se forma?</strong></p>
+     <p>• Con I, you, we, they: verbo normal → <em>I play, you eat, they study</em></p>
+     <p>• Con he, she, it: verbo + s/es → <em>She plays, he eats, it works</em></p>
+     <div class="example">
+      <div class="example-item">
+       ✓ I <strong>play</strong> football every day.
+      </div>
+      <div class="example-item">
+       ✓ She <strong>likes</strong> ice cream.
+      </div>
+      <div class="example-item">
+       ✓ They <strong>go</strong> to school in the morning.
+      </div>
+     </div>
+    </div>
+    <div class="grammar-box">
+     <h3>🟢 Present Continuous</h3>
+     <p><strong>¿Cuándo lo usamos?</strong> Para hablar de cosas que están pasando AHORA mismo.</p>
+     <p><strong>¿Cómo se forma?</strong> am/is/are + verbo con -ing</p>
+     <p>• I am playing / I'm playing</p>
+     <p>• She is eating / She's eating</p>
+     <p>• They are studying / They're studying</p>
+     <div class="example">
+      <div class="example-item">
+       ✓ I <strong>am playing</strong> football now.
+      </div>
+      <div class="example-item">
+       ✓ She <strong>is eating</strong> ice cream at the moment.
+      </div>
+      <div class="example-item">
+       ✓ They <strong>are going</strong> to school right now.
+      </div>
+     </div>
+    </div>
+    <div class="grammar-box">
+     <h3>💡 Pistas para saber cuál usar</h3>
+     <p><strong>Present Simple:</strong> every day, always, usually, sometimes, never, on Mondays</p>
+     <p><strong>Present Continuous:</strong> now, right now, at the moment, today, this week</p>
+    </div>
+   </div><!-- EXERCISES SECTION -->
+   <div class="section">
+    <h2><span>✏️</span> Ejercicios - Bloque <span id="block-number">1</span> de 10</h2>
+    <div class="score-box">
+     Puntuación: <span id="score-value">0</span> / 10
+    </div>
+    <div id="exercises-container"><!-- Los ejercicios se cargan aquí dinámicamente -->
+    </div>
+    <div id="completion-message-container"></div>
+    <div class="button-group"><button class="next-block-button" id="next-button" style="display: none;" onclick="loadNextBlock()"> ➡️ Cargar 10 Ejercicios Más </button> <button class="reset-button" onclick="resetCurrentBlock()"> 🔄 Reiniciar Bloque Actual </button>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: "🌟 English Grammar Practice 🌟",
+      subtitle: "Present Simple & Present Continuous",
+      instructions_text: "📝 Instrucciones: Lee las explicaciones y completa los 10 ejercicios. Cuando termines, aparecerá un botón para cargar más ejercicios."
+    };
+
+    // Todos los ejercicios organizados en bloques de 10
+    const allExercises = [
+      // Bloque 1 (0-9)
+      { q: "My sister _____ (watch) TV every evening.", a: "watches", exp: "Present Simple - She (tercera persona) necesita -es" },
+      { q: "Look! The cat _____ (sleep) on the sofa right now.", a: "is sleeping", exp: "Present Continuous - ¡Está pasando ahora! It + is + sleeping" },
+      { q: "We _____ (not eat) pizza on Mondays.", a: "don't eat", exp: "Present Simple Negativo - We + don't + verbo normal" },
+      { q: "We _____ (study) English at the moment.", a: "are studying", exp: "Present Continuous - ¡Ahora mismo! We + are + studying" },
+      { q: "He _____ (not play) football on Tuesdays.", a: "doesn't play", exp: "Present Simple Negativo - He + doesn't + verbo normal (sin s)" },
+      { q: "They _____ (eat) pizza now.", a: "are eating", exp: "Present Continuous - ¡Está pasando ahora! They + are + eating" },
+      { q: "My mum _____ (work) in a hospital.", a: "works", exp: "Present Simple - Es un hecho permanente. She = verbo + s" },
+      { q: "Listen! The birds _____ (not sing) now.", a: "aren't singing", exp: "Present Continuous Negativo - They + aren't + verbo -ing" },
+      { q: "I _____ (not like) vegetables very much.", a: "don't like", exp: "Present Simple Negativo - I + don't + verbo normal" },
+      { q: "She _____ (run) in the park right now.", a: "is running", exp: "Present Continuous - Right now = ahora. She + is + running" },
+      
+      // Bloque 2 (10-19)
+      { q: "The sun _____ (not shine) today, it's cloudy.", a: "isn't shining", exp: "Present Continuous Negativo - It + isn't + verbo -ing" },
+      { q: "My dad _____ (drive) to work every day.", a: "drives", exp: "Present Simple - Every day = rutina. He + verbo + s" },
+      { q: "We _____ (have) lunch at 2 o'clock every day.", a: "have", exp: "Present Simple - Every day = rutina. We + verbo normal" },
+      { q: "Shh! The baby _____ (sleep) now.", a: "is sleeping", exp: "Present Continuous - Now = ahora. It + is + sleeping" },
+      { q: "My friend _____ (not live) in London, she lives in Paris.", a: "doesn't live", exp: "Present Simple Negativo - She + doesn't + verbo normal" },
+      { q: "I _____ (do) my homework right now.", a: "am doing", exp: "Present Continuous - Right now = ahora. I + am + doing" },
+      { q: "Dogs _____ (bark) when they are happy.", a: "bark", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "My teacher _____ (not explain) the lesson now, we're taking a break.", a: "isn't explaining", exp: "Present Continuous Negativo - He/She + isn't + verbo -ing" },
+      { q: "She _____ (love) chocolate ice cream.", a: "loves", exp: "Present Simple - Hecho permanente. She + verbo + s" },
+      { q: "They _____ (not play) in the garden now.", a: "aren't playing", exp: "Present Continuous Negativo - They + aren't + verbo -ing" },
+      
+      // Bloque 3 (20-29)
+      { q: "Water _____ (boil) at 100 degrees.", a: "boils", exp: "Present Simple - Hecho científico. It + verbo + s" },
+      { q: "Look! It _____ (not rain) outside, the sun is out.", a: "isn't raining", exp: "Present Continuous Negativo - It + isn't + verbo -ing" },
+      { q: "I _____ (not walk) to school, I take the bus.", a: "don't walk", exp: "Present Simple Negativo - I + don't + verbo normal" },
+      { q: "My parents _____ (watch) a film at the moment.", a: "are watching", exp: "Present Continuous - At the moment = ahora. They + are + watching" },
+      { q: "He _____ (brush) his teeth twice a day.", a: "brushes", exp: "Present Simple - Twice a day = rutina. He + verbo + es" },
+      { q: "We _____ (not make) a cake, we're making cookies.", a: "aren't making", exp: "Present Continuous Negativo - We + aren't + verbo -ing" },
+      { q: "The train _____ (leave) at 8 o'clock every day.", a: "leaves", exp: "Present Simple - Every day = rutina. It + verbo + s" },
+      { q: "She _____ (write) a letter to her friend now.", a: "is writing", exp: "Present Continuous - Now = ahora. She + is + writing" },
+      { q: "You _____ (not speak) French, you speak English.", a: "don't speak", exp: "Present Simple Negativo - You + don't + verbo normal" },
+      { q: "The children _____ (draw) pictures at the moment.", a: "are drawing", exp: "Present Continuous - At the moment = ahora. They + are + drawing" },
+      
+      // Bloque 4 (30-39)
+      { q: "My brother _____ (not help) me with my homework, he's busy.", a: "doesn't help", exp: "Present Simple Negativo - He + doesn't + verbo normal" },
+      { q: "Be quiet! I _____ (try) to concentrate.", a: "am trying", exp: "Present Continuous - ¡Ahora mismo! I + am + trying" },
+      { q: "Fish _____ (swim) in the water.", a: "swim", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "I _____ (not listen) to music now, I'm studying.", a: "am not listening", exp: "Present Continuous Negativo - I + am not + verbo -ing" },
+      { q: "She _____ (not teach) Math, she teaches Spanish.", a: "doesn't teach", exp: "Present Simple Negativo - She + doesn't + verbo normal" },
+      { q: "They _____ (dance) at the party now.", a: "are dancing", exp: "Present Continuous - Now = ahora. They + are + dancing" },
+      { q: "The Earth _____ (go) around the Sun.", a: "goes", exp: "Present Simple - Hecho científico. It + verbo + es" },
+      { q: "My sister _____ (not paint) now, she's reading.", a: "isn't painting", exp: "Present Continuous Negativo - She + isn't + verbo -ing" },
+      { q: "We _____ (enjoy) our holidays every summer.", a: "enjoy", exp: "Present Simple - Every summer = rutina. We + verbo normal" },
+      { q: "The dog _____ (chase) the cat right now.", a: "is chasing", exp: "Present Continuous - Right now = ahora. It + is + chasing" },
+      
+      // Bloque 5 (40-49)
+      { q: "I _____ (not drink) coffee, I prefer tea.", a: "don't drink", exp: "Present Simple Negativo - I + don't + verbo normal" },
+      { q: "She _____ (talk) on the phone now.", a: "is talking", exp: "Present Continuous - Now = ahora. She + is + talking" },
+      { q: "My grandma _____ (bake) delicious cookies.", a: "bakes", exp: "Present Simple - Hecho habitual. She + verbo + s" },
+      { q: "We _____ (not wait) for the bus, it already left.", a: "aren't waiting", exp: "Present Continuous Negativo - We + aren't + verbo -ing" },
+      { q: "He _____ (not like) horror movies.", a: "doesn't like", exp: "Present Simple Negativo - He + doesn't + verbo normal" },
+      { q: "The girls _____ (laugh) at the funny video now.", a: "are laughing", exp: "Present Continuous - Now = ahora. They + are + laughing" },
+      { q: "Cats _____ (sleep) a lot during the day.", a: "sleep", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "I _____ (not wear) my old shoes today.", a: "am not wearing", exp: "Present Continuous Negativo - I + am not + verbo -ing" },
+      { q: "My uncle _____ (fix) cars for a living.", a: "fixes", exp: "Present Simple - Hecho permanente. He + verbo + es" },
+      { q: "They _____ (not build) a house, they're building a shed.", a: "aren't building", exp: "Present Continuous Negativo - They + aren't + verbo -ing" },
+      
+      // Bloque 6 (50-59)
+      { q: "She _____ (collect) stamps as a hobby.", a: "collects", exp: "Present Simple - Hobby = hecho permanente. She + verbo + s" },
+      { q: "Look! The baby _____ (smile) at us.", a: "is smiling", exp: "Present Continuous - Look! = ahora. It + is + smiling" },
+      { q: "We _____ (visit) our grandparents every Sunday.", a: "visit", exp: "Present Simple - Every Sunday = rutina. We + verbo normal" },
+      { q: "My mum _____ (cook) dinner at the moment.", a: "is cooking", exp: "Present Continuous - At the moment = ahora. She + is + cooking" },
+      { q: "The moon _____ (shine) at night.", a: "shines", exp: "Present Simple - Hecho general. It + verbo + s" },
+      { q: "I _____ (take) photos of the sunset now.", a: "am taking", exp: "Present Continuous - Now = ahora. I + am + taking" },
+      { q: "Birds _____ (fly) south in winter.", a: "fly", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "She _____ (learn) to play the piano right now.", a: "is learning", exp: "Present Continuous - Right now = ahora. She + is + learning" },
+      { q: "My friends _____ (come) to my house on Fridays.", a: "come", exp: "Present Simple - On Fridays = rutina. They + verbo normal" },
+      { q: "The children _____ (jump) on the trampoline now.", a: "are jumping", exp: "Present Continuous - Now = ahora. They + are + jumping" },
+      
+      // Bloque 7 (60-69)
+      { q: "He _____ (ride) his bike to school every day.", a: "rides", exp: "Present Simple - Every day = rutina. He + verbo + s" },
+      { q: "We _____ (enjoy) this beautiful weather today.", a: "are enjoying", exp: "Present Continuous - Today = hoy (ahora). We + are + enjoying" },
+      { q: "She _____ (know) the answer to the question.", a: "knows", exp: "Present Simple - Hecho general. She + verbo + s" },
+      { q: "I _____ (think) about my holiday at the moment.", a: "am thinking", exp: "Present Continuous - At the moment = ahora. I + am + thinking" },
+      { q: "The shops _____ (close) at 9 pm every night.", a: "close", exp: "Present Simple - Every night = rutina. They + verbo normal" },
+      { q: "My dad _____ (wash) the car right now.", a: "is washing", exp: "Present Continuous - Right now = ahora. He + is + washing" },
+      { q: "Penguins _____ (live) in Antarctica.", a: "live", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "They _____ (have) a party at the moment.", a: "are having", exp: "Present Continuous - At the moment = ahora. They + are + having" },
+      { q: "My cat _____ (climb) trees very well.", a: "climbs", exp: "Present Simple - Habilidad general. It + verbo + s" },
+      { q: "She _____ (sit) in the garden now.", a: "is sitting", exp: "Present Continuous - Now = ahora. She + is + sitting" },
+      
+      // Bloque 8 (70-79)
+      { q: "I _____ (need) a new pencil for school.", a: "need", exp: "Present Simple - Hecho general. I + verbo normal" },
+      { q: "The wind _____ (blow) strongly today.", a: "is blowing", exp: "Present Continuous - Today = hoy (ahora). It + is + blowing" },
+      { q: "We _____ (celebrate) birthdays with cake.", a: "celebrate", exp: "Present Simple - Hecho habitual. We + verbo normal" },
+      { q: "My brother _____ (clean) his room at the moment.", a: "is cleaning", exp: "Present Continuous - At the moment = ahora. He + is + cleaning" },
+      { q: "The stars _____ (twinkle) in the night sky.", a: "twinkle", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "You _____ (do) a great job right now!", a: "are doing", exp: "Present Continuous - Right now = ahora. You + are + doing" },
+      { q: "My dog _____ (love) to play fetch.", a: "loves", exp: "Present Simple - Hecho general. It + verbo + s" },
+      { q: "They _____ (swim) in the pool at the moment.", a: "are swimming", exp: "Present Continuous - At the moment = ahora. They + are + swimming" },
+      { q: "She _____ (write) in her diary every night.", a: "writes", exp: "Present Simple - Every night = rutina. She + verbo + s" },
+      { q: "We _____ (prepare) for the test now.", a: "are preparing", exp: "Present Continuous - Now = ahora. We + are + preparing" },
+      
+      // Bloque 9 (80-89)
+      { q: "My cousin _____ (study) medicine at university.", a: "studies", exp: "Present Simple - Hecho permanente. He/She + verbo + ies" },
+      { q: "Look! A butterfly _____ (land) on the flower.", a: "is landing", exp: "Present Continuous - Look! = ahora. It + is + landing" },
+      { q: "I _____ (believe) in magic.", a: "believe", exp: "Present Simple - Hecho general. I + verbo normal" },
+      { q: "My parents _____ (plan) our vacation right now.", a: "are planning", exp: "Present Continuous - Right now = ahora. They + are + planning" },
+      { q: "She _____ (catch) the bus at 7 am every day.", a: "catches", exp: "Present Simple - Every day = rutina. She + verbo + es" },
+      { q: "The baby _____ (cry) because he is hungry now.", a: "is crying", exp: "Present Continuous - Now = ahora. He + is + crying" },
+      { q: "Tigers _____ (hunt) at night.", a: "hunt", exp: "Present Simple - Hecho general. They + verbo normal" },
+      { q: "I _____ (feel) very happy at the moment.", a: "am feeling", exp: "Present Continuous - At the moment = ahora. I + am + feeling" },
+      { q: "He _____ (meet) his friends every Friday.", a: "meets", exp: "Present Simple - Every Friday = rutina. He + verbo + s" },
+      { q: "We _____ (travel) to Spain this week.", a: "are travelling", exp: "Present Continuous - This week = esta semana (ahora). We + are + travelling" },
+      
+      // Bloque 10 (90-99)
+      { q: "My aunt _____ (own) a beautiful restaurant.", a: "owns", exp: "Present Simple - Hecho permanente. She + verbo + s" },
+      { q: "Shh! The movie _____ (start) right now.", a: "is starting", exp: "Present Continuous - Right now = ahora. It + is + starting" },
+      { q: "I _____ (remember) your birthday every year.", a: "remember", exp: "Present Simple - Every year = rutina. I + verbo normal" },
+      { q: "My sister _____ (practice) the guitar at the moment.", a: "is practicing", exp: "Present Continuous - At the moment = ahora. She + is + practicing" },
+      { q: "The library _____ (open) at 9 am every morning.", a: "opens", exp: "Present Simple - Every morning = rutina. It + verbo + s" },
+      { q: "They _____ (create) a beautiful painting now.", a: "are creating", exp: "Present Continuous - Now = ahora. They + are + creating" },
+      { q: "My teacher _____ (explain) things very clearly.", a: "explains", exp: "Present Simple - Hecho general. He/She + verbo + s" },
+      { q: "I _____ (look) for my keys right now.", a: "am looking", exp: "Present Continuous - Right now = ahora. I + am + looking" },
+      { q: "She _____ (volunteer) at the animal shelter every weekend.", a: "volunteers", exp: "Present Simple - Every weekend = rutina. She + verbo + s" },
+      { q: "We _____ (celebrate) our anniversary today.", a: "are celebrating", exp: "Present Continuous - Today = hoy (ahora). We + are + celebrating" }
+    ];
+
+    let currentBlock = 0;
+    let blockScore = 0;
+    let answeredInBlock = new Set();
+
+    // Función para actualizar el contenido editable
+    async function onConfigChange(config) {
+      const mainTitle = config.main_title || defaultConfig.main_title;
+      const subtitle = config.subtitle || defaultConfig.subtitle;
+      const instructionsText = config.instructions_text || defaultConfig.instructions_text;
+
+      document.getElementById('main-title').textContent = mainTitle;
+      document.getElementById('subtitle').textContent = subtitle;
+      document.getElementById('instructions-text').innerHTML = `<strong>${instructionsText}</strong>`;
+    }
+
+    // Cargar un bloque de 10 ejercicios
+    function loadBlock(blockIndex) {
+      currentBlock = blockIndex;
+      blockScore = 0;
+      answeredInBlock.clear();
+      
+      const container = document.getElementById('exercises-container');
+      const completionContainer = document.getElementById('completion-message-container');
+      container.innerHTML = '';
+      completionContainer.innerHTML = '';
+      
+      const startIdx = blockIndex * 10;
+      const endIdx = Math.min(startIdx + 10, allExercises.length);
+      const blockExercises = allExercises.slice(startIdx, endIdx);
+      
+      document.getElementById('block-number').textContent = blockIndex + 1;
+      document.getElementById('score-value').textContent = '0';
+      document.getElementById('next-button').style.display = 'none';
+      
+      blockExercises.forEach((ex, idx) => {
+        const exerciseNum = startIdx + idx;
+        const exerciseDiv = document.createElement('div');
+        exerciseDiv.className = 'exercise';
+        exerciseDiv.id = `ex${exerciseNum}`;
+        
+        const escapedAnswer = ex.a.replace(/'/g, "\\'");
+        const escapedExp = ex.exp.replace(/'/g, "\\'").replace(/`/g, "\\`");
+        
+        exerciseDiv.innerHTML = `
+          <div class="exercise-question">${idx + 1}. ${ex.q}</div>
+          <div class="exercise-input">
+            <input type="text" id="input${exerciseNum}" placeholder="Escribe el verbo aquí">
+            <button onclick="checkAnswer(${exerciseNum}, '${escapedAnswer}', \`${escapedExp}\`)">Comprobar</button>
+          </div>
+          <div class="feedback" id="feedback${exerciseNum}"></div>
+        `;
+        container.appendChild(exerciseDiv);
+      });
+    }
+
+    // Comprobar respuesta
+    function checkAnswer(questionNum, correctAnswer, explanation) {
+      const input = document.getElementById(`input${questionNum}`);
+      const feedback = document.getElementById(`feedback${questionNum}`);
+      const exercise = document.getElementById(`ex${questionNum}`);
+      const button = input.nextElementSibling;
+      
+      const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+      const correct = correctAnswer.toLowerCase().replace(/\s+/g, ' ');
+      
+      if (userAnswer === correct) {
+        feedback.className = 'feedback correct show';
+        feedback.innerHTML = `
+          <div class="feedback-title">✅ ¡Correcto! ¡Muy bien!</div>
+          <div class="feedback-text">La respuesta correcta es: <strong>${correctAnswer}</strong></div>
+        `;
+        exercise.classList.add('correct');
+        exercise.classList.remove('incorrect');
+        button.disabled = true;
+        input.disabled = true;
+        
+        if (!answeredInBlock.has(questionNum)) {
+          blockScore++;
+          answeredInBlock.add(questionNum);
+          updateScore();
+          checkBlockCompletion();
+        }
+      } else {
+        feedback.className = 'feedback incorrect show';
+        feedback.innerHTML = `
+          <div class="feedback-title">❌ Casi... ¡Inténtalo otra vez!</div>
+          <div class="feedback-text">
+            <strong>Tu respuesta:</strong> ${userAnswer}<br>
+            <strong>Pista:</strong> ${explanation}<br>
+            <strong>Respuesta correcta:</strong> ${correctAnswer}
+          </div>
+        `;
+        exercise.classList.add('incorrect');
+        exercise.classList.remove('correct');
+      }
+    }
+
+    // Actualizar puntuación
+    function updateScore() {
+      document.getElementById('score-value').textContent = blockScore;
+    }
+
+    // Verificar si el bloque está completo
+    function checkBlockCompletion() {
+      const startIdx = currentBlock * 10;
+      const endIdx = Math.min(startIdx + 10, allExercises.length);
+      const blockSize = endIdx - startIdx;
+      
+      if (blockScore === blockSize) {
+        const completionContainer = document.getElementById('completion-message-container');
+        const nextButton = document.getElementById('next-button');
+        
+        completionContainer.innerHTML = `
+          <div class="completion-message">
+            🎉 ¡Excelente trabajo! Has completado los 10 ejercicios correctamente 🎉
+          </div>
+        `;
+        
+        // Mostrar botón de siguiente bloque si hay más ejercicios
+        if (endIdx < allExercises.length) {
+          nextButton.style.display = 'inline-block';
+        } else {
+          // Si es el último bloque, mostrar mensaje final
+          completionContainer.innerHTML += `
+            <div class="completion-message" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); margin-top: 1rem;">
+              🏆 ¡FELICIDADES! Has completado TODOS los ejercicios 🏆
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Cargar siguiente bloque
+    function loadNextBlock() {
+      const nextBlock = currentBlock + 1;
+      if (nextBlock * 10 < allExercises.length) {
+        loadBlock(nextBlock);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Reiniciar bloque actual
+    function resetCurrentBlock() {
+      loadBlock(currentBlock);
+    }
+
+    // Inicialización del SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['main_title', config.main_title || defaultConfig.main_title],
+          ['subtitle', config.subtitle || defaultConfig.subtitle],
+          ['instructions_text', config.instructions_text || defaultConfig.instructions_text]
+        ])
+      });
+    }
+
+    // Cargar la configuración inicial y el primer bloque
+    onConfigChange(window.elementSdk ? window.elementSdk.config : defaultConfig);
+    loadBlock(0);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dc84761e9d781',t:'MTc2NDg3NzI5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,1654 @@
+<!doctype html>
+<html lang="ca">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprèn Verbs Catalans</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+            color: #2d3748;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4c51bf, #667eea);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .app-title {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .welcome-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: #4c51bf;
+            box-shadow: 0 10px 25px rgba(76, 81, 191, 0.15);
+        }
+
+        .menu-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .menu-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .menu-description {
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .back-button {
+            background: #718096;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #4a5568;
+        }
+
+        .theory-box {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+            border-left: 5px solid #3182ce;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .theory-title {
+            color: #2b6cb0;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .theory-content {
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .example {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #4c51bf;
+            border: 2px solid #e2e8f0;
+        }
+
+        .exercise-section {
+            background: linear-gradient(135deg, #fffaf0, #fef5e7);
+            border-left: 5px solid #ed8936;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .exercise-title {
+            color: #c05621;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .question-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #4c51bf;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            background: #434190;
+            transform: translateY(-2px);
+        }
+
+        .option-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+
+        .next-btn {
+            background: #ed8936;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background: #dd6b20;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4c51bf;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .completion-message {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+            border-radius: 15px;
+            border: 2px solid #48bb78;
+        }
+
+        .completion-title {
+            font-size: 1.5rem;
+            color: #22543d;
+            margin-bottom: 15px;
+        }
+
+        .completion-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .text-exercise {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            line-height: 2;
+            font-size: 1.1rem;
+        }
+
+        .text-exercise p {
+            margin-bottom: 15px;
+        }
+
+        .word {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .word:hover {
+            background: #e2e8f0;
+        }
+
+        .word.selected {
+            background: #4c51bf;
+            color: white;
+            font-weight: bold;
+        }
+
+        .word.correct {
+            background: #48bb78;
+            color: white;
+            font-weight: bold;
+        }
+
+        .word.incorrect {
+            background: #e53e3e;
+            color: white;
+            font-weight: bold;
+        }
+
+        .check-button {
+            background: #ed8936;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .check-button:hover {
+            background: #dd6b20;
+        }
+
+        .check-button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .text-results {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+            border-radius: 10px;
+            border: 2px solid #48bb78;
+        }
+
+        .text-results h4 {
+            color: #22543d;
+            margin-bottom: 10px;
+        }
+
+        .classification-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fef5e7, #fdebd0);
+            border-radius: 10px;
+            border: 2px solid #f39c12;
+        }
+
+        .classification-title {
+            color: #c05621;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .tense-tables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tense-box {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 200px;
+            border: 3px dashed #cbd5e0;
+            transition: all 0.3s ease;
+        }
+
+        .tense-box.drag-over {
+            border-color: #4c51bf;
+            background: #f7fafc;
+            transform: scale(1.02);
+        }
+
+        .tense-box-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .tense-box-header.passat {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+        }
+
+        .tense-box-header.present {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+
+        .tense-box-header.futur {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+        }
+
+        .verb-item {
+            background: linear-gradient(135deg, #4c51bf, #667eea);
+            color: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: move;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .verb-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .verb-item.dragging {
+            opacity: 0.5;
+        }
+
+        .verb-item.placed {
+            cursor: default;
+        }
+
+        .verb-item.correct-placement {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+
+        .verb-item.incorrect-placement {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+        }
+
+        .verbs-pool {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .verbs-pool-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        .verbs-pool-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .classification-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .app-title {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-container">
+   <header class="header">
+    <h1 class="app-title" id="appTitle">Aprèn Verbs Catalans</h1>
+    <p class="welcome-text" id="welcomeMessage">Descobreix els verbs catalans de manera divertida! 🎉</p>
+   </header>
+   <main class="main-content"><!-- Main Menu -->
+    <div id="mainMenu">
+     <div class="menu-grid">
+      <div class="menu-card" onclick="showSection('persona')"><span class="menu-icon">👥</span>
+       <h3 class="menu-title">Persona i Nombre</h3>
+       <p class="menu-description">Aprèn la 1a, 2a i 3a persona del singular i plural</p>
+      </div>
+      <div class="menu-card" onclick="showSection('temps')"><span class="menu-icon">⏰</span>
+       <h3 class="menu-title">Temps Verbals</h3>
+       <p class="menu-description">Present, passat i futur dels verbs catalans</p>
+      </div>
+      <div class="menu-card" onclick="showSection('modes')"><span class="menu-icon">🎭</span>
+       <h3 class="menu-title">Modes Verbals</h3>
+       <p class="menu-description">Indicatiu, subjuntiu i imperatiu</p>
+      </div>
+      <div class="menu-card" onclick="showSection('formes')"><span class="menu-icon">🔄</span>
+       <h3 class="menu-title">Formes No Personals</h3>
+       <p class="menu-description">Infinitiu, participi i gerundi</p>
+      </div>
+      <div class="menu-card" onclick="showSection('text')"><span class="menu-icon">⚽</span>
+       <h3 class="menu-title">Marca els Verbs</h3>
+       <p class="menu-description">Identifica tots els verbs en un text sobre Messi</p>
+      </div>
+     </div>
+     <div class="stats">
+      <div class="stat-card">
+       <div class="stat-number" id="totalExercises">
+        0
+       </div>
+       <div class="stat-label">
+        Exercicis fets
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-number" id="correctAnswers">
+        0
+       </div>
+       <div class="stat-label">
+        Correctes
+       </div>
+      </div>
+      <div class="stat-card">
+       <div class="stat-number" id="accuracy">
+        0%
+       </div>
+       <div class="stat-label">
+        Precisió
+       </div>
+      </div>
+     </div>
+    </div><!-- Section Content -->
+    <div id="sectionContent" class="section-content"><button class="back-button" onclick="showMainMenu()">�� Tornar al menú</button>
+     <div id="theoryContent"></div>
+     <div id="exerciseContent"></div>
+    </div>
+   </main>
+  </div>
+  <script>
+        // Configuration
+        const defaultConfig = {
+            app_title: "Aprèn Verbs Catalans",
+            welcome_message: "Descobreix els verbs catalans de manera divertida! 🎉",
+            success_message: "Excel·lent! Has encertat!"
+        };
+
+        // Exercise data
+        const sections = {
+            persona: {
+                title: "Persona i Nombre",
+                theory: {
+                    title: "📚 Persona i Nombre dels Verbs",
+                    content: `
+                        <p><strong>Els verbs catalans es conjuguen segons:</strong></p>
+                        <ul>
+                            <li><strong>Persona:</strong> 1a (jo), 2a (tu), 3a (ell/ella)</li>
+                            <li><strong>Nombre:</strong> Singular i Plural</li>
+                        </ul>
+                        <h4>Exemple amb CANTAR:</h4>
+                        <div class="examples">
+                            <div class="example">Jo canto</div>
+                            <div class="example">Tu cantes</div>
+                            <div class="example">Ell canta</div>
+                            <div class="example">Nosaltres cantem</div>
+                            <div class="example">Vosaltres canteu</div>
+                            <div class="example">Ells canten</div>
+                        </div>
+                    `
+                },
+                exercises: [
+                    {
+                        question: "Completa: ___ canto",
+                        options: ["Jo", "Tu", "Ell"],
+                        correct: "Jo"
+                    },
+                    {
+                        question: "Quina persona és 'Nosaltres cantem'?",
+                        options: ["1a persona singular", "1a persona plural", "2a persona plural"],
+                        correct: "1a persona plural"
+                    },
+                    {
+                        question: "Completa: Vosaltres ___",
+                        options: ["canteu", "cantem", "canten"],
+                        correct: "canteu"
+                    },
+                    {
+                        question: "Completa: Tu ___ (verb menjar)",
+                        options: ["menjo", "menges", "menja"],
+                        correct: "menges"
+                    },
+                    {
+                        question: "Quina persona és 'Ells parlen'?",
+                        options: ["2a persona plural", "3a persona plural", "1a persona plural"],
+                        correct: "3a persona plural"
+                    },
+                    {
+                        question: "Completa: Ella ___ (verb córrer)",
+                        options: ["corro", "corres", "corre"],
+                        correct: "corre"
+                    },
+                    {
+                        question: "Completa: ___ dormim",
+                        options: ["Jo", "Tu", "Nosaltres"],
+                        correct: "Nosaltres"
+                    },
+                    {
+                        question: "Quina persona és 'Jo escric'?",
+                        options: ["1a persona singular", "2a persona singular", "3a persona singular"],
+                        correct: "1a persona singular"
+                    },
+                    {
+                        question: "Completa: Vosaltres ___ (verb llegir)",
+                        options: ["llegim", "llegiu", "llegeixen"],
+                        correct: "llegiu"
+                    },
+                    {
+                        question: "Completa: ___ beu aigua",
+                        options: ["Jo", "Tu", "Ell"],
+                        correct: "Ell"
+                    },
+                    {
+                        question: "Quina persona és 'Tu estudies'?",
+                        options: ["1a persona singular", "2a persona singular", "3a persona singular"],
+                        correct: "2a persona singular"
+                    },
+                    {
+                        question: "Completa: Elles ___ (verb caminar)",
+                        options: ["camino", "camines", "caminen"],
+                        correct: "caminen"
+                    },
+                    {
+                        question: "Completa: ___ viatjo molt",
+                        options: ["Jo", "Tu", "Ell"],
+                        correct: "Jo"
+                    },
+                    {
+                        question: "Quina persona és 'Vosaltres balleu'?",
+                        options: ["1a persona plural", "2a persona plural", "3a persona plural"],
+                        correct: "2a persona plural"
+                    },
+                    {
+                        question: "Completa: Tu ___ (verb cuinar)",
+                        options: ["cuino", "cuines", "cuina"],
+                        correct: "cuines"
+                    },
+                    {
+                        question: "Completa: Nosaltres ___ (verb nedar)",
+                        options: ["nedo", "nedes", "nedem"],
+                        correct: "nedem"
+                    },
+                    {
+                        question: "Quina persona és 'Ella canta'?",
+                        options: ["2a persona singular", "3a persona singular", "1a persona singular"],
+                        correct: "3a persona singular"
+                    },
+                    {
+                        question: "Completa: ___ compren pa",
+                        options: ["Jo", "Tu", "Ells"],
+                        correct: "Ells"
+                    },
+                    {
+                        question: "Completa: Vosaltres ___ (verb saltar)",
+                        options: ["saltem", "salteu", "salten"],
+                        correct: "salteu"
+                    },
+                    {
+                        question: "Quina persona és 'Jo pinto'?",
+                        options: ["1a persona singular", "2a persona singular", "3a persona singular"],
+                        correct: "1a persona singular"
+                    }
+                ]
+            },
+            temps: {
+                title: "Temps Verbals",
+                theory: {
+                    title: "📚 Temps Verbals",
+                    content: `
+                        <p><strong>Els temps indiquen quan passa l'acció:</strong></p>
+                        <ul>
+                            <li><strong>Present:</strong> Jo canto (ara)</li>
+                            <li><strong>Passat:</strong> Jo cantava (abans)</li>
+                            <li><strong>Futur:</strong> Jo cantaré (després)</li>
+                        </ul>
+                        <div class="examples">
+                            <div class="example">Canto<br><small>present</small></div>
+                            <div class="example">Cantava<br><small>passat</small></div>
+                            <div class="example">Cantaré<br><small>futur</small></div>
+                        </div>
+                    `
+                },
+                exercises: [
+                    {
+                        question: "Quin temps és 'Jo cantava'?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Passat"
+                    },
+                    {
+                        question: "Com es diu 'cantar' en futur (1a persona)?",
+                        options: ["canto", "cantava", "cantaré"],
+                        correct: "cantaré"
+                    },
+                    {
+                        question: "'Ells correran' és quin temps?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Futur"
+                    },
+                    {
+                        question: "Quin temps és 'Tu menges'?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Present"
+                    },
+                    {
+                        question: "Com es diu 'estudiar' en passat (2a persona)?",
+                        options: ["estudies", "estudiaves", "estudiaràs"],
+                        correct: "estudiaves"
+                    },
+                    {
+                        question: "'Nosaltres dormíem' és quin temps?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Passat"
+                    },
+                    {
+                        question: "Com es diu 'llegir' en futur (3a persona plural)?",
+                        options: ["llegeixen", "llegien", "llegiran"],
+                        correct: "llegiran"
+                    },
+                    {
+                        question: "Quin temps és 'Vosaltres escriviu'?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Present"
+                    },
+                    {
+                        question: "Com es diu 'beure' en passat (1a persona)?",
+                        options: ["bec", "bevia", "beuré"],
+                        correct: "bevia"
+                    },
+                    {
+                        question: "'Ella caminarà' és quin temps?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Futur"
+                    },
+                    {
+                        question: "Quin temps és 'Jo parlava'?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Passat"
+                    },
+                    {
+                        question: "Com es diu 'treballar' en futur (2a persona)?",
+                        options: ["treballes", "treballaves", "treballaràs"],
+                        correct: "treballaràs"
+                    },
+                    {
+                        question: "'Ells juguen' és quin temps?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Present"
+                    },
+                    {
+                        question: "Com es diu 'viure' en passat (3a persona)?",
+                        options: ["viu", "vivia", "viurà"],
+                        correct: "vivia"
+                    },
+                    {
+                        question: "Quin temps és 'Vosaltres cuinareu'?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Futur"
+                    },
+                    {
+                        question: "Com es diu 'nedar' en present (1a persona)?",
+                        options: ["nedo", "nedava", "nedaré"],
+                        correct: "nedo"
+                    },
+                    {
+                        question: "'Tu saltaves' és quin temps?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Passat"
+                    },
+                    {
+                        question: "Com es diu 'pintar' en futur (3a persona)?",
+                        options: ["pinta", "pintava", "pintarà"],
+                        correct: "pintarà"
+                    },
+                    {
+                        question: "Quin temps és 'Nosaltres comprem'?",
+                        options: ["Present", "Passat", "Futur"],
+                        correct: "Present"
+                    },
+                    {
+                        question: "Com es diu 'ballar' en passat (2a persona plural)?",
+                        options: ["balleu", "ballàveu", "ballareu"],
+                        correct: "ballàveu"
+                    }
+                ]
+            },
+            modes: {
+                title: "Modes Verbals",
+                theory: {
+                    title: "📚 Modes Verbals",
+                    content: `
+                        <p><strong>Els modes expressen l'actitud del parlant:</strong></p>
+                        <ul>
+                            <li><strong>Indicatiu:</strong> Fets reals (Jo canto)</li>
+                            <li><strong>Subjuntiu:</strong> Dubtes, desitjos (Que jo canti)</li>
+                            <li><strong>Imperatiu:</strong> Ordres (Canta!)</li>
+                        </ul>
+                        <div class="examples">
+                            <div class="example">Jo canto<br><small>indicatiu</small></div>
+                            <div class="example">Que jo canti<br><small>subjuntiu</small></div>
+                            <div class="example">Canta!<br><small>imperatiu</small></div>
+                        </div>
+                    `
+                },
+                exercises: [
+                    {
+                        question: "Quin mode és 'Canta!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que tu vinguis' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "'Ell parla català' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Indicatiu"
+                    },
+                    {
+                        question: "Quin mode és 'Estudia més!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que ells arribin aviat' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "'Nosaltres mengem pa' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Indicatiu"
+                    },
+                    {
+                        question: "Quin mode és 'Llegeix aquest llibre!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que jo pugui venir' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "'Tu dorms molt' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Indicatiu"
+                    },
+                    {
+                        question: "Quin mode és 'Escriu la carta!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que vosaltres entenguis' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "'Elles treballen molt' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Indicatiu"
+                    },
+                    {
+                        question: "Quin mode és 'Camina més ràpid!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que ella sigui feliç' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "Quin mode és 'Beu més aigua!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que nosaltres guanyem' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "'Jo visc a Barcelona' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Indicatiu"
+                    },
+                    {
+                        question: "Quin mode és 'Cuina el sopar!'?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Imperatiu"
+                    },
+                    {
+                        question: "'Que tu entenguis la lliçó' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Subjuntiu"
+                    },
+                    {
+                        question: "'Vosaltres nedeu molt bé' és quin mode?",
+                        options: ["Indicatiu", "Subjuntiu", "Imperatiu"],
+                        correct: "Indicatiu"
+                    }
+                ]
+            },
+            formes: {
+                title: "Formes No Personals",
+                theory: {
+                    title: "📚 Formes No Personals",
+                    content: `
+                        <p><strong>No indiquen persona ni nombre:</strong></p>
+                        <ul>
+                            <li><strong>Infinitiu:</strong> cantar, córrer, dormir</li>
+                            <li><strong>Participi:</strong> cantat, corregut, dormit</li>
+                            <li><strong>Gerundi:</strong> cantant, corrent, dormint</li>
+                        </ul>
+                        <div class="examples">
+                            <div class="example">CANTAR<br><small>infinitiu</small></div>
+                            <div class="example">CANTAT<br><small>participi</small></div>
+                            <div class="example">CANTANT<br><small>gerundi</small></div>
+                        </div>
+                    `
+                },
+                exercises: [
+                    {
+                        question: "L'infinitiu de 'canto' és:",
+                        options: ["cantar", "cantat", "cantant"],
+                        correct: "cantar"
+                    },
+                    {
+                        question: "'Llegint' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    },
+                    {
+                        question: "El participi de 'escriure' és:",
+                        options: ["escriure", "escrit", "escrivint"],
+                        correct: "escrit"
+                    },
+                    {
+                        question: "L'infinitiu de 'menjo' és:",
+                        options: ["menjar", "menjat", "menjant"],
+                        correct: "menjar"
+                    },
+                    {
+                        question: "'Corrent' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    },
+                    {
+                        question: "El participi de 'beure' és:",
+                        options: ["beure", "begut", "bevent"],
+                        correct: "begut"
+                    },
+                    {
+                        question: "L'infinitiu de 'dormo' és:",
+                        options: ["dormir", "dormit", "dormint"],
+                        correct: "dormir"
+                    },
+                    {
+                        question: "'Estudiant' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    },
+                    {
+                        question: "El participi de 'viure' és:",
+                        options: ["viure", "viscut", "vivint"],
+                        correct: "viscut"
+                    },
+                    {
+                        question: "L'infinitiu de 'treballo' és:",
+                        options: ["treballar", "treballat", "treballant"],
+                        correct: "treballar"
+                    },
+                    {
+                        question: "'Jugant' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    },
+                    {
+                        question: "El participi de 'parlar' és:",
+                        options: ["parlar", "parlat", "parlant"],
+                        correct: "parlat"
+                    },
+                    {
+                        question: "L'infinitiu de 'camino' és:",
+                        options: ["caminar", "caminat", "caminant"],
+                        correct: "caminar"
+                    },
+                    {
+                        question: "'Escrivint' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    },
+                    {
+                        question: "El participi de 'llegir' és:",
+                        options: ["llegir", "llegit", "llegint"],
+                        correct: "llegit"
+                    },
+                    {
+                        question: "L'infinitiu de 'pinto' és:",
+                        options: ["pintar", "pintat", "pintant"],
+                        correct: "pintar"
+                    },
+                    {
+                        question: "'Nedant' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    },
+                    {
+                        question: "El participi de 'cuinar' és:",
+                        options: ["cuinar", "cuinat", "cuinant"],
+                        correct: "cuinat"
+                    },
+                    {
+                        question: "L'infinitiu de 'salto' és:",
+                        options: ["saltar", "saltat", "saltant"],
+                        correct: "saltar"
+                    },
+                    {
+                        question: "'Ballant' és un:",
+                        options: ["Infinitiu", "Participi", "Gerundi"],
+                        correct: "Gerundi"
+                    }
+                ]
+            },
+            text: {
+                title: "Marca els Verbs",
+                theory: {
+                    title: "📚 Identifica els Verbs al Text",
+                    content: `
+                        <p><strong>Llegeix aquest text sobre Lionel Messi i marca tots els verbs que trobis:</strong></p>
+                        <p>Els verbs expressen accions, estats o processos. Poden estar conjugats o en forma no personal.</p>
+                    `
+                },
+                textContent: `Lionel Andrés Messi va néixer a l'Argentina l'any 1987. Des de petit, jugava a futbol al carrer amb els seus amics. Tothom sabia que Leo tenia un talent especial.
+
+Quan era només un nen, va venir a Barcelona per fer una prova amb el FC Barcelona. Els entrenadors van veure el seu potencial i ell va jugar gairebé tota la seva carrera en aquest club.
+
+Allà va guanyar molts títols, com la Lliga de Campions. Finalment, l'any 2022, va aconseguir guanyar la Copa del Món amb la selecció argentina.
+
+Actualment, Messi és conegut com un dels millors jugadors de la història. El seu llegat continuarà creixent i en el futur recordarem les seves grans gestes al camp.`,
+                verbs: [
+                    "va néixer", "jugava", "sabia", "tenia", "era", "va venir", "fer", 
+                    "van veure", "va jugar", "va guanyar", "va aconseguir", "guanyar",
+                    "és", "conegut", "continuarà", "creixent", "recordarem"
+                ],
+                verbTenses: {
+                    "va néixer": "passat",
+                    "jugava": "passat",
+                    "sabia": "passat",
+                    "tenia": "passat",
+                    "era": "passat",
+                    "va venir": "passat",
+                    "fer": "present",
+                    "van veure": "passat",
+                    "va jugar": "passat",
+                    "va guanyar": "passat",
+                    "va aconseguir": "passat",
+                    "guanyar": "present",
+                    "és": "present",
+                    "conegut": "present",
+                    "continuarà": "futur",
+                    "creixent": "present",
+                    "recordarem": "futur"
+                }
+            }
+        };
+
+        // Global state
+        let currentSection = null;
+        let currentExercise = 0;
+        let allData = [];
+        let stats = { total: 0, correct: 0 };
+
+        // Data SDK handler
+        const dataHandler = {
+            onDataChanged(data) {
+                allData = data;
+                updateStats();
+            }
+        };
+
+        // Element SDK functions
+        async function onConfigChange(config) {
+            document.getElementById('appTitle').textContent = config.app_title || defaultConfig.app_title;
+            document.getElementById('welcomeMessage').textContent = config.welcome_message || defaultConfig.welcome_message;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["app_title", config.app_title || defaultConfig.app_title],
+                ["welcome_message", config.welcome_message || defaultConfig.welcome_message],
+                ["success_message", config.success_message || defaultConfig.success_message]
+            ]);
+        }
+
+        // Initialize app
+        async function initApp() {
+            try {
+                if (window.elementSdk) {
+                    await window.elementSdk.init({
+                        defaultConfig,
+                        onConfigChange,
+                        mapToCapabilities,
+                        mapToEditPanelValues
+                    });
+                }
+
+                if (window.dataSdk) {
+                    const result = await window.dataSdk.init(dataHandler);
+                    if (!result.isOk) {
+                        console.error("Data SDK init failed");
+                    }
+                }
+
+                updateStats();
+            } catch (error) {
+                console.error("Init error:", error);
+            }
+        }
+
+        // Navigation functions
+        function showSection(sectionId) {
+            currentSection = sectionId;
+            currentExercise = 0;
+            
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('sectionContent').style.display = 'block';
+            
+            loadSectionContent();
+        }
+
+        function showMainMenu() {
+            document.getElementById('sectionContent').style.display = 'none';
+            document.getElementById('mainMenu').style.display = 'block';
+            currentSection = null;
+        }
+
+        function loadSectionContent() {
+            const section = sections[currentSection];
+            
+            // Load theory
+            document.getElementById('theoryContent').innerHTML = `
+                <div class="theory-box">
+                    <h3 class="theory-title">${section.theory.title}</h3>
+                    <div class="theory-content">${section.theory.content}</div>
+                </div>
+            `;
+            
+            // Load exercise
+            if (currentSection === 'text') {
+                loadTextExercise();
+            } else {
+                loadExercise();
+            }
+        }
+
+        function loadExercise() {
+            const section = sections[currentSection];
+            const exercises = section.exercises;
+            
+            if (currentExercise >= exercises.length) {
+                showCompletion();
+                return;
+            }
+            
+            const exercise = exercises[currentExercise];
+            
+            document.getElementById('exerciseContent').innerHTML = `
+                <div class="exercise-section">
+                    <h3 class="exercise-title">🎯 Exercici ${currentExercise + 1} de ${exercises.length}</h3>
+                    <div class="question-box">
+                        <div class="question-text">${exercise.question}</div>
+                        <div class="options">
+                            ${exercise.options.map(option => 
+                                `<button class="option-btn" onclick="checkAnswer('${option}')">${option}</button>`
+                            ).join('')}
+                        </div>
+                        <div id="feedback"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function checkAnswer(userAnswer) {
+            const section = sections[currentSection];
+            const exercise = section.exercises[currentExercise];
+            const isCorrect = userAnswer === exercise.correct;
+            const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+            
+            // Disable buttons
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === exercise.correct) {
+                    btn.style.background = '#48bb78';
+                } else if (btn.textContent === userAnswer && !isCorrect) {
+                    btn.style.background = '#e53e3e';
+                }
+            });
+            
+            // Show feedback
+            const feedbackDiv = document.getElementById('feedback');
+            const successMessage = config.success_message || defaultConfig.success_message;
+            
+            if (isCorrect) {
+                feedbackDiv.innerHTML = `
+                    <div class="feedback correct">🎉 ${successMessage}</div>
+                    <button class="next-btn" onclick="nextExercise()">Següent exercici →</button>
+                `;
+            } else {
+                feedbackDiv.innerHTML = `
+                    <div class="feedback incorrect">❌ La resposta correcta és: <strong>${exercise.correct}</strong></div>
+                    <button class="next-btn" onclick="nextExercise()">Següent exercici →</button>
+                `;
+            }
+            
+            // Save result
+            if (window.dataSdk) {
+                await window.dataSdk.create({
+                    section: currentSection,
+                    question: exercise.question,
+                    user_answer: userAnswer,
+                    correct_answer: exercise.correct,
+                    is_correct: isCorrect,
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            // Update local stats
+            stats.total++;
+            if (isCorrect) stats.correct++;
+            updateStats();
+        }
+
+        function nextExercise() {
+            currentExercise++;
+            loadExercise();
+        }
+
+        function showCompletion() {
+            document.getElementById('exerciseContent').innerHTML = `
+                <div class="completion-message">
+                    <h3 class="completion-title">🎉 Has completat aquesta secció!</h3>
+                    <p>Molt bé! Pots repetir els exercicis o tornar al menú principal.</p>
+                    <div class="completion-buttons">
+                        <button class="option-btn" onclick="currentExercise = 0; loadExercise()">Repetir exercicis</button>
+                        <button class="next-btn" onclick="showMainMenu()">Tornar al menú</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateStats() {
+            const dataTotal = allData.length;
+            const dataCorrect = allData.filter(item => item.is_correct).length;
+            
+            const total = dataTotal || stats.total;
+            const correct = dataCorrect || stats.correct;
+            const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+            
+            document.getElementById('totalExercises').textContent = total;
+            document.getElementById('correctAnswers').textContent = correct;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+
+        // Text exercise functions
+        let selectedWords = new Set();
+        let textChecked = false;
+        let classificationStarted = false;
+        let verbPlacements = {};
+
+        function loadTextExercise() {
+            const section = sections.text;
+            const words = section.textContent.split(/(\s+|\n+)/);
+            
+            const wordElements = words.map((word, index) => {
+                if (word.trim() === '') return word;
+                const cleanWord = word.replace(/[.,;:!?]/g, '');
+                return `<span class="word" data-word="${cleanWord}" data-index="${index}" onclick="toggleWord(${index}, '${cleanWord}')">${word}</span>`;
+            }).join('');
+            
+            document.getElementById('exerciseContent').innerHTML = `
+                <div class="exercise-section">
+                    <h3 class="exercise-title">⚽ Biografia: Lionel Messi</h3>
+                    <p style="color: #718096; margin-bottom: 15px;">Clica sobre les paraules que creguis que són verbs. Després comprova la teva resposta!</p>
+                    <div class="text-exercise">
+                        ${wordElements}
+                    </div>
+                    <button class="check-button" onclick="checkTextExercise()">Comprova les meves respostes</button>
+                    <div id="textResults"></div>
+                    <div id="classificationArea"></div>
+                </div>
+            `;
+            
+            selectedWords.clear();
+            textChecked = false;
+            classificationStarted = false;
+            verbPlacements = {};
+        }
+
+        function toggleWord(index, word) {
+            if (textChecked) return;
+            
+            const element = document.querySelector(`[data-index="${index}"]`);
+            if (selectedWords.has(word)) {
+                selectedWords.delete(word);
+                element.classList.remove('selected');
+            } else {
+                selectedWords.add(word);
+                element.classList.add('selected');
+            }
+        }
+
+        async function checkTextExercise() {
+            if (textChecked) return;
+            
+            textChecked = true;
+            const section = sections.text;
+            const correctVerbs = new Set(section.verbs.map(v => v.toLowerCase().trim()));
+            const selected = Array.from(selectedWords);
+            
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let missedVerbs = [];
+            
+            // Check selected words
+            document.querySelectorAll('.word').forEach(element => {
+                const word = element.getAttribute('data-word');
+                const isVerb = Array.from(correctVerbs).some(verb => verb.includes(word.toLowerCase()) || word.toLowerCase().includes(verb));
+                const wasSelected = selectedWords.has(word);
+                
+                element.style.cursor = 'default';
+                element.onclick = null;
+                
+                if (wasSelected && isVerb) {
+                    element.classList.remove('selected');
+                    element.classList.add('correct');
+                    correctCount++;
+                } else if (wasSelected && !isVerb) {
+                    element.classList.remove('selected');
+                    element.classList.add('incorrect');
+                    incorrectCount++;
+                } else if (!wasSelected && isVerb) {
+                    element.classList.add('correct');
+                }
+            });
+            
+            // Find missed verbs
+            section.verbs.forEach(verb => {
+                const found = selected.some(word => 
+                    verb.toLowerCase().includes(word.toLowerCase()) || 
+                    word.toLowerCase().includes(verb.toLowerCase())
+                );
+                if (!found) {
+                    missedVerbs.push(verb);
+                }
+            });
+            
+            const totalVerbs = section.verbs.length;
+            const score = Math.round((correctCount / totalVerbs) * 100);
+            const isSuccess = correctCount >= totalVerbs * 0.7;
+            
+            document.querySelector('.check-button').disabled = true;
+            
+            let resultsHTML = `
+                <div class="text-results">
+                    <h4>📊 Resultats:</h4>
+                    <p><strong>Verbs correctes:</strong> ${correctCount} de ${totalVerbs}</p>
+                    <p><strong>Puntuació:</strong> ${score}%</p>
+            `;
+            
+            if (missedVerbs.length > 0) {
+                resultsHTML += `<p><strong>Verbs que no has marcat:</strong> ${missedVerbs.join(', ')}</p>`;
+            }
+            
+            if (incorrectCount > 0) {
+                resultsHTML += `<p><strong>Paraules marcades incorrectament:</strong> ${incorrectCount}</p>`;
+            }
+            
+            resultsHTML += `
+                    <div class="completion-buttons">
+                        <button class="option-btn" onclick="startClassification()">Classificar verbs per temps ⏰</button>
+                        <button class="option-btn" onclick="location.reload()">Reiniciar exercici</button>
+                        <button class="next-btn" onclick="showMainMenu()">Tornar al menú</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('textResults').innerHTML = resultsHTML;
+            
+            // Save result
+            if (window.dataSdk) {
+                await window.dataSdk.create({
+                    section: 'text',
+                    question: 'Marca els verbs al text de Messi',
+                    user_answer: selected.join(', '),
+                    correct_answer: section.verbs.join(', '),
+                    is_correct: isSuccess,
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            // Update local stats
+            stats.total++;
+            if (isSuccess) stats.correct++;
+            updateStats();
+        }
+
+        function startClassification() {
+            if (classificationStarted) return;
+            
+            classificationStarted = true;
+            const section = sections.text;
+            
+            const verbsHTML = section.verbs.map(verb => 
+                `<div class="verb-item" draggable="true" data-verb="${verb}" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
+                    ${verb}
+                </div>`
+            ).join('');
+            
+            const classificationHTML = `
+                <div class="classification-section">
+                    <h3 class="classification-title">🎯 Classifica els Verbs per Temps Verbal</h3>
+                    <p style="color: #718096; text-align: center; margin-bottom: 20px;">
+                        Arrossega cada verb a la caixa del temps verbal corresponent
+                    </p>
+                    
+                    <div class="verbs-pool">
+                        <div class="verbs-pool-header">📝 Verbs per classificar:</div>
+                        <div class="verbs-pool-content" id="verbsPool">
+                            ${verbsHTML}
+                        </div>
+                    </div>
+                    
+                    <div class="tense-tables">
+                        <div class="tense-box" data-tense="passat" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                            <div class="tense-box-header passat">⏮️ PASSAT</div>
+                            <div class="tense-content" id="passat-content"></div>
+                        </div>
+                        
+                        <div class="tense-box" data-tense="present" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                            <div class="tense-box-header present">⏸️ PRESENT</div>
+                            <div class="tense-content" id="present-content"></div>
+                        </div>
+                        
+                        <div class="tense-box" data-tense="futur" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                            <div class="tense-box-header futur">⏭️ FUTUR</div>
+                            <div class="tense-content" id="futur-content"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="classification-buttons">
+                        <button class="option-btn" onclick="checkClassification()">Comprova la classificació</button>
+                        <button class="next-btn" onclick="resetClassification()">Reiniciar classificació</button>
+                    </div>
+                    
+                    <div id="classificationResults"></div>
+                </div>
+            `;
+            
+            document.getElementById('classificationArea').innerHTML = classificationHTML;
+            document.getElementById('classificationArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function handleDragStart(event) {
+            event.target.classList.add('dragging');
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData('text/plain', event.target.getAttribute('data-verb'));
+        }
+
+        function handleDragEnd(event) {
+            event.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+            const tenseBox = event.currentTarget;
+            tenseBox.classList.add('drag-over');
+        }
+
+        function handleDragLeave(event) {
+            const tenseBox = event.currentTarget;
+            tenseBox.classList.remove('drag-over');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const tenseBox = event.currentTarget;
+            tenseBox.classList.remove('drag-over');
+            
+            const verb = event.dataTransfer.getData('text/plain');
+            const tense = tenseBox.getAttribute('data-tense');
+            const verbElement = document.querySelector(`.verb-item[data-verb="${verb}"]`);
+            
+            if (verbElement && !verbElement.classList.contains('placed')) {
+                const tenseContent = document.getElementById(`${tense}-content`);
+                tenseContent.appendChild(verbElement);
+                verbElement.classList.add('placed');
+                verbPlacements[verb] = tense;
+            }
+        }
+
+        async function checkClassification() {
+            const section = sections.text;
+            const verbTenses = section.verbTenses;
+            
+            let correctCount = 0;
+            let totalPlaced = Object.keys(verbPlacements).length;
+            
+            // Check each placed verb
+            Object.keys(verbPlacements).forEach(verb => {
+                const placedTense = verbPlacements[verb];
+                const correctTense = verbTenses[verb];
+                const verbElement = document.querySelector(`.verb-item[data-verb="${verb}"]`);
+                
+                if (placedTense === correctTense) {
+                    verbElement.classList.add('correct-placement');
+                    verbElement.classList.remove('incorrect-placement');
+                    correctCount++;
+                } else {
+                    verbElement.classList.add('incorrect-placement');
+                    verbElement.classList.remove('correct-placement');
+                }
+            });
+            
+            const score = totalPlaced > 0 ? Math.round((correctCount / section.verbs.length) * 100) : 0;
+            const isSuccess = correctCount >= section.verbs.length * 0.7;
+            
+            let resultsHTML = `
+                <div class="text-results" style="margin-top: 20px;">
+                    <h4>📊 Resultats de la Classificació:</h4>
+                    <p><strong>Verbs ben classificats:</strong> ${correctCount} de ${section.verbs.length}</p>
+                    <p><strong>Puntuació:</strong> ${score}%</p>
+            `;
+            
+            if (correctCount < section.verbs.length) {
+                resultsHTML += `<p style="color: #c05621; margin-top: 10px;">💡 Els verbs en <span style="color: #e53e3e;">vermell</span> estan mal classificats. Els verbs en <span style="color: #48bb78;">verd</span> són correctes!</p>`;
+            } else {
+                resultsHTML += `<p style="color: #22543d; margin-top: 10px;">🎉 Excel·lent! Has classificat tots els verbs correctament!</p>`;
+            }
+            
+            resultsHTML += `</div>`;
+            
+            document.getElementById('classificationResults').innerHTML = resultsHTML;
+            
+            // Save classification result
+            if (window.dataSdk) {
+                await window.dataSdk.create({
+                    section: 'text_classification',
+                    question: 'Classificació de verbs per temps',
+                    user_answer: JSON.stringify(verbPlacements),
+                    correct_answer: JSON.stringify(verbTenses),
+                    is_correct: isSuccess,
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            // Update local stats
+            stats.total++;
+            if (isSuccess) stats.correct++;
+            updateStats();
+        }
+
+        function resetClassification() {
+            verbPlacements = {};
+            
+            // Move all verbs back to pool
+            const pool = document.getElementById('verbsPool');
+            document.querySelectorAll('.verb-item').forEach(verb => {
+                verb.classList.remove('placed', 'correct-placement', 'incorrect-placement');
+                pool.appendChild(verb);
+            });
+            
+            // Clear results
+            document.getElementById('classificationResults').innerHTML = '';
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dc21c90afd781',t:'MTc2NDg3NzA0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

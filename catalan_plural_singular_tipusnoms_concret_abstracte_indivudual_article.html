@@ -1,0 +1,1268 @@
+<!doctype html>
+<html lang="ca">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica de Catalán 5º Primaria</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+        }
+        
+        html, body {
+            height: 100%;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-title {
+            color: #4a5568;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .student-name {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #48bb78, #38a169);
+        }
+
+        .exercise-section {
+            display: none;
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .exercise-section.active {
+            display: block;
+        }
+
+        .exercise-title {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .answer-input {
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 150px;
+            transition: border-color 0.3s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            background: #e2e8f0;
+            border: 2px solid #cbd5e0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .option-btn:hover {
+            background: #cbd5e0;
+        }
+
+        .option-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .check-btn {
+            background: linear-gradient(45deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        .continue-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .continue-btn.show {
+            display: block;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .result.correct {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+
+        .result.incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+
+        .rule-explanation {
+            background: #bee3f8;
+            color: #2a4365;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #3182ce;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #48bb78, #38a169);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .encouragement {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #48bb78;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container">
+   <header class="header">
+    <h1 class="main-title" id="mainTitle">Práctica de Catalán</h1>
+    <p class="student-name" id="studentName">Benvinguda!</p>
+   </header>
+   <div class="stats">
+    <div class="stat-item">
+     <div class="stat-number" id="totalQuestions">
+      0
+     </div>
+     <div class="stat-label">
+      Preguntes
+     </div>
+    </div>
+    <div class="stat-item">
+     <div class="stat-number" id="correctAnswers">
+      0
+     </div>
+     <div class="stat-label">
+      Correctes
+     </div>
+    </div>
+    <div class="stat-item">
+     <div class="stat-number" id="accuracy">
+      0%
+     </div>
+     <div class="stat-label">
+      Precisió
+     </div>
+    </div>
+   </div>
+   <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+   </div>
+   <nav class="nav-buttons"><button class="nav-btn active" onclick="showSection('plurals')">Plurals i Singulars</button> <button class="nav-btn" onclick="showSection('noun-types')">Tipus de Noms</button> <button class="nav-btn" onclick="showSection('concrete-abstract')">Concret vs Abstracte</button> <button class="nav-btn" onclick="showSection('individual-collective')">Individual vs Col·lectiu</button> <button class="nav-btn" onclick="showSection('articles')">L'Article</button>
+   </nav>
+   <div class="encouragement" id="encouragementText">
+    Molt bé! Continua practicant!
+   </div><!-- Plurals Section -->
+   <section id="plurals" class="exercise-section active">
+    <h2 class="exercise-title">Plurals i Singulars</h2>
+    <div id="pluralExercises"></div><button class="check-btn" id="checkPluralsBtn" onclick="checkPlurals()">Corregir Respostes</button> <button class="continue-btn" id="continuePluralsBtn" onclick="generateNewPlurals()">Continuar amb Nous Exercicis</button>
+   </section><!-- Noun Types Section -->
+   <section id="noun-types" class="exercise-section">
+    <h2 class="exercise-title">Tipus de Noms</h2>
+    <div id="nounTypeExercises"></div><button class="check-btn" id="checkNounTypesBtn" onclick="checkNounTypes()">Corregir Respostes</button> <button class="continue-btn" id="continueNounTypesBtn" onclick="generateNewNounTypes()">Continuar amb Nous Exercicis</button>
+   </section><!-- Concrete vs Abstract Section -->
+   <section id="concrete-abstract" class="exercise-section">
+    <h2 class="exercise-title">Noms Concrets vs Abstractes</h2>
+    <div id="concreteAbstractExercises"></div><button class="check-btn" id="checkConcreteAbstractBtn" onclick="checkConcreteAbstract()">Corregir Respostes</button> <button class="continue-btn" id="continueConcreteAbstractBtn" onclick="generateNewConcreteAbstract()">Continuar amb Nous Exercicis</button>
+   </section><!-- Individual vs Collective Section -->
+   <section id="individual-collective" class="exercise-section">
+    <h2 class="exercise-title">Noms Individuals vs Col·lectius</h2>
+    <div id="individualCollectiveExercises"></div><button class="check-btn" id="checkIndividualCollectiveBtn" onclick="checkIndividualCollective()">Corregir Respostes</button> <button class="continue-btn" id="continueIndividualCollectiveBtn" onclick="generateNewIndividualCollective()">Continuar amb Nous Exercicis</button>
+   </section><!-- Articles Section -->
+   <section id="articles" class="exercise-section">
+    <h2 class="exercise-title">L'Article en Català</h2>
+    <div id="articlesExercises"></div><button class="check-btn" id="checkArticlesBtn" onclick="checkArticles()">Corregir Respostes</button> <button class="continue-btn" id="continueArticlesBtn" onclick="generateNewArticles()">Continuar amb Nous Exercicis</button>
+   </section>
+  </div>
+  <script>
+        // Configuration object
+        const defaultConfig = {
+            main_title: "Práctica de Catalán",
+            student_name: "Benvinguda!",
+            encouragement_text: "Molt bé! Continua practicant!"
+        };
+
+        // Data for exercises - Extended datasets
+        const pluralDataBank = [
+            // Paraules acabades en consonant - afegir -s
+            { singular: "gat", plural: "gats", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "nen", plural: "nens", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "núvol", plural: "núvols", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "conill", plural: "conills", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "país", plural: "països", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "examen", plural: "exàmens", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "desig", plural: "desigs", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "fotògraf", plural: "fotògrafs", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "gos", plural: "gossos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "milió", plural: "milions", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "cinturó", plural: "cinturons", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "jardí", plural: "jardins", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "pi", plural: "pins", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "fre", plural: "frens", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "passeig", plural: "passeigs", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "lluç", plural: "lluços", rule: "Afegir -os a paraules acabades en -ç" },
+            { singular: "mosso", plural: "mossos", rule: "Afegir -s a paraules acabades en vocal" },
+            { singular: "comerç", plural: "comerços", rule: "Afegir -os a paraules acabades en -ç" },
+            
+            // Paraules acabades en -a - afegir -es
+            { singular: "casa", plural: "cases", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "dona", plural: "dones", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "platja", plural: "platges", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "adreça", plural: "adreces", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "aigua", plural: "aigües", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "amiga", plural: "amigues", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "butaca", plural: "butaques", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "pluja", plural: "pluges", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "vaca", plural: "vaques", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "herba", plural: "herbes", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "roca", plural: "roques", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "botiga", plural: "botigues", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "bústia", plural: "bústies", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "placa", plural: "plaques", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "corretja", plural: "corretges", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "pasqua", plural: "pasqües", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "oca", plural: "oques", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "crisi", plural: "crisis", rule: "Les paraules acabades en -i no canvien al plural" },
+            
+            // Paraules acabades en -e - afegir -s
+            { singular: "cotxe", plural: "cotxes", rule: "Afegir -s a paraules acabades en -e" },
+            { singular: "pare", plural: "pares", rule: "Afegir -s a paraules acabades en -e" },
+            { singular: "arbre", plural: "arbres", rule: "Afegir -s a paraules acabades en -e" },
+            { singular: "rellotge", plural: "rellotges", rule: "Afegir -s a paraules acabades en -e" },
+            { singular: "bosc", plural: "boscos", rule: "Afegir -os a paraules acabades en -c" },
+            { singular: "ànec", plural: "ànecs", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "cafè", plural: "cafès", rule: "Afegir -s a paraules acabades en vocal" },
+            { singular: "carbó", plural: "carbons", rule: "Afegir -s a paraules acabades en consonant" },
+            
+            // Paraules acabades en -x - afegir -os
+            { singular: "peix", plural: "peixos", rule: "Afegir -os a paraules acabades en -x" },
+            { singular: "feix", plural: "feixos", rule: "Afegir -os a paraules acabades en -x" },
+            { singular: "greix", plural: "greixos", rule: "Afegir -os a paraules acabades en -x" },
+            { singular: "despatx", plural: "despatxos", rule: "Afegir -os a paraules acabades en -x" },
+            { singular: "calaix", plural: "calaixos", rule: "Afegir -os a paraules acabades en -x" },
+            
+            // Paraules acabades en -ç - afegir -os
+            { singular: "braç", plural: "braços", rule: "Afegir -os a paraules acabades en -ç" },
+            { singular: "compàs", plural: "compassos", rule: "Afegir -os a paraules acabades en -s" },
+            
+            // Paraules acabades en -s - afegir -os o no canvien
+            { singular: "llapis", plural: "llapis", rule: "Les paraules acabades en -s no canvien al plural" },
+            { singular: "nas", plural: "nasos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "pis", plural: "pisos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "curs", plural: "cursos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "tipus", plural: "tipus", rule: "Les paraules acabades en -s no canvien al plural" },
+            { singular: "gas", plural: "gasos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "pastís", plural: "pastissos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "dilluns", plural: "dilluns", rule: "Els dies de la setmana no canvien al plural" },
+            { singular: "globus", plural: "globus", rule: "Les paraules acabades en -s no canvien al plural" },
+            { singular: "cactus", plural: "cactus", rule: "Les paraules acabades en -s no canvien al plural" },
+            { singular: "rus", plural: "russos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "índex", plural: "índexs", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "temps", plural: "temps", rule: "Les paraules acabades en -s no canvien al plural" },
+            { singular: "mes", plural: "mesos", rule: "Afegir -os a paraules acabades en -s" },
+            { singular: "abús", plural: "abusos", rule: "Afegir -os a paraules acabades en -s" },
+            
+            // Paraules especials
+            { singular: "àlbum", plural: "àlbums", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "americà", plural: "americans", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "botó", plural: "botons", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "llangardaix", plural: "llangardaixos", rule: "Afegir -os a paraules acabades en -x" },
+            { singular: "llumí", plural: "llumins", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "bacallà", plural: "bacallans", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "camió", plural: "camions", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "acordió", plural: "acordions", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "assecat", plural: "assecats", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "lleig", plural: "lleigs", rule: "Afegir -s a paraules acabades en consonant" },
+            { singular: "ritu", plural: "ritus", rule: "Afegir -s a paraules acabades en vocal" },
+            { singular: "cacau", plural: "cacaus", rule: "Afegir -s a paraules acabades en vocal" },
+            { singular: "veu", plural: "veus", rule: "Afegir -s a paraules acabades en vocal" },
+            
+            // Plurals especials amb canvis ortogràfics
+            { singular: "puça", plural: "puces", rule: "Canvi ortogràfic: ç → c + es" },
+            { singular: "galta", plural: "galtes", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "arruga", plural: "arrugues", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "raça", plural: "races", rule: "Canvi ortogràfic: ç → c + es" },
+            { singular: "febre", plural: "febres", rule: "Afegir -s a paraules acabades en -e" },
+            { singular: "paraigua", plural: "paraigües", rule: "Afegir -es a paraules acabades en -a" },
+            { singular: "compte", plural: "comptes", rule: "Afegir -s a paraules acabades en -e" },
+            { singular: "clínica", plural: "clíniques", rule: "Afegir -es a paraules acabades en -a" }
+        ];
+
+        const nounTypeDataBank = [
+            // Noms propis
+            { word: "Júlia", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Marc", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Luigi", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Girona", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Pikachu", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Londres", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Barcelona", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Catalunya", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Maria", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "Joan", type: "propi", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            
+            // Noms individuals
+            { word: "sal", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "piscina", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "tortuga", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "jersei", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "paper", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "peix", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "taula", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "cadira", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "llibre", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "ordinador", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "bicicleta", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "finestra", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "cotxe", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "gos", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "flor", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "arbre", type: "individual", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            
+            // Noms col·lectius
+            { word: "equip", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "ramat", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "vaixella", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "orquestra", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "bosc", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "ram", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "exèrcit", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "família", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "classe", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "bandada", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "biblioteca", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "vocabulari", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "constelació", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "arxipèlag", type: "col·lectiu", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            
+            // Noms abstractes
+            { word: "voluntat", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "amor", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "felicitat", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "odi", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "veritat", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "esforç", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "tristesa", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "amistat", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "por", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "esperança", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "paciència", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "intel·ligència", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "bellesa", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] },
+            { word: "justícia", type: "abstracte", options: ["individual", "col·lectiu", "abstracte", "propi"] }
+        ];
+
+        const concreteAbstractDataBank = [
+            { word: "felicitat", type: "abstracte", explanation: "La felicitat és un sentiment que no podem tocar" },
+            { word: "taula", type: "concret", explanation: "La taula és un objecte que podem veure i tocar" },
+            { word: "amor", type: "abstracte", explanation: "L'amor és un sentiment que no té forma física" },
+            { word: "gos", type: "concret", explanation: "El gos és un animal que podem veure i tocar" },
+            { word: "tristesa", type: "abstracte", explanation: "La tristesa és una emoció que no podem tocar" },
+            { word: "flor", type: "concret", explanation: "La flor és un objecte de la natura que podem veure i tocar" },
+            { word: "amistat", type: "abstracte", explanation: "L'amistat és una relació que no podem tocar físicament" },
+            { word: "cotxe", type: "concret", explanation: "El cotxe és un vehicle que podem veure i tocar" },
+            { word: "por", type: "abstracte", explanation: "La por és una emoció que no té forma física" },
+            { word: "casa", type: "concret", explanation: "La casa és un edifici que podem veure i tocar" },
+            { word: "esperança", type: "abstracte", explanation: "L'esperança és un sentiment que no podem tocar" },
+            { word: "llibre", type: "concret", explanation: "El llibre és un objecte que podem veure i tocar" },
+            { word: "paciència", type: "abstracte", explanation: "La paciència és una qualitat que no té forma física" },
+            { word: "pilota", type: "concret", explanation: "La pilota és un objecte que podem veure i tocar" },
+            { word: "intel·ligència", type: "abstracte", explanation: "La intel·ligència és una capacitat mental que no podem tocar" },
+            { word: "ordinador", type: "concret", explanation: "L'ordinador és un aparell que podem veure i tocar" }
+        ];
+
+        const individualCollectiveDataBank = [
+            { word: "ovella", type: "individual", collective: "ramat", explanation: "Una ovella és individual, moltes ovelles formen un ramat" },
+            { word: "ramat", type: "col·lectiu", individual: "ovella", explanation: "Un ramat és col·lectiu, està format per moltes ovelles" },
+            { word: "abella", type: "individual", collective: "eixam", explanation: "Una abella és individual, moltes abelles formen un eixam" },
+            { word: "bosc", type: "col·lectiu", individual: "arbre", explanation: "Un bosc és col·lectiu, està format per molts arbres" },
+            { word: "soldat", type: "individual", collective: "exèrcit", explanation: "Un soldat és individual, molts soldats formen un exèrcit" },
+            { word: "equip", type: "col·lectiu", individual: "jugador", explanation: "Un equip és col·lectiu, està format per molts jugadors" },
+            { word: "músic", type: "individual", collective: "orquestra", explanation: "Un músic és individual, molts músics formen una orquestra" },
+            { word: "biblioteca", type: "col·lectiu", individual: "llibre", explanation: "Una biblioteca és col·lectiva, està formada per molts llibres" },
+            { word: "estudiant", type: "individual", collective: "classe", explanation: "Un estudiant és individual, molts estudiants formen una classe" },
+            { word: "bandada", type: "col·lectiu", individual: "ocell", explanation: "Una bandada és col·lectiva, està formada per molts ocells" },
+            { word: "peix", type: "individual", collective: "banc", explanation: "Un peix és individual, molts peixos formen un banc" },
+            { word: "constelació", type: "col·lectiu", individual: "estrella", explanation: "Una constelació és col·lectiva, està formada per moltes estrelles" },
+            { word: "formiga", type: "individual", collective: "formiguer", explanation: "Una formiga és individual, moltes formigues formen un formiguer" },
+            { word: "arxipèlag", type: "col·lectiu", individual: "illa", explanation: "Un arxipèlag és col·lectiu, està format per moltes illes" },
+            { word: "actor", type: "individual", collective: "companyia", explanation: "Un actor és individual, molts actors formen una companyia" },
+            { word: "vocabulari", type: "col·lectiu", individual: "paraula", explanation: "Un vocabulari és col·lectiu, està format per moltes paraules" }
+        ];
+
+        const articlesDataBank = [
+            // Articles definits masculins singulars - EL
+            { word: "gat", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "cotxe", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "llibre", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "nen", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "pare", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "sol", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "mar", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "temps", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "peix", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+            { word: "jardí", article: "el", gender: "masculí", number: "singular", explanation: "Masculí singular → el" },
+
+            // Articles definits femenins singulars - LA
+            { word: "casa", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "dona", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "taula", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "nena", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "mare", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "lluna", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "platja", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "flor", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "cadira", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+            { word: "finestra", article: "la", gender: "femení", number: "singular", explanation: "Femení singular → la" },
+
+            // Articles apostrofats - L' (vocals)
+            { word: "arbre", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "amic", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "avi", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "ou", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "elefant", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "ordinador", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "avió", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "ull", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "estiu", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "hivern", article: "l'", gender: "masculí", number: "singular", explanation: "Comença per vocal → l'" },
+
+            // Articles apostrofats femenins - L'
+            { word: "amiga", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "àvia", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "escola", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "aigua", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "estació", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "hora", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "entrada", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "olla", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "energia", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+            { word: "alegria", article: "l'", gender: "femení", number: "singular", explanation: "Comença per vocal → l'" },
+
+            // Excepcions - paraules femenines que comencen per i/u àtones - LA
+            { word: "indústria", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'i' àtona → la" },
+            { word: "universitat", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'u' àtona → la" },
+            { word: "humitat", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'hu' àtona → la" },
+            { word: "història", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'hi' àtona → la" },
+            { word: "Isabel", article: "la", gender: "femení", number: "singular", explanation: "Excepció: nom propi femení que comença per 'i' àtona → la" },
+            { word: "humanitat", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'hu' àtona → la" },
+            { word: "unió", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'u' àtona → la" },
+            { word: "infància", article: "la", gender: "femení", number: "singular", explanation: "Excepció: femení que comença per 'i' àtona → la" },
+
+            // Més paraules amb h muda
+            { word: "home", article: "l'", gender: "masculí", number: "singular", explanation: "La h és muda → l'" },
+            { word: "hotel", article: "l'", gender: "masculí", number: "singular", explanation: "La h és muda → l'" },
+            { word: "hospital", article: "l'", gender: "masculí", number: "singular", explanation: "La h és muda → l'" },
+            { word: "herba", article: "l'", gender: "femení", number: "singular", explanation: "La h és muda → l'" },
+            { word: "habitació", article: "l'", gender: "femení", number: "singular", explanation: "La h és muda → l'" },
+
+            // Articles plurals - ELS
+            { word: "gats", article: "els", gender: "masculí", number: "plural", explanation: "Masculí plural → els" },
+            { word: "cotxes", article: "els", gender: "masculí", number: "plural", explanation: "Masculí plural → els" },
+            { word: "llibres", article: "els", gender: "masculí", number: "plural", explanation: "Masculí plural → els" },
+            { word: "nens", article: "els", gender: "masculí", number: "plural", explanation: "Masculí plural → els" },
+            { word: "pares", article: "els", gender: "masculí", number: "plural", explanation: "Masculí plural → els" },
+
+            // Articles plurals - LES
+            { word: "cases", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" },
+            { word: "dones", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" },
+            { word: "taules", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" },
+            { word: "nenes", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" },
+            { word: "mares", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" },
+            { word: "flors", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" },
+            { word: "cadires", article: "les", gender: "femení", number: "plural", explanation: "Femení plural → les" }
+        ];
+
+        // Current exercise sets
+        let currentPluralData = [];
+        let currentNounTypeData = [];
+        let currentConcreteAbstractData = [];
+        let currentIndividualCollectiveData = [];
+        let currentArticlesData = [];
+
+        // Used exercises tracking
+        let usedExercises = {
+            plurals: [],
+            nounTypes: [],
+            concreteAbstract: [],
+            individualCollective: [],
+            articles: []
+        };
+
+        // Statistics
+        let stats = {
+            total: 0,
+            correct: 0
+        };
+
+        // Data SDK handler
+        const dataHandler = {
+            onDataChanged(data) {
+                // Update UI with stored progress if needed
+                console.log('Data updated:', data.length, 'records');
+            }
+        };
+
+        // Initialize the application
+        async function initApp() {
+            // Initialize Data SDK
+            if (window.dataSdk) {
+                const initResult = await window.dataSdk.init(dataHandler);
+                if (!initResult.isOk) {
+                    console.error('Failed to initialize data SDK');
+                }
+            }
+
+            // Initialize Element SDK
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
+                        document.getElementById('studentName').textContent = config.student_name || defaultConfig.student_name;
+                        document.getElementById('encouragementText').textContent = config.encouragement_text || defaultConfig.encouragement_text;
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [],
+                        borderables: [],
+                        fontEditable: undefined,
+                        fontSizeable: undefined
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["main_title", config.main_title || defaultConfig.main_title],
+                        ["student_name", config.student_name || defaultConfig.student_name],
+                        ["encouragement_text", config.encouragement_text || defaultConfig.encouragement_text]
+                    ])
+                });
+            }
+
+            generateExercises();
+        }
+
+        function generateExercises() {
+            generatePluralExercises();
+            generateNounTypeExercises();
+            generateConcreteAbstractExercises();
+            generateIndividualCollectiveExercises();
+            generateArticlesExercises();
+        }
+
+        function getRandomExercises(dataBank, usedArray, count) {
+            const available = dataBank.filter((item, index) => !usedArray.includes(index));
+            
+            if (available.length < count) {
+                // Reset used exercises if we've used them all
+                usedArray.length = 0;
+                return dataBank.slice(0, count);
+            }
+            
+            const selected = [];
+            const selectedIndices = [];
+            
+            while (selected.length < count && available.length > 0) {
+                const randomIndex = Math.floor(Math.random() * available.length);
+                const item = available[randomIndex];
+                const originalIndex = dataBank.indexOf(item);
+                
+                if (!selectedIndices.includes(originalIndex)) {
+                    selected.push(item);
+                    selectedIndices.push(originalIndex);
+                    usedArray.push(originalIndex);
+                    available.splice(randomIndex, 1);
+                }
+            }
+            
+            return selected;
+        }
+
+        function generatePluralExercises() {
+            currentPluralData = getRandomExercises(pluralDataBank, usedExercises.plurals, 6);
+            
+            const container = document.getElementById('pluralExercises');
+            container.innerHTML = '';
+
+            // Singular to plural exercises
+            const singularSection = document.createElement('div');
+            singularSection.innerHTML = '<h3 style="color: #4a5568; margin-bottom: 15px;">Converteix a plural:</h3>';
+            
+            currentPluralData.slice(0, 3).forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">${item.singular} → ?</div>
+                    <div class="input-group">
+                        <input type="text" class="answer-input" id="singular-${index}" placeholder="Escriu el plural">
+                    </div>
+                    <div class="result" id="result-singular-${index}" style="display: none;"></div>
+                `;
+                singularSection.appendChild(card);
+            });
+
+            // Plural to singular exercises
+            const pluralSection = document.createElement('div');
+            pluralSection.innerHTML = '<h3 style="color: #4a5568; margin: 30px 0 15px 0;">Converteix a singular:</h3>';
+            
+            currentPluralData.slice(3, 6).forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">${item.plural} → ?</div>
+                    <div class="input-group">
+                        <input type="text" class="answer-input" id="plural-${index}" placeholder="Escriu el singular">
+                    </div>
+                    <div class="result" id="result-plural-${index}" style="display: none;"></div>
+                `;
+                pluralSection.appendChild(card);
+            });
+
+            container.appendChild(singularSection);
+            container.appendChild(pluralSection);
+            
+            // Reset buttons
+            document.getElementById('checkPluralsBtn').style.display = 'block';
+            document.getElementById('continuePluralsBtn').classList.remove('show');
+        }
+
+        function generateNounTypeExercises() {
+            currentNounTypeData = getRandomExercises(nounTypeDataBank, usedExercises.nounTypes, 6);
+            
+            const container = document.getElementById('nounTypeExercises');
+            container.innerHTML = '<h3 style="color: #4a5568; margin-bottom: 15px;">Selecciona el tipus de nom:</h3>';
+
+            currentNounTypeData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">"${item.word}" és un nom:</div>
+                    <div class="option-buttons" id="noun-options-${index}">
+                        ${item.options.map(option => 
+                            `<button class="option-btn" onclick="selectNounOption(${index}, '${option}')">${option}</button>`
+                        ).join('')}
+                    </div>
+                    <div class="result" id="result-noun-${index}" style="display: none;"></div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Reset buttons
+            document.getElementById('checkNounTypesBtn').style.display = 'block';
+            document.getElementById('continueNounTypesBtn').classList.remove('show');
+        }
+
+        function generateConcreteAbstractExercises() {
+            currentConcreteAbstractData = getRandomExercises(concreteAbstractDataBank, usedExercises.concreteAbstract, 6);
+            
+            const container = document.getElementById('concreteAbstractExercises');
+            container.innerHTML = '<h3 style="color: #4a5568; margin-bottom: 15px;">És un nom concret o abstracte?</h3>';
+
+            currentConcreteAbstractData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">"${item.word}"</div>
+                    <div class="option-buttons" id="concrete-options-${index}">
+                        <button class="option-btn" onclick="selectConcreteOption(${index}, 'concret')">Concret</button>
+                        <button class="option-btn" onclick="selectConcreteOption(${index}, 'abstracte')">Abstracte</button>
+                    </div>
+                    <div class="result" id="result-concrete-${index}" style="display: none;"></div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Reset buttons
+            document.getElementById('checkConcreteAbstractBtn').style.display = 'block';
+            document.getElementById('continueConcreteAbstractBtn').classList.remove('show');
+        }
+
+        function generateIndividualCollectiveExercises() {
+            currentIndividualCollectiveData = getRandomExercises(individualCollectiveDataBank, usedExercises.individualCollective, 6);
+            
+            const container = document.getElementById('individualCollectiveExercises');
+            container.innerHTML = '<h3 style="color: #4a5568; margin-bottom: 15px;">És un nom individual o col·lectiu?</h3>';
+
+            currentIndividualCollectiveData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">"${item.word}"</div>
+                    <div class="option-buttons" id="individual-options-${index}">
+                        <button class="option-btn" onclick="selectIndividualOption(${index}, 'individual')">Individual</button>
+                        <button class="option-btn" onclick="selectIndividualOption(${index}, 'col·lectiu')">Col·lectiu</button>
+                    </div>
+                    <div class="result" id="result-individual-${index}" style="display: none;"></div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Reset buttons
+            document.getElementById('checkIndividualCollectiveBtn').style.display = 'block';
+            document.getElementById('continueIndividualCollectiveBtn').classList.remove('show');
+        }
+
+        function generateArticlesExercises() {
+            currentArticlesData = getRandomExercises(articlesDataBank, usedExercises.articles, 8);
+            
+            const container = document.getElementById('articlesExercises');
+            container.innerHTML = '<h3 style="color: #4a5568; margin-bottom: 15px;">Escriu l\'article correcte davant de cada paraula:</h3>';
+
+            currentArticlesData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">___ ${item.word}</div>
+                    <div class="input-group">
+                        <input type="text" class="answer-input" id="article-${index}" placeholder="el, la, l', els, les">
+                    </div>
+                    <div class="result" id="result-article-${index}" style="display: none;"></div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Reset buttons
+            document.getElementById('checkArticlesBtn').style.display = 'block';
+            document.getElementById('continueArticlesBtn').classList.remove('show');
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.exercise-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function selectNounOption(index, option) {
+            const container = document.getElementById(`noun-options-${index}`);
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function selectConcreteOption(index, option) {
+            const container = document.getElementById(`concrete-options-${index}`);
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function selectIndividualOption(index, option) {
+            const container = document.getElementById(`individual-options-${index}`);
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        async function checkPlurals() {
+            let correct = 0;
+            let total = 6;
+
+            // Check singular to plural
+            for (let i = 0; i < 3; i++) {
+                const input = document.getElementById(`singular-${i}`);
+                const result = document.getElementById(`result-singular-${i}`);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = currentPluralData[i].plural.toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    result.className = 'result correct';
+                    result.innerHTML = '✓ Correcte!';
+                    correct++;
+                } else {
+                    result.className = 'result incorrect';
+                    result.innerHTML = `✗ Incorrecte. La resposta correcta és: <strong>${currentPluralData[i].plural}</strong>
+                        <div class="rule-explanation">${currentPluralData[i].rule}</div>`;
+                }
+                result.style.display = 'block';
+
+                // Save to Data SDK
+                if (window.dataSdk) {
+                    await window.dataSdk.create({
+                        exercise_type: "singular_to_plural",
+                        question: currentPluralData[i].singular,
+                        user_answer: userAnswer,
+                        correct_answer: correctAnswer,
+                        is_correct: userAnswer === correctAnswer,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+
+            // Check plural to singular
+            for (let i = 0; i < 3; i++) {
+                const input = document.getElementById(`plural-${i}`);
+                const result = document.getElementById(`result-plural-${i}`);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = currentPluralData[i + 3].singular.toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    result.className = 'result correct';
+                    result.innerHTML = '✓ Correcte!';
+                    correct++;
+                } else {
+                    result.className = 'result incorrect';
+                    result.innerHTML = `✗ Incorrecte. La resposta correcta és: <strong>${currentPluralData[i + 3].singular}</strong>
+                        <div class="rule-explanation">${currentPluralData[i + 3].rule}</div>`;
+                }
+                result.style.display = 'block';
+
+                // Save to Data SDK
+                if (window.dataSdk) {
+                    await window.dataSdk.create({
+                        exercise_type: "plural_to_singular",
+                        question: currentPluralData[i + 3].plural,
+                        user_answer: userAnswer,
+                        correct_answer: correctAnswer,
+                        is_correct: userAnswer === correctAnswer,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+
+            updateStats(correct, total);
+            
+            // Show continue button and hide check button
+            document.getElementById('checkPluralsBtn').style.display = 'none';
+            document.getElementById('continuePluralsBtn').classList.add('show');
+        }
+
+        async function checkNounTypes() {
+            let correct = 0;
+            let total = currentNounTypeData.length;
+
+            for (let i = 0; i < currentNounTypeData.length; i++) {
+                const selectedBtn = document.querySelector(`#noun-options-${i} .option-btn.selected`);
+                const result = document.getElementById(`result-noun-${i}`);
+                
+                if (!selectedBtn) {
+                    result.className = 'result incorrect';
+                    result.innerHTML = '✗ Selecciona una opció';
+                    result.style.display = 'block';
+                    continue;
+                }
+
+                const userAnswer = selectedBtn.textContent;
+                const correctAnswer = currentNounTypeData[i].type;
+
+                if (userAnswer === correctAnswer) {
+                    result.className = 'result correct';
+                    result.innerHTML = '✓ Correcte!';
+                    correct++;
+                } else {
+                    result.className = 'result incorrect';
+                    result.innerHTML = `✗ Incorrecte. La resposta correcta és: <strong>${correctAnswer}</strong>`;
+                }
+                result.style.display = 'block';
+
+                // Save to Data SDK
+                if (window.dataSdk) {
+                    await window.dataSdk.create({
+                        exercise_type: "noun_types",
+                        question: currentNounTypeData[i].word,
+                        user_answer: userAnswer,
+                        correct_answer: correctAnswer,
+                        is_correct: userAnswer === correctAnswer,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+
+            updateStats(correct, total);
+            
+            // Show continue button and hide check button
+            document.getElementById('checkNounTypesBtn').style.display = 'none';
+            document.getElementById('continueNounTypesBtn').classList.add('show');
+        }
+
+        async function checkConcreteAbstract() {
+            let correct = 0;
+            let total = currentConcreteAbstractData.length;
+
+            for (let i = 0; i < currentConcreteAbstractData.length; i++) {
+                const selectedBtn = document.querySelector(`#concrete-options-${i} .option-btn.selected`);
+                const result = document.getElementById(`result-concrete-${i}`);
+                
+                if (!selectedBtn) {
+                    result.className = 'result incorrect';
+                    result.innerHTML = '✗ Selecciona una opció';
+                    result.style.display = 'block';
+                    continue;
+                }
+
+                const userAnswer = selectedBtn.textContent.toLowerCase().trim();
+                const correctAnswer = currentConcreteAbstractData[i].type.toLowerCase().trim();
+
+                if (userAnswer === correctAnswer) {
+                    result.className = 'result correct';
+                    result.innerHTML = '✓ Correcte!';
+                    correct++;
+                } else {
+                    result.className = 'result incorrect';
+                    result.innerHTML = `✗ Incorrecte. La resposta correcta és: <strong>${currentConcreteAbstractData[i].type}</strong>
+                        <div class="rule-explanation">${currentConcreteAbstractData[i].explanation}</div>`;
+                }
+                result.style.display = 'block';
+
+                // Save to Data SDK
+                if (window.dataSdk) {
+                    await window.dataSdk.create({
+                        exercise_type: "concrete_abstract",
+                        question: currentConcreteAbstractData[i].word,
+                        user_answer: selectedBtn.textContent,
+                        correct_answer: currentConcreteAbstractData[i].type,
+                        is_correct: userAnswer === correctAnswer,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+
+            updateStats(correct, total);
+            
+            // Show continue button and hide check button
+            document.getElementById('checkConcreteAbstractBtn').style.display = 'none';
+            document.getElementById('continueConcreteAbstractBtn').classList.add('show');
+        }
+
+        async function checkIndividualCollective() {
+            let correct = 0;
+            let total = currentIndividualCollectiveData.length;
+
+            for (let i = 0; i < currentIndividualCollectiveData.length; i++) {
+                const selectedBtn = document.querySelector(`#individual-options-${i} .option-btn.selected`);
+                const result = document.getElementById(`result-individual-${i}`);
+                
+                if (!selectedBtn) {
+                    result.className = 'result incorrect';
+                    result.innerHTML = '✗ Selecciona una opció';
+                    result.style.display = 'block';
+                    continue;
+                }
+
+                const userAnswer = selectedBtn.textContent.toLowerCase().trim();
+                const correctAnswer = currentIndividualCollectiveData[i].type.toLowerCase().trim();
+
+                if (userAnswer === correctAnswer) {
+                    result.className = 'result correct';
+                    result.innerHTML = '✓ Correcte!';
+                    correct++;
+                } else {
+                    result.className = 'result incorrect';
+                    result.innerHTML = `✗ Incorrecte. La resposta correcta és: <strong>${currentIndividualCollectiveData[i].type}</strong>
+                        <div class="rule-explanation">${currentIndividualCollectiveData[i].explanation}</div>`;
+                }
+                result.style.display = 'block';
+
+                // Save to Data SDK
+                if (window.dataSdk) {
+                    await window.dataSdk.create({
+                        exercise_type: "individual_collective",
+                        question: currentIndividualCollectiveData[i].word,
+                        user_answer: selectedBtn.textContent,
+                        correct_answer: currentIndividualCollectiveData[i].type,
+                        is_correct: userAnswer === correctAnswer,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+
+            updateStats(correct, total);
+            
+            // Show continue button and hide check button
+            document.getElementById('checkIndividualCollectiveBtn').style.display = 'none';
+            document.getElementById('continueIndividualCollectiveBtn').classList.add('show');
+        }
+
+        function updateStats(correct, total) {
+            stats.total += total;
+            stats.correct += correct;
+            
+            const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+            
+            document.getElementById('totalQuestions').textContent = stats.total;
+            document.getElementById('correctAnswers').textContent = stats.correct;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = accuracy + '%';
+            
+            // Show encouragement based on performance
+            const encouragementElement = document.getElementById('encouragementText');
+            if (accuracy >= 80) {
+                encouragementElement.textContent = "Excel·lent! Estàs fent-ho molt bé! 🌟";
+                encouragementElement.style.color = "#48bb78";
+            } else if (accuracy >= 60) {
+                encouragementElement.textContent = "Molt bé! Continua practicant! 👍";
+                encouragementElement.style.color = "#667eea";
+            } else {
+                encouragementElement.textContent = "Segueix intentant-ho! Cada error és una oportunitat d'aprendre! 💪";
+                encouragementElement.style.color = "#ed8936";
+            }
+        }
+
+        async function checkArticles() {
+            let correct = 0;
+            let total = currentArticlesData.length;
+
+            for (let i = 0; i < currentArticlesData.length; i++) {
+                const input = document.getElementById(`article-${i}`);
+                const result = document.getElementById(`result-article-${i}`);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = currentArticlesData[i].article.toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    result.className = 'result correct';
+                    result.innerHTML = '✓ Correcte!';
+                    correct++;
+                } else {
+                    result.className = 'result incorrect';
+                    result.innerHTML = `✗ Incorrecte. La resposta correcta és: <strong>${currentArticlesData[i].article}</strong>
+                        <div class="rule-explanation">${currentArticlesData[i].explanation}</div>`;
+                }
+                result.style.display = 'block';
+
+                // Save to Data SDK
+                if (window.dataSdk) {
+                    await window.dataSdk.create({
+                        exercise_type: "articles",
+                        question: currentArticlesData[i].word,
+                        user_answer: userAnswer,
+                        correct_answer: correctAnswer,
+                        is_correct: userAnswer === correctAnswer,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+
+            updateStats(correct, total);
+            
+            // Show continue button and hide check button
+            document.getElementById('checkArticlesBtn').style.display = 'none';
+            document.getElementById('continueArticlesBtn').classList.add('show');
+        }
+
+        // Functions to generate new exercises
+        function generateNewPlurals() {
+            generatePluralExercises();
+        }
+
+        function generateNewNounTypes() {
+            generateNounTypeExercises();
+        }
+
+        function generateNewConcreteAbstract() {
+            generateConcreteAbstractExercises();
+        }
+
+        function generateNewIndividualCollective() {
+            generateIndividualCollectiveExercises();
+        }
+
+        function generateNewArticles() {
+            generateArticlesExercises();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dd16511ced781',t:'MTc2NDg3NzY3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
