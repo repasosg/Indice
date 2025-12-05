@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -41,9 +41,32 @@
             opacity: 0.9;
         }
 
+        .highlight-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .highlight-section h2 {
+            color: white;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .exam-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
         .categories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -95,6 +118,12 @@
             overflow: hidden;
         }
 
+        .link-button.exam {
+            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+            font-size: 1.1em;
+            padding: 18px 20px;
+        }
+
         .link-button:before {
             content: '';
             position: absolute;
@@ -113,6 +142,20 @@
         .link-button:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border: 2px dashed rgba(255,255,255,0.3);
+        }
+
+        .empty-state p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
         }
 
         footer {
@@ -162,6 +205,14 @@
             .categories {
                 grid-template-columns: 1fr;
             }
+
+            .highlight-section {
+                padding: 25px;
+            }
+
+            .highlight-section h2 {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
@@ -171,6 +222,16 @@
             <h1>🎓 Portal Educativo 5º de Primaria</h1>
             <p class="subtitle">Recursos interactivos de aprendizaje</p>
         </header>
+
+        <section class="highlight-section">
+            <h2>📝 Próximos Exámenes</h2>
+            <div class="exam-links">
+                <div class="empty-state">
+                    <p>💡 No hay exámenes programados</p>
+                    <small>Aquí aparecerán los próximos exámenes a preparar</small>
+                </div>
+            </div>
+        </section>
 
         <div class="categories">
             <div class="category">
