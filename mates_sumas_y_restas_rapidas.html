@@ -2,521 +2,350 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemáticas Divertidas - Sumas y Restas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Súper Matemáticas Pro</title>
     <style>
         body {
             box-sizing: border-box;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
             margin: 0;
-            padding: 20px;
-            min-height: 100%;
+            padding: 15px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            touch-action: manipulation;
         }
-        
-        html {
-            height: 100%;
-        }
-        
+
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
             text-align: center;
+            position: relative;
         }
-        
-        h1 {
-            color: #e91e63;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        
-        .mode-selector {
+
+        /* --- CRONÓMETRO Y CABECERA --- */
+        .header-info {
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .mode-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .mode-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .mode-btn.active {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
-        }
-        
-        .game-area {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 30px 0;
-            color: white;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
         }
-        
-        .problem {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .answer-input {
-            font-size: 2rem;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 15px;
-            text-align: center;
-            width: 120px;
-            margin: 0 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .check-btn {
-            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-left: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .check-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .feedback {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 20px;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .correct {
-            color: #4caf50;
-        }
-        
-        .incorrect {
-            color: #f44336;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
+
+        #timer {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #e91e63;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 1rem;
-        }
-        
-        .new-problem-btn {
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-            color: white;
-            border: none;
-            padding: 15px 30px;
+            background: #fff0f5;
+            padding: 5px 15px;
             border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid #ff9a9e;
         }
-        
-        .new-problem-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .emoji {
-            font-size: 2rem;
-            margin: 0 10px;
-        }
-        
-        .timer-section {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        .timer-display {
-            margin-bottom: 15px;
-        }
-        
-        .timer-label {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            margin-right: 10px;
-        }
-        
-        .timer-time {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #e91e63;
-            font-family: 'Courier New', monospace;
-            background: white;
-            padding: 8px 16px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .timer-controls {
+
+        h1 { color: #e91e63; font-size: 1.8rem; margin: 0; }
+
+        /* --- BOTONES CON ICONOS --- */
+        .selector-group {
             display: flex;
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 15px;
         }
-        
-        .timer-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+
+        .mode-btn {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-suma { background: #ff6b6b; }
+        .btn-resta { background: #4ecdc4; }
+        .btn-detective { background: #f9d423; color: #333 !important; }
+        .btn-lvl { background: #a55eea; }
+
+        .mode-btn.active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+            filter: brightness(1.1);
+            border: 2px solid white;
+        }
+
+        /* --- ÁREA DE JUEGO (ESTILO ORIGINAL) --- */
+        .game-area {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            padding: 35px 15px;
+            color: white;
+            margin: 20px 0;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .problem-text {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .detective-box {
+            color: #f9d423;
+            border: 3px dashed #f9d423;
+            padding: 0 10px;
+            border-radius: 10px;
+        }
+
+        .answer-display {
+            background: white;
+            color: #333;
+            font-size: 3rem;
+            width: 200px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- TECLADO VIRTUAL --- */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .key {
+            background: #f8f9fa;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 18px 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #444;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #ddd;
+        }
+
+        .key:active { transform: translateY(3px); box-shadow: 0 2px 0 #ddd; }
+        .key-del { color: #e91e63; }
+
+        /* --- MODAL DE REPORTE --- */
+        #report-modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 0 100px rgba(0,0,0,0.5);
+            z-index: 100;
+            border: 5px solid #ff9a9e;
+        }
+
+        .report-title { color: #e91e63; font-size: 1.5rem; margin-bottom: 15px; }
+        .report-stat { font-size: 1.2rem; margin: 10px 0; color: #555; }
+        .report-stat b { color: #764ba2; }
+
+        .btn-continue {
+            background: #26de81;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 1rem;
+            padding: 15px 30px;
+            border-radius: 15px;
             font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-        }
-        
-        .timer-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .correct-stat .stat-number {
-            color: #4caf50;
-        }
-        
-        .incorrect-stat .stat-number {
-            color: #f44336;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .problem {
-                font-size: 2.5rem;
-            }
-            
-            .answer-input {
-                font-size: 1.5rem;
-                width: 100px;
-            }
-            
-            .mode-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .stats {
-                flex-direction: column;
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌟 Matemáticas Divertidas 🌟</h1>
-        <p class="subtitle">¡Practica sumas y restas rápidas!</p>
-        
-        <div class="mode-selector">
-            <button class="mode-btn active" onclick="setMode('suma')">
-                ➕ Sumas
-            </button>
-            <button class="mode-btn" onclick="setMode('resta')">
-                ➖ Restas
-            </button>
-            <button class="mode-btn" onclick="setMode('mixto')">
-                🎲 Mixto
-            </button>
-        </div>
-        
-        <div class="game-area">
-            <div class="problem" id="problem">5 + 3 = ?</div>
-            <div>
-                <input type="number" class="answer-input" id="answer" placeholder="?" min="0" max="18">
-                <button class="check-btn" onclick="checkAnswer()">¡Comprobar!</button>
-            </div>
-            <div class="feedback" id="feedback"></div>
-            <button class="new-problem-btn" onclick="generateProblem()">Nuevo Problema</button>
-        </div>
-        
-        <div class="timer-section">
-            <div class="timer-display">
-                <span class="timer-label">⏱️ Tiempo:</span>
-                <span class="timer-time" id="timer">00:00</span>
-            </div>
-            <div class="timer-controls">
-                <button class="timer-btn" id="start-btn" onclick="startTimer()">▶️ Iniciar</button>
-                <button class="timer-btn" id="pause-btn" onclick="pauseTimer()" style="display: none;">⏸️ Pausar</button>
-                <button class="timer-btn" onclick="resetTimer()">🔄 Reiniciar</button>
-            </div>
-        </div>
 
-        <div class="stats">
-            <div class="stat-item correct-stat">
-                <div class="stat-number" id="correct-count">0</div>
-                <div class="stat-label">✅ Correctas</div>
-            </div>
-            <div class="stat-item incorrect-stat">
-                <div class="stat-number" id="incorrect-count">0</div>
-                <div class="stat-label">❌ Incorrectas</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="total-count">0</div>
-                <div class="stat-label">📊 Total</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="percentage">0%</div>
-                <div class="stat-label">🎯 Aciertos</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="streak">0</div>
-                <div class="stat-label">🔥 Racha</div>
-            </div>
-        </div>
+<div class="container">
+    <div class="header-info">
+        <h1>Súper Mente 🚀</h1>
+        <div id="timer">00:00</div>
     </div>
 
-    <script>
-        let currentMode = 'suma';
-        let currentProblem = {};
-        let stats = {
-            correct: 0,
-            incorrect: 0,
-            total: 0,
-            streak: 0
-        };
+    <div class="selector-group">
+        <button class="mode-btn btn-suma active" id="m-suma" onclick="setMode('suma')">➕ Sumas</button>
+        <button class="mode-btn btn-resta" id="m-resta" onclick="setMode('resta')">➖ Restas</button>
+        <button class="mode-btn btn-detective" id="m-detective" onclick="setMode('detective')">🔍 Detective</button>
+    </div>
+    <div class="selector-group">
+        <button class="mode-btn btn-lvl active" id="l-1" onclick="setLevel(1)">🌱 Nivel 1</button>
+        <button class="mode-btn btn-lvl" id="l-2" onclick="setLevel(2)">🚀 Nivel 2</button>
+        <button class="mode-btn btn-lvl" id="l-3" onclick="setLevel(3)">🔥 Nivel 3</button>
+    </div>
+
+    <div class="game-area" id="game-area">
+        <div class="problem-text" id="problem">--</div>
+        <div class="answer-display" id="display">?</div>
+    </div>
+
+    <div class="keypad">
+        <button class="key" onclick="press(1)">1</button>
+        <button class="key" onclick="press(2)">2</button>
+        <button class="key" onclick="press(3)">3</button>
+        <button class="key" onclick="press(4)">4</button>
+        <button class="key" onclick="press(5)">5</button>
+        <button class="key" onclick="press(6)">6</button>
+        <button class="key" onclick="press(7)">7</button>
+        <button class="key" onclick="press(8)">8</button>
+        <button class="key" onclick="press(9)">9</button>
+        <button class="key key-del" onclick="press('C')">C</button>
+        <button class="key" onclick="press(0)">0</button>
+        <button class="key key-del" onclick="press('Del')">⌫</button>
+    </div>
+
+    <div id="report-modal">
+        <div class="report-title">📊 ¡Misión Completada! (10/10)</div>
+        <div class="report-stat">Tiempo total: <b id="rep-time">0s</b></div>
+        <div class="report-stat">Velocidad media: <b id="rep-speed">0s</b> /ejercicio</div>
+        <div class="report-stat">Racha actual: <b id="rep-racha">0</b> 🔥</div>
+        <button class="btn-continue" onclick="closeReport()">¡A por otros 10! 🎯</button>
+    </div>
+</div>
+
+<script>
+    let state = {
+        mode: 'suma',
+        level: 1,
+        ans: 0,
+        input: "",
+        racha: 0,
+        totalHechos: 0,
+        bloqueHechos: 0,
+        startTime: 0,
+        gameTimer: 0,
+        timerInterval: null,
+        bloqueStartTime: 0
+    };
+
+    function init() {
+        startTimer();
+        newProblem();
+        state.bloqueStartTime = Date.now();
+    }
+
+    function setMode(m) {
+        state.mode = m;
+        document.querySelectorAll('.btn-suma, .btn-resta, .btn-detective').forEach(b => b.classList.remove('active'));
+        document.getElementById('m-'+m).classList.add('active');
+        newProblem();
+    }
+
+    function setLevel(l) {
+        state.level = l;
+        document.querySelectorAll('.btn-lvl').forEach(b => b.classList.remove('active'));
+        document.getElementById('l-'+l).classList.add('active');
+        newProblem();
+    }
+
+    function newProblem() {
+        let n1, n2, txt;
+        let max = state.level === 1 ? 12 : (state.level === 2 ? 50 : 120);
+        let min = state.level === 1 ? 1 : 10;
+
+        n1 = Math.floor(Math.random() * (max - min)) + min;
+        n2 = Math.floor(Math.random() * (max - min)) + min;
+
+        if (state.mode === 'suma') {
+            state.ans = n1 + n2;
+            txt = `${n1} + ${n2} = ?`;
+        } else if (state.mode === 'resta') {
+            if (n1 < n2) [n1, n2] = [n2, n1];
+            state.ans = n1 - n2;
+            txt = `${n1} - ${n2} = ?`;
+        } else {
+            let res = n1 + n2;
+            let hidden1 = Math.random() > 0.5;
+            state.ans = hidden1 ? n1 : n2;
+            txt = hidden1 ? `<span class="detective-box">?</span> + ${n2} = ${res}` : `${n1} + <span class="detective-box">?</span> = ${res}`;
+        }
+
+        document.getElementById('problem').innerHTML = txt;
+        state.input = "";
+        document.getElementById('display').textContent = "?";
+    }
+
+    function press(k) {
+        if (k === 'C') state.input = "";
+        else if (k === 'Del') state.input = state.input.slice(0, -1);
+        else if (state.input.length < 4) state.input += k;
+
+        document.getElementById('display').textContent = state.input || "?";
+
+        if (parseInt(state.input) === state.ans) {
+            handleCorrect();
+        }
+    }
+
+    function handleCorrect() {
+        state.racha++;
+        state.totalHechos++;
+        state.bloqueHechos++;
+
+        document.getElementById('game-area').style.background = "#26de81";
         
-        let timer = {
-            seconds: 0,
-            minutes: 0,
-            interval: null,
-            isRunning: false
-        };
-
-        function setMode(mode) {
-            currentMode = mode;
-            
-            // Update button styles
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            generateProblem();
-            clearFeedback();
-        }
-
-        function generateProblem() {
-            let num1, num2, operation, answer;
-            
-            if (currentMode === 'suma') {
-                num1 = Math.floor(Math.random() * 9) + 1;
-                num2 = Math.floor(Math.random() * 9) + 1;
-                operation = '+';
-                answer = num1 + num2;
-            } else if (currentMode === 'resta') {
-                num1 = Math.floor(Math.random() * 9) + 1;
-                num2 = Math.floor(Math.random() * num1) + 1;
-                operation = '-';
-                answer = num1 - num2;
-            } else { // mixto
-                if (Math.random() < 0.5) {
-                    num1 = Math.floor(Math.random() * 9) + 1;
-                    num2 = Math.floor(Math.random() * 9) + 1;
-                    operation = '+';
-                    answer = num1 + num2;
-                } else {
-                    num1 = Math.floor(Math.random() * 9) + 1;
-                    num2 = Math.floor(Math.random() * num1) + 1;
-                    operation = '-';
-                    answer = num1 - num2;
-                }
-            }
-            
-            currentProblem = { num1, num2, operation, answer };
-            
-            document.getElementById('problem').textContent = `${num1} ${operation} ${num2} = ?`;
-            document.getElementById('answer').value = '';
-            document.getElementById('answer').focus();
-            clearFeedback();
-        }
-
-        function checkAnswer() {
-            const userAnswer = parseInt(document.getElementById('answer').value);
-            const feedbackEl = document.getElementById('feedback');
-            
-            if (isNaN(userAnswer)) {
-                feedbackEl.innerHTML = '🤔 ¡Escribe un número!';
-                feedbackEl.className = 'feedback incorrect';
-                return;
-            }
-            
-            stats.total++;
-            
-            if (userAnswer === currentProblem.answer) {
-                stats.correct++;
-                stats.streak++;
-                feedbackEl.innerHTML = `🎉 ¡Correcto! <span class="emoji">⭐</span>`;
-                feedbackEl.className = 'feedback correct';
-                
-                // Auto-generate new problem after correct answer
-                setTimeout(() => {
-                    generateProblem();
-                }, 1500);
+        setTimeout(() => {
+            document.getElementById('game-area').style.background = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+            if (state.bloqueHechos >= 10) {
+                showReport();
             } else {
-                stats.incorrect++;
-                stats.streak = 0;
-                feedbackEl.innerHTML = `❌ No es correcto. La respuesta es ${currentProblem.answer} <span class="emoji">💪</span>`;
-                feedbackEl.className = 'feedback incorrect';
+                newProblem();
             }
-            
-            updateStats();
-        }
+        }, 400);
+    }
 
-        function updateStats() {
-            document.getElementById('correct-count').textContent = stats.correct;
-            document.getElementById('incorrect-count').textContent = stats.incorrect;
-            document.getElementById('total-count').textContent = stats.total;
-            document.getElementById('streak').textContent = stats.streak;
-            
-            const percentage = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
-            document.getElementById('percentage').textContent = percentage + '%';
-        }
+    function showReport() {
+        clearInterval(state.timerInterval);
+        let timeTaken = Math.floor((Date.now() - state.bloqueStartTime) / 1000);
+        document.getElementById('rep-time').textContent = timeTaken + "s";
+        document.getElementById('rep-speed').textContent = (timeTaken / 10).toFixed(1) + "s";
+        document.getElementById('rep-racha').textContent = state.racha;
+        document.getElementById('report-modal').style.display = "block";
+    }
 
-        function clearFeedback() {
-            document.getElementById('feedback').innerHTML = '';
-            document.getElementById('feedback').className = 'feedback';
-        }
+    function closeReport() {
+        state.bloqueHechos = 0;
+        state.bloqueStartTime = Date.now();
+        document.getElementById('report-modal').style.display = "none";
+        startTimer();
+        newProblem();
+    }
 
-        // Allow Enter key to check answer
-        document.getElementById('answer').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAnswer();
-            }
-        });
+    function startTimer() {
+        state.timerInterval = setInterval(() => {
+            state.gameTimer++;
+            let m = Math.floor(state.gameTimer / 60).toString().padStart(2, '0');
+            let s = (state.gameTimer % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${m}:${s}`;
+        }, 1000);
+    }
 
-        function startTimer() {
-            if (!timer.isRunning) {
-                timer.isRunning = true;
-                timer.interval = setInterval(updateTimer, 1000);
-                document.getElementById('start-btn').style.display = 'none';
-                document.getElementById('pause-btn').style.display = 'inline-block';
-            }
-        }
-        
-        function pauseTimer() {
-            if (timer.isRunning) {
-                timer.isRunning = false;
-                clearInterval(timer.interval);
-                document.getElementById('start-btn').style.display = 'inline-block';
-                document.getElementById('pause-btn').style.display = 'none';
-            }
-        }
-        
-        function resetTimer() {
-            timer.isRunning = false;
-            clearInterval(timer.interval);
-            timer.seconds = 0;
-            timer.minutes = 0;
-            updateTimerDisplay();
-            document.getElementById('start-btn').style.display = 'inline-block';
-            document.getElementById('pause-btn').style.display = 'none';
-            
-            // Reset stats too
-            stats.correct = 0;
-            stats.incorrect = 0;
-            stats.total = 0;
-            stats.streak = 0;
-            updateStats();
-            generateProblem();
-        }
-        
-        function updateTimer() {
-            timer.seconds++;
-            if (timer.seconds >= 60) {
-                timer.seconds = 0;
-                timer.minutes++;
-            }
-            updateTimerDisplay();
-        }
-        
-        function updateTimerDisplay() {
-            const displayMinutes = timer.minutes.toString().padStart(2, '0');
-            const displaySeconds = timer.seconds.toString().padStart(2, '0');
-            document.getElementById('timer').textContent = `${displayMinutes}:${displaySeconds}`;
-        }
-
-        // Initialize with first problem
-        generateProblem();
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8dcd3ae4a4d781',t:'MTc2NDg3NzUwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    init();
+</script>
+</body>
 </html>
