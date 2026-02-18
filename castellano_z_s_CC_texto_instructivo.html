@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lengua Castellana 5º – Repaso SA2</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --x:    #FF6B6B;
+    --cc:   #4ECDC4;
+    --z:    #F59E0B;
+    --inst: #A78BFA;
+    --bg:   #F0F4FF;
+    --dark: #1e1e2e;
+    --card: #FFFFFF;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--dark); min-height:100vh; }
+
+  header {
+    background: linear-gradient(135deg,#FF6B6B 0%,#FFE14D 40%,#4ECDC4 75%,#A78BFA 100%);
+    padding: 30px 24px 26px; text-align: center; position: relative; overflow: hidden;
+  }
+  header::after {
+    content:''; position:absolute; inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='52' height='52' viewBox='0 0 52 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='26' cy='26' r='3'/%3E%3Ccircle cx='46' cy='6' r='3'/%3E%3Ccircle cx='6' cy='46' r='3'/%3E%3Ccircle cx='46' cy='46' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  header h1 { font-family:'Fredoka One',cursive; font-size:clamp(2rem,5vw,3rem); color:#fff; text-shadow:2px 3px 0 rgba(0,0,0,0.15); position:relative; }
+  header p  { color:rgba(255,255,255,.9); font-weight:700; font-size:1rem; margin-top:5px; position:relative; }
+
+  .main-tabs { display:flex; justify-content:center; gap:12px; padding:22px 20px 0; }
+  .main-tab {
+    font-family:'Fredoka One',cursive; font-size:1.15rem;
+    padding:12px 36px; border-radius:50px; border:none; cursor:pointer;
+    transition:all .2s; box-shadow:var(--shadow);
+  }
+  .main-tab.teoria    { background:#fff; color:#555; }
+  .main-tab.ejercicios { background:linear-gradient(135deg,#FF6B6B,#A78BFA); color:#fff; }
+  .main-tab.active    { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,0.14); }
+  .main-tab.teoria.active { background:var(--dark); color:#fff; }
+
+  .sub-tabs { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; padding:16px 20px 0; }
+  .sub-tab {
+    font-family:'Fredoka One',cursive; font-size:.95rem;
+    padding:8px 20px; border-radius:30px; cursor:pointer;
+    border:2.5px solid transparent; background:#fff; transition:all .18s;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+  }
+  .sub-tab.sub-x    { color:var(--x);    border-color:var(--x); }
+  .sub-tab.sub-cc   { color:var(--cc);   border-color:var(--cc); }
+  .sub-tab.sub-z    { color:var(--z);    border-color:var(--z); }
+  .sub-tab.sub-inst { color:var(--inst); border-color:var(--inst); }
+  .sub-tab:hover    { transform:translateY(-1px); }
+  .sub-tab.sub-x.active    { background:var(--x);    color:#fff; }
+  .sub-tab.sub-cc.active   { background:var(--cc);   color:#fff; }
+  .sub-tab.sub-z.active    { background:var(--z);    color:#fff; }
+  .sub-tab.sub-inst.active { background:var(--inst); color:#fff; }
+
+  .page { display:none; max-width:860px; margin:0 auto; padding:26px 20px 60px; }
+  .page.active { display:block; animation:fadeIn .3s ease; }
+  .subsec { display:none; }
+  .subsec.active { display:block; animation:fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+  .sec-title { font-family:'Fredoka One',cursive; font-size:1.9rem; display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .badge { width:50px; height:50px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; font-family:'Fredoka One',cursive; font-size:1.4rem; color:#fff; flex-shrink:0; }
+
+  .t-card { background:var(--card); border-radius:var(--radius); padding:20px 24px; margin-bottom:14px; box-shadow:var(--shadow); border-left:5px solid transparent; }
+  .t-card h3 { font-family:'Fredoka One',cursive; font-size:1.1rem; margin-bottom:7px; }
+  .t-card p, .t-card li { font-size:.95rem; line-height:1.65; }
+  .t-card ul { padding-left:18px; margin-top:5px; }
+  .t-card li { margin-bottom:3px; }
+  .exa { margin-top:9px; background:#f7f8fc; border-radius:10px; padding:9px 13px; font-size:.88rem; color:#555; line-height:1.6; }
+
+  .x-c    { border-left-color:var(--x);    } .x-c h3    { color:var(--x);    }
+  .cc-c   { border-left-color:var(--cc);   } .cc-c h3   { color:var(--cc);   }
+  .z-c    { border-left-color:var(--z);    } .z-c h3    { color:var(--z);    }
+  .inst-c { border-left-color:var(--inst); } .inst-c h3 { color:var(--inst); }
+
+  .ist { display:flex; gap:10px; align-items:flex-start; margin-bottom:9px; }
+  .ist-num { background:var(--inst); color:#fff; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Fredoka One',cursive; font-size:.9rem; flex-shrink:0; margin-top:2px; }
+
+  /* EXERCISES */
+  .ej-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:22px; }
+  .score-pill { background:var(--card); border-radius:50px; padding:10px 20px; box-shadow:var(--shadow); display:flex; align-items:center; gap:10px; }
+  .score-num { font-family:'Fredoka One',cursive; font-size:1.6rem; background:linear-gradient(135deg,#FF6B6B,#A78BFA); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:.85rem; color:#888; font-weight:700; }
+  .btn-reset-all { padding:10px 20px; background:#fff; border:2px solid #e0e0e0; border-radius:30px; font-family:'Fredoka One',cursive; font-size:.9rem; cursor:pointer; transition:all .15s; color:#666; }
+  .btn-reset-all:hover { border-color:#aaa; color:#333; }
+
+  .ej-nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+  .ej-nav-btn { padding:7px 16px; border-radius:20px; border:2px solid #e0e0e0; background:#fff; font-family:'Fredoka One',cursive; font-size:.88rem; cursor:pointer; transition:all .15s; color:#666; }
+  .ej-nav-btn:hover { background:var(--dark); color:#fff; border-color:var(--dark); }
+  .ej-nav-btn.active { background:var(--dark); color:#fff; border-color:var(--dark); }
+  .ej-nav-btn.done { border-color:#22c55e; color:#166534; }
+  .ej-nav-btn.done.active { background:#22c55e; color:#fff; border-color:#22c55e; }
+
+  .ej-block { display:none; }
+  .ej-block.active { display:block; animation:fadeIn .3s ease; }
+  .ej-card { background:var(--card); border-radius:var(--radius); padding:24px 28px; box-shadow:var(--shadow); margin-bottom:20px; }
+  .ej-card h3 { font-family:'Fredoka One',cursive; font-size:1.25rem; margin-bottom:4px; display:flex; align-items:center; gap:8px; }
+  .ej-tag { font-size:.78rem; font-weight:800; padding:3px 10px; border-radius:20px; background:#f3f4f6; color:#666; }
+  .ej-sub { color:#999; font-size:.88rem; margin-bottom:18px; }
+
+  .blank-row { display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin-bottom:6px; line-height:2.4; font-size:1rem; }
+  .blank { border:none; border-bottom:3px solid #ccc; width:70px; text-align:center; font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; background:transparent; outline:none; padding:2px 2px; transition:border-color .2s; }
+  .blank:focus { border-bottom-color:var(--inst); }
+  .blank.ok  { border-bottom-color:#22c55e !important; background:#dcfce7; border-radius:4px 4px 0 0; color:#166534; }
+  .blank.bad { border-bottom-color:#ef4444 !important; background:#fee2e2; border-radius:4px 4px 0 0; color:#991b1b; }
+
+  .rule-hint { display:none; margin-top:4px; margin-bottom:10px; background:#fff7ed; border:1.5px solid #fed7aa; border-radius:10px; padding:10px 14px; font-size:.84rem; color:#9a3412; line-height:1.55; }
+  .rule-hint.show { display:block; }
+  .rule-hint b { color:#7c2d12; }
+
+  .mc-q { margin-bottom:18px; }
+  .mc-q p { font-weight:700; font-size:1rem; margin-bottom:7px; }
+  .mc-opts { display:flex; flex-wrap:wrap; gap:8px; }
+  .mc-btn { padding:8px 20px; border:2.5px solid #e0e0e0; border-radius:25px; font-family:'Nunito',sans-serif; font-size:.92rem; font-weight:700; cursor:pointer; background:#fff; transition:all .15s; }
+  .mc-btn:hover { border-color:var(--inst); color:var(--inst); }
+  .mc-btn.ok  { background:#dcfce7; border-color:#22c55e; color:#166534; }
+  .mc-btn.bad { background:#fee2e2; border-color:#ef4444; color:#991b1b; }
+  .mc-btn:disabled { cursor:default; }
+
+  .word-pool { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .chip { padding:7px 15px; border-radius:20px; font-weight:700; font-size:.9rem; cursor:pointer; transition:all .18s; box-shadow:0 2px 6px rgba(0,0,0,.09); user-select:none; }
+  .chip-x  { background:#ffe4e4; color:var(--x);  border:2px solid var(--x); }
+  .chip-cc { background:#e0faf8; color:#0d9488;   border:2px solid var(--cc); }
+  .chip-z  { background:#fef3c7; color:#92400e;   border:2px solid var(--z); }
+  .chip.selected { outline:3px solid var(--inst); outline-offset:2px; }
+  .chip.faded    { opacity:.35; cursor:default; }
+  .classify-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  @media(max-width:560px){ .classify-grid { grid-template-columns:1fr; } }
+  .cl-col-label { font-size:.82rem; font-weight:800; margin-bottom:5px; }
+  .drop-zone { min-height:100px; border:2.5px dashed #d1d5db; border-radius:12px; padding:8px 10px; display:flex; flex-wrap:wrap; gap:6px; align-items:flex-start; background:#fafafa; transition:all .18s; }
+  .drop-zone:hover { border-color:var(--inst); background:#f5f0ff; }
+
+  .ord-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap; }
+  .ord-sel { padding:8px 12px; border:2px solid #e0e0e0; border-radius:10px; font-family:'Nunito',sans-serif; font-size:.92rem; font-weight:700; outline:none; cursor:pointer; min-width:70px; }
+  .ord-sel.ok  { border-color:#22c55e; background:#dcfce7; }
+  .ord-sel.bad { border-color:#ef4444; background:#fee2e2; }
+
+  .con-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .con-sel { padding:8px 12px; border:2px solid #e0e0e0; border-radius:10px; font-family:'Nunito',sans-serif; font-size:.92rem; font-weight:700; outline:none; cursor:pointer; }
+  .con-sel.ok  { border-color:#22c55e; background:#dcfce7; }
+  .con-sel.bad { border-color:#ef4444; background:#fee2e2; }
+
+  .tf-row { display:flex; align-items:center; gap:12px; margin-bottom:6px; flex-wrap:wrap; }
+  .tf-label { font-weight:800; color:#555; min-width:120px; }
+  .tf-input { border:none; border-bottom:3px solid #ccc; width:180px; font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:800; background:transparent; outline:none; padding:3px 4px; transition:border-color .2s; }
+  .tf-input:focus { border-bottom-color:var(--inst); }
+  .tf-input.ok  { border-bottom-color:#22c55e; background:#dcfce7; border-radius:4px 4px 0 0; color:#166534; }
+  .tf-input.bad { border-bottom-color:#ef4444; background:#fee2e2; border-radius:4px 4px 0 0; color:#991b1b; }
+
+  .fb-bar { display:none; margin-top:14px; padding:12px 16px; border-radius:12px; font-weight:700; font-size:.92rem; line-height:1.6; }
+  .fb-bar.show { display:block; }
+  .fb-bar.ok   { background:#dcfce7; color:#166534; }
+  .fb-bar.bad  { background:#fff7ed; color:#9a3412; border:1.5px solid #fed7aa; }
+
+  .ej-actions { margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+  .btn-check { padding:11px 28px; background:linear-gradient(135deg,#667eea,#A78BFA); color:#fff; border:none; border-radius:30px; font-family:'Fredoka One',cursive; font-size:1rem; cursor:pointer; box-shadow:0 4px 14px rgba(103,78,250,.3); transition:all .15s; }
+  .btn-check:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(103,78,250,.4); }
+  .btn-reset { padding:11px 22px; background:#fff; border:2px solid #e0e0e0; border-radius:30px; font-family:'Fredoka One',cursive; font-size:1rem; cursor:pointer; color:#888; transition:all .15s; }
+  .btn-reset:hover { border-color:#bbb; color:#444; }
+
+  .ej-nav-row { display:flex; justify-content:space-between; margin-top:20px; }
+  .btn-nav { padding:10px 22px; border-radius:30px; border:2px solid #e0e0e0; font-family:'Fredoka One',cursive; font-size:.9rem; cursor:pointer; background:#fff; color:#666; transition:all .15s; }
+  .btn-nav:hover { background:var(--dark); color:#fff; border-color:var(--dark); }
+  .btn-nav:disabled { opacity:.3; cursor:default; }
+
+  .dot-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:4px; }
+  .dot { width:13px; height:13px; border-radius:50%; background:#e5e7eb; transition:background .3s; }
+  .dot.ok  { background:#22c55e; }
+  .dot.bad { background:#ef4444; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✏️ Lengua Castellana 5º</h1>
+  <p>Repaso SA2 · Laia Borrás · Grupo S2A</p>
+</header>
+
+<div class="main-tabs">
+  <button class="main-tab teoria active" onclick="showMain('teoria',this)">📖 Teoría</button>
+  <button class="main-tab ejercicios"    onclick="showMain('ejercicios',this)">🎯 Ejercicios</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     TEORÍA
+══════════════════════════════════════ -->
+<div id="page-teoria" class="page active">
+  <div class="sub-tabs">
+    <button class="sub-tab sub-x active"  onclick="showSub('sub-x',   this)">La X</button>
+    <button class="sub-tab sub-cc"        onclick="showSub('sub-cc',  this)">La CC</button>
+    <button class="sub-tab sub-z"         onclick="showSub('sub-z',   this)">La Z</button>
+    <button class="sub-tab sub-inst"      onclick="showSub('sub-inst',this)">Texto instructivo</button>
+  </div>
+
+  <!-- X -->
+  <div class="subsec active" id="sub-x" style="margin-top:22px">
+    <div class="sec-title"><span class="badge" style="background:var(--x)">X</span>La letra X</div>
+    <div class="t-card x-c"><h3>📌 Regla 1 – Sonido /ks/</h3><p>La <b>X</b> suena como <b>ks</b>. Se usa en palabras donde aparece este sonido.</p><div class="exa">✏️ examen, exacto, explicar, experimento, taxi, boxeo, texto, sexto, máximo</div></div>
+    <div class="t-card x-c"><h3>📌 Regla 2 – Prefijo <em>ex-</em></h3><p>Significa <em>"fuera", "que ya no es"</em> o <em>"anterior"</em>. Siempre se escribe con X.</p><div class="exa">✏️ expresidente, exalumno, exmarido, exnovia, exdirector, excompañero</div></div>
+    <div class="t-card x-c"><h3>📌 Regla 3 – Delante de <em>c, p, t</em></h3><p>Se escribe <b>X</b> delante de las letras <b>c</b>, <b>p</b> y <b>t</b> en muchas palabras.</p><div class="exa">✏️ excelente, expreso, explorar, explicar, extremo, extraño, exclusivo</div></div>
+    <div class="t-card x-c"><h3>📌 Regla 4 – Prefijo <em>extra-</em></h3><p>Significa <em>"fuera de", "más de lo normal"</em> o <em>"muy"</em>.</p><div class="exa">✏️ extraordinario, extraterrestre, extravagante, extralargo, extraoficial</div></div>
+    <div class="t-card x-c"><h3>📌 Regla 5 – Grupos <em>-xpl-, -xpr-, -xtr-</em></h3><div class="exa">✏️ explotar, explicar, expresión, extremo, extraviar, extraer</div></div>
+    <div class="t-card x-c"><h3>📌 Regla 6 – Origen extranjero o científico</h3><div class="exa">✏️ xenofobia, xilófono, hexágono, oxígeno, taxi</div></div>
+    <div class="t-card x-c"><h3>📌 Regla 7 – Números romanos (= 10)</h3><div class="exa">✏️ X (10), XX (20), XXX (30)</div></div>
+  </div>
+
+  <!-- CC -->
+  <div class="subsec" id="sub-cc" style="margin-top:22px">
+    <div class="sec-title"><span class="badge" style="background:var(--cc)">CC</span>La doble C</div>
+    <div class="t-card cc-c"><h3>📌 Regla principal</h3><p>Se escribe <b>CC</b> cuando el sonido es fuerte y va <b>antes de e o i</b>.</p><div class="exa">✏️ acción, lección, dirección, colección, corrección, protección</div></div>
+    <div class="t-card cc-c"><h3>📌 Terminaciones frecuentes</h3><ul><li><b>-acción</b> → acción, reacción, satisfacción, distracción</li><li><b>-ección</b> → elección, proyección, protección, corrección</li><li><b>-icción</b> → dicción, adicción, contradicción, predicción</li></ul></div>
+    <div class="t-card cc-c"><h3>📌 Derivados de verbos en <em>-ar / -er / -ir</em></h3><p>Al convertirlos en sustantivos aparece <b>-cción</b>.</p><div class="exa">educar → educación &nbsp;·&nbsp; proteger → protección<br>dirigir → dirección &nbsp;·&nbsp; corregir → corrección</div></div>
+    <div class="t-card cc-c"><h3>📌 Palabras con el grupo <em>CT</em> en la raíz</h3><p>Si la palabra original tiene <b>CT</b>, el sustantivo lleva <b>CC</b>.</p><div class="exa">correcto → corrección &nbsp;·&nbsp; directo → dirección &nbsp;·&nbsp; selecto → selección</div></div>
+    <div class="t-card cc-c" style="border-left-color:#a3e635"><h3>💡 ¿Por qué doble C?</h3><p>Con una sola C, la C sonaría suave delante de <em>e</em> e <em>i</em>. La CC la hace sonar <b>fuerte</b>.</p><div class="exa">acción ✔ &nbsp;·&nbsp; ación ✘ &nbsp;·&nbsp; lección ✔ &nbsp;·&nbsp; leción ✘</div></div>
+  </div>
+
+  <!-- Z -->
+  <div class="subsec" id="sub-z" style="margin-top:22px">
+    <div class="sec-title"><span class="badge" style="background:var(--z)">Z</span>La letra Z</div>
+    <div class="t-card z-c"><h3>📌 Regla 1 – Sustantivos en <em>-ez / -eza</em></h3><div class="exa">✏️ niñez, belleza, tristeza, pobreza, vejez, nobleza</div></div>
+    <div class="t-card z-c"><h3>📌 Regla 2 – Aumentativos y despectivos en <em>-azo / -aza</em></h3><div class="exa">✏️ perrazo, manaza, portazo, golazo, madraza</div></div>
+    <div class="t-card z-c"><h3>📌 Regla 3 – Verbos en <em>-izar</em></h3><div class="exa">✏️ organizar, utilizar, realizar, analizar, memorizar</div></div>
+  </div>
+
+  <!-- Instructivo -->
+  <div class="subsec" id="sub-inst" style="margin-top:22px">
+    <div class="sec-title"><span class="badge" style="background:var(--inst)">📋</span>Texto instructivo</div>
+    <div class="t-card inst-c"><h3>¿Qué es?</h3><p>Un texto instructivo explica <b>cómo hacer algo paso a paso</b>. Su objetivo es enseñar, guiar u ordenar para que una persona pueda realizar una acción correctamente.</p></div>
+    <div class="t-card inst-c"><h3>¿Para qué sirve?</h3><ul><li>Aprender a hacer algo nuevo</li><li>Seguir reglas o normas</li><li>Evitar errores</li><li>Organizar acciones en orden</li></ul><div class="exa">📖 Receta de cocina · instrucciones de un juego · normas de clase · cómo lavarse las manos</div></div>
+    <div class="t-card inst-c"><h3>🏗️ Estructura (3 partes)</h3><div style="margin-top:8px"><div class="ist"><div class="ist-num">1</div><div><b>Título</b> – indica qué se va a hacer.</div></div><div class="ist"><div class="ist-num">2</div><div><b>Materiales o ingredientes</b> – lista de lo que se necesita.</div></div><div class="ist"><div class="ist-num">3</div><div><b>Pasos o instrucciones</b> – en orden, con números o guiones.</div></div></div></div>
+    <div class="t-card inst-c"><h3>🔗 Conectores de orden</h3><div class="exa"><b>primero</b> · <b>luego</b> · <b>después</b> · <b>a continuación</b> · <b>finalmente</b> · <b>por último</b></div></div>
+    <div class="t-card" style="border-left:5px solid #4ade80"><h3 style="color:#16a34a">🍋 Ejemplo: Cómo preparar una limonada</h3><p style="margin-bottom:8px"><b>Ingredientes:</b> Limones · Agua · Azúcar · Jarra · Cuchara</p><p><b>Instrucciones:</b></p><div style="margin-top:8px"><div class="ist"><div class="ist-num" style="background:#4ade80">1</div><div>Primero, lava bien los limones.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">2</div><div>Luego, córtalos por la mitad.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">3</div><div>Después, exprime el jugo en una jarra.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">4</div><div>A continuación, agrega agua fría.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">5</div><div>Luego, añade dos cucharadas de azúcar.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">6</div><div>Mezcla bien con una cuchara.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">7</div><div>Prueba y ajusta el azúcar si es necesario.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">8</div><div>Por último, sirve en vasos y disfrútala.</div></div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     EJERCICIOS
+══════════════════════════════════════ -->
+<div id="page-ejercicios" class="page">
+
+  <div class="ej-header">
+    <div>
+      <div style="font-family:'Fredoka One',cursive;font-size:1.8rem">🎯 Ejercicios</div>
+      <div class="dot-row" id="dot-row"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="score-pill">
+        <div class="score-num" id="score-num">0/0</div>
+        <div class="score-label">correctas</div>
+      </div>
+      <button class="btn-reset-all" onclick="resetAll()">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="ej-nav">
+    <button class="ej-nav-btn active" id="nav-1" onclick="goEj(1)">1. Rellena</button>
+    <button class="ej-nav-btn"        id="nav-2" onclick="goEj(2)">2. Elige</button>
+    <button class="ej-nav-btn"        id="nav-3" onclick="goEj(3)">3. Clasifica</button>
+    <button class="ej-nav-btn"        id="nav-4" onclick="goEj(4)">4. Estructura</button>
+    <button class="ej-nav-btn"        id="nav-5" onclick="goEj(5)">5. Conectores</button>
+    <button class="ej-nav-btn"        id="nav-6" onclick="goEj(6)">6. Transforma</button>
+  </div>
+
+  <!-- EJ 1 -->
+  <div class="ej-block active" id="ej-1">
+    <div class="ej-card">
+      <h3>✏️ Ejercicio 1 <span class="ej-tag">X o CC</span></h3>
+      <p class="ej-sub">Escribe X o CC para completar cada palabra.</p>
+      <div id="ej1-body"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj1()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj1()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb1"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" disabled>← Anterior</button>
+      <button class="btn-nav" onclick="goEj(2)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 2 -->
+  <div class="ej-block" id="ej-2">
+    <div class="ej-card">
+      <h3>🔤 Ejercicio 2 <span class="ej-tag">¿X o CC?</span></h3>
+      <p class="ej-sub">Elige la opción correcta para cada palabra.</p>
+      <div id="ej2-body"></div>
+      <div class="fb-bar" id="fb2"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(1)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(3)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 3 -->
+  <div class="ej-block" id="ej-3">
+    <div class="ej-card">
+      <h3>🗂️ Ejercicio 3 <span class="ej-tag">X, CC o Z</span></h3>
+      <p class="ej-sub">Pulsa una palabra y después la columna donde pertenece.</p>
+      <div class="word-pool" id="ej3-pool"></div>
+      <div class="classify-grid">
+        <div><div class="cl-col-label" style="color:var(--x)">📦 X</div><div class="drop-zone" id="zone-x" onclick="dropTo('x')"></div></div>
+        <div><div class="cl-col-label" style="color:#0d9488">📦 CC</div><div class="drop-zone" id="zone-cc" onclick="dropTo('cc')"></div></div>
+        <div><div class="cl-col-label" style="color:#92400e">📦 Z</div><div class="drop-zone" id="zone-z" onclick="dropTo('z')"></div></div>
+      </div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj3()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj3()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb3"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(2)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(4)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 4 -->
+  <div class="ej-block" id="ej-4">
+    <div class="ej-card">
+      <h3>📋 Ejercicio 4 <span class="ej-tag">Texto instructivo</span></h3>
+      <p class="ej-sub">Numera del 1 al 3 las partes del texto instructivo en el orden correcto.</p>
+      <div id="ej4-body"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj4()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj4()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb4"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(3)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(5)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 5 -->
+  <div class="ej-block" id="ej-5">
+    <div class="ej-card">
+      <h3>🔗 Ejercicio 5 <span class="ej-tag">Conectores</span></h3>
+      <p class="ej-sub">Elige el conector más adecuado para cada paso de la receta.</p>
+      <div id="ej5-body"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj5()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj5()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb5"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(4)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(6)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 6 -->
+  <div class="ej-block" id="ej-6">
+    <div class="ej-card">
+      <h3>🔁 Ejercicio 6 <span class="ej-tag">Familia de palabras</span></h3>
+      <p class="ej-sub">Transforma cada verbo en el sustantivo con CC que le corresponde.</p>
+      <div id="ej6-body"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj6()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj6()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb6"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(5)">← Anterior</button>
+      <button class="btn-nav" disabled>Siguiente →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── NAVIGATION ──────────────────────────────────────────
+function showMain(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function showSub(id, btn) {
+  document.querySelectorAll('.subsec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function goEj(n) {
+  document.querySelectorAll('.ej-block').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ej-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('ej-' + n).classList.add('active');
+  document.getElementById('nav-' + n).classList.add('active');
+}
+
+// ── SCORE ────────────────────────────────────────────────
+const results = [];
+function addResult(ej, correct) { results.push({ej, correct}); renderScore(); }
+function renderScore() {
+  const c = results.filter(r => r.correct).length;
+  document.getElementById('score-num').textContent = c + '/' + results.length;
+  document.getElementById('dot-row').innerHTML = results.map(r =>
+    `<div class="dot ${r.correct ? 'ok':'bad'}"></div>`).join('');
+  [1,2,3,4,5,6].forEach(n => {
+    if (results.some(r => r.ej === n)) document.getElementById('nav-' + n).classList.add('done');
+  });
+}
+function showFb(id, ok, msg) {
+  const el = document.getElementById(id);
+  el.innerHTML = msg; el.className = `fb-bar show ${ok ? 'ok':'bad'}`;
+}
+function hideFb(id) { document.getElementById(id).className = 'fb-bar'; }
+
+// ── RULE TEXTS ────────────────────────────────────────────
+const R = {
+  x_prefix_ex:  '📖 <b>Regla X:</b> El prefijo <b>ex-</b> (= "fuera", "que ya no es" o "anterior") siempre se escribe con X. Ej: exalumno, expresidente.',
+  x_before_cpt: '📖 <b>Regla X:</b> Se escribe X delante de las letras <b>c, p y t</b>. Ej: excelente, expreso, extremo.',
+  x_extra:      '📖 <b>Regla X:</b> El prefijo <b>extra-</b> (= "fuera de" o "más de lo normal") siempre se escribe con X. Ej: extraordinario, extraterrestre.',
+  x_groups:     '📖 <b>Regla X:</b> Se escribe X en palabras con los grupos <b>-xpl-, -xpr-, -xtr-</b>. Ej: explotar, expresión, extremo.',
+  x_exvocal:    '📖 <b>Regla X:</b> Se escribe X cuando va seguida de vocal (ex + vocal) con sonido /ks/. Ej: examen, existir, exacto.',
+  cc_accion:    '📖 <b>Regla CC:</b> Se escribe CC en palabras acabadas en <b>-acción, -ección o -icción</b>. La CC hace que la C suene fuerte antes de e/i.',
+  cc_ct:        '📖 <b>Regla CC:</b> Si la palabra original tiene el grupo <b>CT</b> (correCTo, direCTo), el sustantivo lleva CC: corrección, dirección.',
+  cc_verb:      '📖 <b>Regla CC:</b> Los sustantivos derivados de verbos en <b>-ar, -er, -ir</b> suelen llevar <b>-cción</b>. Ej: educar→educación, proteger→protección.',
+  z_ez:         '📖 <b>Regla Z:</b> Los sustantivos terminados en <b>-ez y -eza</b> se escriben con Z. Ej: niñez, belleza, tristeza.',
+  z_azo:        '📖 <b>Regla Z:</b> Los aumentativos y despectivos en <b>-azo / -aza</b> se escriben con Z. Ej: portazo, manaza.',
+  z_izar:       '📖 <b>Regla Z:</b> Los verbos terminados en <b>-izar</b> se escriben con Z. Ej: organizar, utilizar.',
+  inst_order:   '📖 <b>Estructura:</b> El orden correcto es: 1º <b>Título</b> → 2º <b>Materiales/Ingredientes</b> → 3º <b>Pasos/Instrucciones</b>.',
+  connectors:   '📖 <b>Conectores de orden:</b> <b>primero, luego, después, a continuación, finalmente, por último</b>. Ayudan a ordenar los pasos en secuencia.',
+};
+
+// ── EJ 1: FILL IN THE BLANK ──────────────────────────────
+const ej1Data = [
+  {before:'Ha sido una e',  ans:'x',  rest:'periencia increíble.',       rule: R.x_before_cpt},
+  {before:'La dire',        ans:'cc', rest:'ión del colegio es larga.',   rule: R.cc_ct},
+  {before:'El e',           ans:'x',  rest:'amen fue muy difícil.',       rule: R.x_exvocal},
+  {before:'La cole',        ans:'cc', rest:'ión de libros era enorme.',   rule: R.cc_accion},
+  {before:'Vamos a e',      ans:'x',  rest:'plorar la cueva.',            rule: R.x_groups},
+  {before:'Es un plan e',   ans:'x',  rest:'traordinario.',               rule: R.x_extra},
+  {before:'La ele',         ans:'cc', rest:'ión de presidente fue ayer.', rule: R.cc_accion},
+  {before:'El e',           ans:'x',  rest:'alumno saludó al profesor.',  rule: R.x_prefix_ex},
+];
+function buildEj1() {
+  document.getElementById('ej1-body').innerHTML = ej1Data.map((d,i) => `
+    <div>
+      <div class="blank-row">
+        <span>${d.before}</span>
+        <input class="blank" id="b1-${i}" maxlength="4" placeholder="?" autocomplete="off" spellcheck="false">
+        <span>${d.rest}</span>
+      </div>
+      <div class="rule-hint" id="h1-${i}">${d.rule}</div>
+    </div>`).join('');
+}
+function checkEj1() {
+  let ok = 0;
+  ej1Data.forEach((d,i) => {
+    const inp = document.getElementById(`b1-${i}`);
+    const correct = inp.value.trim().toLowerCase() === d.ans;
+    inp.className = 'blank ' + (correct ? 'ok':'bad');
+    document.getElementById(`h1-${i}`).className = 'rule-hint' + (correct ? '':' show');
+    if (correct) ok++;
+    addResult(1, correct);
+  });
+  showFb('fb1', ok === ej1Data.length,
+    ok === ej1Data.length
+      ? `🎉 ¡Perfecto! Has acertado las ${ok} palabras.`
+      : `Has acertado ${ok} de ${ej1Data.length}. Revisa las pistas en naranja 👆`);
+}
+function resetEj1() { buildEj1(); hideFb('fb1'); }
+
+// ── EJ 2: MULTIPLE CHOICE ────────────────────────────────
+const ej2Data = [
+  {word:'e___traño',   opts:['X','CC'], ans:'X',  rule: R.x_before_cpt},
+  {word:'le___ión',    opts:['X','CC'], ans:'CC', rule: R.cc_accion},
+  {word:'e___amen',    opts:['X','CC'], ans:'X',  rule: R.x_exvocal},
+  {word:'di___ión',    opts:['X','CC'], ans:'CC', rule: R.cc_accion},
+  {word:'e___plorar',  opts:['X','CC'], ans:'X',  rule: R.x_groups},
+  {word:'a___ión',     opts:['X','CC'], ans:'CC', rule: R.cc_accion},
+  {word:'e___alumno',  opts:['X','CC'], ans:'X',  rule: R.x_prefix_ex},
+  {word:'prote___ión', opts:['X','CC'], ans:'CC', rule: R.cc_ct},
+];
+let ej2done = 0;
+function buildEj2() {
+  ej2done = 0;
+  document.getElementById('ej2-body').innerHTML = ej2Data.map((d,i) => `
+    <div class="mc-q">
+      <p>${d.word.replace('___','<u style="color:var(--inst)">___</u>')}</p>
+      <div class="mc-opts">
+        ${d.opts.map(o=>`<button class="mc-btn" id="mc2-${i}-${o}" onclick="answerEj2(${i},'${o}')">${o}</button>`).join('')}
+      </div>
+      <div class="rule-hint" id="h2-${i}">${d.rule}</div>
+    </div>`).join('');
+  hideFb('fb2');
+}
+function answerEj2(i, chosen) {
+  const d = ej2Data[i];
+  const alreadyAnswered = document.getElementById(`mc2-${i}-${d.opts[0]}`).disabled;
+  if (alreadyAnswered) return;
+  d.opts.forEach(o => {
+    const btn = document.getElementById(`mc2-${i}-${o}`);
+    btn.disabled = true;
+    if (o === d.ans) btn.classList.add('ok');
+    else if (o === chosen) btn.classList.add('bad');
+  });
+  const correct = chosen === d.ans;
+  if (!correct) document.getElementById(`h2-${i}`).classList.add('show');
+  addResult(2, correct);
+  ej2done++;
+  if (ej2done === ej2Data.length) {
+    const okCount = results.filter(r => r.ej === 2).slice(-ej2Data.length).filter(r => r.correct).length;
+    showFb('fb2', okCount === ej2Data.length,
+      okCount === ej2Data.length ? '🎉 ¡Todas correctas!' : `${okCount} de ${ej2Data.length} correctas. Revisa las pistas 👆`);
+  }
+}
+
+// ── EJ 3: CLASSIFY ───────────────────────────────────────
+const ej3Words = [
+  {w:'examen',    cat:'x',  rule: R.x_exvocal},
+  {w:'acción',    cat:'cc', rule: R.cc_accion},
+  {w:'belleza',   cat:'z',  rule: R.z_ez},
+  {w:'expresar',  cat:'x',  rule: R.x_before_cpt},
+  {w:'lección',   cat:'cc', rule: R.cc_accion},
+  {w:'tristeza',  cat:'z',  rule: R.z_ez},
+  {w:'explorar',  cat:'x',  rule: R.x_groups},
+  {w:'dirección', cat:'cc', rule: R.cc_ct},
+  {w:'niñez',     cat:'z',  rule: R.z_ez},
+  {w:'taxista',   cat:'x',  rule: R.x_exvocal},
+  {w:'elección',  cat:'cc', rule: R.cc_accion},
+  {w:'portazo',   cat:'z',  rule: R.z_azo},
+];
+const chipCls = {x:'chip chip-x', cc:'chip chip-cc', z:'chip chip-z'};
+let sel3 = null, placed3 = {};
+function buildEj3() {
+  sel3 = null; placed3 = {};
+  document.getElementById('ej3-pool').innerHTML =
+    [...ej3Words].sort(() => Math.random()-.5).map(d =>
+      `<span class="${chipCls[d.cat]}" id="chip3-${d.w}" onclick="selChip3('${d.w}')">${d.w}</span>`
+    ).join('');
+  ['x','cc','z'].forEach(z => document.getElementById('zone-'+z).innerHTML = '');
+  hideFb('fb3');
+}
+function selChip3(w) {
+  if (placed3[w]) return;
+  if (sel3) { const prev = document.getElementById('chip3-'+sel3); if (prev) prev.classList.remove('selected'); }
+  if (sel3 === w) { sel3 = null; return; }
+  sel3 = w;
+  document.getElementById('chip3-'+w).classList.add('selected');
+}
+function dropTo(zone) {
+  if (!sel3) return;
+  const w = sel3;
+  const orig = document.getElementById('chip3-'+w);
+  if (placed3[w]) {
+    const oldEl = document.getElementById('zone-'+placed3[w])?.querySelector(`[data-w="${w}"]`);
+    if (oldEl) oldEl.remove();
+    if (orig) orig.classList.remove('faded');
+  }
+  placed3[w] = zone;
+  if (orig) { orig.classList.remove('selected'); orig.classList.add('faded'); }
+  const d = ej3Words.find(c => c.w === w);
+  const el = document.createElement('span');
+  el.className = chipCls[d.cat]; el.textContent = w; el.dataset.w = w; el.style.cursor = 'pointer';
+  el.onclick = () => { removeChip3(w, zone); };
+  document.getElementById('zone-'+zone).appendChild(el);
+  sel3 = null;
+}
+function removeChip3(w, zone) {
+  const orig = document.getElementById('chip3-'+w);
+  if (orig) orig.classList.remove('faded');
+  document.getElementById('zone-'+zone)?.querySelector(`[data-w="${w}"]`)?.remove();
+  delete placed3[w];
+}
+function checkEj3() {
+  let ok = 0;
+  const wrongItems = [];
+  ej3Words.forEach(d => {
+    const correct = placed3[d.w] === d.cat;
+    if (correct) ok++; else wrongItems.push(`<b>${d.w}</b>: ${d.rule}`);
+    addResult(3, correct);
+  });
+  if (ok === ej3Words.length) {
+    showFb('fb3', true, '🎉 ¡Todas las palabras en su sitio correcto!');
+  } else {
+    document.getElementById('fb3').innerHTML =
+      `Has acertado ${ok} de ${ej3Words.length}. Repasa estas:<br><br>${wrongItems.join('<br><br>')}`;
+    document.getElementById('fb3').className = 'fb-bar show bad';
+  }
+}
+function resetEj3() { buildEj3(); }
+
+// ── EJ 4: ORDER ──────────────────────────────────────────
+const ej4Parts = [
+  {id:'a', text:'📋 Pasos o instrucciones',     ans:3},
+  {id:'b', text:'🏷️ Título',                    ans:1},
+  {id:'c', text:'🛒 Materiales o ingredientes', ans:2},
+];
+function buildEj4() {
+  document.getElementById('ej4-body').innerHTML =
+    [...ej4Parts].sort(() => Math.random()-.5).map(p => `
+      <div class="ord-row">
+        <select class="ord-sel" id="ord-${p.id}">
+          <option value="">–</option>
+          <option>1</option><option>2</option><option>3</option>
+        </select>
+        <span style="font-size:1rem;font-weight:600">${p.text}</span>
+      </div>`).join('');
+  hideFb('fb4');
+}
+function checkEj4() {
+  let ok = 0;
+  ej4Parts.forEach(p => {
+    const sel = document.getElementById(`ord-${p.id}`);
+    const correct = parseInt(sel.value) === p.ans;
+    sel.className = 'ord-sel ' + (correct ? 'ok':'bad');
+    if (correct) ok++;
+    addResult(4, correct);
+  });
+  if (ok === ej4Parts.length) {
+    showFb('fb4', true, '🎉 ¡Orden perfecto! Título → Materiales → Pasos.');
+  } else {
+    document.getElementById('fb4').innerHTML = `Has acertado ${ok} de ${ej4Parts.length}.<br><br>${R.inst_order}`;
+    document.getElementById('fb4').className = 'fb-bar show bad';
+  }
+}
+function resetEj4() { buildEj4(); }
+
+// ── EJ 5: CONNECTORS ─────────────────────────────────────
+const ej5Data = [
+  {sent:'___ lava bien los limones.',       opts:['Por último','Primero','Finalmente'],   ans:'Primero'},
+  {sent:'___ córtalos por la mitad.',       opts:['Primero','Luego','Por último'],        ans:'Luego'},
+  {sent:'___ exprime el jugo en la jarra.', opts:['Por último','Primero','Después'],      ans:'Después'},
+  {sent:'___ agrega agua fría.',            opts:['Antes','A continuación','Finalmente'], ans:'A continuación'},
+  {sent:'___ sirve la limonada en vasos.',  opts:['Primero','Luego','Por último'],        ans:'Por último'},
+];
+function buildEj5() {
+  document.getElementById('ej5-body').innerHTML = ej5Data.map((d,i) => `
+    <div class="con-row">
+      <select class="con-sel" id="con-${i}">
+        <option value="">Elige...</option>
+        ${d.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}
+      </select>
+      <span style="font-size:1rem;font-weight:600">${d.sent.replace('___','')}</span>
+    </div>`).join('');
+  hideFb('fb5');
+}
+function checkEj5() {
+  let ok = 0, hasWrong = false;
+  ej5Data.forEach((d,i) => {
+    const sel = document.getElementById(`con-${i}`);
+    const correct = sel.value === d.ans;
+    sel.className = 'con-sel ' + (correct ? 'ok':'bad');
+    if (correct) ok++; else hasWrong = true;
+    addResult(5, correct);
+  });
+  if (ok === ej5Data.length) {
+    showFb('fb5', true, '🎉 ¡Los conectores están perfectos!');
+  } else {
+    document.getElementById('fb5').innerHTML = `${ok} de ${ej5Data.length} correctos.<br><br>${R.connectors}`;
+    document.getElementById('fb5').className = 'fb-bar show bad';
+  }
+}
+function resetEj5() { buildEj5(); }
+
+// ── EJ 6: TRANSFORM ──────────────────────────────────────
+const ej6Data = [
+  {verb:'educar',      ans:'educación',  rule: R.cc_verb},
+  {verb:'proteger',    ans:'protección', rule: R.cc_ct},
+  {verb:'dirigir',     ans:'dirección',  rule: R.cc_ct},
+  {verb:'corregir',    ans:'corrección', rule: R.cc_ct},
+  {verb:'seleccionar', ans:'selección',  rule: R.cc_accion},
+  {verb:'reaccionar',  ans:'reacción',   rule: R.cc_accion},
+];
+function buildEj6() {
+  document.getElementById('ej6-body').innerHTML = ej6Data.map((d,i) => `
+    <div class="tf-row">
+      <span class="tf-label">${d.verb}</span>
+      <span style="font-size:1.2rem;color:#aaa">→</span>
+      <input class="tf-input" id="tf-${i}" placeholder="escribe aquí..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="rule-hint" id="h6-${i}">${d.rule}</div>`).join('');
+  hideFb('fb6');
+}
+function checkEj6() {
+  let ok = 0;
+  ej6Data.forEach((d,i) => {
+    const inp = document.getElementById(`tf-${i}`);
+    const correct = inp.value.trim().toLowerCase() === d.ans;
+    inp.className = 'tf-input ' + (correct ? 'ok':'bad');
+    document.getElementById(`h6-${i}`).className = 'rule-hint' + (correct ? '':' show');
+    if (correct) ok++;
+    addResult(6, correct);
+  });
+  showFb('fb6', ok === ej6Data.length,
+    ok === ej6Data.length ? '🎉 ¡Todas las transformaciones correctas!'
+      : `${ok} de ${ej6Data.length} correctas. Revisa las pistas en naranja 👆`);
+}
+function resetEj6() { buildEj6(); }
+
+// ── RESET ALL ────────────────────────────────────────────
+function resetAll() {
+  results.length = 0; renderScore();
+  resetEj1(); buildEj2(); resetEj3(); resetEj4(); resetEj5(); resetEj6();
+  document.querySelectorAll('.ej-nav-btn').forEach(b => b.classList.remove('done'));
+}
+
+// ── INIT ─────────────────────────────────────────────────
+buildEj1(); buildEj2(); buildEj3(); buildEj4(); buildEj5(); buildEj6();
+</script>
+</body>
+</html>
