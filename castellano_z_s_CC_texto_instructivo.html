@@ -11,6 +11,7 @@
     --cc:   #4ECDC4;
     --z:    #F59E0B;
     --inst: #A78BFA;
+    --adj:  #10b981;
     --bg:   #F0F4FF;
     --dark: #1e1e2e;
     --card: #FFFFFF;
@@ -79,6 +80,9 @@
   .cc-c   { border-left-color:var(--cc);   } .cc-c h3   { color:var(--cc);   }
   .z-c    { border-left-color:var(--z);    } .z-c h3    { color:var(--z);    }
   .inst-c { border-left-color:var(--inst); } .inst-c h3 { color:var(--inst); }
+  .adj-c  { border-left-color:var(--adj);  } .adj-c h3  { color:var(--adj);  }
+  .sub-tab.sub-adj   { color:var(--adj);   border-color:var(--adj); }
+  .sub-tab.sub-adj.active { background:var(--adj);  color:#fff; }
 
   .ist { display:flex; gap:10px; align-items:flex-start; margin-bottom:9px; }
   .ist-num { background:var(--inst); color:#fff; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Fredoka One',cursive; font-size:.9rem; flex-shrink:0; margin-top:2px; }
@@ -174,6 +178,16 @@
   .dot { width:13px; height:13px; border-radius:50%; background:#e5e7eb; transition:background .3s; }
   .dot.ok  { background:#22c55e; }
   .dot.bad { background:#ef4444; }
+
+  /* Ej 7 – text adjective highlighter */
+  .txt-passage { font-size:1.05rem; line-height:2.2; }
+  .txt-w { cursor:pointer; padding:2px 4px; border-radius:6px; transition:all .15s; }
+  .txt-w:hover { background:#d1fae5; }
+  .txt-w.sel-adj { background:#6ee7b7; color:#065f46; font-weight:800; border-radius:6px; }
+  .txt-w.ok  { background:#22c55e; color:#fff; font-weight:800; border-radius:6px; }
+  .txt-w.bad { background:#ef4444; color:#fff; font-weight:800; border-radius:6px; }
+  .txt-w.missed { background:#fbbf24; color:#7c2d12; font-weight:800; border-radius:6px; }
+  .txt-non-adj { cursor:default; }
 </style>
 </head>
 <body>
@@ -197,6 +211,7 @@
     <button class="sub-tab sub-cc"        onclick="showSub('sub-cc',  this)">La CC</button>
     <button class="sub-tab sub-z"         onclick="showSub('sub-z',   this)">La Z</button>
     <button class="sub-tab sub-inst"      onclick="showSub('sub-inst',this)">Texto instructivo</button>
+
   </div>
 
   <!-- X -->
@@ -237,6 +252,22 @@
     <div class="t-card inst-c"><h3>🏗️ Estructura (3 partes)</h3><div style="margin-top:8px"><div class="ist"><div class="ist-num">1</div><div><b>Título</b> – indica qué se va a hacer.</div></div><div class="ist"><div class="ist-num">2</div><div><b>Materiales o ingredientes</b> – lista de lo que se necesita.</div></div><div class="ist"><div class="ist-num">3</div><div><b>Pasos o instrucciones</b> – en orden, con números o guiones.</div></div></div></div>
     <div class="t-card inst-c"><h3>🔗 Conectores de orden</h3><div class="exa"><b>primero</b> · <b>luego</b> · <b>después</b> · <b>a continuación</b> · <b>finalmente</b> · <b>por último</b></div></div>
     <div class="t-card" style="border-left:5px solid #4ade80"><h3 style="color:#16a34a">🍋 Ejemplo: Cómo preparar una limonada</h3><p style="margin-bottom:8px"><b>Ingredientes:</b> Limones · Agua · Azúcar · Jarra · Cuchara</p><p><b>Instrucciones:</b></p><div style="margin-top:8px"><div class="ist"><div class="ist-num" style="background:#4ade80">1</div><div>Primero, lava bien los limones.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">2</div><div>Luego, córtalos por la mitad.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">3</div><div>Después, exprime el jugo en una jarra.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">4</div><div>A continuación, agrega agua fría.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">5</div><div>Luego, añade dos cucharadas de azúcar.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">6</div><div>Mezcla bien con una cuchara.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">7</div><div>Prueba y ajusta el azúcar si es necesario.</div></div><div class="ist"><div class="ist-num" style="background:#4ade80">8</div><div>Por último, sirve en vasos y disfrútala.</div></div></div></div>
+
+  <!-- ADJETIVOS -->
+  <div class="subsec" id="sub-adj" style="margin-top:22px">
+    <div class="sec-title"><span class="badge" style="background:var(--adj)">ADJ</span>El adjetivo</div>
+    <div class="t-card adj-c"><h3>📌 ¿Qué es un adjetivo?</h3><p>El <b>adjetivo</b> es una palabra que <b>acompaña al nombre (sustantivo)</b> para describirlo o precisarlo. Nos dice cómo es, cómo está o de qué tipo es.</p><div class="exa">✏️ El gato <b>negro</b> · una casa <b>grande</b> · el día <b>soleado</b> · una niña <b>alegre</b></div></div>
+    <div class="t-card adj-c"><h3>📌 Concordancia de género</h3><p>El adjetivo <b>concuerda en género</b> (masculino o femenino) con el nombre al que acompaña.</p><div class="exa">un niño <b>alto</b> → una niña <b>alta</b><br>el cielo <b>azul</b> → la flor <b>azul</b> (algunos no cambian)<br>el cuento <b>divertido</b> → la película <b>divertida</b></div></div>
+    <div class="t-card adj-c"><h3>📌 Concordancia de número</h3><p>El adjetivo <b>concuerda en número</b> (singular o plural) con el nombre al que acompaña.</p><div class="exa">un libro <b>nuevo</b> → unos libros <b>nuevos</b><br>una flor <b>roja</b> → unas flores <b>rojas</b><br>el niño <b>feliz</b> → los niños <b>felices</b></div></div>
+    <div class="t-card adj-c"><h3>📌 Cómo reconocer un adjetivo</h3><ul><li>Acompaña siempre a un <b>nombre</b>.</li><li>Responde a la pregunta: <em>¿cómo es? / ¿cómo está?</em></li><li>Si cambias el género del nombre, el adjetivo también cambia.</li></ul><div class="exa">🔍 El perro <u>pequeño</u> ladra → ¿Cómo es el perro? → <b>pequeño</b> ✔ (adjetivo)</div></div>
+    <div class="t-card" style="border-left:5px solid var(--adj)"><h3 style="color:#065f46">📋 Tabla resumen</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px">
+        <tr style="background:#d1fae5"><th style="padding:7px;text-align:left">Género</th><th style="padding:7px;text-align:left">Singular</th><th style="padding:7px;text-align:left">Plural</th></tr>
+        <tr><td style="padding:7px;font-weight:700">Masculino</td><td style="padding:7px">alto, feliz, azul</td><td style="padding:7px">altos, felices, azules</td></tr>
+        <tr style="background:#f0fdf4"><td style="padding:7px;font-weight:700">Femenino</td><td style="padding:7px">alta, feliz, azul</td><td style="padding:7px">altas, felices, azules</td></tr>
+      </table>
+    </div>
+  </div>
   </div>
 </div>
 
@@ -266,6 +297,9 @@
     <button class="ej-nav-btn"        id="nav-4" onclick="goEj(4)">4. Estructura</button>
     <button class="ej-nav-btn"        id="nav-5" onclick="goEj(5)">5. Conectores</button>
     <button class="ej-nav-btn"        id="nav-6" onclick="goEj(6)">6. Transforma</button>
+    <button class="ej-nav-btn"        id="nav-7" onclick="goEj(7)">7. Señala adjetivos</button>
+    <button class="ej-nav-btn"        id="nav-8" onclick="goEj(8)">8. Cambia el adjetivo</button>
+    <button class="ej-nav-btn"        id="nav-9" onclick="goEj(9)">9. Género y número</button>
   </div>
 
   <!-- EJ 1 -->
@@ -373,6 +407,60 @@
     </div>
     <div class="ej-nav-row">
       <button class="btn-nav" onclick="goEj(5)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(7)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 7 -->
+  <div class="ej-block" id="ej-7">
+    <div class="ej-card">
+      <h3>🔍 Ejercicio 7 <span class="ej-tag">Adjetivos</span></h3>
+      <p class="ej-sub">Lee el texto y pulsa <b>todas</b> las palabras que sean adjetivos. Cuando hayas terminado, pulsa Comprobar.</p>
+      <div class="txt-passage" id="ej7-text"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj7()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj7()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb7"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(6)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(8)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 8 -->
+  <div class="ej-block" id="ej-8">
+    <div class="ej-card">
+      <h3>✏️ Ejercicio 8 <span class="ej-tag">Cambia el adjetivo</span></h3>
+      <p class="ej-sub">Sustituye cada adjetivo subrayado por otro adjetivo diferente. ¡Respeta el género y el número!</p>
+      <div id="ej8-body"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj8()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj8()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb8"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(7)">← Anterior</button>
+      <button class="btn-nav" onclick="goEj(9)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- EJ 9 -->
+  <div class="ej-block" id="ej-9">
+    <div class="ej-card">
+      <h3>🏷️ Ejercicio 9 <span class="ej-tag">Género y número</span></h3>
+      <p class="ej-sub">Indica el género y el número de cada adjetivo.</p>
+      <div id="ej9-body"></div>
+      <div class="ej-actions">
+        <button class="btn-check" onclick="checkEj9()">Comprobar ✓</button>
+        <button class="btn-reset" onclick="resetEj9()">↺ Reiniciar</button>
+      </div>
+      <div class="fb-bar" id="fb9"></div>
+    </div>
+    <div class="ej-nav-row">
+      <button class="btn-nav" onclick="goEj(8)">← Anterior</button>
       <button class="btn-nav" disabled>Siguiente →</button>
     </div>
   </div>
@@ -408,7 +496,7 @@ function renderScore() {
   document.getElementById('score-num').textContent = c + '/' + results.length;
   document.getElementById('dot-row').innerHTML = results.map(r =>
     `<div class="dot ${r.correct ? 'ok':'bad'}"></div>`).join('');
-  [1,2,3,4,5,6].forEach(n => {
+  [1,2,3,4,5,6,7,8,9].forEach(n => {
     if (results.some(r => r.ej === n)) document.getElementById('nav-' + n).classList.add('done');
   });
 }
@@ -702,15 +790,202 @@ function checkEj6() {
 }
 function resetEj6() { buildEj6(); }
 
+// ── EJ 7: IDENTIFY ADJECTIVES IN TEXT ────────────────────
+// Each token: { text, isAdj, isPunct }
+const ej7Tokens = [
+  // Sentence 1
+  {t:'El',adj:false},{t:'pequeño',adj:true},{t:'oso',adj:false},{t:'pardo',adj:true},{t:'vivía',adj:false},{t:'en',adj:false},{t:'un',adj:false},{t:'bosque',adj:false},{t:'tranquilo',adj:true},{t:'y',adj:false},{t:'frondoso',adj:true},{t:'.',adj:false,p:true},
+  // Sentence 2
+  {t:'Cada',adj:false},{t:'mañana,',adj:false,p:true},{t:'el',adj:false},{t:'curioso',adj:true},{t:'animal',adj:false},{t:'salía',adj:false},{t:'a',adj:false},{t:'buscar',adj:false},{t:'comida',adj:false},{t:'fresca',adj:true},{t:'entre',adj:false},{t:'los',adj:false},{t:'altos',adj:true},{t:'árboles',adj:false},{t:'.',adj:false,p:true},
+  // Sentence 3
+  {t:'La',adj:false},{t:'fría',adj:true},{t:'brisa',adj:false},{t:'movía',adj:false},{t:'las',adj:false},{t:'hojas',adj:false},{t:'verdes',adj:true},{t:'y',adj:false},{t:'secas',adj:true},{t:'del',adj:false},{t:'suelo',adj:false},{t:'húmedo',adj:true},{t:'.',adj:false,p:true},
+  // Sentence 4
+  {t:'Un',adj:false},{t:'día,',adj:false,p:true},{t:'encontró',adj:false},{t:'un',adj:false},{t:'río',adj:false},{t:'cristalino',adj:true},{t:'donde',adj:false},{t:'nadaban',adj:false},{t:'pequeños',adj:true},{t:'peces',adj:false},{t:'plateados',adj:true},{t:'.',adj:false,p:true},
+  // Sentence 5
+  {t:'El',adj:false},{t:'alegre',adj:true},{t:'oso',adj:false},{t:'se',adj:false},{t:'bañó',adj:false},{t:'en',adj:false},{t:'el',adj:false},{t:'agua',adj:false},{t:'helada',adj:true},{t:'y',adj:false},{t:'chapoteó',adj:false},{t:'durante',adj:false},{t:'horas',adj:false},{t:'.',adj:false,p:true},
+  // Sentence 6
+  {t:'Al',adj:false},{t:'atardecer,',adj:false,p:true},{t:'regresó',adj:false},{t:'a',adj:false},{t:'su',adj:false},{t:'cálida',adj:true},{t:'cueva',adj:false},{t:'donde',adj:false},{t:'le',adj:false},{t:'esperaba',adj:false},{t:'su',adj:false},{t:'pequeña',adj:true},{t:'familia',adj:false},{t:'.',adj:false,p:true},
+  // Sentence 7
+  {t:'Allí',adj:false},{t:'comió',adj:false},{t:'moras',adj:false},{t:'dulces',adj:true},{t:'y',adj:false},{t:'maduras',adj:true},{t:'que',adj:false},{t:'había',adj:false},{t:'recogido',adj:false},{t:'en',adj:false},{t:'el',adj:false},{t:'camino',adj:false},{t:'largo',adj:true},{t:'.',adj:false,p:true},
+  // Sentence 8
+  {t:'Finalmente,',adj:false,p:true},{t:'se',adj:false},{t:'quedó',adj:false},{t:'dormido',adj:true},{t:'bajo',adj:false},{t:'la',adj:false},{t:'brillante',adj:true},{t:'luna',adj:false},{t:'llena',adj:true},{t:'.',adj:false,p:true},
+];
+const ej7Adjs = ej7Tokens.filter(t => t.adj).map(t => t.t);
+let ej7Selected = new Set();
+
+function buildEj7() {
+  ej7Selected = new Set();
+  document.getElementById('ej7-text').innerHTML = ej7Tokens.map((t,i) => {
+    if (t.p && !t.adj) return `<span>${t.t} </span>`;
+    if (!t.adj) return `<span class="txt-w txt-non-adj" data-i="${i}">${t.t} </span>`;
+    return `<span class="txt-w" data-i="${i}" onclick="toggleAdj7(${i},this)">${t.t} </span>`;
+  }).join('');
+  hideFb('fb7');
+}
+function toggleAdj7(i, el) {
+  const w = ej7Tokens[i].t;
+  if (ej7Selected.has(i)) { ej7Selected.delete(i); el.classList.remove('sel-adj'); }
+  else { ej7Selected.add(i); el.classList.add('sel-adj'); }
+}
+function checkEj7() {
+  let ok = 0;
+  ej7Tokens.forEach((t, i) => {
+    if (t.p) return;
+    const el = document.querySelector(`[data-i="${i}"]`);
+    if (!el) return;
+    el.onclick = null;
+    if (t.adj) {
+      if (ej7Selected.has(i)) { el.className = 'txt-w ok'; ok++; addResult(7, true); }
+      else { el.className = 'txt-w missed'; addResult(7, false); }
+    } else {
+      if (ej7Selected.has(i)) { el.className = 'txt-w bad'; addResult(7, false); }
+    }
+  });
+  const total = ej7Adjs.length;
+  showFb('fb7', ok === total,
+    ok === total ? `🎉 ¡Perfecto! Has encontrado los ${total} adjetivos del texto.`
+      : `Has encontrado ${ok} de ${total} adjetivos. Los amarillos son los que te faltaban; los rojos no eran adjetivos. 👆`);
+}
+function resetEj7() { buildEj7(); hideFb('fb7'); }
+
+// ── EJ 8: REPLACE ADJECTIVE (respecting gender & number) ─
+const ej8Data = [
+  { sentence:'El bosque era tranquilo y', adj:'frondoso', gender:'masculino', number:'singular',
+    hint:'masculino singular: termina en -o',
+    accepted:['verde','oscuro','silencioso','misterioso','enorme','inmenso','espeso','tupido','bonito','antiguo','hermoso','denso'] },
+  { sentence:'La fría brisa movía las hojas', adj:'secas', gender:'femenino', number:'plural',
+    hint:'femenino plural: termina en -as',
+    accepted:['verdes','amarillas','marrones','caídas','pequeñas','grandes','doradas','rojas','naranjas','viejas','nuevas','mojadas'] },
+  { sentence:'Encontró un río', adj:'cristalino', gender:'masculino', number:'singular',
+    hint:'masculino singular: termina en -o',
+    accepted:['profundo','tranquilo','frío','oscuro','caudaloso','limpio','ancho','largo','pequeño','peligroso','hermoso','sereno'] },
+  { sentence:'El oso se bañó en el agua', adj:'helada', gender:'femenino', number:'singular',
+    hint:'femenino singular: termina en -a',
+    accepted:['fría','limpia','tranquila','oscura','clara','sucia','turbia','fresca','pura','templada','profunda','cristalina'] },
+  { sentence:'Comió moras dulces y', adj:'maduras', gender:'femenino', number:'plural',
+    hint:'femenino plural: termina en -as',
+    accepted:['ricas','rojas','frescas','sabrosas','pequeñas','jugosas','deliciosas','negras','silvestres','abundantes','tiernas','buenas'] },
+  { sentence:'Se quedó dormido bajo la', adj:'brillante', gender:'femenino', number:'singular',
+    hint:'femenino singular: este adjetivo no cambia con el género (-nte)',
+    accepted:['redonda','llena','hermosa','enorme','grande','preciosa','bonita','perfecta','blanca','clara','luminosa','creciente','menguante'] },
+];
+
+function buildEj8() {
+  document.getElementById('ej8-body').innerHTML = ej8Data.map((d,i) => `
+    <div style="margin-bottom:20px">
+      <div style="font-size:1rem;font-weight:600;margin-bottom:6px">
+        ${d.sentence} <span style="text-decoration:underline;color:var(--adj);font-weight:800">${d.adj}</span>...
+      </div>
+      <div style="font-size:.85rem;color:#888;margin-bottom:6px">📝 <em>${d.gender}, ${d.number}</em> — escribe otro adjetivo con la misma forma:</div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <input class="tf-input" id="ej8-${i}" placeholder="tu adjetivo..." autocomplete="off" spellcheck="false" style="width:200px">
+      </div>
+      <div class="rule-hint" id="h8-${i}">💡 <b>Pista:</b> ${d.hint}</div>
+    </div>`).join('');
+  hideFb('fb8');
+}
+function checkEj8() {
+  let ok = 0;
+  ej8Data.forEach((d,i) => {
+    const inp = document.getElementById(`ej8-${i}`);
+    const val = inp.value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const accepted = d.accepted.map(a => a.normalize('NFD').replace(/[\u0300-\u036f]/g,''));
+    // Also accept any word that matches the expected endings
+    const endsOk = (d.gender === 'femenino' && d.number === 'singular' && (val.endsWith('a') || val.endsWith('e') || val.endsWith('nte')))
+      || (d.gender === 'femenino' && d.number === 'plural' && (val.endsWith('as') || val.endsWith('es')))
+      || (d.gender === 'masculino' && d.number === 'singular' && (val.endsWith('o') || val.endsWith('e') || val.endsWith('or')))
+      || (d.gender === 'masculino' && d.number === 'plural' && (val.endsWith('os') || val.endsWith('es')));
+    const correct = val.length >= 3 && (accepted.includes(val) || endsOk);
+    inp.className = 'tf-input ' + (correct ? 'ok' : 'bad');
+    document.getElementById(`h8-${i}`).className = 'rule-hint' + (correct ? '' : ' show');
+    if (correct) ok++; addResult(8, correct);
+  });
+  showFb('fb8', ok === ej8Data.length,
+    ok === ej8Data.length ? '🎉 ¡Muy bien! Todos los adjetivos tienen el género y número correctos.'
+      : `${ok} de ${ej8Data.length} correctos. Fíjate en las pistas 👆`);
+}
+function resetEj8() { buildEj8(); }
+
+// ── EJ 9: IDENTIFY GENDER & NUMBER ──────────────────────
+const ej9Data = [
+  { adj:'pequeños',  noun:'Los osos',        gender:'masculino', number:'plural'  },
+  { adj:'tranquila', noun:'La tarde',         gender:'femenino',  number:'singular'},
+  { adj:'frondosos', noun:'Los árboles',      gender:'masculino', number:'plural'  },
+  { adj:'helada',    noun:'El agua',          gender:'femenino',  number:'singular'},
+  { adj:'alegre',    noun:'El oso',           gender:'masculino', number:'singular'},
+  { adj:'dulces',    noun:'Las moras',        gender:'femenino',  number:'plural'  },
+  { adj:'cristalino',noun:'El río',           gender:'masculino', number:'singular'},
+  { adj:'frías',     noun:'Las noches',       gender:'femenino',  number:'plural'  },
+  { adj:'brillante', noun:'La luna',          gender:'femenino',  number:'singular'},
+  { adj:'plateados', noun:'Los peces',        gender:'masculino', number:'plural'  },
+];
+
+function buildEj9() {
+  document.getElementById('ej9-body').innerHTML = `
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.95rem">
+      <thead>
+        <tr style="background:#d1fae5">
+          <th style="padding:10px 12px;text-align:left;border-radius:8px 0 0 0">Adjetivo</th>
+          <th style="padding:10px 12px;text-align:left">Nombre al que acompaña</th>
+          <th style="padding:10px 12px;text-align:left">Género</th>
+          <th style="padding:10px 12px;text-align:left;border-radius:0 8px 0 0">Número</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${ej9Data.map((d,i) => `
+        <tr style="border-bottom:1px solid #e5e7eb;${i%2===1?'background:#f0fdf4':''}">
+          <td style="padding:10px 12px;font-weight:800;color:var(--adj)">${d.adj}</td>
+          <td style="padding:10px 12px;color:#555">${d.noun}</td>
+          <td style="padding:8px 10px">
+            <select class="ord-sel" id="g9-${i}" style="min-width:130px">
+              <option value="">Elige...</option>
+              <option value="masculino">masculino</option>
+              <option value="femenino">femenino</option>
+            </select>
+          </td>
+          <td style="padding:8px 10px">
+            <select class="ord-sel" id="n9-${i}" style="min-width:120px">
+              <option value="">Elige...</option>
+              <option value="singular">singular</option>
+              <option value="plural">plural</option>
+            </select>
+          </td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+    </div>`;
+  hideFb('fb9');
+}
+function checkEj9() {
+  let ok = 0, total = ej9Data.length * 2;
+  ej9Data.forEach((d,i) => {
+    const gSel = document.getElementById(`g9-${i}`);
+    const nSel = document.getElementById(`n9-${i}`);
+    const gOk = gSel.value === d.gender;
+    const nOk = nSel.value === d.number;
+    gSel.className = 'ord-sel ' + (gOk ? 'ok' : 'bad');
+    nSel.className = 'ord-sel ' + (nOk ? 'ok' : 'bad');
+    if (gOk) ok++; if (nOk) ok++;
+    addResult(9, gOk && nOk);
+  });
+  showFb('fb9', ok === total,
+    ok === total ? '🎉 ¡Excelente! Has identificado bien el género y el número de todos los adjetivos.'
+      : `${ok} de ${total} respuestas correctas. Los campos en rojo necesitan corrección. 👆`);
+}
+function resetEj9() { buildEj9(); }
+
 // ── RESET ALL ────────────────────────────────────────────
 function resetAll() {
   results.length = 0; renderScore();
   resetEj1(); buildEj2(); resetEj3(); resetEj4(); resetEj5(); resetEj6();
+  resetEj7(); resetEj8(); resetEj9();
   document.querySelectorAll('.ej-nav-btn').forEach(b => b.classList.remove('done'));
 }
 
 // ── INIT ─────────────────────────────────────────────────
 buildEj1(); buildEj2(); buildEj3(); buildEj4(); buildEj5(); buildEj6();
+buildEj7(); buildEj8(); buildEj9();
 </script>
 </body>
 </html>
