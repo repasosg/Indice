@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repàs Ciències Naturals 🌍</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #e8f4fd;
+    --deep: #1a1a3e;
+    --star: #ffd700;
+    --correct: #2ecc71;
+    --wrong: #e74c3c;
+    --card: #ffffff;
+    --shadow: rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    background: var(--deep);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* Stars background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, #fff 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 10%, #ffd700 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, #fff 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 85% 70%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 80%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 85%, #ffd700 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 15%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 55%, #fff 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 75% 25%, #ffd700 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 45%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 30%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 70%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 50%, #fff 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 5% 65%, #ffd700 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 90%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 95%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 5%, #fff 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 75%, #fff 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 95% 35%, #ffd700 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* TOP NAV */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,40,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid rgba(255,215,0,0.3);
+    padding: 0 20px;
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+
+  .logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--star);
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .nav-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 8px 14px;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.08);
+    color: #ccd;
+  }
+
+  .nav-btn:hover { transform: translateY(-2px); }
+
+  .nav-btn.active {
+    color: #fff;
+    border-color: currentColor;
+    transform: translateY(-2px);
+  }
+
+  .nav-btn[data-topic="astres"].active { background: #6c3483; border-color: #a569bd; color: #e8daef; }
+  .nav-btn[data-topic="agua"].active   { background: #1a5276; border-color: #5dade2; color: #d6eaf8; }
+  .nav-btn[data-topic="relleu"].active { background: #784212; border-color: #e59866; color: #fdebd0; }
+  .nav-btn[data-topic="biosfera"].active { background: #1e5631; border-color: #58d68d; color: #d5f5e3; }
+
+  .nav-btn[data-topic="astres"]:hover   { background: rgba(108,52,131,0.4); }
+  .nav-btn[data-topic="agua"]:hover     { background: rgba(26,82,118,0.4); }
+  .nav-btn[data-topic="relleu"]:hover   { background: rgba(120,66,18,0.4); }
+  .nav-btn[data-topic="biosfera"]:hover { background: rgba(30,86,49,0.4); }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+  }
+
+  /* WELCOME */
+  .welcome {
+    text-align: center;
+    padding: 60px 20px;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .welcome .planet {
+    font-size: 5rem;
+    animation: float 4s ease-in-out infinite;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .welcome h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.8rem;
+    color: var(--star);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .welcome p {
+    font-size: 1.1rem;
+    color: #aab;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+
+  .topic-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .topic-card {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 24px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .topic-card .icon { font-size: 2.8rem; display: block; margin-bottom: 10px; }
+  .topic-card .name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #eee;
+  }
+
+  /* QUIZ SECTION */
+  .quiz-section { animation: fadeInUp 0.5s ease; }
+
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .topic-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+  }
+
+  .badge-astres   { background: rgba(108,52,131,0.4); border: 2px solid #a569bd; }
+  .badge-agua     { background: rgba(26,82,118,0.4);  border: 2px solid #5dade2; }
+  .badge-relleu   { background: rgba(120,66,18,0.4);  border: 2px solid #e59866; }
+  .badge-biosfera { background: rgba(30,86,49,0.4);   border: 2px solid #58d68d; }
+
+  .score-display {
+    margin-left: auto;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--star);
+    background: rgba(255,215,0,0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 2px solid rgba(255,215,0,0.3);
+  }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    height: 8px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, var(--star), #ff8c00);
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+  }
+
+  .question-num {
+    font-size: 0.8rem;
+    color: #889;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .question-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.5;
+    color: #fff;
+    margin-bottom: 28px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option-btn {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 14px 20px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #dde;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.35);
+    transform: translateX(4px);
+    color: #fff;
+  }
+
+  .option-letter {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 900;
+    transition: all 0.2s;
+  }
+
+  .option-btn.correct {
+    background: rgba(46,204,113,0.2);
+    border-color: var(--correct);
+    color: #a9f7c7;
+  }
+
+  .option-btn.correct .option-letter {
+    background: var(--correct);
+    color: #fff;
+  }
+
+  .option-btn.wrong {
+    background: rgba(231,76,60,0.2);
+    border-color: var(--wrong);
+    color: #f5b7b1;
+  }
+
+  .option-btn.wrong .option-letter {
+    background: var(--wrong);
+    color: #fff;
+  }
+
+  .option-btn:disabled { cursor: default; }
+
+  /* FEEDBACK */
+  .feedback {
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-top: 16px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: none;
+    animation: fadeInUp 0.4s ease;
+  }
+
+  .feedback.show { display: block; }
+
+  .feedback.correct-fb {
+    background: rgba(46,204,113,0.15);
+    border: 2px solid rgba(46,204,113,0.4);
+  }
+
+  .feedback.wrong-fb {
+    background: rgba(231,76,60,0.12);
+    border: 2px solid rgba(231,76,60,0.35);
+  }
+
+  .feedback .fb-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .feedback.correct-fb .fb-title { color: #58d68d; }
+  .feedback.wrong-fb .fb-title   { color: #f1948a; }
+
+  .feedback .explanation {
+    color: #ccc;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-style: italic;
+    border-left: 3px solid rgba(255,255,255,0.2);
+  }
+
+  /* NEXT BUTTON */
+  .next-btn {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+    background: linear-gradient(135deg, #f39c12, #e74c3c);
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+
+  .next-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(231,76,60,0.4); }
+  .next-btn.show { display: block; animation: fadeInUp 0.3s ease; }
+
+  /* RESULTS */
+  .results {
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .result-emoji { font-size: 4rem; display: block; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
+
+  .result-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: var(--star);
+  }
+
+  .result-score {
+    font-size: 1.2rem;
+    color: #aab;
+    margin-bottom: 30px;
+  }
+
+  .result-score strong { color: #fff; font-size: 2rem; }
+
+  .result-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .result-btn {
+    padding: 14px 28px;
+    border-radius: 30px;
+    border: none;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .result-btn:hover { transform: translateY(-3px); }
+
+  .btn-retry {
+    background: linear-gradient(135deg, #9b59b6, #6c3483);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(155,89,182,0.4);
+  }
+
+  .btn-home {
+    background: rgba(255,255,255,0.1);
+    color: #ddd;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+
+  /* Stars earned display */
+  .stars-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+    font-size: 2rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60%  { transform: translateX(-6px); }
+    40%, 80%  { transform: translateX(6px); }
+  }
+
+  .shake { animation: shake 0.4s ease; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .welcome h1 { font-size: 2rem; }
+    .question-text { font-size: 1.1rem; }
+    .question-card { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">🌍 Ciències 5è</div>
+    <nav id="mainNav">
+      <button class="nav-btn" data-topic="astres" onclick="startTopic('astres')">🪐 Astres i Univers</button>
+      <button class="nav-btn" data-topic="agua" onclick="startTopic('agua')">💧 L'Aigua</button>
+      <button class="nav-btn" data-topic="relleu" onclick="startTopic('relleu')">⛰️ El Relleu</button>
+      <button class="nav-btn" data-topic="biosfera" onclick="startTopic('biosfera')">🌿 La Biosfera</button>
+    </nav>
+  </div>
+</header>
+
+<main id="mainContent">
+  <!-- Welcome screen -->
+  <div class="welcome" id="welcomeScreen">
+    <span class="planet">🚀</span>
+    <h1>Hola, exploradora!</h1>
+    <p>Tria un tema per repassar el teu examen de Ciències Naturals. Tens preguntes de tots els temes. Endavant! ⭐</p>
+    <div class="topic-cards">
+      <div class="topic-card" onclick="startTopic('astres')">
+        <span class="icon">🪐</span>
+        <span class="name">Astres i Univers</span>
+      </div>
+      <div class="topic-card" onclick="startTopic('agua')">
+        <span class="icon">💧</span>
+        <span class="name">L'Aigua</span>
+      </div>
+      <div class="topic-card" onclick="startTopic('relleu')">
+        <span class="icon">⛰️</span>
+        <span class="name">El Relleu</span>
+      </div>
+      <div class="topic-card" onclick="startTopic('biosfera')">
+        <span class="icon">🌿</span>
+        <span class="name">La Biosfera</span>
+      </div>
+    </div>
+  </div>
+  <div id="quizContainer" style="display:none;"></div>
+</main>
+
+<script>
+// ============================================================
+// QUIZ DATA — strictly based on the PDFs provided
+// ============================================================
+const topics = {
+  astres: {
+    name: "Astres i Univers",
+    icon: "🪐",
+    color: "astres",
+    questions: [
+      {
+        q: "Quin dels següents astres brilla amb llum pròpia?",
+        opts: ["Els planetes","Les estrelles","Els satèl·lits","Els asteroides"],
+        answer: 1,
+        explanation: "Les estrelles són astres que brillen amb llum pròpia. Són formades per gasos a temperatures molt altes que emeten llum."
+      },
+      {
+        q: "Quin és el planeta més gran del sistema solar i el que té més satèl·lits?",
+        opts: ["Saturn","Neptú","Júpiter","Mart"],
+        answer: 2,
+        explanation: "Júpiter és el planeta més gran del sistema solar i el que té més satèl·lits (63)."
+      },
+      {
+        q: "Com s'anomena la força que fa que un astre atregui els cossos que hi ha a la seva superfície?",
+        opts: ["La translació","La gravetat","La rotació","L'òrbita"],
+        answer: 1,
+        explanation: "La força de la gravetat és la força que fa que un astre atregui els cossos que hi ha a la seva superfície."
+      },
+      {
+        q: "Quants planetes té el sistema solar?",
+        opts: ["Set","Nou","Vuit","Deu"],
+        answer: 2,
+        explanation: "El sistema solar és format pel Sol i per un conjunt de vuit planetes i els seus satèl·lits, que hi giren al voltant."
+      },
+      {
+        q: "Com s'anomena la galàxia on es troben el Sol i la Terra?",
+        opts: ["Andròmeda","La Via Làctia","Camí de la Lluna","El Braç Espiral"],
+        answer: 1,
+        explanation: "La galàxia on hi ha el Sol i la Terra és la Via Làctia, que conté al voltant de 200.000 milions d'estrelles."
+      },
+      {
+        q: "Quina forma té la Via Làctia?",
+        opts: ["Rodona","El·líptica","Espiral","Triangular"],
+        answer: 2,
+        explanation: "La Via Làctia té forma d'espiral, amb diversos braços, i gira sobre un eix central. La Terra està situada a l'extrem d'un d'aquests braços."
+      },
+      {
+        q: "Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma...",
+        opts: ["Un cometa","Un asteroide","Un estel fugisser","Una glacera"],
+        answer: 2,
+        explanation: "Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma el que es coneix com un estel fugisser."
+      },
+      {
+        q: "Com s'anomena el recorregut que fa un planeta al voltant d'una estrella?",
+        opts: ["Rotació","Translació","Òrbita","Gravetat"],
+        answer: 2,
+        explanation: "El recorregut que fa un planeta al voltant d'una estrella s'anomena òrbita."
+      },
+      {
+        q: "El Sol es va formar fa uns...",
+        opts: ["500 milions d'anys","1.000 milions d'anys","5.000 milions d'anys","10.000 milions d'anys"],
+        answer: 2,
+        explanation: "El Sol es va formar fa uns 5.000 milions d'anys i té un diàmetre d'1,4 milions de quilòmetres, aproximadament."
+      },
+      {
+        q: "Quina característica especial té la Terra que permet l'existència de vida?",
+        opts: ["És el planeta més gran","Té les temperatures adequades, existència d'aigua i atmosfera amb oxigen","Té molt de ferro","Queda molt a prop del Sol"],
+        answer: 1,
+        explanation: "Entre les característiques especials de la Terra hi ha les temperatures que s'hi enregistren, l'existència d'aigua i una atmosfera rica en oxigen."
+      },
+      {
+        q: "On es troben la majoria dels asteroides del sistema solar?",
+        opts: ["Entre el Sol i Mercuri","Entre Venus i la Terra","Entre Mart i Júpiter","Entre Saturn i Urà"],
+        answer: 2,
+        explanation: "Es considera que hi ha mig milió d'asteroides i la majoria estan situats entre les òrbites dels planetes Mart i Júpiter."
+      },
+      {
+        q: "Quin és el nom popular de la Via Làctia?",
+        opts: ["Camí de les Estrelles","Camí de Sant Jaume","Camí de la Lluna","Via de la Nit"],
+        answer: 1,
+        explanation: "La Via Làctia també es coneix popularment amb el nom de Camí de Sant Jaume."
+      },
+      {
+        q: "A quina distància aproximada es troba el Sol de la Terra?",
+        opts: ["15 milions de km","150 milions de km","1.500 milions de km","1,4 milions de km"],
+        answer: 1,
+        explanation: "El Sol està situat a uns 150 milions de quilòmetres de la Terra."
+      },
+      {
+        q: "Com es diu la capa més externa de la Terra?",
+        opts: ["La geosfera","La hidrosfera","La biosfera","L'atmosfera"],
+        answer: 3,
+        explanation: "L'atmosfera és la capa més externa de la Terra, d'uns 1.000 quilòmetres de gruix, formada principalment per una mescla de gasos."
+      },
+      {
+        q: "Com s'anomenen els cossos que giren al voltant d'un planeta?",
+        opts: ["Estrelles","Asteroides","Satèl·lits","Cometes"],
+        answer: 2,
+        explanation: "Els satèl·lits no tenen llum pròpia i giren al voltant d'un planeta descrivint també una òrbita."
+      }
+    ]
+  },
+  agua: {
+    name: "L'Aigua",
+    icon: "💧",
+    color: "agua",
+    questions: [
+      {
+        q: "Com s'anomena el conjunt de tota l'aigua que hi ha al nostre planeta?",
+        opts: ["La biosfera","L'atmosfera","La hidrosfera","La litosfera"],
+        answer: 2,
+        explanation: "La hidrosfera és el conjunt de tota l'aigua que hi ha al nostre planeta."
+      },
+      {
+        q: "En quins estats pot estar l'aigua a la Terra?",
+        opts: ["Líquid i sòlid","Líquid, sòlid i gasós","Gasós i sòlid","Només en estat líquid"],
+        answer: 1,
+        explanation: "L'aigua que hi ha a la Terra pot estar en estat líquid, sòlid o gasós."
+      },
+      {
+        q: "Quin percentatge de l'aigua de la Terra és salada?",
+        opts: ["50%","75%","97%","30%"],
+        answer: 2,
+        explanation: "L'aigua salada és als mars i als oceans i suposa un 97% del total de l'aigua del planeta, mentre que la resta és aigua dolça."
+      },
+      {
+        q: "En el cicle de l'aigua, com s'anomena l'etapa en que l'aigua líquida es converteix en vapor a causa de l'escalfor del sol?",
+        opts: ["La condensació","La solidificació","La fusió","L'evaporació"],
+        answer: 3,
+        explanation: "L'evaporació: l'aigua líquida es converteix en vapor d'aigua a causa de l'escalfor del sol. El vapor d'aigua queda dispers en l'aire, barrejat amb altres gasos."
+      },
+      {
+        q: "Quan el vapor d'aigua puja a l'atmosfera i es refreda, tornant a estat líquid i formant núvols, com s'anomena aquest procés?",
+        opts: ["L'evaporació","La condensació","La fusió","La precipitació"],
+        answer: 1,
+        explanation: "La condensació: quan el vapor d'aigua s'eleva a l'atmosfera, es refreda i es condensa, és a dir, torna a l'estat líquid i es converteix en petites gotes d'aigua, que formen els núvols."
+      },
+      {
+        q: "En quin curs d'un riu és l'aigua més cabalosa però corre amb menys velocitat?",
+        opts: ["Curs alt","Curs mitjà","Curs baix","Desembocadura"],
+        answer: 2,
+        explanation: "El curs baix és on el riu és més cabalós, però les seves aigües discorren a poca velocitat perquè sovint travessen zones força planes."
+      },
+      {
+        q: "Com s'anomena la quantitat d'aigua que porta un riu?",
+        opts: ["El curs","El cabal","El llit","El meandre"],
+        answer: 1,
+        explanation: "El cabal d'un riu és la quantitat d'aigua que porta."
+      },
+      {
+        q: "Quin és el final d'un riu on pot desembocar al mar, un llac o un altre riu?",
+        opts: ["El naixement","El curs alt","La desembocadura","El meandre"],
+        answer: 2,
+        explanation: "La desembocadura és el final d'un riu, que pot ser el mar, un llac o un altre riu. Es poden formar deltes."
+      },
+      {
+        q: "Com s'anomena un revolt molt marcat que fa un riu, generalment en el curs mitjà?",
+        opts: ["Una cascada","Un afluent","Un estany","Un meandre"],
+        answer: 3,
+        explanation: "Un meandre és un revolt molt marcat que fa un riu, generalment en el curs mitjà."
+      },
+      {
+        q: "Com s'anomena un corrent d'aigua que només es forma quan plou?",
+        opts: ["Un rierol","Una riera","Un torrent","Un afluent"],
+        answer: 1,
+        explanation: "Una riera és un corrent d'aigua que només es forma quan plou."
+      },
+      {
+        q: "Al curs alt d'un riu, quin procés és predominant?",
+        opts: ["Depositar sediments","Transportar materials lentament","Erosionar el terreny per la força del corrent","Formar meandres"],
+        answer: 2,
+        explanation: "Al curs alt, el riu porta poca aigua, però com que el pendent és molt fort, té molta força, arrenca materials i erosiona el terreny."
+      },
+      {
+        q: "Com s'anomena una gran massa de gel situada a zones fredes que es desplaça?",
+        opts: ["Un estany","Una glacera","Un llac","Una riera"],
+        answer: 1,
+        explanation: "Una glacera és una gran massa de gel situada a zones fredes que es desplaça."
+      },
+      {
+        q: "Com s'anomena un riu que desemboca en un altre riu?",
+        opts: ["Un torrent","Un rierol","Un afluent","Una cascada"],
+        answer: 2,
+        explanation: "Un afluent és un riu que desemboca en un altre riu."
+      }
+    ]
+  },
+  relleu: {
+    name: "El Relleu",
+    icon: "⛰️",
+    color: "relleu",
+    questions: [
+      {
+        q: "Com s'anomenen els agents geològics que tenen el seu origen a l'interior de la Terra?",
+        opts: ["Agents geològics externs","Agents geològics interns","Agents atmosfèrics","Agents hidrològics"],
+        answer: 1,
+        explanation: "Els agents geològics interns tenen el seu origen a l'interior de la Terra i poden modificar el relleu en poc temps."
+      },
+      {
+        q: "Quin fenomen geològic es produeix quan els materials sotmesos a pressió són prou flexibles i es dobleguen?",
+        opts: ["Una falla","Un terratremol","Un plegament","Un volcà"],
+        answer: 2,
+        explanation: "Un plegament es produeix quan els materials sotmesos a pressió són prou flexibles i es dobleguen, com ho fa un full de paper si l'empenyem pels dos extrems."
+      },
+      {
+        q: "Quin fenomen geològic es produeix quan els materials sotmesos a pressió no són prou flexibles i es trenquen, formant desnivells?",
+        opts: ["Un plegament","Una falla","Una erupció volcànica","Un terratremol"],
+        answer: 1,
+        explanation: "Una falla es produeix quan els materials sotmesos a pressió no són prou flexibles i es trenquen. Uns blocs es desplacen respecte a uns altres i formen desnivells."
+      },
+      {
+        q: "Quins són els principals agents geològics externs?",
+        opts: ["Els volcans, els terratrèmols i les falles","El vent, l'aigua i els éssers vius","El magma, la lava i les cendres","Els plegaments, les falles i les erupcions"],
+        answer: 1,
+        explanation: "Els principals agents geològics externs són el vent (atmosfera), l'aigua (hidrosfera) i els éssers vius (biosfera)."
+      },
+      {
+        q: "Com s'anomena el procés d'alteració i destrucció de les roques per acció dels agents externs?",
+        opts: ["L'erosió","El transport","La sedimentació","La meteorització"],
+        answer: 3,
+        explanation: "La meteorització és l'alteració i la destrucció de les roques i els minerals per acció dels diferents agents."
+      },
+      {
+        q: "Com s'anomena el procés de deposició dels materials erosionats i transportats?",
+        opts: ["La meteorització","L'erosió","La sedimentació","El transport"],
+        answer: 2,
+        explanation: "La sedimentació és la deposició dels materials que han estat erosionats i transportats."
+      },
+      {
+        q: "Com s'anomenen les roques que es formen a partir de les altes pressions i temperatures quan dues plaques litosfèriques es toquen?",
+        opts: ["Roques volcàniques","Roques sedimentàries","Roques metamòrfiques","Roques calcàries"],
+        answer: 2,
+        explanation: "Les altes pressions, sovint acompanyades d'altes temperatures, poden provocar que les roques es transformin i que se'n creïn de noves, les roques metamòrfiques, com la pissarra o el marbre."
+      },
+      {
+        q: "Quin efecte té l'aigua quan es fica a les escletxes de les roques i es gela?",
+        opts: ["Les escalfa i les dilata","Les dissol completament","Augmenta de volum i pot esberlar la roca","Les cobreix de capes protectores"],
+        answer: 2,
+        explanation: "L'aigua en estat sòlid ocupa més espai que la mateixa quantitat en estat líquid. Per tant, l'aigua, quan es gela, augmenta de volum i pot esberlar la roca."
+      },
+      {
+        q: "Quin efecte provoca el vent sobre les roques?",
+        opts: ["Les refreda","Les humidifica","Les erosiona","Les solidifica"],
+        answer: 2,
+        explanation: "L'impacte de l'aire en moviment sobre les roques, el vent, en provoca l'erosió. El mateix vent transporta les partícules, i quan perd força o troba algun obstacle, les diposita."
+      },
+      {
+        q: "Quin és el procés de desgast i despreniment de materials que després es transporten?",
+        opts: ["La meteorització","La sedimentació","L'erosió","El plegament"],
+        answer: 2,
+        explanation: "L'erosió és el procés de desgast i despreniment de materials, que després es transporten."
+      },
+      {
+        q: "Com afecten les plantes al relleu amb les seves arrels?",
+        opts: ["Erosionen el terra amb el seu pes","Poden fracturar les roques però també fixen el sòl","No tenen cap efecte sobre les roques","Transporten materials cap a altri lloc"],
+        answer: 1,
+        explanation: "Les plantes, amb les arrels, poden fracturar les roques; d'altra banda, les arrels contribueixen a fixar el sòl."
+      },
+      {
+        q: "Quin tipus de roques es poden formar quan s'acumulen molts materials sedimentaris?",
+        opts: ["Roques metamòrfiques","Roques volcàniques","Roques sedimentàries","Roques basàltiques"],
+        answer: 2,
+        explanation: "Quan s'acumulen molts materials sedimentaris, el seu propi pes pot provocar la formació d'un nou tipus de roques, les roques sedimentàries, com l'argila, el conglomerat o la calcària."
+      },
+      {
+        q: "Quin d'aquests és un exemple de l'acció dels éssers humans sobre el relleu?",
+        opts: ["La formació de dunes","La construcció de vies de comunicació i embassaments","L'erosió per l'onatge del mar","La formació de meandres"],
+        answer: 1,
+        explanation: "Els éssers humans provoquem transformacions molt importants del relleu amb la construcció de vies de comunicació, embassaments, pedreres, etc."
+      }
+    ]
+  },
+  biosfera: {
+    name: "La Biosfera",
+    icon: "🌿",
+    color: "biosfera",
+    questions: [
+      {
+        q: "Com s'anomena la zona de la Terra on viuen els éssers vius?",
+        opts: ["La hidrosfera","L'atmosfera","La biosfera","La litosfera"],
+        answer: 2,
+        explanation: "La biosfera és la zona de la Terra on viuen els éssers vius. La biosfera inclou la hidrosfera, part de la litosfera i la part inferior de l'atmosfera."
+      },
+      {
+        q: "Com s'anomena el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells?",
+        opts: ["Una espècie","Un ecosistema","Una comunitat","Un hàbitat"],
+        answer: 1,
+        explanation: "Un ecosistema és el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells."
+      },
+      {
+        q: "Per quina raó la Terra és l'únic planeta que coneixem on hi ha vida?",
+        opts: ["Perquè és el planeta més gran","Perquè té unes condicions especials que permeten variacions de temperatura, llum i humitat adequades","Perquè és el planeta més pròxim al Sol","Perquè no té satèl·lits"],
+        answer: 1,
+        explanation: "La Terra és l'únic planeta que coneixem on hi ha vida perquè té unes condicions especials (distància del Sol, mida i moviments), que permeten que hi hagi les variacions de temperatura, de llum i d'humitat necessàries."
+      },
+      {
+        q: "Quin dels següents és un exemple d'ecosistema?",
+        opts: ["Una roca","Un núvol","Un alzinar","Un planeta"],
+        answer: 2,
+        explanation: "Un alzinar, una bassa o la sabana són exemples d'ecosistemes."
+      },
+      {
+        q: "Quines condicions té el medi aquàtic comparades amb el medi terrestre?",
+        opts: ["Condicions molt canviants amb grans variacions de temperatura","Condicions força constants, amb poques variacions de temperatura, però menys llum","Condicions molt seques","Temperatures extremadament altes"],
+        answer: 1,
+        explanation: "Les condicions del medi aquàtic són força constants, amb poques variacions de temperatura, encara que hi ha menys llum que al medi terrestre."
+      },
+      {
+        q: "Per quin motiu els animals terrestres tenen pell gruixuda, pèls o plomes?",
+        opts: ["Per volar millor","Per evitar la pèrdua d'aigua del cos i mantenir la temperatura constant","Per defensar-se dels depredadors","Per nedar millor"],
+        answer: 1,
+        explanation: "Les condicions del medi terrestre han fet que els animals tinguin mecanismes per a evitar la pèrdua d'aigua del seu cos i per a mantenir la temperatura constant (pells gruixudes, pèls o plomes, etc.)."
+      },
+      {
+        q: "Quina adaptació han desenvolupat les plantes del medi terrestre per obtenir l'aigua del sòl?",
+        opts: ["Han creat fulles molt grans","Han desenvolupat sistemes d'arrels complexos","Han reduït la seva mida","Han canviat de color"],
+        answer: 1,
+        explanation: "Les condicions del medi terrestre han fet que les plantes hagin desenvolupat sistemes d'arrels complexos per a captar l'aigua del sòl."
+      },
+      {
+        q: "Com s'anomenen els organismes dels ecosistemes aquàtics que presenten adaptacions en la forma del seu cos?",
+        opts: ["Presenten ales per volar","Presenten adaptacions per facilitar el desplaçament en l'aigua","Presenten pell molt gruixuda","Presenten molts pèls"],
+        answer: 1,
+        explanation: "Els organismes que viuen al medi aquàtic presenten adaptacions en la forma del seu cos per a facilitar el desplaçament en l'aigua."
+      },
+      {
+        q: "Podem trobar éssers vius al medi aquàtic fins a...",
+        opts: ["Només a la superfície","Fins a 10 metres de profunditat","Grans profunditats","Fins al fons de sorra"],
+        answer: 2,
+        explanation: "El medi aquàtic ocupa la major part de la superfície terrestre i és habitat pels éssers vius des de la superfície fins a grans profunditats."
+      },
+      {
+        q: "Quin efecte té qualsevol canvi en un element d'un ecosistema?",
+        opts: ["Afecta només aquell element","Repercuteix en tots els altres elements","No té cap efecte","Millora l'ecosistema"],
+        answer: 1,
+        explanation: "Tots els éssers vius d'un ecosistema mantenen estretes relacions entre ells. Qualsevol canvi en algun dels elements de l'ecosistema repercuteix en els altres."
+      },
+      {
+        q: "Quins dos grans tipus de medi podem distingir per als éssers vius?",
+        opts: ["Medi fred i medi càlid","Medi aquàtic i medi terrestre","Medi humit i medi sec","Medi interior i medi exterior"],
+        answer: 1,
+        explanation: "El fet que una part de la superfície terrestre és coberta d'aigua i la resta no, delimita dos grans grups de comunitats d'éssers vius: els que viuen en un medi aquàtic i els que viuen en un medi terrestre."
+      }
+    ]
+  }
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let currentTopic = null;
+let questions = [];
+let qIndex = 0;
+let score = 0;
+let answered = false;
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function startTopic(topicKey) {
+  currentTopic = topicKey;
+  qIndex = 0;
+  score = 0;
+  answered = false;
+
+  // Shuffle and pick 10 questions
+  questions = shuffle(topics[topicKey].questions).slice(0, 10);
+
+  // Nav active state
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-topic="${topicKey}"]`).classList.add('active');
+
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('quizContainer').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (qIndex >= questions.length) {
+    renderResults();
+    return;
+  }
+
+  const topic = topics[currentTopic];
+  const q = questions[qIndex];
+  answered = false;
+
+  const pct = Math.round((qIndex / questions.length) * 100);
+  const letters = ['A','B','C','D'];
+
+  const html = `
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <div class="topic-badge badge-${topic.color}">
+          ${topic.icon} ${topic.name}
+        </div>
+        <div class="score-display">⭐ ${score}/${qIndex}</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="question-card">
+        <div class="question-num">Pregunta ${qIndex + 1} de ${questions.length}</div>
+        <div class="question-text">${q.q}</div>
+        <div class="options" id="optionsContainer">
+          ${q.opts.map((opt, i) => `
+            <button class="option-btn" id="opt${i}" onclick="selectAnswer(${i})">
+              <span class="option-letter">${letters[i]}</span>
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+        <div class="feedback" id="feedbackBox"></div>
+      </div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+        ${qIndex < questions.length - 1 ? 'Següent pregunta →' : 'Veure resultats 🏆'}
+      </button>
+    </div>
+  `;
+
+  document.getElementById('quizContainer').innerHTML = html;
+}
+
+function selectAnswer(selected) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[qIndex];
+  const opts = document.querySelectorAll('.option-btn');
+  const feedback = document.getElementById('feedbackBox');
+
+  opts.forEach(b => b.disabled = true);
+
+  if (selected === q.answer) {
+    score++;
+    opts[selected].classList.add('correct');
+    feedback.className = 'feedback correct-fb show';
+    feedback.innerHTML = `
+      <div class="fb-title">✅ Molt bé! Resposta correcta!</div>
+      <div class="explanation">"${q.explanation}"</div>
+    `;
+  } else {
+    opts[selected].classList.add('wrong');
+    opts[q.answer].classList.add('correct');
+    feedback.className = 'feedback wrong-fb show';
+    feedback.innerHTML = `
+      <div class="fb-title">❌ Ups! Aquesta no era... La resposta correcta era la ${['A','B','C','D'][q.answer]}.</div>
+      <div class="explanation">"${q.explanation}"</div>
+    `;
+    // Shake wrong answer
+    opts[selected].classList.add('shake');
+    setTimeout(() => opts[selected].classList.remove('shake'), 500);
+  }
+
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  qIndex++;
+  renderQuestion();
+}
+
+function renderResults() {
+  const topic = topics[currentTopic];
+  const pct = Math.round((score / questions.length) * 100);
+  let emoji, title, msg;
+
+  if (pct === 100) {
+    emoji = "🏆"; title = "Perfect! Ets una geni!"; msg = "Has encertat totes les preguntes. Increïble!";
+  } else if (pct >= 80) {
+    emoji = "🌟"; title = "Excel·lent!"; msg = "Ho has fet molt bé. Ets una crack!";
+  } else if (pct >= 60) {
+    emoji = "😊"; title = "Molt bé!"; msg = "Bon resultat! Repassant una mica més, ho bordaràs.";
+  } else if (pct >= 40) {
+    emoji = "💪"; title = "Anem bé!"; msg = "Segueix estudiant, ho aconseguiràs!";
+  } else {
+    emoji = "📚"; title = "A estudiar!"; msg = "Calma, torna a repassar el tema i ho faràs millor!";
+  }
+
+  const stars = Math.round((score / questions.length) * 5);
+  const starsRow = '⭐'.repeat(stars) + '☆'.repeat(5 - stars);
+
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="results">
+      <span class="result-emoji">${emoji}</span>
+      <div class="result-title">${title}</div>
+      <div class="result-score">
+        Has encertat <strong>${score}</strong> de ${questions.length} preguntes
+      </div>
+      <div class="stars-row">${starsRow}</div>
+      <p style="color:#99a;margin-bottom:30px;font-size:1rem;">${msg}</p>
+      <div class="result-actions">
+        <button class="result-btn btn-retry" onclick="startTopic('${currentTopic}')">
+          🔄 Tornar a intentar-ho
+        </button>
+        <button class="result-btn btn-home" onclick="goHome()">
+          🏠 Triar altre tema
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function goHome() {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('quizContainer').style.display = 'none';
+  document.getElementById('welcomeScreen').style.display = 'block';
+  currentTopic = null;
+}
+</script>
+</body>
+</html>
