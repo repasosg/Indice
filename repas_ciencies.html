@@ -544,339 +544,139 @@ const topics = {
     icon: "🪐",
     color: "astres",
     questions: [
-      {
-        q: "Quin dels següents astres brilla amb llum pròpia?",
-        opts: ["Els planetes","Les estrelles","Els satèl·lits","Els asteroides"],
-        answer: 1,
-        explanation: "Les estrelles són astres que brillen amb llum pròpia. Són formades per gasos a temperatures molt altes que emeten llum."
-      },
-      {
-        q: "Quin és el planeta més gran del sistema solar i el que té més satèl·lits?",
-        opts: ["Saturn","Neptú","Júpiter","Mart"],
-        answer: 2,
-        explanation: "Júpiter és el planeta més gran del sistema solar i el que té més satèl·lits (63)."
-      },
-      {
-        q: "Com s'anomena la força que fa que un astre atregui els cossos que hi ha a la seva superfície?",
-        opts: ["La translació","La gravetat","La rotació","L'òrbita"],
-        answer: 1,
-        explanation: "La força de la gravetat és la força que fa que un astre atregui els cossos que hi ha a la seva superfície."
-      },
-      {
-        q: "Quants planetes té el sistema solar?",
-        opts: ["Set","Nou","Vuit","Deu"],
-        answer: 2,
-        explanation: "El sistema solar és format pel Sol i per un conjunt de vuit planetes i els seus satèl·lits, que hi giren al voltant."
-      },
-      {
-        q: "Com s'anomena la galàxia on es troben el Sol i la Terra?",
-        opts: ["Andròmeda","La Via Làctia","Camí de la Lluna","El Braç Espiral"],
-        answer: 1,
-        explanation: "La galàxia on hi ha el Sol i la Terra és la Via Làctia, que conté al voltant de 200.000 milions d'estrelles."
-      },
-      {
-        q: "Quina forma té la Via Làctia?",
-        opts: ["Rodona","El·líptica","Espiral","Triangular"],
-        answer: 2,
-        explanation: "La Via Làctia té forma d'espiral, amb diversos braços, i gira sobre un eix central. La Terra està situada a l'extrem d'un d'aquests braços."
-      },
-      {
-        q: "Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma...",
-        opts: ["Un cometa","Un asteroide","Un estel fugisser","Una glacera"],
-        answer: 2,
-        explanation: "Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma el que es coneix com un estel fugisser."
-      },
-      {
-        q: "Com s'anomena el recorregut que fa un planeta al voltant d'una estrella?",
-        opts: ["Rotació","Translació","Òrbita","Gravetat"],
-        answer: 2,
-        explanation: "El recorregut que fa un planeta al voltant d'una estrella s'anomena òrbita."
-      },
-      {
-        q: "El Sol es va formar fa uns...",
-        opts: ["500 milions d'anys","1.000 milions d'anys","5.000 milions d'anys","10.000 milions d'anys"],
-        answer: 2,
-        explanation: "El Sol es va formar fa uns 5.000 milions d'anys i té un diàmetre d'1,4 milions de quilòmetres, aproximadament."
-      },
-      {
-        q: "Quina característica especial té la Terra que permet l'existència de vida?",
-        opts: ["És el planeta més gran","Té les temperatures adequades, existència d'aigua i atmosfera amb oxigen","Té molt de ferro","Queda molt a prop del Sol"],
-        answer: 1,
-        explanation: "Entre les característiques especials de la Terra hi ha les temperatures que s'hi enregistren, l'existència d'aigua i una atmosfera rica en oxigen."
-      },
-      {
-        q: "On es troben la majoria dels asteroides del sistema solar?",
-        opts: ["Entre el Sol i Mercuri","Entre Venus i la Terra","Entre Mart i Júpiter","Entre Saturn i Urà"],
-        answer: 2,
-        explanation: "Es considera que hi ha mig milió d'asteroides i la majoria estan situats entre les òrbites dels planetes Mart i Júpiter."
-      },
-      {
-        q: "Quin és el nom popular de la Via Làctia?",
-        opts: ["Camí de les Estrelles","Camí de Sant Jaume","Camí de la Lluna","Via de la Nit"],
-        answer: 1,
-        explanation: "La Via Làctia també es coneix popularment amb el nom de Camí de Sant Jaume."
-      },
-      {
-        q: "A quina distància aproximada es troba el Sol de la Terra?",
-        opts: ["15 milions de km","150 milions de km","1.500 milions de km","1,4 milions de km"],
-        answer: 1,
-        explanation: "El Sol està situat a uns 150 milions de quilòmetres de la Terra."
-      },
-      {
-        q: "Com es diu la capa més externa de la Terra?",
-        opts: ["La geosfera","La hidrosfera","La biosfera","L'atmosfera"],
-        answer: 3,
-        explanation: "L'atmosfera és la capa més externa de la Terra, d'uns 1.000 quilòmetres de gruix, formada principalment per una mescla de gasos."
-      },
-      {
-        q: "Com s'anomenen els cossos que giren al voltant d'un planeta?",
-        opts: ["Estrelles","Asteroides","Satèl·lits","Cometes"],
-        answer: 2,
-        explanation: "Els satèl·lits no tenen llum pròpia i giren al voltant d'un planeta descrivint també una òrbita."
-      }
+      { q: "Quin dels següents astres brilla amb llum pròpia?", opts: ["Els planetes","Les estrelles","Els satèl·lits","Els asteroides"], answer: 1, explanation: "Les estrelles són astres que brillen amb llum pròpia. Són formades per gasos a temperatures molt altes que emeten llum." },
+      { q: "Quin és el planeta més gran del sistema solar i el que té més satèl·lits?", opts: ["Saturn","Neptú","Júpiter","Mart"], answer: 2, explanation: "Júpiter és el planeta més gran del sistema solar i el que té més satèl·lits (63)." },
+      { q: "Com s'anomena la força que fa que un astre atregui els cossos que hi ha a la seva superfície?", opts: ["La translació","La gravetat","La rotació","L'òrbita"], answer: 1, explanation: "La força de la gravetat és la força que fa que un astre atregui els cossos que hi ha a la seva superfície." },
+      { q: "Quants planetes té el sistema solar?", opts: ["Set","Nou","Vuit","Deu"], answer: 2, explanation: "El sistema solar és format pel Sol i per un conjunt de vuit planetes i els seus satèl·lits, que hi giren al voltant." },
+      { q: "Com s'anomena la galàxia on es troben el Sol i la Terra?", opts: ["Andròmeda","La Via Làctia","Camí de la Lluna","El Braç Espiral"], answer: 1, explanation: "La galàxia on hi ha el Sol i la Terra és la Via Làctia, que conté al voltant de 200.000 milions d'estrelles." },
+      { q: "Quina forma té la Via Làctia?", opts: ["Rodona","El·líptica","Espiral","Triangular"], answer: 2, explanation: "La Via Làctia té forma d'espiral, amb diversos braços, i gira sobre un eix central. La Terra està situada a l'extrem d'un d'aquests braços." },
+      { q: "Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma...", opts: ["Un cometa","Un asteroide","Un estel fugisser","Una glacera"], answer: 2, explanation: "Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma el que es coneix com un estel fugisser." },
+      { q: "Com s'anomena el recorregut que fa un planeta al voltant d'una estrella?", opts: ["Rotació","Translació","Òrbita","Gravetat"], answer: 2, explanation: "El recorregut que fa un planeta al voltant d'una estrella s'anomena òrbita." },
+      { q: "El Sol es va formar fa uns...", opts: ["500 milions d'anys","1.000 milions d'anys","5.000 milions d'anys","10.000 milions d'anys"], answer: 2, explanation: "El Sol es va formar fa uns 5.000 milions d'anys i té un diàmetre d'1,4 milions de quilòmetres, aproximadament." },
+      { q: "Quina característica especial té la Terra que permet l'existència de vida?", opts: ["És el planeta més gran","Té les temperatures adequades, existència d'aigua i atmosfera amb oxigen","Té molt de ferro","Queda molt a prop del Sol"], answer: 1, explanation: "Entre les característiques especials de la Terra hi ha les temperatures que s'hi enregistren, l'existència d'aigua i una atmosfera rica en oxigen." },
+      { q: "On es troben la majoria dels asteroides del sistema solar?", opts: ["Entre el Sol i Mercuri","Entre Venus i la Terra","Entre Mart i Júpiter","Entre Saturn i Urà"], answer: 2, explanation: "Es considera que hi ha mig milió d'asteroides i la majoria estan situats entre les òrbites dels planetes Mart i Júpiter." },
+      { q: "Quin és el nom popular de la Via Làctia?", opts: ["Camí de les Estrelles","Camí de Sant Jaume","Camí de la Lluna","Via de la Nit"], answer: 1, explanation: "La Via Làctia també es coneix popularment amb el nom de Camí de Sant Jaume." },
+      { q: "A quina distància aproximada es troba el Sol de la Terra?", opts: ["15 milions de km","150 milions de km","1.500 milions de km","1,4 milions de km"], answer: 1, explanation: "El Sol està situat a uns 150 milions de quilòmetres de la Terra." },
+      { q: "Com es diu la capa més externa de la Terra?", opts: ["La geosfera","La hidrosfera","La biosfera","L'atmosfera"], answer: 3, explanation: "L'atmosfera és la capa més externa de la Terra, d'uns 1.000 quilòmetres de gruix, formada principalment per una mescla de gasos." },
+      { q: "Com s'anomenen els cossos que giren al voltant d'un planeta?", opts: ["Estrelles","Asteroides","Satèl·lits","Cometes"], answer: 2, explanation: "Els satèl·lits no tenen llum pròpia i giren al voltant d'un planeta descrivint també una òrbita." },
+      { q: "Com s'anomena una agrupació d'estrelles, planetes, satèl·lits i altres astres?", opts: ["Un sistema solar","Un univers","Una galàxia","Una nebulosa"], answer: 2, explanation: "Una galàxia és una agrupació d'estrelles, planetes i els seus satèl·lits, juntament amb altres astres." },
+      { q: "Quants milions d'estrelles conté aproximadament la Via Làctia?", opts: ["2.000 milions","20.000 milions","200.000 milions","2 milions"], answer: 2, explanation: "La galàxia Via Làctia conté al voltant de 200.000 milions d'estrelles." },
+      { q: "On es troba situada la Terra dins la Via Làctia?", opts: ["Al centre de la galàxia","A l'extrem d'un dels braços espirals","Molt prop del nucli central","Entre dues galàxies"], answer: 1, explanation: "La Via Làctia té forma d'espiral, amb diversos braços, i gira sobre un eix central. La Terra està situada a l'extrem d'un d'aquests braços." },
+      { q: "Quin és el diàmetre aproximat del Sol?", opts: ["140.000 km","1,4 milions de km","14 milions de km","140 milions de km"], answer: 1, explanation: "El Sol té un diàmetre d'1,4 milions de quilòmetres, aproximadament, més de 100 vegades el de la Terra." },
+      { q: "Quin és el paper del Sol per a la Terra?", opts: ["Ens envia meteorits","La llum i l'escalfor que emet permeten la vida al nostre planeta","Ens protegeix dels cometes","Genera la força de gravetat de la Terra"], answer: 1, explanation: "El Sol és l'estrella que hi ha més a prop de la Terra. La llum i l'escalfor que emet permeten la vida al nostre planeta." },
+      { q: "Quin fenomen caracteritza els cometes quan s'acosten al Sol?", opts: ["Exploten","Es converteixen en asteroides","Se'ls forma una llarga cua pel desglaç de l'escalfor","Es trenquen en meteorits"], answer: 2, explanation: "Els cometes són cossos formats per un petit nucli de gasos i gel. Quan els cometes s'acosten al Sol, se'ls forma una llarga cua a causa del desglaç produït per l'escalfor." },
+      { q: "Com s'anomena el conjunt format per una estrella i els planetes que giren al seu voltant?", opts: ["Una galàxia","Un univers","Un sistema planetari","Una constel·lació"], answer: 2, explanation: "Una estrella i els planetes que giren al seu voltant formen un sistema planetari. El sistema solar és el sistema planetari al qual pertany la Terra." },
+      { q: "Com s'anomena la part de la Terra formada per roques?", opts: ["La hidrosfera","L'atmosfera","La biosfera","La geosfera"], answer: 3, explanation: "La geosfera és la part de la Terra formada per roques. Les roques de la superfície terrestre són sòlides, però les de l'interior, on les temperatures són molt altes, es troben foses, és a dir, en estat líquid." },
+      { q: "Per què a l'espai els cossos floten i no cauen?", opts: ["Perquè no hi ha aire","Perquè fa molt de fred","Perquè estan lluny de la força d'atracció dels astres","Perquè giren molt ràpid"], answer: 2, explanation: "A l'espai, lluny de la força d'atracció dels astres, els cossos no cauen a terra. Per això els cossos que hi ha a la Terra cauen i no es mantenen flotant a l'aire com passa a l'espai." },
+      { q: "Gràcies a quina força els planetes del sistema solar giren al voltant del Sol?", opts: ["La força del vent solar","La força magnètica","La força de la gravetat","La força centrífuga"], answer: 2, explanation: "Gràcies a la força de la gravetat, els planetes del sistema solar giren al voltant del Sol." },
+      { q: "Des d'on es pot distingir a ull nu la Via Làctia com una franja d'estels al cel?", opts: ["Des de qualsevol lloc, a qualsevol hora","Des d'una gran ciutat de dia","Des d'un indret sense gaire il·luminació artificial, en una nit serena","Només amb telescopi"], answer: 2, explanation: "Des de la Terra, en una nit serena i en un indret sense gaire il·luminació artificial, es pot distingir clarament la Via Làctia com una franja amb una gran concentració d'estels que travessa el cel de banda a banda." },
+      { q: "Quants asteroides s'estima que hi ha al sistema solar?", opts: ["Uns 5.000","Uns 50.000","Uns mig milió","Uns 5 milions"], answer: 2, explanation: "Els asteroides giren al voltant del Sol, però són més petits que els planetes. Es considera que n'hi ha mig milió i la majoria estan situats entre les òrbites dels planetes Mart i Júpiter." },
+      { q: "Quin d'aquests planetes és el primer a partir del Sol?", opts: ["Venus","La Terra","Mart","Mercuri"], answer: 3, explanation: "En el sistema solar, l'ordre dels planetes des del Sol és: Mercuri, Venus, Terra, Mart, Júpiter, Saturn, Urà i Neptú." },
+      { q: "Com s'anomenen els fragments de matèria que es mouen per l'espai i que tenen mides molt diverses?", opts: ["Cometes","Asteroides","Meteorits","Satèl·lits"], answer: 2, explanation: "Els meteorits són fragments de matèria que es mouen per l'espai. Tenen mides molt diferents. Quan un petit meteorit xoca amb l'atmosfera de la Terra, s'encén i forma el que es coneix com un estel fugisser." },
+      { q: "Tots els astres que podem veure a ull nu des del nostre planeta, a quina galàxia pertanyen?", opts: ["A Andròmeda","A la Via Làctia","A diverses galàxies","Al sistema solar únicament"], answer: 1, explanation: "Tots els astres que podem veure a ull nu des del nostre planeta pertanyen a la Via Làctia." }
     ]
   },
+
   agua: {
     name: "L'Aigua",
     icon: "💧",
     color: "agua",
     questions: [
-      {
-        q: "Com s'anomena el conjunt de tota l'aigua que hi ha al nostre planeta?",
-        opts: ["La biosfera","L'atmosfera","La hidrosfera","La litosfera"],
-        answer: 2,
-        explanation: "La hidrosfera és el conjunt de tota l'aigua que hi ha al nostre planeta."
-      },
-      {
-        q: "En quins estats pot estar l'aigua a la Terra?",
-        opts: ["Líquid i sòlid","Líquid, sòlid i gasós","Gasós i sòlid","Només en estat líquid"],
-        answer: 1,
-        explanation: "L'aigua que hi ha a la Terra pot estar en estat líquid, sòlid o gasós."
-      },
-      {
-        q: "Quin percentatge de l'aigua de la Terra és salada?",
-        opts: ["50%","75%","97%","30%"],
-        answer: 2,
-        explanation: "L'aigua salada és als mars i als oceans i suposa un 97% del total de l'aigua del planeta, mentre que la resta és aigua dolça."
-      },
-      {
-        q: "En el cicle de l'aigua, com s'anomena l'etapa en que l'aigua líquida es converteix en vapor a causa de l'escalfor del sol?",
-        opts: ["La condensació","La solidificació","La fusió","L'evaporació"],
-        answer: 3,
-        explanation: "L'evaporació: l'aigua líquida es converteix en vapor d'aigua a causa de l'escalfor del sol. El vapor d'aigua queda dispers en l'aire, barrejat amb altres gasos."
-      },
-      {
-        q: "Quan el vapor d'aigua puja a l'atmosfera i es refreda, tornant a estat líquid i formant núvols, com s'anomena aquest procés?",
-        opts: ["L'evaporació","La condensació","La fusió","La precipitació"],
-        answer: 1,
-        explanation: "La condensació: quan el vapor d'aigua s'eleva a l'atmosfera, es refreda i es condensa, és a dir, torna a l'estat líquid i es converteix en petites gotes d'aigua, que formen els núvols."
-      },
-      {
-        q: "En quin curs d'un riu és l'aigua més cabalosa però corre amb menys velocitat?",
-        opts: ["Curs alt","Curs mitjà","Curs baix","Desembocadura"],
-        answer: 2,
-        explanation: "El curs baix és on el riu és més cabalós, però les seves aigües discorren a poca velocitat perquè sovint travessen zones força planes."
-      },
-      {
-        q: "Com s'anomena la quantitat d'aigua que porta un riu?",
-        opts: ["El curs","El cabal","El llit","El meandre"],
-        answer: 1,
-        explanation: "El cabal d'un riu és la quantitat d'aigua que porta."
-      },
-      {
-        q: "Quin és el final d'un riu on pot desembocar al mar, un llac o un altre riu?",
-        opts: ["El naixement","El curs alt","La desembocadura","El meandre"],
-        answer: 2,
-        explanation: "La desembocadura és el final d'un riu, que pot ser el mar, un llac o un altre riu. Es poden formar deltes."
-      },
-      {
-        q: "Com s'anomena un revolt molt marcat que fa un riu, generalment en el curs mitjà?",
-        opts: ["Una cascada","Un afluent","Un estany","Un meandre"],
-        answer: 3,
-        explanation: "Un meandre és un revolt molt marcat que fa un riu, generalment en el curs mitjà."
-      },
-      {
-        q: "Com s'anomena un corrent d'aigua que només es forma quan plou?",
-        opts: ["Un rierol","Una riera","Un torrent","Un afluent"],
-        answer: 1,
-        explanation: "Una riera és un corrent d'aigua que només es forma quan plou."
-      },
-      {
-        q: "Al curs alt d'un riu, quin procés és predominant?",
-        opts: ["Depositar sediments","Transportar materials lentament","Erosionar el terreny per la força del corrent","Formar meandres"],
-        answer: 2,
-        explanation: "Al curs alt, el riu porta poca aigua, però com que el pendent és molt fort, té molta força, arrenca materials i erosiona el terreny."
-      },
-      {
-        q: "Com s'anomena una gran massa de gel situada a zones fredes que es desplaça?",
-        opts: ["Un estany","Una glacera","Un llac","Una riera"],
-        answer: 1,
-        explanation: "Una glacera és una gran massa de gel situada a zones fredes que es desplaça."
-      },
-      {
-        q: "Com s'anomena un riu que desemboca en un altre riu?",
-        opts: ["Un torrent","Un rierol","Un afluent","Una cascada"],
-        answer: 2,
-        explanation: "Un afluent és un riu que desemboca en un altre riu."
-      }
+      { q: "Com s'anomena el conjunt de tota l'aigua que hi ha al nostre planeta?", opts: ["La biosfera","L'atmosfera","La hidrosfera","La litosfera"], answer: 2, explanation: "La hidrosfera és el conjunt de tota l'aigua que hi ha al nostre planeta." },
+      { q: "En quins estats pot estar l'aigua a la Terra?", opts: ["Líquid i sòlid","Líquid, sòlid i gasós","Gasós i sòlid","Només en estat líquid"], answer: 1, explanation: "L'aigua que hi ha a la Terra pot estar en estat líquid, sòlid o gasós." },
+      { q: "Quin percentatge de l'aigua de la Terra és salada?", opts: ["50%","75%","97%","30%"], answer: 2, explanation: "L'aigua salada és als mars i als oceans i suposa un 97% del total de l'aigua del planeta, mentre que la resta és aigua dolça." },
+      { q: "En el cicle de l'aigua, com s'anomena l'etapa en que l'aigua líquida es converteix en vapor a causa de l'escalfor del sol?", opts: ["La condensació","La solidificació","La fusió","L'evaporació"], answer: 3, explanation: "L'evaporació: l'aigua líquida es converteix en vapor d'aigua a causa de l'escalfor del sol. El vapor d'aigua queda dispers en l'aire, barrejat amb altres gasos." },
+      { q: "Quan el vapor d'aigua puja a l'atmosfera i es refreda, tornant a estat líquid i formant núvols, com s'anomena aquest procés?", opts: ["L'evaporació","La condensació","La fusió","La precipitació"], answer: 1, explanation: "La condensació: quan el vapor d'aigua s'eleva a l'atmosfera, es refreda i es condensa, és a dir, torna a l'estat líquid i es converteix en petites gotes d'aigua, que formen els núvols." },
+      { q: "En quin curs d'un riu és l'aigua més cabalosa però corre amb menys velocitat?", opts: ["Curs alt","Curs mitjà","Curs baix","Desembocadura"], answer: 2, explanation: "El curs baix és on el riu és més cabalós, però les seves aigües discorren a poca velocitat perquè sovint travessen zones força planes." },
+      { q: "Com s'anomena la quantitat d'aigua que porta un riu?", opts: ["El curs","El cabal","El llit","El meandre"], answer: 1, explanation: "El cabal d'un riu és la quantitat d'aigua que porta." },
+      { q: "Quin és el final d'un riu on pot desembocar al mar, un llac o un altre riu?", opts: ["El naixement","El curs alt","La desembocadura","El meandre"], answer: 2, explanation: "La desembocadura és el final d'un riu, que pot ser el mar, un llac o un altre riu. Es poden formar deltes." },
+      { q: "Com s'anomena un revolt molt marcat que fa un riu, generalment en el curs mitjà?", opts: ["Una cascada","Un afluent","Un estany","Un meandre"], answer: 3, explanation: "Un meandre és un revolt molt marcat que fa un riu, generalment en el curs mitjà." },
+      { q: "Com s'anomena un corrent d'aigua que només es forma quan plou?", opts: ["Un rierol","Una riera","Un torrent","Un afluent"], answer: 1, explanation: "Una riera és un corrent d'aigua que només es forma quan plou." },
+      { q: "Al curs alt d'un riu, quin procés és predominant?", opts: ["Depositar sediments","Transportar materials lentament","Erosionar el terreny per la força del corrent","Formar meandres"], answer: 2, explanation: "Al curs alt, el riu porta poca aigua, però com que el pendent és molt fort, té molta força, arrenca materials i erosiona el terreny." },
+      { q: "Com s'anomena una gran massa de gel situada a zones fredes que es desplaça?", opts: ["Un estany","Una glacera","Un llac","Una riera"], answer: 1, explanation: "Una glacera és una gran massa de gel situada a zones fredes que es desplaça." },
+      { q: "Com s'anomena un riu que desemboca en un altre riu?", opts: ["Un torrent","Un rierol","Un afluent","Una cascada"], answer: 2, explanation: "Un afluent és un riu que desemboca en un altre riu." },
+      { q: "On trobem normalment l'aigua en estat sòlid (gel o neu)?", opts: ["Als rius i llacs","Als cims de les muntanyes i als pols","A l'atmosfera","Als mars i oceans"], answer: 1, explanation: "Normalment trobem l'aigua en estat sòlid (gel o neu) als cims de les muntanyes i als pols." },
+      { q: "On trobem l'aigua en estat gasós?", opts: ["Als rius","Als oceans","A l'atmosfera, com a vapor d'aigua","Als corrents subterranis"], answer: 2, explanation: "L'aigua en estat gasós (vapor d'aigua) la trobem a l'atmosfera." },
+      { q: "Quina és la característica que diferencia la Terra de qualsevol altre planeta conegut?", opts: ["Tenir atmosfera","L'existència d'aigua","Tenir satèl·lits","Tenir volcans"], answer: 1, explanation: "L'existència d'aigua és una de les característiques que diferencia la Terra de qualsevol altre planeta conegut." },
+      { q: "En el cicle de l'aigua, com s'anomena el procés en que la neu i el glaç es fonen gràcies a l'escalfor del sol?", opts: ["La condensació","L'evaporació","La solidificació","La fusió"], answer: 3, explanation: "La fusió: la neu i el glaç que s'acumulen a la superfície es fonen amb l'escalfor del sol." },
+      { q: "En el cicle de l'aigua, en quin cas la precipitació cau en forma de neu o calamarsa?", opts: ["Quan hi ha molt sol","Quan la temperatura és molt alta","Quan la temperatura és baixa i l'aigua dels núvols se solidifica","Quan hi ha molta humitat"], answer: 2, explanation: "La solidificació: si la temperatura és baixa, l'aigua dels núvols se solidifica, és a dir, passa a l'estat sòlid, i la precipitació cau en forma de neu o calamarsa." },
+      { q: "On es troben els corrents d'aigua subterranis?", opts: ["Als núvols","A sota la superfície de la terra","Als cims de les muntanyes","A l'atmosfera"], answer: 1, explanation: "En estat líquid trobem l'aigua als rius, als llacs, als corrents subterranis i als mars i els oceans." },
+      { q: "Com s'anomena l'espai per on corren les aigües d'un riu?", opts: ["El curs","El cabal","El llit","L'afluent"], answer: 2, explanation: "El llit és l'espai per on corren les aigües d'un riu." },
+      { q: "Com s'anomena un corrent d'aigua que es forma quan plou i baixa amb molta força?", opts: ["Un rierol","Un afluent","Una riera","Un torrent"], answer: 3, explanation: "Un torrent és un corrent d'aigua que es forma quan plou i que baixa amb molta força." },
+      { q: "Com s'anomena l'origen d'un riu?", opts: ["La desembocadura","El delta","El naixement","El llit"], answer: 2, explanation: "El naixement és l'origen d'un riu." },
+      { q: "Com s'anomena un llac de petites dimensions?", opts: ["Un rierol","Un estany","Una bassa","Un afluent"], answer: 1, explanation: "Un estany és un llac de petites dimensions." },
+      { q: "Al curs mitjà d'un riu, quina és l'activitat principal?", opts: ["Erosionar el fons del riu","Transportar els materials arrencats al curs alt","Depositar tots els sediments","Formar cascades"], answer: 1, explanation: "Al curs mitjà, el cabal del riu augmenta, però el pendent ja no és tan acusat. El riu transporta els materials que ha arrencat en el curs alt." },
+      { q: "Com canvia d'estat l'aigua?", opts: ["Quan canvia de lloc","Quan s'escalfa o es refreda a causa dels canvis de temperatura","Quan és salada","Quan arriba al mar"], answer: 1, explanation: "L'aigua canvia d'estat quan s'escalfa o es refreda a causa dels canvis de temperatura." },
+      { q: "Quin d'aquests elements confirma que l'aigua és necessària per a la vida?", opts: ["L'aire respira els éssers vius","Els éssers vius tenen gran quantitat d'aigua dins el seu cos","L'aigua forma l'atmosfera","Les roques contenen sempre aigua"], answer: 1, explanation: "Els éssers vius tenen gran quantitat d'aigua dins el seu cos. L'aigua és necessària per a la vida." },
+      { q: "Quin és el procés de circulació de l'aigua en la natura?", opts: ["El cicle atmosfèric","El cicle de l'aigua","El cicle del nitrogen","El cicle de l'evaporació"], answer: 1, explanation: "El cicle de l'aigua és el procés de circulació de l'aigua en la natura." },
+      { q: "Quin tipus d'aigua és la de menor quantitat a la Terra?", opts: ["L'aigua salada dels oceans","L'aigua dolça","L'aigua de l'atmosfera","L'aigua del mar Mediterrani"], answer: 1, explanation: "L'aigua salada suposa un 97% del total de l'aigua del planeta, mentre que la resta és aigua dolça. Per tant, l'aigua dolça és la que hi ha en menor quantitat." },
+      { q: "Com s'anomena un salt d'aigua?", opts: ["Un meandre","Un afluent","Una cascada","Un torrent"], answer: 2, explanation: "Una cascada és un salt d'aigua." },
+      { q: "Com s'anomena una extensió d'aigua envoltada de terra que ocupa una depressió del terreny?", opts: ["Un estany","Un mar","Un llac","Una riera"], answer: 2, explanation: "Un llac és una extensió d'aigua envoltada de terra que ocupa una depressió del terreny." }
     ]
   },
+
   relleu: {
     name: "El Relleu",
     icon: "⛰️",
     color: "relleu",
     questions: [
-      {
-        q: "Com s'anomenen els agents geològics que tenen el seu origen a l'interior de la Terra?",
-        opts: ["Agents geològics externs","Agents geològics interns","Agents atmosfèrics","Agents hidrològics"],
-        answer: 1,
-        explanation: "Els agents geològics interns tenen el seu origen a l'interior de la Terra i poden modificar el relleu en poc temps."
-      },
-      {
-        q: "Quin fenomen geològic es produeix quan els materials sotmesos a pressió són prou flexibles i es dobleguen?",
-        opts: ["Una falla","Un terratremol","Un plegament","Un volcà"],
-        answer: 2,
-        explanation: "Un plegament es produeix quan els materials sotmesos a pressió són prou flexibles i es dobleguen, com ho fa un full de paper si l'empenyem pels dos extrems."
-      },
-      {
-        q: "Quin fenomen geològic es produeix quan els materials sotmesos a pressió no són prou flexibles i es trenquen, formant desnivells?",
-        opts: ["Un plegament","Una falla","Una erupció volcànica","Un terratremol"],
-        answer: 1,
-        explanation: "Una falla es produeix quan els materials sotmesos a pressió no són prou flexibles i es trenquen. Uns blocs es desplacen respecte a uns altres i formen desnivells."
-      },
-      {
-        q: "Quins són els principals agents geològics externs?",
-        opts: ["Els volcans, els terratrèmols i les falles","El vent, l'aigua i els éssers vius","El magma, la lava i les cendres","Els plegaments, les falles i les erupcions"],
-        answer: 1,
-        explanation: "Els principals agents geològics externs són el vent (atmosfera), l'aigua (hidrosfera) i els éssers vius (biosfera)."
-      },
-      {
-        q: "Com s'anomena el procés d'alteració i destrucció de les roques per acció dels agents externs?",
-        opts: ["L'erosió","El transport","La sedimentació","La meteorització"],
-        answer: 3,
-        explanation: "La meteorització és l'alteració i la destrucció de les roques i els minerals per acció dels diferents agents."
-      },
-      {
-        q: "Com s'anomena el procés de deposició dels materials erosionats i transportats?",
-        opts: ["La meteorització","L'erosió","La sedimentació","El transport"],
-        answer: 2,
-        explanation: "La sedimentació és la deposició dels materials que han estat erosionats i transportats."
-      },
-      {
-        q: "Com s'anomenen les roques que es formen a partir de les altes pressions i temperatures quan dues plaques litosfèriques es toquen?",
-        opts: ["Roques volcàniques","Roques sedimentàries","Roques metamòrfiques","Roques calcàries"],
-        answer: 2,
-        explanation: "Les altes pressions, sovint acompanyades d'altes temperatures, poden provocar que les roques es transformin i que se'n creïn de noves, les roques metamòrfiques, com la pissarra o el marbre."
-      },
-      {
-        q: "Quin efecte té l'aigua quan es fica a les escletxes de les roques i es gela?",
-        opts: ["Les escalfa i les dilata","Les dissol completament","Augmenta de volum i pot esberlar la roca","Les cobreix de capes protectores"],
-        answer: 2,
-        explanation: "L'aigua en estat sòlid ocupa més espai que la mateixa quantitat en estat líquid. Per tant, l'aigua, quan es gela, augmenta de volum i pot esberlar la roca."
-      },
-      {
-        q: "Quin efecte provoca el vent sobre les roques?",
-        opts: ["Les refreda","Les humidifica","Les erosiona","Les solidifica"],
-        answer: 2,
-        explanation: "L'impacte de l'aire en moviment sobre les roques, el vent, en provoca l'erosió. El mateix vent transporta les partícules, i quan perd força o troba algun obstacle, les diposita."
-      },
-      {
-        q: "Quin és el procés de desgast i despreniment de materials que després es transporten?",
-        opts: ["La meteorització","La sedimentació","L'erosió","El plegament"],
-        answer: 2,
-        explanation: "L'erosió és el procés de desgast i despreniment de materials, que després es transporten."
-      },
-      {
-        q: "Com afecten les plantes al relleu amb les seves arrels?",
-        opts: ["Erosionen el terra amb el seu pes","Poden fracturar les roques però també fixen el sòl","No tenen cap efecte sobre les roques","Transporten materials cap a altri lloc"],
-        answer: 1,
-        explanation: "Les plantes, amb les arrels, poden fracturar les roques; d'altra banda, les arrels contribueixen a fixar el sòl."
-      },
-      {
-        q: "Quin tipus de roques es poden formar quan s'acumulen molts materials sedimentaris?",
-        opts: ["Roques metamòrfiques","Roques volcàniques","Roques sedimentàries","Roques basàltiques"],
-        answer: 2,
-        explanation: "Quan s'acumulen molts materials sedimentaris, el seu propi pes pot provocar la formació d'un nou tipus de roques, les roques sedimentàries, com l'argila, el conglomerat o la calcària."
-      },
-      {
-        q: "Quin d'aquests és un exemple de l'acció dels éssers humans sobre el relleu?",
-        opts: ["La formació de dunes","La construcció de vies de comunicació i embassaments","L'erosió per l'onatge del mar","La formació de meandres"],
-        answer: 1,
-        explanation: "Els éssers humans provoquem transformacions molt importants del relleu amb la construcció de vies de comunicació, embassaments, pedreres, etc."
-      }
+      { q: "Com s'anomenen els agents geològics que tenen el seu origen a l'interior de la Terra?", opts: ["Agents geològics externs","Agents geològics interns","Agents atmosfèrics","Agents hidrològics"], answer: 1, explanation: "Els agents geològics interns tenen el seu origen a l'interior de la Terra i poden modificar el relleu en poc temps." },
+      { q: "Quin fenomen geològic es produeix quan els materials sotmesos a pressió són prou flexibles i es dobleguen?", opts: ["Una falla","Un terratremol","Un plegament","Un volcà"], answer: 2, explanation: "Un plegament es produeix quan els materials sotmesos a pressió són prou flexibles i es dobleguen, com ho fa un full de paper si l'empenyem pels dos extrems." },
+      { q: "Quin fenomen geològic es produeix quan els materials sotmesos a pressió no són prou flexibles i es trenquen, formant desnivells?", opts: ["Un plegament","Una falla","Una erupció volcànica","Un terratremol"], answer: 1, explanation: "Una falla es produeix quan els materials sotmesos a pressió no són prou flexibles i es trenquen. Uns blocs es desplacen respecte a uns altres i formen desnivells." },
+      { q: "Quins són els principals agents geològics externs?", opts: ["Els volcans, els terratrèmols i les falles","El vent, l'aigua i els éssers vius","El magma, la lava i les cendres","Els plegaments, les falles i les erupcions"], answer: 1, explanation: "Els principals agents geològics externs són el vent (atmosfera), l'aigua (hidrosfera) i els éssers vius (biosfera)." },
+      { q: "Com s'anomena el procés d'alteració i destrucció de les roques per acció dels agents externs?", opts: ["L'erosió","El transport","La sedimentació","La meteorització"], answer: 3, explanation: "La meteorització és l'alteració i la destrucció de les roques i els minerals per acció dels diferents agents." },
+      { q: "Com s'anomena el procés de deposició dels materials erosionats i transportats?", opts: ["La meteorització","L'erosió","La sedimentació","El transport"], answer: 2, explanation: "La sedimentació és la deposició dels materials que han estat erosionats i transportats." },
+      { q: "Com s'anomenen les roques que es formen per altes pressions i temperatures quan dues plaques litosfèriques es toquen?", opts: ["Roques volcàniques","Roques sedimentàries","Roques metamòrfiques","Roques basàltiques"], answer: 2, explanation: "Les altes pressions, sovint acompanyades d'altes temperatures, poden provocar que les roques es transformin i que se'n creïn de noves, les roques metamòrfiques, com la pissarra o el marbre." },
+      { q: "Quin efecte té l'aigua quan es fica a les escletxes de les roques i es gela?", opts: ["Les escalfa i les dilata","Les dissol completament","Augmenta de volum i pot esberlar la roca","Les cobreix de capes protectores"], answer: 2, explanation: "L'aigua en estat sòlid ocupa més espai que la mateixa quantitat en estat líquid. Per tant, l'aigua, quan es gela, augmenta de volum i pot esberlar la roca." },
+      { q: "Quin efecte provoca el vent sobre les roques?", opts: ["Les refreda","Les humidifica","Les erosiona","Les solidifica"], answer: 2, explanation: "L'impacte de l'aire en moviment sobre les roques, el vent, en provoca l'erosió. El mateix vent transporta les partícules, i quan perd força o troba algun obstacle, les diposita." },
+      { q: "Quin és el procés de desgast i despreniment de materials que després es transporten?", opts: ["La meteorització","La sedimentació","L'erosió","El plegament"], answer: 2, explanation: "L'erosió és el procés de desgast i despreniment de materials, que després es transporten." },
+      { q: "Com afecten les plantes al relleu amb les seves arrels?", opts: ["Erosionen el terra amb el seu pes","Poden fracturar les roques però també fixen el sòl","No tenen cap efecte sobre les roques","Transporten materials cap a un altre lloc"], answer: 1, explanation: "Les plantes, amb les arrels, poden fracturar les roques; d'altra banda, les arrels contribueixen a fixar el sòl." },
+      { q: "Quin tipus de roques es formen quan s'acumulen molts materials sedimentaris?", opts: ["Roques metamòrfiques","Roques volcàniques","Roques sedimentàries","Roques basàltiques"], answer: 2, explanation: "Quan s'acumulen molts materials sedimentaris, el seu propi pes pot provocar la formació d'un nou tipus de roques, les roques sedimentàries, com l'argila, el conglomerat o la calcària." },
+      { q: "Quin d'aquests és un exemple de l'acció dels éssers humans sobre el relleu?", opts: ["La formació de dunes","La construcció de vies de comunicació i embassaments","L'erosió per l'onatge del mar","La formació de meandres"], answer: 1, explanation: "Els éssers humans provoquem transformacions molt importants del relleu amb la construcció de vies de comunicació, embassaments, pedreres, etc." },
+      { q: "On es produeix la major activitat dels agents geològics interns?", opts: ["A les zones polars","A les zones on les plaques litosfèriques entren en contacte","A les zones desèrtiques","Als fons dels oceans"], answer: 1, explanation: "Les zones on les plaques litosfèriques entren en contacte són les que tenen més activitat." },
+      { q: "De quina roca prové la pissarra?", opts: ["De roques calcàries","De roques volcàniques","De roques argiloses","De granit"], answer: 2, explanation: "Les roques metamòrfiques com la pissarra provenen de roques argiloses, mentre que el marbre prové de roques calcàries." },
+      { q: "De quina roca prové el marbre?", opts: ["De roques argiloses","De roques calcàries","De granit","De roques volcàniques"], answer: 1, explanation: "Les roques metamòrfiques com el marbre provenen de roques calcàries, mentre que la pissarra prové de roques argiloses." },
+      { q: "Com modelen les onades del mar el litoral costaner?", opts: ["Construint platges noves sense erosió","Erosionant les roques i formant platges","Solidificant les roques","Dipositant sediments al fons marí"], answer: 1, explanation: "Els mars i els oceans: les onades modelen el perfil del litoral, erosionen les roques i formen les platges. Els corrents marins transporten els materials." },
+      { q: "Quina acció porten a terme les glaceres sobre el relleu?", opts: ["Dipositen sorra i formen dunes","Excaven valls i arrenquen, arrosseguen i desgasten materials","Afegeixen materials nous a les muntanyes","Formen meandres als rius"], answer: 1, explanation: "A les zones fredes es poden formar glaceres, que són grans masses de gel que es desplacen i excaven valls i arrenquen, arrosseguen i desgasten materials." },
+      { q: "Quina estructura forma el vent en transportar sorra?", opts: ["Meandres","Deltes","Dunes","Cascades"], answer: 2, explanation: "El vent transporta la sorra i forma dunes." },
+      { q: "Quan el vent perd força o troba un obstacle, quin procés es produeix?", opts: ["Torna a erosionar les roques","Eleva les partícules cap amunt","Diposita les partícules que transportava","Genera pluja"], answer: 2, explanation: "El vent transporta les partícules, i quan perd força o troba algun obstacle, les diposita." },
+      { q: "Quin efecte provoca l'aigua de la pluja sobre les roques?", opts: ["Les reforça i les endureix","Excava solcs i crea cavitats a les roques","Les cobreix de minerals","Les fa créixer de mida"], answer: 1, explanation: "Les aigües salvatges i els rius: l'aigua de la pluja excava solcs i crea cavitats a les roques." },
+      { q: "Quin dels agents geològics externs actua de forma continuada però modifica el relleu lentament?", opts: ["Els terratremols","Els volcans","Els plegaments","El vent, l'aigua i els éssers vius"], answer: 3, explanation: "Els agents geològics externs actuen de forma continuada sobre la litosfera i modifiquen el relleu lentament." },
+      { q: "Com s'anomena el procés de trasllat dels materials erosionats cap a un indret diferent?", opts: ["La sedimentació","La meteorització","L'erosió","El transport"], answer: 3, explanation: "El transport consisteix en el trasllat dels materials erosionats cap a un indret diferent." },
+      { q: "Quins fenòmens provoquen les altes pressions i l'escalfor de l'interior de la Terra?", opts: ["El vent i l'erosió","Els plegaments, les falles, els terratrèmols i els volcans","Les glaceres i els rius","La pluja i els éssers vius"], answer: 1, explanation: "Les altes pressions i l'escalfor de l'interior de la Terra provoquen els plegaments, les falles, els terratrèmols i els volcans." },
+      { q: "Com podem comparar la velocitat de canvi del relleu entre agents interns i externs?", opts: ["Els dos modifiquen el relleu a la mateixa velocitat","Els agents interns el modifiquen en poc temps; els externs, lentament","Els agents externs el modifiquen ràpidament; els interns, lentament","Cap dels dos modifica el relleu"], answer: 1, explanation: "Els agents geològics interns poden modificar el relleu en poc temps. Els agents geològics externs actuen de forma continuada i modifiquen el relleu lentament." },
+      { q: "Com afecten els animals al relleu?", opts: ["No tenen cap efecte sobre el terreny","Erosionen els terrenys per on passen i faciliten l'erosió d'altres agents menjant-se la vegetació","Construeixen embassaments","Formen glaceres"], answer: 1, explanation: "Els animals erosionen els terrenys per allà on passen i poden facilitar l'erosió per part d'altres agents quan es mengen la vegetació, per exemple." },
+      { q: "Quin procés extern provoca que els corrents marins actuen sobre el relleu?", opts: ["La formació de dunes","L'erosió i el transport de materials","La formació de glaceres","La fusió del gel"], answer: 1, explanation: "Els mars i els oceans: les onades erosionen les roques i els corrents marins transporten els materials." },
+      { q: "El relleu de la Terra que veiem avui...", opts: ["Ha estat sempre igual","S'ha anat formant i modificant al llarg de milers de milions d'anys","Va ser creat fa 500 anys","Canviarà completament en 10 anys"], answer: 1, explanation: "El relleu de la Terra que ara veiem no ha estat sempre així, sinó que s'ha anat formant i modificant al llarg de milers de milions d'anys." }
     ]
   },
+
   biosfera: {
     name: "La Biosfera",
     icon: "🌿",
     color: "biosfera",
     questions: [
-      {
-        q: "Com s'anomena la zona de la Terra on viuen els éssers vius?",
-        opts: ["La hidrosfera","L'atmosfera","La biosfera","La litosfera"],
-        answer: 2,
-        explanation: "La biosfera és la zona de la Terra on viuen els éssers vius. La biosfera inclou la hidrosfera, part de la litosfera i la part inferior de l'atmosfera."
-      },
-      {
-        q: "Com s'anomena el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells?",
-        opts: ["Una espècie","Un ecosistema","Una comunitat","Un hàbitat"],
-        answer: 1,
-        explanation: "Un ecosistema és el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells."
-      },
-      {
-        q: "Per quina raó la Terra és l'únic planeta que coneixem on hi ha vida?",
-        opts: ["Perquè és el planeta més gran","Perquè té unes condicions especials que permeten variacions de temperatura, llum i humitat adequades","Perquè és el planeta més pròxim al Sol","Perquè no té satèl·lits"],
-        answer: 1,
-        explanation: "La Terra és l'únic planeta que coneixem on hi ha vida perquè té unes condicions especials (distància del Sol, mida i moviments), que permeten que hi hagi les variacions de temperatura, de llum i d'humitat necessàries."
-      },
-      {
-        q: "Quin dels següents és un exemple d'ecosistema?",
-        opts: ["Una roca","Un núvol","Un alzinar","Un planeta"],
-        answer: 2,
-        explanation: "Un alzinar, una bassa o la sabana són exemples d'ecosistemes."
-      },
-      {
-        q: "Quines condicions té el medi aquàtic comparades amb el medi terrestre?",
-        opts: ["Condicions molt canviants amb grans variacions de temperatura","Condicions força constants, amb poques variacions de temperatura, però menys llum","Condicions molt seques","Temperatures extremadament altes"],
-        answer: 1,
-        explanation: "Les condicions del medi aquàtic són força constants, amb poques variacions de temperatura, encara que hi ha menys llum que al medi terrestre."
-      },
-      {
-        q: "Per quin motiu els animals terrestres tenen pell gruixuda, pèls o plomes?",
-        opts: ["Per volar millor","Per evitar la pèrdua d'aigua del cos i mantenir la temperatura constant","Per defensar-se dels depredadors","Per nedar millor"],
-        answer: 1,
-        explanation: "Les condicions del medi terrestre han fet que els animals tinguin mecanismes per a evitar la pèrdua d'aigua del seu cos i per a mantenir la temperatura constant (pells gruixudes, pèls o plomes, etc.)."
-      },
-      {
-        q: "Quina adaptació han desenvolupat les plantes del medi terrestre per obtenir l'aigua del sòl?",
-        opts: ["Han creat fulles molt grans","Han desenvolupat sistemes d'arrels complexos","Han reduït la seva mida","Han canviat de color"],
-        answer: 1,
-        explanation: "Les condicions del medi terrestre han fet que les plantes hagin desenvolupat sistemes d'arrels complexos per a captar l'aigua del sòl."
-      },
-      {
-        q: "Com s'anomenen els organismes dels ecosistemes aquàtics que presenten adaptacions en la forma del seu cos?",
-        opts: ["Presenten ales per volar","Presenten adaptacions per facilitar el desplaçament en l'aigua","Presenten pell molt gruixuda","Presenten molts pèls"],
-        answer: 1,
-        explanation: "Els organismes que viuen al medi aquàtic presenten adaptacions en la forma del seu cos per a facilitar el desplaçament en l'aigua."
-      },
-      {
-        q: "Podem trobar éssers vius al medi aquàtic fins a...",
-        opts: ["Només a la superfície","Fins a 10 metres de profunditat","Grans profunditats","Fins al fons de sorra"],
-        answer: 2,
-        explanation: "El medi aquàtic ocupa la major part de la superfície terrestre i és habitat pels éssers vius des de la superfície fins a grans profunditats."
-      },
-      {
-        q: "Quin efecte té qualsevol canvi en un element d'un ecosistema?",
-        opts: ["Afecta només aquell element","Repercuteix en tots els altres elements","No té cap efecte","Millora l'ecosistema"],
-        answer: 1,
-        explanation: "Tots els éssers vius d'un ecosistema mantenen estretes relacions entre ells. Qualsevol canvi en algun dels elements de l'ecosistema repercuteix en els altres."
-      },
-      {
-        q: "Quins dos grans tipus de medi podem distingir per als éssers vius?",
-        opts: ["Medi fred i medi càlid","Medi aquàtic i medi terrestre","Medi humit i medi sec","Medi interior i medi exterior"],
-        answer: 1,
-        explanation: "El fet que una part de la superfície terrestre és coberta d'aigua i la resta no, delimita dos grans grups de comunitats d'éssers vius: els que viuen en un medi aquàtic i els que viuen en un medi terrestre."
-      }
+      { q: "Com s'anomena la zona de la Terra on viuen els éssers vius?", opts: ["La hidrosfera","L'atmosfera","La biosfera","La litosfera"], answer: 2, explanation: "La biosfera és la zona de la Terra on viuen els éssers vius. La biosfera inclou la hidrosfera, part de la litosfera i la part inferior de l'atmosfera." },
+      { q: "Com s'anomena el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells?", opts: ["Una espècie","Un ecosistema","Una comunitat","Un hàbitat"], answer: 1, explanation: "Un ecosistema és el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells." },
+      { q: "Per quina raó la Terra és l'únic planeta que coneixem on hi ha vida?", opts: ["Perquè és el planeta més gran","Perquè té unes condicions especials que permeten variacions de temperatura, llum i humitat adequades","Perquè és el planeta més pròxim al Sol","Perquè no té satèl·lits"], answer: 1, explanation: "La Terra és l'únic planeta que coneixem on hi ha vida perquè té unes condicions especials (distància del Sol, mida i moviments), que permeten que hi hagi les variacions de temperatura, de llum i d'humitat necessàries." },
+      { q: "Quin dels següents és un exemple d'ecosistema?", opts: ["Una roca","Un núvol","Un alzinar","Un planeta"], answer: 2, explanation: "Un alzinar, una bassa o la sabana són exemples d'ecosistemes." },
+      { q: "Quines condicions té el medi aquàtic comparades amb el medi terrestre?", opts: ["Condicions molt canviants amb grans variacions de temperatura","Condicions força constants, amb poques variacions de temperatura, però menys llum","Condicions molt seques","Temperatures extremadament altes"], answer: 1, explanation: "Les condicions del medi aquàtic són força constants, amb poques variacions de temperatura, encara que hi ha menys llum que al medi terrestre." },
+      { q: "Per quin motiu els animals terrestres tenen pell gruixuda, pèls o plomes?", opts: ["Per volar millor","Per evitar la pèrdua d'aigua del cos i mantenir la temperatura constant","Per defensar-se dels depredadors","Per nedar millor"], answer: 1, explanation: "Les condicions del medi terrestre han fet que els animals tinguin mecanismes per a evitar la pèrdua d'aigua del seu cos i per a mantenir la temperatura constant (pells gruixudes, pèls o plomes, etc.)." },
+      { q: "Quina adaptació han desenvolupat les plantes del medi terrestre per obtenir l'aigua del sòl?", opts: ["Han creat fulles molt grans","Han desenvolupat sistemes d'arrels complexos","Han reduït la seva mida","Han canviat de color"], answer: 1, explanation: "Les condicions del medi terrestre han fet que les plantes hagin desenvolupat sistemes d'arrels complexos per a captar l'aigua del sòl." },
+      { q: "Quina adaptació presenten els organismes que viuen al medi aquàtic?", opts: ["Presenten ales per volar","Presenten adaptacions en la forma del cos per facilitar el desplaçament en l'aigua","Presenten pell molt gruixuda","Presenten molts pèls"], answer: 1, explanation: "Els organismes que viuen al medi aquàtic presenten adaptacions en la forma del seu cos per a facilitar el desplaçament en l'aigua." },
+      { q: "Fins a quina profunditat podem trobar éssers vius al medi aquàtic?", opts: ["Només a la superfície","Fins a 10 metres de profunditat","Grans profunditats","Fins al fons de sorra"], answer: 2, explanation: "El medi aquàtic ocupa la major part de la superfície terrestre i és habitat pels éssers vius des de la superfície fins a grans profunditats." },
+      { q: "Quin efecte té qualsevol canvi en un element d'un ecosistema?", opts: ["Afecta només aquell element","Repercuteix en tots els altres elements","No té cap efecte","Millora l'ecosistema"], answer: 1, explanation: "Tots els éssers vius d'un ecosistema mantenen estretes relacions entre ells. Qualsevol canvi en algun dels elements de l'ecosistema repercuteix en els altres." },
+      { q: "Quins dos grans tipus de medi podem distingir per als éssers vius?", opts: ["Medi fred i medi càlid","Medi aquàtic i medi terrestre","Medi humit i medi sec","Medi interior i medi exterior"], answer: 1, explanation: "El fet que una part de la superfície terrestre és coberta d'aigua i la resta no, delimita dos grans grups de comunitats d'éssers vius: els que viuen en un medi aquàtic i els que viuen en un medi terrestre." },
+      { q: "Quines parts de la Terra inclou la biosfera?", opts: ["Només la hidrosfera","Només l'atmosfera","La hidrosfera, part de la litosfera i la part inferior de l'atmosfera","Tota l'atmosfera i tota la litosfera"], answer: 2, explanation: "La biosfera inclou la hidrosfera, part de la litosfera i la part inferior de l'atmosfera, que són les parts de la Terra on es donen les condicions perquè hi hagi la vida." },
+      { q: "Quines condicions especials de la Terra permeten que hi hagi la vida?", opts: ["La seva mida i el color de la superfície","La distància del Sol, la mida i els moviments de rotació i translació","El nombre de satèl·lits que té","La velocitat a la qual gira"], answer: 1, explanation: "La Terra té unes condicions especials (la seva distància del Sol, la seva mida i els moviments de rotació i translació), que permeten que hi hagi les variacions de temperatura, de llum i d'humitat necessàries." },
+      { q: "Per qué el medi terrestre ha obligat els animals a desenvolupar adaptacions especials?", opts: ["Perquè al medi terrestre no hi ha menjar","Perquè les condicions del medi terrestre són més canviants (temperatura, disponibilitat d'aigua, varietat de sòls)","Perquè el medi terrestre té massa llum","Perquè la gravetat és molt forta al medi terrestre"], answer: 1, explanation: "El medi terrestre té unes condicions més canviants que l'aquàtic, quant a temperatura, disponibilitat d'aigua o varietat de sòls. Aquestes condicions han fet que els éssers vius desenvolupin adaptacions." },
+      { q: "Quin dels següents és un exemple de medi aquàtic d'aigua dolça?", opts: ["El mar Mediterrani","L'oceà Atlàntic","Un riu o un llac","Un corall marí"], answer: 2, explanation: "Podem distingir entre medis aquàtics marins i medis aquàtics d'aigua dolça. Un riu o un llac seria un exemple de medi aquàtic d'aigua dolça." },
+      { q: "Per qué les comunitats d'éssers vius varien d'un lloc a un altre?", opts: ["Perquè els éssers vius es mouen constantment","Perquè les comunitats depenen de les condicions de l'espai on viuen","Perquè cada espècie tria on vol viure sense cap motiu","Perquè la llum del Sol és diferent a cada lloc"], answer: 1, explanation: "En qualsevol lloc de la Terra trobem grups d'éssers vius. Aquests grups són diferents segons les condicions de l'espai on viuen." },
+      { q: "Quin dels elements següents és part de l'ecosistema, a més dels éssers vius?", opts: ["El sistema solar","El medi ambient del lloc","Les roques de l'interior de la Terra","L'atmosfera a gran altura"], answer: 1, explanation: "Un ecosistema és el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells." },
+      { q: "Com pot arribar a ser de gran un ecosistema?", opts: ["Màxim com un bosc","Sempre ocupa la mateixa extensió","Pot arribar fins al gran ecosistema que és la Terra sencera","Màxim com un país"], answer: 2, explanation: "Els ecosistemes poden ocupar extensions molt diferents i alhora formar part d'unitats més grans, fins a arribar al gran ecosistema que és la Terra." },
+      { q: "Quina és la principal diferència entre el medi aquàtic i el medi terrestre pel que fa a la llum?", opts: ["Al medi terrestre hi ha menys llum que a l'aquàtic","Al medi aquàtic hi ha menys llum que al medi terrestre","En els dos medis hi ha la mateixa quantitat de llum","La llum no influeix en cap dels dos medis"], answer: 1, explanation: "Les condicions del medi aquàtic són força constants, amb poques variacions de temperatura, encara que hi ha menys llum que al medi terrestre." },
+      { q: "Quina part de la superfície terrestre ocupa el medi aquàtic?", opts: ["Una petita part","Aproximadament la meitat","La major part","Gairebé tot"], answer: 2, explanation: "El medi aquàtic ocupa la major part de la superfície terrestre i és habitat pels éssers vius des de la superfície fins a grans profunditats." },
+      { q: "Quin exemple d'ecosistema del temari es troba a l'Àfrica?", opts: ["Un alzinar","Una bassa","La sabana","Un bosc de pins"], answer: 2, explanation: "Un alzinar, una bassa o la sabana són exemples d'ecosistemes. La sabana és un tipus de paisatge de la biosfera." }
     ]
   }
 };
