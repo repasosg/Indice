@@ -118,11 +118,13 @@
   .nav-btn[data-topic="agua"].active   { background: #1a5276; border-color: #5dade2; color: #d6eaf8; }
   .nav-btn[data-topic="relleu"].active { background: #784212; border-color: #e59866; color: #fdebd0; }
   .nav-btn[data-topic="biosfera"].active { background: #1e5631; border-color: #58d68d; color: #d5f5e3; }
+  .nav-btn[data-topic="terra"].active    { background: #7b2d00; border-color: #e07b39; color: #fde8d8; }
 
   .nav-btn[data-topic="astres"]:hover   { background: rgba(108,52,131,0.4); }
   .nav-btn[data-topic="agua"]:hover     { background: rgba(26,82,118,0.4); }
   .nav-btn[data-topic="relleu"]:hover   { background: rgba(120,66,18,0.4); }
   .nav-btn[data-topic="biosfera"]:hover { background: rgba(30,86,49,0.4); }
+  .nav-btn[data-topic="terra"]:hover    { background: rgba(123,45,0,0.4); }
 
   /* MAIN */
   main {
@@ -216,6 +218,7 @@
   .badge-agua     { background: rgba(26,82,118,0.4);  border: 2px solid #5dade2; }
   .badge-relleu   { background: rgba(120,66,18,0.4);  border: 2px solid #e59866; }
   .badge-biosfera { background: rgba(30,86,49,0.4);   border: 2px solid #58d68d; }
+  .badge-terra    { background: rgba(123,45,0,0.4);   border: 2px solid #e07b39; }
 
   .score-display {
     margin-left: auto;
@@ -502,6 +505,7 @@
       <button class="nav-btn" data-topic="agua" onclick="startTopic('agua')">💧 L'Aigua</button>
       <button class="nav-btn" data-topic="relleu" onclick="startTopic('relleu')">⛰️ El Relleu</button>
       <button class="nav-btn" data-topic="biosfera" onclick="startTopic('biosfera')">🌿 La Biosfera</button>
+      <button class="nav-btn" data-topic="terra" onclick="startTopic('terra')">🌋 La Terra per dins</button>
     </nav>
   </div>
 </header>
@@ -528,6 +532,10 @@
       <div class="topic-card" onclick="startTopic('biosfera')">
         <span class="icon">🌿</span>
         <span class="name">La Biosfera</span>
+      </div>
+      <div class="topic-card" onclick="startTopic('terra')">
+        <span class="icon">🌋</span>
+        <span class="name">La Terra per dins</span>
       </div>
     </div>
   </div>
@@ -768,6 +776,39 @@ const topics = {
       { q: "Quins moviments de la Terra contribueixen a crear les condicions necessàries per a la vida?", opts: ["La precesió i la nutació","La rotació i la translació","La rotació i la revolució solar","La traslació i la precessió"], answer: 1, explanation: "La Terra té unes condicions especials (la seva distància del Sol, la seva mida i els moviments de rotació i translació), que permeten que hi hagi les variacions de temperatura, de llum i d'humitat necessàries per a la vida." },
       { q: "En quin tipus d'ecosistema viuen els éssers vius dels medis aquàtics marins?", opts: ["En rius, llacs i estanys","En mars i oceans","En aiguamolls i basses","En fonts i deus"], answer: 1, explanation: "Podem distingir entre medis aquàtics marins (mars i oceans) i medis aquàtics d'aigua dolça. Els éssers vius del medi aquàtic marí viuen en mars i oceans." },
       { q: "Per qué els éssers vius necessiten relacionar-se amb el medi ambient del lloc on viuen?", opts: ["Per raons decoratives","Perquè el medi ambient forma part de l'ecosistema juntament amb els éssers vius i les seves relacions","Perquè el medi ambient els proporciona únicament refugi","Perquè sense medi ambient els éssers vius no es poden moure"], answer: 1, explanation: "Un ecosistema és el conjunt que formen els éssers vius i el medi ambient d'un lloc determinat i les relacions que estableixen entre ells. Tots dos elements, éssers vius i medi ambient, formen part del mateix sistema." }
+    ]
+  },
+
+  terra: {
+    name: "La Terra per dins",
+    icon: "🌋",
+    color: "terra",
+    questions: [
+      { q: "Com és l'interior de la Terra, uniforme com una bola de vidre?", opts: ["Sí, és completament uniforme","No, té capes molt diferents amb materials i temperatures diverses","Sí, però canvia cada milió d'anys","No, però té el mateix material a tot arreu"], answer: 1, explanation: "La Terra, el planeta que trepitgem, no és uniforme per dins com ho pot ser una bola de vidre. Si poguéssim fer un viatge al seu interior descobriríem que, a més d'augmentar la temperatura, els materials que anéssim travessant serien molt diferents." },
+      { q: "Com s'anomenen les capes que formen l'interior de la Terra?", opts: ["Capes paral·leles","Capes concèntriques","Capes horitzontals","Capes irregulars"], answer: 1, explanation: "La Terra està formada en capes concèntriques. De dins cap a fora són: el nucli, el mantell i l'escorça." },
+      { q: "Quines són les capes de la Terra de dins cap a fora?", opts: ["Escorça, mantell i nucli","Nucli, escorça i mantell","Nucli, mantell i escorça","Mantell, nucli i escorça"], answer: 2, explanation: "La Terra està formada en capes concèntriques. De dins cap a fora són: nucli, mantell i escorça." },
+      { q: "De quins metalls està format principalment el nucli de la Terra?", opts: ["Or i plata","Coure i zinc","Ferro i níquel","Alumini i titani"], answer: 2, explanation: "El nucli està format principalment pels metalls ferro i níquel." },
+      { q: "Per quina raó el nucli intern de la Terra és sòlid malgrat les altíssimes temperatures?", opts: ["Perquè no hi arriba la calor","Perquè la pressió és molt gran i fa augmentar la temperatura de fusió del metall","Perquè el ferro i el níquel no es fonen mai","Perquè és molt lluny del nucli extern"], answer: 1, explanation: "El nucli intern, malgrat estar a temperatures fins a 3.000 °C, està en estat sòlid perquè la pressió és també molt més gran i això fa que la temperatura de fusió del metall augmenti." },
+      { q: "En quin estat es troba el nucli extern de la Terra?", opts: ["Sòlid","Gasós","Líquid","Plàstic"], answer: 2, explanation: "El nucli extern es troba en estat líquid degut a les elevadíssimes temperatures que hi ha." },
+      { q: "Fins a quina temperatura aproximada pot arribar el nucli intern de la Terra?", opts: ["300 °C","1.000 °C","3.000 °C","10.000 °C"], answer: 2, explanation: "El nucli intern, malgrat estar a temperatures fins a 3.000 °C, està en estat sòlid per la gran pressió que hi ha." },
+      { q: "De quins elements estan fetes les roques del mantell?", opts: ["Principalment d'or i plata","Roques molt fosques, riques en silici, magnesi i ferro","Principalment de calcari i argila","Roques clares riques en quars"], answer: 1, explanation: "El mantell té una composició ja més semblant a la d'algunes roques: serien roques molt fosques, riques en silici, magnesi i ferro." },
+      { q: "Quantes parts es diferencien al mantell de la Terra?", opts: ["Una sola capa","Dues capes: mantell intern i mantell extern","Tres capes","Quatre capes"], answer: 1, explanation: "Al mantell hi distingim dues capes: el mantell intern, sòlid i en contacte amb el nucli, i el mantell extern, que si bé és sòlid, té una capa plàstica anomenada astenosfera." },
+      { q: "Com s'anomena la capa plàstica del mantell extern?", opts: ["La litosfera","La biosfera","L'astenosfera","L'escorça"], answer: 2, explanation: "El mantell extern, si bé és sòlid, té una capa plàstica (una mica com l'argila): l'astenosfera. Asthenos vol dir 'tou' en grec." },
+      { q: "Qué significa la paraula 'asthenos' d'on prové el nom 'astenosfera'?", opts: ["Dur","Tou","Calent","Profund"], answer: 1, explanation: "Asthenos vol dir 'tou' en grec. L'astenosfera és la capa plàstica del mantell extern, que es comporta una mica com l'argila." },
+      { q: "Quin és el comportament de l'astenosfera, a quin material quotidià s'assembla?", opts: ["Al vidre trencat","Al metall fos","A l'argila","A la pedra seca"], answer: 2, explanation: "L'astenosfera és una capa plàstica (una mica com l'argila: asthenos vol dir tou en grec) que forma part del mantell extern." },
+      { q: "Amb quina capa de la Terra es troba en contacte el mantell intern?", opts: ["Amb l'escorça","Amb el nucli","Amb l'astenosfera","Amb la litosfera"], answer: 1, explanation: "El mantell intern és sòlid i està en contacte amb el nucli." },
+      { q: "De qué està formada l'escorça terrestre?", opts: ["De metalls fosos","De gasos comprimits","De les roques que podem veure","De gel i aigua"], answer: 2, explanation: "L'escorça està formada per les roques que podem veure." },
+      { q: "Com s'anomena la capa formada per l'escorça terrestre més la part superior sòlida del mantell?", opts: ["L'astenosfera","La biosfera","La hidrosfera","La litosfera"], answer: 3, explanation: "L'escorça, juntament amb la part superior sòlida del mantell (just la que està sobre l'astenosfera) forma la litosfera." },
+      { q: "Quina capa de la Terra és la que es troba just sobre l'astenosfera i forma part de la litosfera?", opts: ["El nucli extern","El mantell intern","La part superior sòlida del mantell extern","L'escorça profunda"], answer: 2, explanation: "La litosfera inclou l'escorça i la part superior sòlida del mantell, just la que està sobre l'astenosfera." },
+      { q: "Qué passa amb la temperatura a mesura que ens endinsem a l'interior de la Terra?", opts: ["Disminueix progressivament","Es manté constant","Augmenta","Primer augmenta i després baixa"], answer: 2, explanation: "Si poguéssim fer un viatge a l'interior de la Terra descobriríem que, a més d'augmentar la temperatura, els materials que anéssim travessant serien molt diferents." },
+      { q: "Quin paper fan la litosfera i l'astenosfera a la superfície de la Terra?", opts: ["Protegir la Terra del sol","Jugar un trencaclosques permanent responsable de l'activitat sísmica i volcànica","Mantenir la temperatura constant","Generar l'atmosfera terrestre"], answer: 1, explanation: "La litosfera i l'astenosfera juguen un trencaclosques permanent a la superfície de la Terra, responsable de l'activitat sísmica i volcànica de la nostra Terra." },
+      { q: "Quin fenomen natural és conseqüència del moviment de la litosfera sobre l'astenosfera?", opts: ["Les marees i les corrents oceàniques","L'activitat sísmica (terratrèmols) i volcànica","Les estacions de l'any","El cicle de l'aigua"], answer: 1, explanation: "Litosfera i astenosfera juguen un trencaclosques permanent a la superfície de la Terra, responsable de l'activitat sísmica i volcànica de la nostra Terra." },
+      { q: "Com han après els científics com és l'interior de la Terra?", opts: ["Hi han anat directament en submarins especials","Excavant túnels fins al nucli","Estudiant l'interior a partir de pistes indirectes, sense veure'l mai directament","Amb telescopis especials"], answer: 2, explanation: "Després d'anys i anys d'estudiar l'interior de la Terra a partir de totes les pistes que tenim al nostre voltant (sense veure'l, perquè no hi hem anat mai), tenim una idea de què hi ha sota el terra que trepitgem." },
+      { q: "Quina és la capa més exterior de la Terra?", opts: ["El nucli","El mantell intern","El mantell extern","L'escorça"], answer: 3, explanation: "Les capes de la Terra de dins cap a fora són: nucli, mantell i escorça. L'escorça és la capa més exterior." },
+      { q: "Quina és la capa més interior de la Terra?", opts: ["L'escorça","El mantell","El nucli","L'astenosfera"], answer: 2, explanation: "Les capes de la Terra de dins cap a fora són: nucli, mantell i escorça. El nucli és la capa més interior." },
+      { q: "En quin estat es troben les roques que surten pels volcans en forma de lava?", opts: ["Sòlid","Gasós","Foses (estat líquid)","Plàstic dur"], answer: 2, explanation: "A l'interior de la Terra hi trobem roques foses com les que surten pels volcans en forma de lava." },
+      { q: "Quin dels dos nuclis de la Terra és el més profund?", opts: ["El nucli extern, perquè és el més gran","El nucli intern, perquè és el més al centre","Tots dos estan a la mateixa profunditat","L'escorça és la part més calenta"], answer: 1, explanation: "El nucli intern és la part més profunda i central de la Terra. Malgrat estar a temperatures fins a 3.000 °C, és sòlid per l'enorme pressió. El nucli extern l'envolta i és líquid." },
+      { q: "Quin és l'ordre correcte de les subcapes de la Terra, de la més interna a la més externa?", opts: ["Escorça → mantell extern → mantell intern → nucli extern → nucli intern","Nucli intern → nucli extern → mantell intern → mantell extern (astenosfera) → escorça","Mantell intern → nucli → astenosfera → escorça","Nucli extern → nucli intern → escorça → mantell"], answer: 1, explanation: "L'ordre de dins cap a fora és: nucli intern, nucli extern, mantell intern, mantell extern (amb l'astenosfera), i finalment l'escorça. L'escorça i la part superior del mantell formen la litosfera." }
     ]
   }
 };
