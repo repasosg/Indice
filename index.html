@@ -1,449 +1,381 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal Educativo 5º de Primaria - Recursos de Aprendizaje</title>
+<title>Portal de Repàs 5è de Primària</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --cream:   #FFFBF0;
+  --ink:     #2D2A3E;
+  --dim:     #7A7590;
+  --castella: #FF6B6B;
+  --catala:   #20C997;
+  --english:  #4D96FF;
+  --mates:    #FFB347;
+  --medi:     #6BCB77;
+  --exam-a:   #FF416C;
+  --exam-b:   #FF4B2B;
 }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
   min-height: 100vh;
-  padding: 20px;
+  overflow-x: hidden;
 }
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-header {
-  text-align: center;
-  color: white;
-  margin-bottom: 50px;
-  animation: fadeInDown 0.8s ease;
-}
-h1 {
-  font-size: 3em;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-.subtitle {
-  font-size: 1.2em;
-  opacity: 0.9;
-}
-.highlight-section {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-radius: 20px;
-  padding: 40px;
-  margin-bottom: 40px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-  animation: fadeInUp 0.8s ease;
-}
-.highlight-section h2 {
-  color: white;
-  font-size: 2.2em;
-  margin-bottom: 20px;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-}
-.exam-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
-}
-.category {
-  background: white;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  animation: fadeInUp 0.8s ease;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.category:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-.category h2 {
-  color: #667eea;
-  font-size: 1.8em;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.icon {
-  font-size: 1.5em;
-}
-.links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.link-button {
-  display: block;
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.link-button.exam {
-  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
-  font-size: 1.1em;
-  padding: 18px 20px;
-}
-.link-button:before {
+body::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.2);
-  transition: left 0.3s ease;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, #d0cce0 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  opacity: 0.4;
 }
-.link-button:hover:before {
-  left: 100%;
+.page {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px;
 }
-.link-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+/* ── Header ── */
+header {
+  text-align: center; padding: 16px 0 36px;
+  animation: popIn .7s cubic-bezier(.36,1.6,.5,1) both;
 }
-.empty-state {
-  text-align: center;
-  color: white;
-  padding: 30px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  border: 2px dashed rgba(255,255,255,0.3);
-}
-.empty-state p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-}
-/* Chatbot Styles */
-.chatbot-button {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-  z-index: 1000;
-  animation: pulse 2s infinite;
-}
-.chatbot-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
-  50%       { box-shadow: 0 5px 30px rgba(102, 126, 234, 0.8); }
-}
-.chatbot-container {
-  position: fixed;
-  bottom: 100px;
-  right: 30px;
-  width: 380px;
-  height: 550px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-  display: none;
-  flex-direction: column;
-  z-index: 999;
-  overflow: hidden;
-  animation: slideUp 0.3s ease;
-}
-.chatbot-container.active { display: flex; }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-.chatbot-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.chatbot-header h3 {
-  font-size: 1.2em;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.close-chat {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background 0.3s ease;
-}
-.close-chat:hover { background: rgba(255,255,255,0.2); }
-.chatbot-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  background: #f5f5f5;
-}
-.message { margin-bottom: 15px; animation: fadeIn 0.3s ease; }
-.message.bot  { display: flex; gap: 10px; }
-.message.user { display: flex; justify-content: flex-end; }
-.message-content {
-  max-width: 80%;
-  padding: 12px 16px;
-  border-radius: 15px;
-  word-wrap: break-word;
-}
-.message.bot .message-content {
-  background: white;
-  border-bottom-left-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.message.user .message-content {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-bottom-right-radius: 5px;
-}
-.bot-avatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-.suggested-link {
+.tag {
   display: inline-block;
-  margin-top: 8px;
-  padding: 8px 15px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--ink); color: var(--cream);
+  font-family: 'Fredoka One', cursive;
+  font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 18px; border-radius: 30px; margin-bottom: 14px;
+}
+header h1 {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  line-height: 1.1; margin-bottom: 10px;
+  background: linear-gradient(135deg, #FF416C, #a855f7, #4D96FF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+header p { color: var(--dim); font-size: 1.05rem; font-weight: 700; }
+
+/* ── BANNER proper examen ── */
+.banner {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--exam-a), var(--exam-b));
+  border-radius: 28px; padding: 38px 44px;
+  box-shadow: 0 14px 44px rgba(255,65,108,.35);
+  margin-bottom: 44px;
+  animation: popIn .6s .08s cubic-bezier(.36,1.6,.5,1) both;
+}
+.banner::before {
+  content: ''; position: absolute; top: -50px; right: -50px;
+  width: 240px; height: 240px;
+  background: rgba(255,255,255,.08); border-radius: 50%;
+}
+.banner::after {
+  content: ''; position: absolute; bottom: -70px; left: 8%;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,.05); border-radius: 50%;
+}
+.banner-pill {
+  display: inline-block;
+  background: rgba(255,255,255,.25); color: white;
+  font-family: 'Fredoka One', cursive;
+  font-size: .82rem; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 30px; margin-bottom: 16px;
+}
+.banner h2 {
+  color: white; font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+  text-shadow: 0 2px 8px rgba(0,0,0,.2); margin-bottom: 7px;
+}
+.banner-sub {
+  color: rgba(255,255,255,.85); font-size: .95rem; font-weight: 700; margin-bottom: 26px;
+}
+.banner-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; color: var(--exam-a);
+  font-family: 'Fredoka One', cursive; font-size: 1.05rem;
+  padding: 13px 30px; border-radius: 50px; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,.15);
+  transition: transform .25s, box-shadow .25s;
+}
+.banner-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 8px 30px rgba(0,0,0,.22); }
+.banner-emoji {
+  font-size: 4rem; position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.2));
+}
+@media(max-width:580px){ .banner-emoji { display:none; } .banner { padding:28px 24px; } }
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* ── Card ── */
+.card {
+  background: white; border-radius: 22px; overflow: hidden;
+  box-shadow: 0 4px 22px rgba(0,0,0,.08);
+  transition: transform .3s, box-shadow .3s;
+  animation: popIn .5s cubic-bezier(.36,1.6,.5,1) both;
+}
+.card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,.14); }
+.card:nth-child(1){ animation-delay:.06s }
+.card:nth-child(2){ animation-delay:.11s }
+.card:nth-child(3){ animation-delay:.16s }
+.card:nth-child(4){ animation-delay:.21s }
+.card:nth-child(5){ animation-delay:.26s }
+
+.card-header {
+  padding: 22px 24px 18px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 3px solid var(--subj-color);
+}
+.card-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: var(--subj-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+.card-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem; color: var(--subj-color);
+}
+.card-body { padding: 0 20px 22px; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+
+/* Per-subject theming via custom props on each card */
+.card[data-s="castella"] { --subj-color: var(--castella); --subj-bg: #FFEDED; --subj-btn: var(--castella); --subj-txt: white; }
+.card[data-s="catala"]   { --subj-color: var(--catala);   --subj-bg: #E6FAF5; --subj-btn: var(--catala);   --subj-txt: white; }
+.card[data-s="english"]  { --subj-color: var(--english);  --subj-bg: #E8F2FF; --subj-btn: var(--english);  --subj-txt: white; }
+.card[data-s="mates"]    { --subj-color: var(--mates);    --subj-bg: #FFF5E6; --subj-btn: var(--mates);    --subj-txt: #2D2A3E; }
+.card[data-s="medi"]     { --subj-color: var(--medi);     --subj-bg: #EDFAEF; --subj-btn: var(--medi);     --subj-txt: #2D2A3E; }
+
+/* Link button — inherits subject color */
+.lbtn {
+  display: block;
+  padding: 13px 40px 13px 18px;
+  border-radius: 12px;
   text-decoration: none;
-  border-radius: 8px;
-  font-size: 0.9em;
-  transition: all 0.3s ease;
+  font-weight: 800; font-size: .91rem;
+  text-align: left;
+  color: var(--subj-txt);
+  background: var(--subj-btn);
+  transition: transform .2s, filter .2s, box-shadow .2s;
+  position: relative; overflow: hidden;
 }
-.suggested-link:hover { transform: scale(1.05); box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
-.quick-options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.quick-option {
-  padding: 8px 12px;
-  background: white;
-  border: 2px solid #667eea;
-  color: #667eea;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.85em;
-  transition: all 0.3s ease;
+.lbtn::after {
+  content: '→';
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 1rem; opacity: .65;
+  transition: right .2s, opacity .2s;
 }
-.quick-option:hover { background: #667eea; color: white; }
-.chatbot-input {
-  display: flex;
-  padding: 15px;
-  background: white;
-  border-top: 1px solid #e0e0e0;
-  gap: 10px;
-}
-.chatbot-input input {
-  flex: 1;
-  padding: 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 25px;
-  outline: none;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-.chatbot-input input:focus { border-color: #667eea; }
-.chatbot-input button {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  transition: all 0.3s ease;
-}
-.chatbot-input button:hover  { transform: scale(1.1); }
-.chatbot-input button:disabled { opacity: 0.5; cursor: not-allowed; }
-.typing-indicator {
-  display: flex;
-  gap: 5px;
-  padding: 12px 16px;
-  background: white;
-  border-radius: 15px;
-  width: fit-content;
-}
-.typing-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #667eea;
-  animation: typing 1.4s infinite;
-}
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing {
-  0%, 60%, 100% { transform: translateY(0);     }
-  30%           { transform: translateY(-10px); }
-}
+.lbtn:hover { transform: translateX(4px); filter: brightness(1.07); box-shadow: 0 4px 18px rgba(0,0,0,.14); }
+.lbtn:hover::after { right: 10px; opacity: 1; }
+
+/* ── Footer ── */
 footer {
-  text-align: center;
-  color: white;
-  margin-top: 50px;
-  opacity: 0.8;
-  animation: fadeIn 1s ease;
+  text-align: center; color: var(--dim);
+  font-size: .88rem; font-weight: 700; margin-top: 52px;
+  animation: popIn .5s .45s both;
 }
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0);     }
+
+/* ── Animations ── */
+@keyframes popIn {
+  from { opacity: 0; transform: scale(.93) translateY(14px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);    }
 }
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0);    }
+
+/* ── Chatbot ── */
+.chat-btn {
+  position: fixed; bottom: 28px; right: 28px; z-index: 1000;
+  width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: white; font-size: 26px;
+  box-shadow: 0 6px 24px rgba(168,85,247,.45);
+  transition: transform .3s, box-shadow .3s;
+  animation: chatPulse 2.5s infinite;
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.chat-btn:hover { transform: scale(1.12); }
+@keyframes chatPulse {
+  0%,100%{ box-shadow: 0 6px 24px rgba(168,85,247,.45); }
+  50%    { box-shadow: 0 6px 36px rgba(168,85,247,.75); }
 }
-@media (max-width: 768px) {
-  h1 { font-size: 2em; }
-  .categories { grid-template-columns: 1fr; }
-  .highlight-section { padding: 25px; }
-  .highlight-section h2 { font-size: 1.8em; }
-  .chatbot-container { width: calc(100% - 40px); right: 20px; bottom: 90px; height: 500px; }
-  .chatbot-button { right: 20px; bottom: 20px; }
+.chat-box {
+  position: fixed; bottom: 100px; right: 28px; z-index: 999;
+  width: 360px; height: 520px; background: white;
+  border-radius: 24px; box-shadow: 0 12px 48px rgba(0,0,0,.22);
+  display: none; flex-direction: column; overflow: hidden;
 }
+.chat-box.open { display: flex; animation: slideUp .3s ease; }
+@keyframes slideUp {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0);    }
+}
+.chat-head {
+  background: linear-gradient(135deg, #a855f7, #6366f1); padding: 18px 20px;
+  color: white; display: flex; justify-content: space-between; align-items: center;
+}
+.chat-head h3 { font-family: 'Fredoka One', cursive; font-size: 1.1rem; }
+.chat-close {
+  background: rgba(255,255,255,.2); border: none; color: white; cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-msgs {
+  flex: 1; overflow-y: auto; padding: 18px; background: #f8f7ff;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.msg { display: flex; gap: 8px; animation: popIn .2s; }
+.msg.user { flex-direction: row-reverse; }
+.msg-bubble {
+  max-width: 80%; padding: 11px 14px; border-radius: 16px;
+  font-size: .88rem; line-height: 1.55;
+}
+.msg.bot  .msg-bubble { background: white; box-shadow: 0 2px 8px rgba(0,0,0,.08); border-bottom-left-radius: 4px; }
+.msg.user .msg-bubble { background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border-bottom-right-radius: 4px; }
+.avatar { width:32px; height:32px; border-radius:50%; background: linear-gradient(135deg, #a855f7, #6366f1); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.qopts { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.qopt {
+  padding:6px 12px; background:#f0eeff; border:2px solid #c4b5fd;
+  color:#7c3aed; border-radius:20px; font-size:.78rem; font-weight:700; cursor:pointer;
+  transition:all .2s;
+}
+.qopt:hover { background:#a855f7; color:white; border-color:#a855f7; }
+.chat-link {
+  display:inline-block; margin-top:8px; padding:7px 14px;
+  background:linear-gradient(135deg,#a855f7,#6366f1);
+  color:white; text-decoration:none; border-radius:10px; font-size:.85rem; font-weight:700;
+  transition:transform .2s;
+}
+.chat-link:hover { transform:scale(1.04); }
+.chat-foot {
+  padding:12px 14px; background:white; border-top:1px solid #ede9fe;
+  display:flex; gap:8px;
+}
+.chat-foot input {
+  flex:1; padding:10px 14px; border:2px solid #ede9fe; border-radius:20px;
+  outline:none; font-family:'Nunito',sans-serif; font-size:.9rem; transition:border-color .2s;
+}
+.chat-foot input:focus { border-color:#a855f7; }
+.chat-send {
+  width:42px; height:42px; border-radius:50%; border:none; cursor:pointer;
+  background:linear-gradient(135deg,#a855f7,#6366f1); color:white; font-size:18px; transition:transform .2s;
+}
+.chat-send:hover { transform:scale(1.1); }
+.chat-send:disabled { opacity:.5; cursor:not-allowed; }
+.typing { display:flex; gap:4px; padding:10px 14px; background:white; border-radius:16px; width:fit-content; }
+.dot { width:7px; height:7px; border-radius:50%; background:#a855f7; animation:bounce 1.3s infinite; }
+.dot:nth-child(2){ animation-delay:.2s } .dot:nth-child(3){ animation-delay:.4s }
+@keyframes bounce { 0%,60%,100%{ transform:translateY(0) } 30%{ transform:translateY(-8px) } }
+@media(max-width:480px){ .chat-box{ width:calc(100vw - 32px); right:16px; } .chat-btn{ right:16px; bottom:16px; } }
 </style>
 </head>
 <body>
-
-<div class="container">
+<div class="page">
 
   <header>
-    <h1>🎓 Portal Educativo 5º de Primaria</h1>
-    <p class="subtitle">Recursos interactivos de aprendizaje</p>
+    <div class="tag">5è de Primària · Curs 2024–25</div>
+    <h1>📚 Portal de Repàs</h1>
+    <p>Tots els recursos per preparar els exàmens en un sol lloc 🚀</p>
   </header>
 
-  <!-- ===== PRÓXIMOS EXÁMENES ===== -->
-  <section class="highlight-section">
-    <h2>📝 Próximos Exámenes</h2>
-    <div class="exam-links">
-      <a href="mates_fracciones_media_rango.html" class="link-button exam">
-        📊 EXAMEN DE MATES – Fraccions i Estadística (Media, Moda, Mediana, Rang)
-      </a>
-    </div>
+  <!-- BANNER PROPER EXAMEN -->
+  <section class="banner">
+    <div class="banner-pill">🔔 Proper examen</div>
+    <h2>Matemàtiques — Fraccions &amp; Estadística</h2>
+    <p class="banner-sub">Suma i resta de fraccions amb denominador diferent · Mitjana, Moda, Mediana i Rang</p>
+    <a href="mates_fracciones_media_rango.html" class="banner-btn">Practicar ara ✨</a>
+    <div class="banner-emoji">🧮</div>
   </section>
 
-  <!-- ===== COLECCIONS PER ASSIGNATURA ===== -->
-  <div class="categories">
+  <!-- TARGETES PER ASSIGNATURA -->
+  <div class="grid">
 
-    <!-- CASTELLANO -->
-    <div class="category">
-      <h2><span class="icon">🇪🇸</span> Castellano</h2>
-      <div class="links">
-        <a href="castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html" class="link-button">
-          Invitaciones, Sinónimos y más
+    <div class="card" data-s="castella">
+      <div class="card-header">
+        <div class="card-icon">🇪🇸</div>
+        <div class="card-title">Castellà</div>
+      </div>
+      <div class="card-body">
+        <a href="castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html" class="lbtn">
+          Invitacions, sinònims i més
         </a>
-        <a href="castellano_z_s_CC_texto_instructivo.html" class="link-button exam">
-          1r exam 2º TRIMESTRE Z,S,CC
+        <a href="castellano_z_s_CC_texto_instructivo.html" class="lbtn">
+          1r examen 2n trimestre · Z, S, CC
         </a>
       </div>
     </div>
 
-    <!-- CATALÀ -->
-    <div class="category">
-      <h2><span class="icon">🏴</span> Català</h2>
-      <div class="links">
-        <a href="catalan_determinantes_V_B_comic.html" class="link-button">
-          Determinants, V/B i Còmic
+    <div class="card" data-s="catala">
+      <div class="card-header">
+        <div class="card-icon">🏴</div>
+        <div class="card-title">Català</div>
+      </div>
+      <div class="card-body">
+        <a href="catalan_determinantes_V_B_comic.html" class="lbtn">
+          Determinants, V/B i còmic
         </a>
-        <a href="catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html" class="link-button">
-          Plural, Singular i Tipus de Noms
+        <a href="catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html" class="lbtn">
+          Plural, singular i tipus de noms
         </a>
-        <a href="catalan_verbs.html" class="link-button">
-          Verbs
+        <a href="catalan_verbs.html" class="lbtn">
+          Els verbs
         </a>
-        <a href="catalan_adjectiu_noticia_s_sorda_sonora.html" class="link-button exam">
-          1rExam 2ºTRIM. - La notícia, s sorda/sonora
+        <a href="catalan_adjectiu_noticia_s_sorda_sonora.html" class="lbtn">
+          1r examen 2n trimestre · La notícia, s sorda/sonora
         </a>
       </div>
     </div>
 
-    <!-- ENGLISH -->
-    <div class="category">
-      <h2><span class="icon">🇬🇧</span> English</h2>
-      <div class="links">
-        <a href="ingles_presentsimple_continuos.html" class="link-button">
-          Present Simple &amp; Continuous
+    <div class="card" data-s="english">
+      <div class="card-header">
+        <div class="card-icon">🇬🇧</div>
+        <div class="card-title">Anglès</div>
+      </div>
+      <div class="card-body">
+        <a href="ingles_presentsimple_continuos.html" class="lbtn">
+          Present simple &amp; continuous
         </a>
       </div>
     </div>
 
-    <!-- MATEMÀTIQUES -->
-    <div class="category">
-      <h2><span class="icon">🔢</span> Matemáticas</h2>
-      <div class="links">
-        <a href="mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html" class="link-button">
-          Decimales y Operaciones
+    <div class="card" data-s="mates">
+      <div class="card-header">
+        <div class="card-icon">🔢</div>
+        <div class="card-title">Matemàtiques</div>
+      </div>
+      <div class="card-body">
+        <a href="mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html" class="lbtn">
+          Decimals i operacions
         </a>
-        <a href="mates_diciembre.html" class="link-button">
-          Ejercicios de Diciembre
+        <a href="mates_diciembre.html" class="lbtn">
+          Exercicis de desembre
         </a>
-        <a href="mates_sumas_y_restas_rapidas.html" class="link-button">
-          Sumas y Restas Rápidas
+        <a href="mates_sumas_y_restas_rapidas.html" class="lbtn">
+          Sumes i restes ràpides
         </a>
-        <a href="Mates_primer_examen_segundo_trimestre.html" class="link-button">
-          Fracciones, Divisores, Primos, Múltiplos
+        <a href="Mates_primer_examen_segundo_trimestre.html" class="lbtn">
+          1r examen 2n trimestre · Fraccions, divisors, primers, múltiples
         </a>
-        <a href="mates_fracciones_media_rango.html" class="link-button exam">
-          Fraccions i Estadística (Media, Moda, Mediana, Rang)
+        <a href="mates_fracciones_media_rango.html" class="lbtn">
+          Fraccions i estadística (mitjana, moda, mediana, rang)
         </a>
       </div>
     </div>
 
-    <!-- MEDI -->
-    <div class="category">
-      <h2><span class="icon">🌍</span> Medi</h2>
-      <div class="links">
-        <a href="repas_ciencies.html" class="link-button exam">
-          1r exam 2º TRIMESTRE
+    <div class="card" data-s="medi">
+      <div class="card-header">
+        <div class="card-icon">🌍</div>
+        <div class="card-title">Medi</div>
+      </div>
+      <div class="card-body">
+        <a href="repas_ciencies.html" class="lbtn">
+          1r examen 2n trimestre
         </a>
       </div>
     </div>
@@ -451,172 +383,119 @@ footer {
   </div>
 
   <footer>
-    <p>© 2024 Portal Educativo 5º de Primaria - Todos los recursos en un solo lugar</p>
+    <p>© 2025 Portal de Repàs 5è de Primària · Fet amb 💜 per estudiar millor</p>
   </footer>
-
 </div>
 
-<!-- ===== CHATBOT ===== -->
-<button class="chatbot-button" onclick="toggleChat()">🤖</button>
+<!-- CHATBOT -->
+<button class="chat-btn" onclick="toggleChat()" title="Assistent d'estudi">🤖</button>
 
-<div class="chatbot-container" id="chatContainer">
-  <div class="chatbot-header">
-    <h3>🤖 Asistente de Estudio</h3>
-    <button class="close-chat" onclick="toggleChat()">✕</button>
+<div class="chat-box" id="chatBox">
+  <div class="chat-head">
+    <h3>🤖 Assistent d'estudi</h3>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
   </div>
-  <div class="chatbot-messages" id="chatMessages">
-    <div class="message bot">
-      <div class="bot-avatar">🤖</div>
-      <div class="message-content">
-        ¡Hola! Soy tu asistente de estudio. ¿Qué te gustaría practicar hoy?
-        <div class="quick-options">
-          <div class="quick-option" onclick="sendQuickMessage('Quiero practicar matemáticas')">🔢 Matemáticas</div>
-          <div class="quick-option" onclick="sendQuickMessage('Necesito ayuda con castellano')">🇪🇸 Castellano</div>
-          <div class="quick-option" onclick="sendQuickMessage('Practicar català')">🏴 Català</div>
-          <div class="quick-option" onclick="sendQuickMessage('Practicar inglés')">🇬🇧 English</div>
-          <div class="quick-option" onclick="sendQuickMessage('Estudiar medi')">🌍 Medi</div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="msg bot">
+      <div class="avatar">🤖</div>
+      <div class="msg-bubble">
+        Hola! Soc el teu assistent d'estudi. Què vols practicar avui?
+        <div class="qopts">
+          <span class="qopt" onclick="sendQ('Vull practicar matemàtiques')">🔢 Matemàtiques</span>
+          <span class="qopt" onclick="sendQ('Ajuda amb castellà')">🇪🇸 Castellà</span>
+          <span class="qopt" onclick="sendQ('Practicar català')">🏴 Català</span>
+          <span class="qopt" onclick="sendQ('Practicar anglès')">🇬🇧 Anglès</span>
+          <span class="qopt" onclick="sendQ('Estudiar medi')">🌍 Medi</span>
         </div>
       </div>
     </div>
   </div>
-  <div class="chatbot-input">
-    <input type="text" id="userInput" placeholder="Escribe tu pregunta..." onkeypress="handleKeyPress(event)">
-    <button onclick="sendMessage()" id="sendButton">➤</button>
+  <div class="chat-foot">
+    <input type="text" id="chatIn" placeholder="Escriu la teva pregunta..." onkeypress="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" id="chatSend" onclick="sendMsg()">➤</button>
   </div>
 </div>
 
 <script>
-const resources = {
-  castellano: [
-    { name: "Invitaciones, Sinónimos y más", url: "castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html", keywords: ["invitaciones", "sinónimos", "h", "tecnicismo", "adjetivos", "castellano", "lengua"] },
-    { name: "1r exam 2º TRIM. Z,S,CC", url: "castellano_z_s_CC_texto_instructivo.html", keywords: ["z", "s", "cc", "texto instructivo", "castellano"] }
+const db = {
+  castella:[
+    {name:"Invitacions, sinònims i més",     url:"castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html", kw:["invitacions","sinònims","h","tecnicisme","adjectius","castellà"]},
+    {name:"1r examen 2n trim. · Z, S, CC",   url:"castellano_z_s_CC_texto_instructivo.html",                       kw:["z","s","cc","text instructiu","castellà"]}
   ],
-  catalan: [
-    { name: "Determinants, V/B i Còmic", url: "catalan_determinantes_V_B_comic.html", keywords: ["determinantes", "v", "b", "comic", "català", "catalan"] },
-    { name: "Plural, Singular i Tipus de Noms", url: "catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html", keywords: ["plural", "singular", "noms", "nombres", "concret", "abstracte", "individual", "article", "català", "catalan"] },
-    { name: "Verbs", url: "catalan_verbs.html", keywords: ["verbs", "verbos", "català", "catalan"] },
-    { name: "La notícia, s sorda/sonora", url: "catalan_adjectiu_noticia_s_sorda_sonora.html", keywords: ["notícia", "noticia", "adjectiu", "adjetivo", "sorda", "sonora", "català"] }
+  catala:[
+    {name:"Determinants, V/B i còmic",        url:"catalan_determinantes_V_B_comic.html",                           kw:["determinants","v","b","còmic","català"]},
+    {name:"Plural, singular i tipus de noms", url:"catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html", kw:["plural","singular","noms","concret","abstracte","article","català"]},
+    {name:"Els verbs",                        url:"catalan_verbs.html",                                             kw:["verbs","català"]},
+    {name:"La notícia, s sorda/sonora",       url:"catalan_adjectiu_noticia_s_sorda_sonora.html",                   kw:["notícia","adjectiu","sorda","sonora","català"]}
   ],
-  ingles: [
-    { name: "Present Simple & Continuous", url: "ingles_presentsimple_continuos.html", keywords: ["present", "simple", "continuous", "inglés", "english", "ingles"] }
+  angles:[
+    {name:"Present simple & continuous",      url:"ingles_presentsimple_continuos.html",                            kw:["present","simple","continuous","anglès","english"]}
   ],
-  mates: [
-    { name: "Decimales y Operaciones", url: "mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html", keywords: ["decimales", "sumas", "conversiones", "multiplicaciones", "divisiones", "matemáticas", "mates", "operaciones"] },
-    { name: "Ejercicios de Diciembre", url: "mates_diciembre.html", keywords: ["diciembre", "matemáticas", "mates", "ejercicios"] },
-    { name: "Sumas y Restas Rápidas", url: "mates_sumas_y_restas_rapidas.html", keywords: ["sumas", "restas", "rápidas", "matemáticas", "mates", "cálculo mental"] },
-    { name: "Fracciones, Divisores, Primos, Múltiplos", url: "Mates_primer_examen_segundo_trimestre.html", keywords: ["fracciones", "divisores", "primos", "múltiplos", "matemáticas", "mates"] },
-    { name: "Fraccions i Estadística", url: "mates_fracciones_media_rango.html", keywords: ["fraccions", "fracciones", "estadística", "media", "moda", "mediana", "rango", "rang", "matemáticas", "mates"] }
+  mates:[
+    {name:"Decimals i operacions",             url:"mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html", kw:["decimals","sumes","conversions","multiplicacions","divisions","matemàtiques","mates"]},
+    {name:"Exercicis de desembre",             url:"mates_diciembre.html",                                           kw:["desembre","matemàtiques","mates","exercicis"]},
+    {name:"Sumes i restes ràpides",            url:"mates_sumas_y_restas_rapidas.html",                              kw:["sumes","restes","ràpides","matemàtiques","mates"]},
+    {name:"Fraccions, divisors, primers…",     url:"Mates_primer_examen_segundo_trimestre.html",                     kw:["fraccions","divisors","primers","múltiples","matemàtiques","mates"]},
+    {name:"Fraccions i estadística",           url:"mates_fracciones_media_rango.html",                              kw:["fraccions","estadística","mitjana","moda","mediana","rang","matemàtiques","mates"]}
   ],
-  medi: [
-    { name: "1r exam 2º TRIMESTRE - Medi", url: "repas_ciencies.html", keywords: ["medi", "ciències", "ciencias", "naturaleza", "natura"] }
+  medi:[
+    {name:"1r examen 2n trimestre · Medi",     url:"repas_ciencies.html",                                            kw:["medi","ciències","naturalesa","natura"]}
   ]
 };
 
-function toggleChat() {
-  const chatContainer = document.getElementById('chatContainer');
-  chatContainer.classList.toggle('active');
-  if (chatContainer.classList.contains('active')) {
-    document.getElementById('userInput').focus();
+function toggleChat(){
+  const b=document.getElementById('chatBox');
+  b.classList.toggle('open');
+  if(b.classList.contains('open')) document.getElementById('chatIn').focus();
+}
+function sendQ(m){ document.getElementById('chatIn').value=m; sendMsg(); }
+
+function addMsg(html, isUser){
+  const d=document.createElement('div');
+  d.className='msg '+(isUser?'user':'bot');
+  d.innerHTML=isUser
+    ?`<div class="msg-bubble">${html}</div>`
+    :`<div class="avatar">🤖</div><div class="msg-bubble">${html}</div>`;
+  const ms=document.getElementById('chatMsgs');
+  ms.appendChild(d); ms.scrollTop=ms.scrollHeight;
+}
+function showTyping(){
+  const ms=document.getElementById('chatMsgs');
+  const d=document.createElement('div');
+  d.className='msg bot'; d.id='typing';
+  d.innerHTML=`<div class="avatar">🤖</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  ms.appendChild(d); ms.scrollTop=ms.scrollHeight;
+}
+function removeTyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
+
+function findRes(q){
+  const lq=q.toLowerCase(), found=[];
+  for(const cat in db)
+    db[cat].forEach(r=>{ const s=r.kw.filter(k=>lq.includes(k)).length; if(s>0) found.push({...r,s}); });
+  return found.sort((a,b)=>b.s-a.s);
+}
+function getReply(q){
+  const found=findRes(q);
+  if(found.length){
+    const top=found[0];
+    let h=`T'aconsello practicar amb:<br><br><strong>${top.name}</strong><br><a href="${top.url}" class="chat-link" target="_blank">Anar als exercicis ➜</a>`;
+    if(found.length>1){ h+=`<br><br>També pots repassar:<br>`; for(let i=1;i<Math.min(3,found.length);i++) h+=`• ${found[i].name}<br>`; }
+    return h;
   }
+  return `Hmm, no estic segur quin exercici et va millor. Tinc recursos de:<br><br>🔢 Matemàtiques · 🇪🇸 Castellà · 🏴 Català · 🇬🇧 Anglès · 🌍 Medi<br><br>Sobre quin tema vols practicar?`;
 }
-
-function sendQuickMessage(message) {
-  document.getElementById('userInput').value = message;
-  sendMessage();
-}
-
-function handleKeyPress(event) {
-  if (event.key === 'Enter') sendMessage();
-}
-
-function addMessage(content, isUser = false, isHtml = false) {
-  const messagesDiv = document.getElementById('chatMessages');
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-  if (isUser) {
-    messageDiv.innerHTML = `<div class="message-content">${content}</div>`;
-  } else {
-    messageDiv.innerHTML = `<div class="bot-avatar">🤖</div><div class="message-content">${content}</div>`;
-  }
-  messagesDiv.appendChild(messageDiv);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-
-function showTyping() {
-  const messagesDiv = document.getElementById('chatMessages');
-  const typingDiv = document.createElement('div');
-  typingDiv.className = 'message bot';
-  typingDiv.id = 'typing-indicator';
-  typingDiv.innerHTML = `
-    <div class="bot-avatar">🤖</div>
-    <div class="typing-indicator">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-    </div>`;
-  messagesDiv.appendChild(typingDiv);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-
-function removeTyping() {
-  const el = document.getElementById('typing-indicator');
-  if (el) el.remove();
-}
-
-function findRelevantResources(query) {
-  const lowerQuery = query.toLowerCase();
-  const found = [];
-  for (const category in resources) {
-    resources[category].forEach(resource => {
-      const score = resource.keywords.filter(k => lowerQuery.includes(k.toLowerCase())).length;
-      if (score > 0) found.push({ ...resource, score, category });
-    });
-  }
-  found.sort((a, b) => b.score - a.score);
-  return found;
-}
-
-function generateResponse(query) {
-  const relevant = findRelevantResources(query);
-  if (relevant.length > 0) {
-    const top = relevant[0];
-    let response = `¡Perfecto! Te recomiendo practicar con:<br><br><strong>${top.name}</strong><br>`;
-    response += `<a href="${top.url}" class="suggested-link" target="_blank">Ir al ejercicio ➜</a>`;
-    if (relevant.length > 1) {
-      response += `<br><br>También puedes revisar:`;
-      for (let i = 1; i < Math.min(3, relevant.length); i++) {
-        response += `<br>• ${relevant[i].name}`;
-      }
-    }
-    return response;
-  } else {
-    return `Hmm, no estoy seguro de qué ejercicio recomendarte. Tengo recursos de:<br><br>
-      🔢 Matemáticas (decimales, fracciones, estadística, media, moda, mediana, rango)<br>
-      🇪🇸 Castellano (sinónimos, adjetivos, tecnicismos)<br>
-      🏴 Català (verbs, determinants, plural/singular)<br>
-      🇬🇧 English (present simple &amp; continuous)<br>
-      🌍 Medi (ciències naturals)<br><br>
-      ¿Sobre qué tema te gustaría practicar?`;
-  }
-}
-
-function sendMessage() {
-  const input = document.getElementById('userInput');
-  const message = input.value.trim();
-  if (message === '') return;
-  addMessage(message, true);
-  input.value = '';
-  document.getElementById('sendButton').disabled = true;
+function sendMsg(){
+  const inp=document.getElementById('chatIn');
+  const msg=inp.value.trim(); if(!msg) return;
+  addMsg(msg,true); inp.value='';
+  document.getElementById('chatSend').disabled=true;
   showTyping();
-  setTimeout(() => {
-    removeTyping();
-    const response = generateResponse(message);
-    addMessage(response, false, true);
-    document.getElementById('sendButton').disabled = false;
-    input.focus();
-  }, 1000 + Math.random() * 1000);
+  setTimeout(()=>{
+    removeTyping(); addMsg(getReply(msg),false);
+    document.getElementById('chatSend').disabled=false;
+    document.getElementById('chatIn').focus();
+  },900+Math.random()*700);
 }
 </script>
-
 </body>
 </html>
