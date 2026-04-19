@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Repaso de Mates</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0b1e;
+  --card: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.13);
+  --pink: #ff6b9d;
+  --yellow: #ffd93d;
+  --mint: #6bffb8;
+  --purple: #c77dff;
+  --blue: #4d96ff;
+  --white: #ffffff;
+  --dim: rgba(255,255,255,0.55);
+}
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.stars { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+.star {
+  position: absolute; width:2px; height:2px; background:white; border-radius:50%;
+  animation: twinkle var(--dur) ease-in-out infinite; opacity:0;
+}
+@keyframes twinkle { 0%,100%{opacity:0;transform:scale(1)} 50%{opacity:1;transform:scale(1.8)} }
+.container { position:relative; z-index:1; max-width:700px; margin:0 auto; padding:16px 20px 40px; }
+.header { text-align:center; padding:28px 0 16px; }
+.header h1 {
+  font-family:'Fredoka One',cursive; font-size:clamp(1.8rem,5vw,2.8rem);
+  background:linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  margin-bottom:6px;
+}
+.header p { color:var(--dim); font-size:1rem; font-weight:700; }
+.tabs {
+  display:flex; gap:8px; margin:16px 0;
+  background:var(--card); border:1px solid var(--card-border); border-radius:20px; padding:6px;
+}
+.tab {
+  flex:1; padding:11px 8px; border:none; border-radius:14px;
+  font-family:'Nunito',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer;
+  transition:all 0.35s; background:transparent; color:var(--dim);
+}
+.tab.active {
+  background:linear-gradient(135deg, var(--pink), var(--purple)); color:white;
+  box-shadow:0 4px 20px rgba(199,125,255,0.4);
+}
+.score-bar {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:10px; flex-wrap:wrap; gap:6px;
+}
+.score-badge {
+  background:linear-gradient(135deg, var(--yellow),#ff9f43); color:#1a0533;
+  padding:6px 16px; border-radius:20px; font-weight:800; font-size:0.9rem;
+}
+.progress-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
+.progress-track {
+  background:rgba(255,255,255,0.1); border-radius:10px;
+  height:8px; width:160px; overflow:hidden;
+}
+.progress-fill { height:100%; border-radius:10px; background:linear-gradient(90deg, var(--purple), var(--pink)); transition:width 0.4s ease; }
+.progress-label { font-size:0.8rem; color:var(--dim); font-weight:700; }
+.exercise-card {
+  background:var(--card); border:1px solid var(--card-border);
+  border-radius:24px; padding:28px; margin-bottom:16px;
+  backdrop-filter:blur(12px); position:relative; overflow:hidden;
+  animation:cardIn 0.4s ease;
+}
+@keyframes cardIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.exercise-card::before {
+  content:''; position:absolute; top:0;left:0;right:0; height:3px;
+  background:linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+}
+.exercise-label {
+  font-size:0.78rem; color:var(--purple); font-weight:800;
+  text-transform:uppercase; letter-spacing:1.5px; margin-bottom:14px; display:flex; align-items:center; gap:6px;
+}
+/* Fraction display */
+.fraction-display {
+  display:flex; align-items:center; justify-content:center; gap:16px;
+  margin:22px 0 14px; font-family:'Fredoka One',cursive;
+}
+.frac-block { display:flex; flex-direction:column; align-items:center; gap:2px; }
+.frac-block .fn { font-size:2rem; color:var(--yellow); line-height:1; }
+.frac-block .fb { width:100%; min-width:34px; height:3px; background:var(--white); border-radius:2px; }
+.frac-block .fd { font-size:2rem; color:var(--mint); line-height:1; }
+.op-sym { font-size:2.2rem; color:var(--pink); font-family:'Fredoka One',cursive; }
+.eq-sym { font-size:2.2rem; color:var(--dim); font-family:'Fredoka One',cursive; }
+.question-sym { font-size:2rem; color:var(--purple); font-family:'Fredoka One',cursive; line-height:1.15; }
+/* Stat question */
+.stat-question {
+  font-size:1.05rem; line-height:1.75; margin-bottom:20px;
+  color:rgba(255,255,255,0.9); background:rgba(255,255,255,0.04);
+  border-radius:14px; padding:16px 18px; border-left:3px solid var(--purple);
+}
+/* Answer inputs */
+.answer-section { margin-top:16px; }
+.input-hint { color:var(--dim); font-size:0.88rem; font-weight:700; margin-bottom:10px; }
+.frac-input-row { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.frac-input-block { display:flex; flex-direction:column; align-items:center; gap:3px; }
+.frac-input-block input {
+  width:74px; text-align:center;
+  background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); border-radius:10px;
+  color:white; font-family:'Fredoka One',cursive; font-size:1.5rem; padding:6px 4px;
+  transition:border-color 0.3s;
+}
+.frac-input-block input:focus { outline:none; border-color:var(--purple); background:rgba(199,125,255,0.12); }
+.frac-input-block .ib { width:74px; height:3px; background:var(--white); border-radius:2px; }
+.stat-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px;
+}
+.stat-field {
+  background:rgba(255,255,255,0.05); border:2px solid rgba(255,255,255,0.12);
+  border-radius:16px; padding:12px 14px; transition:border-color 0.3s;
+}
+.stat-field.correct-field  { border-color:var(--mint);  background:rgba(107,255,184,0.08); }
+.stat-field.incorrect-field{ border-color:var(--pink);  background:rgba(255,107,157,0.08); }
+.stat-field-label {
+  font-size:0.8rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:1px; margin-bottom:6px; display:flex; align-items:center; gap:5px;
+}
+.stat-field-hint { font-size:0.75rem; color:var(--dim); margin-bottom:8px; font-weight:600; }
+.stat-field input {
+  width:100%; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.15);
+  border-radius:10px; color:white; font-family:'Fredoka One',cursive; font-size:1.4rem;
+  padding:7px 10px; text-align:center; transition:border-color 0.3s;
+}
+.stat-field input:focus { outline:none; border-color:var(--purple); background:rgba(199,125,255,0.12); }
+.stat-field input:disabled { opacity:0.7; cursor:not-allowed; }
+.field-result { font-size:0.82rem; margin-top:6px; font-weight:700; min-height:18px; }
+.btn-check {
+  background:linear-gradient(135deg, var(--pink), var(--purple)); color:white; border:none;
+  border-radius:14px; padding:13px 28px; font-family:'Nunito',sans-serif;
+  font-size:1rem; font-weight:800; cursor:pointer; transition:all 0.3s;
+  box-shadow:0 4px 18px rgba(255,107,157,0.3); margin-top:14px; display:block;
+}
+.btn-check:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(255,107,157,0.55); }
+/* Feedback */
+.feedback {
+  border-radius:18px; padding:20px; margin-top:18px;
+  animation:slideIn 0.35s ease; display:none;
+}
+.feedback.correct { background:rgba(107,255,184,0.08); border:2px solid var(--mint); }
+.feedback.incorrect { background:rgba(255,107,157,0.08); border:2px solid var(--pink); }
+.fb-title { font-family:'Fredoka One',cursive; font-size:1.25rem; margin-bottom:12px; }
+.feedback.correct .fb-title { color:var(--mint); }
+.feedback.incorrect .fb-title { color:var(--pink); }
+.explanation { font-size:0.93rem; line-height:1.7; }
+.step {
+  background:rgba(255,255,255,0.05); border-radius:12px;
+  padding:10px 14px; margin:7px 0; font-size:0.9rem; line-height:1.7;
+}
+.step-num { font-weight:900; color:var(--yellow); }
+.btn-next {
+  background:linear-gradient(135deg, var(--blue), var(--mint)); color:#0d0b1e;
+  border:none; border-radius:14px; padding:12px 28px;
+  font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+  cursor:pointer; transition:all 0.3s; margin-top:14px; display:block;
+}
+.btn-next:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(107,255,184,0.45); }
+@keyframes slideIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+/* Inline fraction in explanations */
+.ef {
+  display:inline-flex; flex-direction:column; align-items:center;
+  vertical-align:middle; margin:0 3px; font-family:'Fredoka One',cursive;
+}
+.ef .en { font-size:0.85em; line-height:1.1; color:var(--yellow); }
+.ef .eb { width:100%; min-width:16px; height:2px; background:white; }
+.ef .ed { font-size:0.85em; line-height:1.1; color:var(--mint); }
+/* Confetti */
+.cp {
+  position:fixed; width:10px; height:10px; top:-10px;
+  animation:cfFall var(--cd) ease-in forwards; z-index:999; pointer-events:none;
+}
+@keyframes cfFall { to{transform:translateY(110vh) rotate(720deg); opacity:0;} }
+/* Final */
+.final-screen { text-align:center; padding:40px 20px; animation:cardIn 0.5s ease; }
+.final-screen h2 {
+  font-family:'Fredoka One',cursive; font-size:2.4rem;
+  background:linear-gradient(135deg, var(--yellow), var(--pink));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  margin-bottom:10px;
+}
+.final-score { font-size:4.5rem; font-family:'Fredoka One',cursive; color:var(--yellow); margin:16px 0 8px; }
+.btn-restart {
+  background:linear-gradient(135deg, var(--yellow), #ff9f43); color:#1a0533;
+  border:none; border-radius:14px; padding:14px 32px;
+  font-family:'Nunito',sans-serif; font-size:1.05rem; font-weight:800;
+  cursor:pointer; transition:all 0.3s; margin-top:22px; display:inline-block;
+}
+.btn-restart:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(255,211,61,0.45); }
+/* Medal */
+.medal { font-size:4rem; margin-bottom:10px; display:block; animation:medalPop 0.6s 0.3s both cubic-bezier(.36,1.8,.5,1); }
+@keyframes medalPop { from{transform:scale(0) rotate(-20deg)} to{transform:scale(1) rotate(0)} }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <div class="header">
+    <h1>✨ Repaso de Mates ✨</h1>
+    <p>¡Prepárate para el examen! Tú puedes 💪🌟</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-fracciones" onclick="switchMode('fracciones',this)">🍕 Fracciones</button>
+    <button class="tab" id="tab-estadistica" onclick="switchMode('estadistica',this)">📊 Estadística</button>
+  </div>
+
+  <div id="app-content"></div>
+</div>
+
+<script>
+// ===== MATH HELPERS =====
+function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); return b===0?a:gcd(b,a%b); }
+function lcm(a,b){ return (a*b)/gcd(a,b); }
+function simplify(n,d){
+  if(d===0)return{n:0,d:1};
+  const g=gcd(Math.abs(n),Math.abs(d));
+  return{n:n/g, d:d/g};
+}
+function randInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+function shuffle(arr){ return arr.slice().sort(()=>Math.random()-0.5); }
+function frac(n,d){ return `<span class="ef"><span class="en">${n}</span><span class="eb"></span><span class="ed">${d}</span></span>`; }
+
+// ===== STATE =====
+const TOTAL = 20;
+let state = { mode:'fracciones', idx:0, score:0, current:null, answered:false };
+
+// ===== STARS =====
+function createStars(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div'); s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;`;
+    c.appendChild(s);
+  }
+}
+
+// ===== FRACTION EXERCISES =====
+const DENOMS=[2,3,4,5,6,8,10,12];
+
+function genFraction(){
+  let d1=DENOMS[randInt(0,DENOMS.length-1)], d2;
+  do{ d2=DENOMS[randInt(0,DENOMS.length-1)]; }while(d2===d1);
+  let n1=randInt(1,d1-1), n2=randInt(1,d2-1);
+  let op=Math.random()<0.55?'+':'-';
+  if(op==='-'){
+    if(n1*d2<n2*d1){ [n1,n2,d1,d2]=[n2,n1,d2,d1]; }
+    if(n1*d2===n2*d1) op='+';
+  }
+  const L=lcm(d1,d2);
+  const rn=op==='+'?n1*(L/d1)+n2*(L/d2):n1*(L/d1)-n2*(L/d2);
+  const res=simplify(rn,L);
+  return{type:'fraction',n1,d1,n2,d2,op,L,rn,res};
+}
+
+function explainFraction(ex){
+  const{n1,d1,n2,d2,op,L,res}=ex;
+  const m1=L/d1, m2=L/d2;
+  const nn1=n1*m1, nn2=n2*m2;
+  const rn=op==='+'?nn1+nn2:nn1-nn2;
+  const verb=op==='+'?'sumar':'restar';
+  const steps=[];
+  steps.push(`<div class="step"><span class="step-num">Paso 1 🔍</span> Para ${verb} fracciones con <strong>distinto denominador</strong>, necesitamos encontrar el <strong>mínimo común múltiplo (mcm)</strong> de ${d1} y ${d2}.<br>mcm(${d1}, ${d2}) = <strong>${L}</strong></div>`);
+  steps.push(`<div class="step"><span class="step-num">Paso 2 🔄</span> Convertimos las dos fracciones al denominador común <strong>${L}</strong>:<br>
+    ${frac(n1,d1)} → multiplicamos ×${m1}: ${frac(nn1,L)}<br>
+    ${frac(n2,d2)} → multiplicamos ×${m2}: ${frac(nn2,L)}</div>`);
+  steps.push(`<div class="step"><span class="step-num">Paso 3 ${op==='+'?'➕':'➖'}</span> Ahora ${op==='+'?'sumamos':'restamos'} los numeradores (el denominador se queda igual):<br>
+    ${frac(nn1,L)} ${op} ${frac(nn2,L)} = ${frac(rn,L)}</div>`);
+  if(res.n!==rn||res.d!==L){
+    const g=gcd(Math.abs(rn),L);
+    steps.push(`<div class="step"><span class="step-num">Paso 4 ✂️</span> Simplificamos dividiendo numerador y denominador entre ${g}:<br>
+      ${frac(rn,L)} = ${frac(res.n,res.d)} ✅</div>`);
+  } else {
+    steps.push(`<div class="step"><span class="step-num">✅ Resultado</span> La fracción ya está simplificada: ${frac(res.n,res.d)}</div>`);
+  }
+  return steps.join('');
+}
+
+// ===== STAT EXERCISES =====
+const statContexts=[
+  d=>`Los alumnos de 5º anotaron sus <strong>notas del examen</strong> de ciencias: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`En clase de Ed. Física, los alumnos corrieron 50 metros y marcaron estos <strong>tiempos en segundos</strong>: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Un grupo de amigos anotaron los <strong>puntos que sacaron en un videojuego</strong> en distintas partidas: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Se midió la <strong>temperatura en °C</strong> durante varios días: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Los alumnos dijeron cuántos <strong>libros habían leído</strong> este trimestre: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`En una feria, varios niños lanzaron dardos y consiguieron estos <strong>puntos</strong>: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Se contaron los <strong>goles marcados</strong> en cada partido de la semana: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Los alumnos anotaron cuántos <strong>minutos tardaron</strong> en resolver un puzzle: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Se recogieron las <strong>alturas en cm</strong> de varios alumnos: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+  d=>`Los jugadores anotaron estos <strong>puntos en un juego de cartas</strong>: <span style="color:var(--yellow);font-family:'Fredoka One',cursive">${d.join(', ')}</span>`,
+];
+
+function genDataset(){
+  // Always generate odd-count datasets with a clear single mode
+  const size = randInt(0,1)===0 ? 5 : 7;
+  let data, tries=0;
+  do {
+    tries++;
+    // Build with one guaranteed repeated value
+    data = Array.from({length: size-1}, ()=>randInt(10,50));
+    const pick = data[randInt(0, data.length-1)];
+    data.push(pick);
+    data = shuffle(data);
+  } while(!hasUniqueModa(data) && tries<40);
+  return data;
+}
+
+function hasUniqueModa(data){
+  const c={};
+  data.forEach(v=>c[v]=(c[v]||0)+1);
+  const mx=Math.max(...Object.values(c));
+  if(mx<2) return false;
+  return Object.values(c).filter(v=>v===mx).length===1;
+}
+
+function calcAll(data){
+  const sorted=[...data].sort((a,b)=>a-b);
+  const sum=data.reduce((a,b)=>a+b,0);
+  const media=Math.round((sum/data.length)*10)/10;
+  const c={};
+  data.forEach(v=>c[v]=(c[v]||0)+1);
+  const mx=Math.max(...Object.values(c));
+  const moda=parseInt(Object.keys(c).find(k=>c[k]===mx));
+  const mid=Math.floor(sorted.length/2);
+  const mediana=sorted.length%2===0?(sorted[mid-1]+sorted[mid])/2:sorted[mid];
+  const rango=Math.max(...data)-Math.min(...data);
+  return{media,moda,mediana,rango,sorted,sum};
+}
+
+function genStatExercise(qIdx){
+  const data=genDataset();
+  const answers=calcAll(data);
+  const ctxFn=statContexts[qIdx%statContexts.length];
+  const context=ctxFn(data);
+  return{type:'stat',data,answers,context};
+}
+
+function explainAllStats(ex){
+  const{data,answers}=ex;
+  const{sorted,sum,media,moda,mediana,rango}=answers;
+  const c={};
+  data.forEach(v=>c[v]=(c[v]||0)+1);
+  const mid=Math.floor(sorted.length/2);
+
+  const explMedia=`
+    <div class="step"><span class="step-num">📊 Media — Paso 1</span> Suma todos los datos: ${data.join(' + ')} = <strong>${sum}</strong></div>
+    <div class="step"><span class="step-num">📊 Media — Paso 2</span> Divide entre el número de datos (${data.length}): ${sum} ÷ ${data.length} = <strong>${media}</strong></div>`;
+
+  const explModa=`
+    <div class="step"><span class="step-num">🏆 Moda — Paso 1</span> Contamos cuántas veces aparece cada número:<br>${Object.entries(c).sort((a,b)=>a[0]-b[0]).map(([k,v])=>`<strong>${k}</strong>: ${v} vez${v>1?'es':''}`).join(' &nbsp;·&nbsp; ')}</div>
+    <div class="step"><span class="step-num">🏆 Moda — Paso 2</span> El número que más se repite es <strong>${moda}</strong>. ¡Esa es la moda!</div>`;
+
+  const midHighlight=sorted.map((v,i)=>i===mid?`<strong style="color:var(--mint)">${v}</strong>`:v).join(', ');
+  const explMediana=`
+    <div class="step"><span class="step-num">🎯 Mediana — Paso 1</span> Ordenamos de menor a mayor: <strong>${sorted.join(', ')}</strong></div>
+    <div class="step"><span class="step-num">🎯 Mediana — Paso 2</span> Hay ${data.length} datos → el valor central es el de la posición ${mid+1}:<br>[${midHighlight}] → mediana = <strong>${mediana}</strong></div>`;
+
+  const explRango=`
+    <div class="step"><span class="step-num">📏 Rango — Paso 1</span> Valor máximo: <strong>${Math.max(...data)}</strong> &nbsp;·&nbsp; Valor mínimo: <strong>${Math.min(...data)}</strong></div>
+    <div class="step"><span class="step-num">📏 Rango — Paso 2</span> Rango = Máximo − Mínimo = ${Math.max(...data)} − ${Math.min(...data)} = <strong>${rango}</strong></div>`;
+
+  return{explMedia, explModa, explMediana, explRango};
+}
+
+// ===== RENDER =====
+function render(){
+  if(state.idx>=TOTAL){ renderFinal(); return; }
+  let ex;
+  if(state.mode==='fracciones') ex=genFraction();
+  else ex=genStatExercise(state.idx);
+  state.current=ex; state.answered=false;
+
+  const pct=Math.round((state.idx/TOTAL)*100);
+  let body='';
+  if(ex.type==='fraction'){
+    body=`
+      <div class="fraction-display">
+        <div class="frac-block"><div class="fn">${ex.n1}</div><div class="fb"></div><div class="fd">${ex.d1}</div></div>
+        <div class="op-sym">${ex.op}</div>
+        <div class="frac-block"><div class="fn">${ex.n2}</div><div class="fb"></div><div class="fd">${ex.d2}</div></div>
+        <div class="eq-sym">=</div>
+        <div class="frac-block"><div class="question-sym">?</div><div class="fb"></div><div class="question-sym">?</div></div>
+      </div>
+      <p style="color:var(--dim);font-size:0.88rem;text-align:center;margin-bottom:4px">Escribe el resultado simplificado (numerador arriba, denominador abajo)</p>
+      <div class="answer-section">
+        <div class="frac-input-row">
+          <div class="frac-input-block">
+            <input type="number" id="ans-num" placeholder="?" min="0" max="9999" autocomplete="off">
+            <div class="ib"></div>
+            <input type="number" id="ans-den" placeholder="?" min="1" max="9999" autocomplete="off">
+          </div>
+          <button class="btn-check" onclick="checkAns()">✅ Comprobar</button>
+        </div>
+      </div>`;
+  } else {
+    body=`
+      <div class="stat-question">${ex.context}.<br><br>Calcula las cuatro medidas estadísticas:</div>
+      <div class="stat-grid">
+        <div class="stat-field" id="field-media">
+          <div class="stat-field-label" style="color:var(--blue)">📊 Media</div>
+          <div class="stat-field-hint">Suma ÷ cantidad de datos</div>
+          <input type="number" id="ans-media" placeholder="?" step="0.1" autocomplete="off">
+          <div class="field-result" id="res-media"></div>
+        </div>
+        <div class="stat-field" id="field-moda">
+          <div class="stat-field-label" style="color:var(--yellow)">🏆 Moda</div>
+          <div class="stat-field-hint">El valor que más se repite</div>
+          <input type="number" id="ans-moda" placeholder="?" autocomplete="off">
+          <div class="field-result" id="res-moda"></div>
+        </div>
+        <div class="stat-field" id="field-mediana">
+          <div class="stat-field-label" style="color:var(--mint)">🎯 Mediana</div>
+          <div class="stat-field-hint">Valor central (datos ordenados)</div>
+          <input type="number" id="ans-mediana" placeholder="?" step="0.5" autocomplete="off">
+          <div class="field-result" id="res-mediana"></div>
+        </div>
+        <div class="stat-field" id="field-rango">
+          <div class="stat-field-label" style="color:var(--pink)">📏 Rango</div>
+          <div class="stat-field-hint">Máximo − Mínimo</div>
+          <input type="number" id="ans-rango" placeholder="?" autocomplete="off">
+          <div class="field-result" id="res-rango"></div>
+        </div>
+      </div>
+      <button class="btn-check" onclick="checkAns()">✅ Comprobar todo</button>`;
+  }
+
+  document.getElementById('app-content').innerHTML=`
+    <div class="score-bar">
+      <div class="score-badge">⭐ ${state.score}/${state.idx} bien</div>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-label">Ejercicio ${state.idx+1} de ${TOTAL}</div>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <div class="exercise-label">${state.mode==='fracciones'?'🍕 Fracciones':'📊 Estadística'} &nbsp;·&nbsp; Ejercicio ${state.idx+1}</div>
+      ${body}
+      <div class="feedback" id="feedback"></div>
+    </div>`;
+
+  const first=document.querySelector('#ans-num,#ans-stat');
+  if(first) setTimeout(()=>first.focus(),50);
+  document.addEventListener('keydown',enterKey);
+}
+
+function enterKey(e){
+  if(e.key==='Enter'&&!state.answered) checkAns();
+}
+
+function checkAns(){
+  if(state.answered) return;
+  const ex=state.current;
+  let ok=false;
+
+  if(ex.type==='fraction'){
+    const un=parseInt(document.getElementById('ans-num').value);
+    const ud=parseInt(document.getElementById('ans-den').value);
+    if(isNaN(un)||isNaN(ud)||ud<=0){ alert('Por favor escribe el numerador y el denominador 😊'); return; }
+    const us=simplify(un,ud);
+    ok=us.n===ex.res.n&&us.d===ex.res.d;
+  } else {
+    const vMedia   = parseFloat(document.getElementById('ans-media').value);
+    const vModa    = parseFloat(document.getElementById('ans-moda').value);
+    const vMediana = parseFloat(document.getElementById('ans-mediana').value);
+    const vRango   = parseFloat(document.getElementById('ans-rango').value);
+    if([vMedia,vModa,vMediana,vRango].some(v=>isNaN(v))){
+      alert('Rellena los cuatro campos antes de comprobar 😊'); return;
+    }
+    const{media,moda,mediana,rango}=ex.answers;
+    const results={
+      media:   Math.abs(vMedia   - media)   < 0.051,
+      moda:    Math.abs(vModa    - moda)    < 0.051,
+      mediana: Math.abs(vMediana - mediana) < 0.051,
+      rango:   Math.abs(vRango   - rango)   < 0.051,
+    };
+    // Mark each field
+    ['media','moda','mediana','rango'].forEach(m=>{
+      const field=document.getElementById('field-'+m);
+      const resEl=document.getElementById('res-'+m);
+      document.getElementById('ans-'+m).disabled=true;
+      if(results[m]){
+        field.classList.add('correct-field');
+        resEl.innerHTML=`<span style="color:var(--mint)">✅ ¡Correcto!</span>`;
+      } else {
+        field.classList.add('incorrect-field');
+        resEl.innerHTML=`<span style="color:var(--pink)">❌ Era: <strong>${ex.answers[m]}</strong></span>`;
+      }
+    });
+    ok=Object.values(results).every(Boolean);
+    state.answered=true;
+    document.removeEventListener('keydown',enterKey);
+    if(ok) state.score++;
+    state.idx++;
+
+    const fb=document.getElementById('feedback');
+    fb.style.display='block';
+    const{explMedia,explModa,explMediana,explRango}=explainAllStats(ex);
+    const allCorrect=ok;
+    const correctCount=Object.values(results).filter(Boolean).length;
+
+    // Only show explanations for wrong answers (or all if all wrong)
+    let shownExpls='';
+    if(!results.media)    shownExpls+=`<p style="margin:10px 0 4px;font-weight:800;color:var(--blue)">📊 Cómo calcular la Media:</p>${explMedia}`;
+    if(!results.moda)     shownExpls+=`<p style="margin:10px 0 4px;font-weight:800;color:var(--yellow)">🏆 Cómo calcular la Moda:</p>${explModa}`;
+    if(!results.mediana)  shownExpls+=`<p style="margin:10px 0 4px;font-weight:800;color:var(--mint)">🎯 Cómo calcular la Mediana:</p>${explMediana}`;
+    if(!results.rango)    shownExpls+=`<p style="margin:10px 0 4px;font-weight:800;color:var(--pink)">📏 Cómo calcular el Rango:</p>${explRango}`;
+
+    if(allCorrect){
+      const emojis=['🎉','🌟','✨','🎊','🥳','💯','🚀','🏆','😎','🦄'];
+      fb.className='feedback correct';
+      fb.innerHTML=`<div class="fb-title">${emojis[Math.floor(Math.random()*emojis.length)]} ¡Los 4 correctos! ¡Increíble!</div><button class="btn-next" onclick="next()">Siguiente →</button>`;
+      spawnConfetti();
+    } else {
+      fb.className='feedback incorrect';
+      fb.innerHTML=`<div class="fb-title">😅 ${correctCount}/4 correctos — te explico los que fallaron 👇</div><div class="explanation">${shownExpls}</div><button class="btn-next" onclick="next()">Siguiente →</button>`;
+    }
+    fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  state.answered=true;
+  document.removeEventListener('keydown',enterKey);
+  if(ok) state.score++;
+  state.idx++;
+
+  const fb=document.getElementById('feedback');
+  fb.style.display='block';
+  const expl=explainFraction(ex);
+
+  if(ok){
+    const emojis=['🎉','🌟','✨','🎊','🥳','💯','🚀','🏆','😎','🦄'];
+    const e2=emojis[Math.floor(Math.random()*emojis.length)];
+    fb.className='feedback correct';
+    fb.innerHTML=`<div class="fb-title">${e2} ¡Correcto! ¡Genial!</div><div class="explanation">${expl}</div><button class="btn-next" onclick="next()">Siguiente →</button>`;
+    spawnConfetti();
+  } else {
+    const corr=`${frac(ex.res.n,ex.res.d)}`;
+    fb.className='feedback incorrect';
+    fb.innerHTML=`<div class="fb-title">😅 Casi... La respuesta correcta es ${corr}</div><div class="explanation"><p style="margin-bottom:10px;color:var(--dim)">Te explico cómo se hace 👇</p>${expl}</div><button class="btn-next" onclick="next()">Siguiente →</button>`;
+  }
+  fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function next(){
+  if(state.idx>=TOTAL) renderFinal();
+  else render();
+}
+
+function renderFinal(){
+  const pct=Math.round((state.score/TOTAL)*100);
+  let msg,medal;
+  if(pct>=90){msg='¡Eres una crack de las mates! Ya puedes con el examen 🏆';medal='🥇';}
+  else if(pct>=70){msg='¡Muy buen trabajo! Repasa un poquito más y lo bordas 💪';medal='🥈';}
+  else if(pct>=50){msg='¡Buen esfuerzo! Practica un poco más y lo conseguirás 📚';medal='🥉';}
+  else{msg='¡No te rindas! La práctica hace al maestro, ¡vuelve a intentarlo! 💫';medal='⭐';}
+
+  document.getElementById('app-content').innerHTML=`
+    <div class="final-screen">
+      <span class="medal">${medal}</span>
+      <h2>¡Has terminado!</h2>
+      <div class="final-score">${state.score} / ${TOTAL}</div>
+      <p style="font-size:1.1rem;color:var(--dim);margin-bottom:6px">${pct}% de aciertos</p>
+      <p style="font-size:1.1rem;color:var(--yellow);font-weight:800">${msg}</p>
+      <button class="btn-restart" onclick="restart()">🔄 Volver a intentarlo</button>
+    </div>`;
+  spawnConfetti();
+  spawnConfetti();
+}
+
+function restart(){
+  state.idx=0; state.score=0; state.answered=false;
+  render();
+}
+
+function switchMode(mode,btn){
+  state.mode=mode; state.idx=0; state.score=0; state.answered=false;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ===== CONFETTI =====
+function spawnConfetti(){
+  const cols=['#ff6b9d','#ffd93d','#6bffb8','#c77dff','#4d96ff','#ff9f43','#fff'];
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');
+    el.className='cp';
+    const dur=(2+Math.random()*2).toFixed(1);
+    el.style.cssText=`left:${Math.random()*100}vw;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;--cd:${dur}s;animation-delay:${(Math.random()*.5).toFixed(2)}s;`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),(parseFloat(dur)+1)*1000);
+  }
+}
+
+// ===== INIT =====
+createStars();
+render();
+</script>
+</body>
+</html>
