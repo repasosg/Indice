@@ -9,3 +9,4 @@ Mates_primer_examen_segundo_trimestre
 sumas_y_restas_rapidas
 repas_ciencies (sistema solar, el Agua, El relieve, la biosfera y los astros)
 mates_fracciones_media_rango (sumas y restas de fracciones con denominador diferentes, problemas de calcular media, moda, rango)
+medi_activitat_politica_recursos (activitat economica, recursos naturals, medi ambient, organitzacio politica)

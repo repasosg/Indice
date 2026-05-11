@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" contént="width=device-width, initial-scale=1.0">
+<title>Repàs Medi · Activitat econòmica, política i recursos</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFFBF0; --ink:#2D2A3E; --dim:#7A7590; --green:#6BCB77;
+  --blue:#4D96FF; --orange:#FFB347; --pink:#FF6B6B; --card:#fff;
+  --correct:#20C997; --wrong:#FF6B6B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Nunito',sans-serif; min-height:100vh; color:var(--ink); background:var(--cream);
+  background-image:radial-gradient(circle,#d0cce0 1.2px,transparent 1.2px); background-size:28px 28px;
+}
+header{
+  position:sticky; top:0; z-index:10; background:rgba(255,251,240,.94); backdrop-filter:blur(10px);
+  border-bottom:3px solid rgba(107,203,119,.25);
+}
+.header-inner{max-width:1050px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-family:'Fredoka One',cursive;color:var(--green);font-size:1.35rem;margin-right:auto;text-decoration:none}
+.nav-btn{
+  border:0;border-radius:999px;padding:9px 14px;background:#fff;font-weight:900;color:var(--ink);
+  box-shadow:0 3px 12px rgba(0,0,0,.08);cursor:pointer;text-decoration:none;font-size:.9rem;
+}
+.nav-btn.active,.nav-btn:hover{background:var(--green);color:#1f3521;transform:translateY(-1px)}
+main{max-width:980px;margin:0 auto;padding:28px 18px 56px}
+.welcome{text-align:center;padding:28px 0 34px;animation:pop .45s ease both}
+.planet{font-size:4.8rem;display:block;filter:drop-shadow(0 8px 18px rgba(107,203,119,.35))}
+h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,5vw,3.5rem);line-height:1.08;margin:12px 0;background:linear-gradient(135deg,#20C997,#4D96FF,#FFB347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{max-width:690px;margin:0 auto 18px;color:var(--dim);font-size:1.08rem;font-weight:800;line-height:1.5}
+.badge{display:inline-flex;gap:8px;align-items:center;background:#EDFAEF;border:2px solid #b8ecc2;color:#2d7b37;border-radius:999px;padding:8px 18px;font-family:'Fredoka One',cursive}
+.topic-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin-top:28px}
+.topic-card{
+  background:#fff;border-radius:22px;padding:22px 14px;border:3px solid transparent;box-shadow:0 4px 22px rgba(0,0,0,.08);
+  cursor:pointer;transition:.25s;text-align:center;font-weight:900;
+}
+.topic-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.topic-card .icon{font-size:2.7rem;display:block;margin-bottom:8px}
+.topic-card[data-t="economia"]:hover{border-color:var(--orange)}
+.topic-card[data-t="recursos"]:hover{border-color:var(--green)}
+.topic-card[data-t="ambient"]:hover{border-color:var(--blue)}
+.topic-card[data-t="politica"]:hover{border-color:var(--pink)}
+.quiz{animation:pop .35s ease both}
+.quiz-head{display:flex;align-items:center;justify-contént:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.topic-pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:9px 16px;background:#fff;font-family:'Fredoka One',cursive;color:var(--ink);box-shadow:0 3px 12px rgba(0,0,0,.08)}
+.progress-wrap{height:14px;background:#e8e4d8;border-radius:999px;overflow:hidden;margin:10px 0 22px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--orange));transition:width .25s}
+.question-card{background:#fff;border-radius:26px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.11)}
+.question-num{font-family:'Fredoka One',cursive;color:var(--dim);font-size:.95rem;margin-bottom:8px}
+.question-text{font-size:clamp(1.25rem,3vw,1.8rem);font-weight:900;line-height:1.25;margin-bottom:18px}
+.source{background:#f8f7ff;border-left:5px solid #a855f7;border-radius:12px;padding:12px 14px;margin-bottom:16px;color:#5b5272;font-weight:800;line-height:1.45}
+.options{display:grid;gap:10px}
+.option-btn{
+  border:3px solid #eee;border-radius:16px;background:#fff;padding:13px 14px;text-align:left;font-weight:900;color:var(--ink);
+  cursor:pointer;display:flex;gap:10px;align-items:flex-start;transition:.18s;line-height:1.35;
+}
+.option-btn:hover{transform:translateX(4px);border-color:#cfeecf}
+.letter{width:30px;height:30px;border-radius:50%;background:#f1efe6;display:inline-flex;align-items:center;justify-contént:center;font-family:'Fredoka One',cursive;flex:0 0 auto}
+.option-btn.correct{background:rgba(32,201,151,.12);border-color:var(--correct)}
+.option-btn.wrong{background:rgba(255,107,107,.12);border-color:var(--wrong)}
+.feedback{display:none;margin-top:16px;border-radius:18px;padding:14px 16px;font-weight:800;line-height:1.45}
+.feedback.show{display:block}.feedback.ok{background:#e6faf5;color:#12634d}.feedback.ko{background:#ffeded;color:#8f2929}
+.next-btn,.home-btn{
+  margin-top:18px;border:0;border-radius:999px;padding:13px 22px;font-family:'Fredoka One',cursive;font-size:1rem;cursor:pointer;text-decoration:none;display:inline-flex;
+}
+.next-btn{background:linear-gradient(135deg,#20C997,#6BCB77);color:#16351e}.home-btn{background:#fff;color:var(--ink);box-shadow:0 3px 12px rgba(0,0,0,.08);margin-right:8px}
+.results{text-align:center;background:#fff;border-radius:28px;padding:36px 22px;box-shadow:0 8px 30px rgba(0,0,0,.11)}
+.result-emoji{font-size:4.5rem;display:block;margin-bottom:12px}.stars{font-size:2rem;margin:16px 0;color:#FFB347}
+@keyframés pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:560px){.header-inner{justify-contént:center}.logo{width:100%;text-align:center;margin-right:0}.question-card{padding:18px}}
+
+.review-section{margin-top:34px;text-align:left}
+.review-title{font-family:'Fredoka One',cursive;text-align:center;font-size:1.35rem;color:var(--ink);margin-bottom:14px}
+.review-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.review-card{background:#fff;border-radius:20px;padding:18px;border:3px solid #f1ead8;box-shadow:0 4px 22px rgba(0,0,0,.08);line-height:1.45}
+.review-card h2{font-family:'Fredoka One',cursive;font-size:1.05rem;margin-bottom:8px;color:#2d7b37}
+.review-card p{font-weight:800;color:var(--dim);font-size:.95rem}
+.review-card strong{color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">🌍 Medi</a>
+    <button class="nav-btn" onclick="showWelcome()">Inici</button>
+    <button class="nav-btn" data-topic="economia" onclick="startTopic('economia')">💼 Activitat econòmica</button>
+    <button class="nav-btn" data-topic="recursos" onclick="startTopic('recursos')">🌿 Recursos naturals</button>
+    <button class="nav-btn" data-topic="ambient" onclick="startTopic('ambient')">💧 Medi ambient</button>
+    <button class="nav-btn" data-topic="politica" onclick="startTopic('politica')">🏛️ Política</button>
+  </div>
+</header>
+
+<main>
+  <section class="welcome" id="welcomeScreen">
+    <span class="planet">🌍</span>
+    <h1>Repàs de Medi</h1>
+    <p class="subtitle">Activitat econòmica, recursos naturals, medi ambient i organització política. Les preguntes fan servir frases dels apunts dels PDF.</p>
+    <span class="badge">⭐ Tria un tema i respon 12 preguntes</span>
+    <div class="topic-cards">
+      <div class="topic-card" data-t="economia" onclick="startTopic('economia')"><span class="icon">💼</span>Activitat econòmica</div>
+      <div class="topic-card" data-t="recursos" onclick="startTopic('recursos')"><span class="icon">🌿</span>Recursos naturals</div>
+      <div class="topic-card" data-t="ambient" onclick="startTopic('ambient')"><span class="icon">💧</span>Medi ambient</div>
+      <div class="topic-card" data-t="politica" onclick="startTopic('politica')"><span class="icon">🏛️</span>Organització política</div>
+    </div>
+
+    <section class="review-section" aria-labelledby="reviewTitle">
+      <h2 class="review-title" id="reviewTitle">Targetes de rep?s</h2>
+      <div class="review-grid">
+        <article class="review-card"><h2>?? Sectors econ?mics</h2><p><strong>Primari:</strong> obt? recursos de la natura. <strong>Secundari:</strong> transforma primeres mat?ries. <strong>Terciari:</strong> ofereix serveis.</p></article>
+        <article class="review-card"><h2>?? Recursos naturals</h2><p>Agricultura, ramaderia, pesca, silvicultura i mineria obtenen primeres mat?ries de la natura.</p></article>
+        <article class="review-card"><h2>?? Energia i ind?stria</h2><p>Una f?brica necessita primeres mat?ries, maquin?ria, energia i m? d'obra per produir productes elaborats.</p></article>
+        <article class="review-card"><h2>?? Contaminaci?</h2><p>La contaminaci? pot afectar l'aire, l'aigua i el s?l. Els combustibles f?ssils contaminen i no s?n renovables.</p></article>
+        <article class="review-card"><h2>?? Riscos ambientals</h2><p>Poden venir de fen?mens naturals o de l'acci? humana. La millor manera de reduir-ne els efectes ?s prevenir.</p></article>
+        <article class="review-card"><h2>??? Catalunya</h2><p>La Generalitat ?s la m?xima instituci? pol?tica. Catalunya t? ajuntaments, comarques i Parlament.</p></article>
+        <article class="review-card"><h2>???? Espanya</h2><p>?s una monarquia parlament?ria i un estat descentralitzat organitzat en comunitats aut?nomes.</p></article>
+        <article class="review-card"><h2>???? Uni? Europea</h2><p>Les institucions principals s?n el Consell de la Uni? Europea, la Comissi? Europea i el Parlament Europeu.</p></article>
+      </div>
+    </section>
+  </section>
+  <section id="quizContainer" style="display:none;"></section>
+</main>
+
+<script>
+const topics = {
+  economia: {
+    name: "Activitat econòmica", icon: "💼", color: "#FFB347",
+    questions: [
+      {source:"el sector primari / l'agricultura / la pesca / la ramaderia / la silvicultura / la mineria extractiva", q:"Segons l'esquema, què inclou el sector primari?", opts:["l'agricultura, la pesca, la ramaderia, la silvicultura, la mineria extractiva","la indústria, la producció d'energia, la mineria industrial, la construcció","el comerç, l'educació, la sanitat, la comunicació","les finances, la seguretat, el turisme"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"el sector secundari / la indústria / la producció d'energia / la mineria industrial / la construcció", q:"Segons l'esquema, què inclou el sector secundari?", opts:["la indústria, la producció d'energia, la mineria industrial, la construcció","l'agricultura, la pesca, la ramaderia","el comerç, l'educació, la sanitat","la cultura i el lleure, el turisme, les finances"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"el sector terciari / el comerç / l'educació / la sanitat / la comunicació / el transport / la cultura i el lleure / el turisme / les finances / la seguretat", q:"Segons l'esquema, què inclou el sector terciari?", opts:["el comerç, l'educació, la sanitat, la comunicació, el transport, la cultura i el lleure, el turisme, les finances, la seguretat","la indústria, la producció d'energia, la construcció","l'agricultura, la ramaderia, la pesca","la mineria extractiva i la silvicultura"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"que és el que predomina a Espanya", q:"Segons l'esquema, quin sector és el que predomina a Espanya?", opts:["el sector terciari","el sector primari","el sector secundari","la mineria extractiva"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"El sector terciari comprèn les activitats econòmiques destinades a satisfer les necessitats de les persones.", q:"Quina frase defineix el sector terciari?", opts:["comprèn les activitats econòmiques destinades a satisfer les necessitats de les persones","inclou les activitats relacionades amb l'agricultura, la ramaderia, la pesca i l'explotació dels boscos","transforma primeres matèries en productes elaborats o manufacturats","consisteix en l'extracció de minerals i metalls del subsol"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"EL COMERÇ. És la compra i la venda de productes i serveis.", q:"Què és el comerç?", opts:["la compra i la venda de productes i serveis","el trasllat d'un lloc a un altre de persones i mercaderies","l'activitat destinada a preservar la salut dels ciutadans","l'intercanvi de diners i productes financers"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"EL TRANSPORT. És el trasllat d'un lloc a un altre de persones i mercaderies.", q:"Què és el transporté", opts:["el trasllat d'un lloc a un altre de persones i mercaderies","la compra i la venda de productes i serveis","la formació dels ciutadans","la captura d'animals que viuen a l'aigua"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"L'EDUCACIÓ. S'ocupa de la formació dels ciutadans.", q:"Quina activitat s'ocupa de la formació dels ciutadans?", opts:["l'educació","la sanitat","el turisme","les finances"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA SEGURETAT. Se n'encarreguen els bombers, la policia, els guardes forestals, protecció civil, etc.", q:"Qui s'encarrega de la seguretaté", opts:["els bombers, la policia, els guardes forestals, protecció civil, etc.","els bancs i les caixes d'estalvi","els cinemes, els teatres, els museus","les escoles, hospitals i televisions"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Els impostos són els diners que l'Administració pública recapta dels ciutadans per finançar les despeses que comporten els serveis que ofereix.", q:"Què són els impostos?", opts:["els diners que l'Administració pública recapta dels ciutadans per finançar les despeses","la compra i la venda de productes i serveis","els diners que aporta l'empresari","els productes que s'obtenen dels arbres"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."}
+,
+      {source:"LA SANITAT. és l'activitat destinada a preservar la salut dels ciutadans.", q:"Quina frase defineix la sanitaté", opts:["l'activitat destinada a preservar la salut dels ciutadans","la compra i la venda de productes i serveis","el trasllat d'un lloc a un altre de persones i mercaderies","la formaci? dels ciutadans"], answer:0, explanation:"La sanitat és un servei del sector terciari relacionat amb la salut."},
+      {source:"EL TURISME. Esté relacionat amb els desplaçaments i les estades que fan les persones fora del seu lloc de residència.", q:"Amb què esté relacionat el turisme?", opts:["amb els desplaçaments i les estades que fan les persones fora del seu lloc de residència","amb el conreu de la terra","amb l'extracci? de minerals i metalls","amb les lleis que aprova el Parlament"], answer:0, explanation:"El turisme és un servei perquè atén necessitats de les persones."},
+      {source:"LA CULTURA. Són serveis culturals i de lleure els cinemes, els teatres, els museus, les biblioteques, les discoteques...", q:"Quins exemples dona el PDF de serveis culturals i de lleure?", opts:["els cinemes, els teatres, els museus, les biblioteques, les discoteques","les granges, els estables i els ramats","el carbé, el petroli i el gas natural","els ajuntaments, les comarques i les províncies"], answer:0, explanation:"Cultura i lleure formen part dels serveis del sector terciari."},
+      {source:"LA COMUNICACIÓ. Són tots els sistemés utilitzats per a transmetre dades, informacions, etc.", q:"Què és la comunicació segons el PDF?", opts:["tots els sistemés utilitzats per a transmetre dades, informacions, etc.","la captura d'animals que viuen a l'aigua","la producció elevada en terrenys no gaire extensos","l'elaboraci? de les lleis"], answer:0, explanation:"La comunicació és un servei que transmet dades i informacions."},
+      {source:"LES FINANCES. Consisteixen en l'intercanvi de diners i productes financers entre les entitats financeres (...) i les persones o les empreses.", q:"En què consisteixen les finances?", opts:["en l'intercanvi de diners i productes financers entre entitats financeres i persones o empreses","en obtenir fusta, llenya, suro i cel·lulosa","en fer objectes a mà amb aparells senzills","en aplicar les lleis que aprova el Parlament"], answer:0, explanation:"Les finances també són un servei del sector terciari."},
+      {source:"ELS SERVEIS PÚBLICS. Són els que ofereix l'Administració pública (...) al conjunt de la població.", q:"Què són els serveis públics?", opts:["els que ofereix l'Administració pública al conjunt de la població","els que s'ofereixen per iniciativa d'empresaris particulars","els que transformen recursos en productes elaborats","els que extreuen minerals del subsol"], answer:0, explanation:"Els serveis públics depenen d'administracions com l'Estat o la Generalitat."},
+      {source:"ELS SERVEIS PRIVATS. S'ofereixen per iniciativa d'empresaris o empresàries particulars.", q:"Què són els serveis privats?", opts:["s'ofereixen per iniciativa d'empresaris o empresàries particulars","els ofereix l'Administració pública al conjunt de la població","són sempre totalment gratuïts","són el conreu de la terra"], answer:0, explanation:"Els serveis privats els ofereixen empreses o persones particulars."},
+      {source:"Un mateix servei pot ser públic o privat segons qui l'ofereix.", q:"De què depèn que un mateix servei sigui públic o privaté", opts:["segons qui l'ofereix","segons si es pesca prop de la costa","segons si hi ha terratrèmols","segons si és una mina a cel obert"], answer:0, explanation:"La clau és qui ofereix el servei: Administració o iniciativa privada."}
+    ]
+  },
+  recursos: {
+    name: "Recursos naturals", icon: "🌿", color: "#6BCB77",
+    questions: [
+      {source:"El sector primari inclou les activitats relacionades amb l'agricultura, la ramaderia, la pesca i l'explotació dels boscos.", q:"Què inclou el sector primari?", opts:["les activitats relacionades amb l'agricultura, la ramaderia, la pesca i l'explotació dels boscos","la indústria, la mineria, la producció d'energia i la construcció","les activitats econòmiques destinades a satisfer les necessitats de les persones","el govern i l'administració de cada comarca"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"L'AGRICULTURA. És el conreu de la terra per tal d'obtenir-ne productes vegetals.", q:"Què és l'agricultura?", opts:["el conreu de la terra per tal d'obtenir-ne productes vegetals","la captura d'animals que viuen a l'aigua","l'activitat de treball que consisteix en l'extracció de minerals i metalls del subsol","l'activitat que consisteix a fer objectes a mà"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"L'agricultura intensiva es caracteritza per una producció elevada i continuada en terrenys no gaire extensos.", q:"Com es caracteritza l'agricultura intensiva?", opts:["per una producció elevada i continuada en terrenys no gaire extensos","pel conreu de grans extensions de terreny","per vaixells grossos que passen dies o setmanes a alta mar","per utilitzar grans extensions de terreny i tenir productivitat baixa"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"L'agricultura extensiva es caracteritza pel conreu de grans extensions de terreny.", q:"Com es caracteritza l'agricultura extensiva?", opts:["pel conreu de grans extensions de terreny","per una producció elevada i continuada en terrenys no gaire extensos","per la compra i la venda de productes i serveis","per l'extracció de minerals i metalls del subsol"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA PESCA. És la captura d'animals que viuen a l'aigua, sobretot peixos, per al consum humà.", q:"Què és la pesca?", opts:["la captura d'animals que viuen a l'aigua, sobretot peixos, per al consum humà","el conreu de la terra per obtenir productes vegetals","l'obtenció de productes dels arbres","la domesticació i la cria de bestiar"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Pesca costanera, que és la que es practica a prop de la costa, amb vaixells no gaire grossos que tornen al port cada dia.", q:"Què és la pesca costanera?", opts:["la que es practica a prop de la costa, amb vaixells no gaire grossos que tornen al port cada dia","la que es practica lluny de la costa","la que es practica amb vaixells grossos que passen dies o setmanes a alta mar","la que fa servir tècniques tradicionals amb poc desenvolupament tecnològic"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"L'EXPLOTACIÓ DELS BOSCOS o SILVICULTURA. Consisteix a obtenir alguns productes dels arbres, sobretot fusta, llenya, suro i cel·lulosa.", q:"Què és la silvicultura?", opts:["obtenir alguns productes dels arbres, sobretot fusta, llenya, suro i cel·lulosa","la domesticació i la cria de bestiar","la captura d'animals que viuen a l'aigua","la compra i la venda de productes i serveis"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA RAMADERIA. Consisteix en la domesticació i la cria de bestiar per a obtenir-ne diversos productes.", q:"Què és la ramaderia?", opts:["la domesticació i la cria de bestiar per a obtenir-ne diversos productes","el conreu de grans extensions de terreny","la producció d'energia elèctrica","l'activitat destinada a preservar la salut"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA MINERIA. És l'activitat de treball que consisteix en l'extracció de minerals i metalls del subsol.", q:"Què és la mineria?", opts:["l'activitat de treball que consisteix en l'extracció de minerals i metalls del subsol","l'activitat que consisteix a fer objectes a mà","el trasllat de persones i mercaderies","la zona de la Terra on viuen els éssers vius"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Els elements que intervenen en el procés de producció d'una fàbrica són aquests: les primeres matèries, la maquinària, l'energia, la mà d'obra.", q:"Quins elements intervenen en el procés de producció d'una fàbrica?", opts:["les primeres matèries, la maquinària, l'energia, la mà d'obra","el comerç, l'educació, la sanitat i la comunicació","el Parlament, la Presidència i el Govern","el Consell, la Comissió i el Parlament Europeu"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."}
+,
+      {source:"Pesca d'altura, que és la que es practica lluny de la costa.", q:"Què és la pesca d'altura?", opts:["la que es practica lluny de la costa","la que es practica a prop de la costa","la que es practica només als rius","la que consisteix a obtenir fusta"], answer:0, explanation:"La paraula clau és lluny de la costa."},
+      {source:"Pesca de gran altura, que és la que es practica amb vaixells grossos que passen dies o setmanes a alta mar.", q:"Què és la pesca de gran altura?", opts:["la que es practica amb vaixells grossos que passen dies o setmanes a alta mar","la que torna al port cada dia","la que utilitza només petits vaixells","la que conrea grans extensions de terreny"], answer:0, explanation:"La pesca de gran altura dura dies o setmanes a alta mar."},
+      {source:"La pesca artesanal fa servir técniques tradicionals amb poc desenvolupament tecnològic.", q:"Com és la pesca artesanal?", opts:["fa servir técniques tradicionals amb poc desenvolupament tecnològic","fa servir enormés cambres frigorífiques","es fa amb granges mecanitzades","transforma petroli en gasoli"], answer:0, explanation:"Artesanal vol dir amb técniques tradicionals i poca tecnologia."},
+      {source:"Els productes poden ser de dos tipus: aliments (...) i primeres matéries, sobretot llana i pell.", q:"Quins dos tipus de productes pot donar la ramaderia?", opts:["aliments i primeres matéries","lleis i pressupostos","gasos i partécules contaminants","comarques i províncies"], answer:0, explanation:"La ramaderia pot donar aliments i matéries com llana o pell."},
+      {source:"La ramaderia intensiva necessita una inversió important de diners per a comprar màquines i productes quèmics.", q:"Què necessita la ramaderia intensiva?", opts:["una inversió important de diners per a comprar màquines i productes quèmics","grans extensions de terreny i productivitat baixa","vaixells grossos a alta mar","un parlament i un govern propis"], answer:0, explanation:"La intensiva necessita més inversió i mecanitzaci?."},
+      {source:"La ramaderia extensiva utilitza grans extensions de terreny, requereix poca inversió i té una productivitat baixa.", q:"Com és la ramaderia extensiva?", opts:["utilitza grans extensions de terreny, requereix poca inversió i té una productivitat baixa","necessita moltes màquines i productes quèmics","es fa en hivernacles","es fa a les centrals solars"], answer:0, explanation:"La extensiva ocupa molt espai i produeix menys."},
+      {source:"La indéstria (...) transforma primeres matéries (...) en productes elaborats o manufacturats.", q:"Què fa la indéstria?", opts:["transforma primeres matéries en productes elaborats o manufacturats","escull l'alcalde o l'alcaldessa","captura animals que viuen a l'aigua","evita les zones de risc"], answer:0, explanation:"La indéstria és transformaci? de matéries en productes."},
+      {source:"Públiques, quan la propietat correspon a l'estat.", q:"Quan són públiques les indéstries?", opts:["quan la propietat correspon a l'estat","quan la propietat és d'una o diverses persones","quan tornen al port cada dia","quan fan objectes a mà"], answer:0, explanation:"Pública vol dir propietat de l'Estat."},
+      {source:"Privades, quan la propietat és d'una o diverses persones.", q:"Quan són privades les indéstries?", opts:["quan la propietat és d'una o diverses persones","quan la propietat correspon a l'estat","quan s'hi acumulen residus","quan representen els governs de cada estat"], answer:0, explanation:"Privada vol dir propietat de persones o empreses."},
+      {source:"L'ARTESANIA. és l'activitat que consisteix a fer objectes a mà, amb aparells senzills i de manera tradicional.", q:"Què és l'artesania?", opts:["fer objectes a mà, amb aparells senzills i de manera tradicional","aprofitar l'energia de reaccions nuclears","elaborar i aprovar les lleis","la captura de peixos per al consum humà"], answer:0, explanation:"L'artesania treballa a mà i de manera tradicional."},
+      {source:"A les centrals térmiques, cremant carbé o altres combustibles.", q:"Com produeixen energia les centrals térmiques?", opts:["cremant carbé o altres combustibles","aprofitant l'energia del Sol","aprofitant la força del vent","aprofitant la força dels salts d'aigua"], answer:0, explanation:"Tèrmica s'associa a cremar combustibles."},
+      {source:"A les centrals nuclears, aprofitant l'energia de reaccions nuclears a partir d'un mineral anomenat urani.", q:"Què aprofiten les centrals nuclears?", opts:["l'energia de reaccions nuclears a partir d'un mineral anomenat urani","la força del vent","l'energia del Sol","els salts d'aigua dels embassaments"], answer:0, explanation:"Les nuclears fan servir reaccions nuclears amb urani."},
+      {source:"A les centrals hidroelèctriques, aprofitant la força dels salts d'aigua dels embassaments.", q:"Què aprofiten les centrals hidroelèctriques?", opts:["la força dels salts d'aigua dels embassaments","el carbé o altres combustibles","l'energia de reaccions nuclears","els diners dels impostos"], answer:0, explanation:"Hidroelèctrica té a veure amb l'aigua."},
+      {source:"LA CONSTRUCCIÓ. Consisteix a fer les obres per bastir edificis, carreteres, etc.", q:"Què és la construcció?", opts:["fer les obres per bastir edificis, carreteres, etc.","transmetre dades i informacions","fer complir les lleis","criar bestiar per obtenir productes"], answer:0, explanation:"La construcció fa edificis, carreteres i altres obres."}
+    ]
+  },
+  ambient: {
+    name: "Medi ambient", icon: "💧", color: "#4D96FF",
+    questions: [
+      {source:"La sobreexplotació d'un recurs significa el seu consum o utilització per sobre de la capacitat que tingui de refer-se.", q:"Què significa la sobreexplotació d'un recurs?", opts:["el seu consum o utilització per sobre de la capacitat que tingui de refer-se","la compra i la venda de productes i serveis","la possibilitat que es produeixi un dany o una catàstrofe","el conjunt de màquines d'una fàbrica"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Algunes de les alteracions més importants que pateix el medi ambient a causa de l'acció humana són la sobreexplotació dels recursos i la contaminació.", q:"Quines alteracions importants pateix el medi ambient a causa de l'acció humana?", opts:["la sobreexplotació dels recursos i la contaminació","les eleccions municipals i les eleccions generals","la pesca costanera i la pesca d'altura","la indústria pública i la privada"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA CONTAMINACIÓ DE L'AIRE. Es deu a l'emissió de gasos i partícules contaminants per part de les indústries i els vehicles de motor.", q:"A què es deu la contaminació de l'aire?", opts:["a l'emissió de gasos i partícules contaminants per part de les indústries i els vehicles de motor","a l'abocament de residus als rius o al mar","als residus procedents dels adobs i els pesticides","a les lleres inundables dels rius"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA CONTAMINACIÓ DE L'AIGUA. És causada per l'abocament de residus, sòlids o líquids, als rius o al mar.", q:"Què causa la contaminació de l'aigua?", opts:["l'abocament de residus, sòlids o líquids, als rius o al mar","l'emissió de gasos de les indústries i vehicles","els adobs i els pesticides utilitzats en l'agricultura","els terratrèmols i les erupcions volcàniques"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LA CONTAMINACIÓ DEL SÒL. Es deu als residus que s'hi acumulen, procedents sobretot dels adobs i els pesticides utilitzats en l'agricultura.", q:"A què es deu la contaminació del sòl?", opts:["als residus que s'hi acumulen, procedents sobretot dels adobs i els pesticides utilitzats en l'agricultura","a l'abocament de residus als rius o al mar","a l'emissió de gasos i partícules contaminants","a la presidència rotativa per períodes de sis mesos"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"S'anomena risc ambiental la possibilitat que es produeixi un dany o una catàstrofe en el medi ambient a causa d'un fenomen natural o d'una acció humana.", q:"Què és un risc ambiental?", opts:["la possibilitat que es produeixi un dany o una catàstrofe en el medi ambient","el conreu de la terra per obtenir productes vegetals","l'intercanvi de diners i productes financers","la màxima institució política de Catalunya"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"RISCOS NATURALS. Els riscos per causes naturals són els provocats pels fenòmens meteorològics (...) o pels agents geològics (...).", q:"Què són els riscos naturals?", opts:["els provocats pels fenòmens meteorològics o pels agents geològics","els que es deuen a un mal funcionament de les instal·lacions industrials","els provocats per negligències o intencionadament","els causats pels impostos que paguem tots"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"RISCOS PER L'ACCIÓ HUMANA. Els riscos per intervencions humanes més comuns es deuen a un mal funcionament de les instal·lacions industrials o en el procés de producció d'energia.", q:"A què es deuen els riscos per intervencions humanes més comuns?", opts:["a un mal funcionament de les instal·lacions industrials o en el procés de producció d'energia","als fenòmens meteorològics i als agents geològics","a la força dels salts d'aigua dels embassaments","a la compra i la venda de productes i serveis"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"La millor manera d'evitar les conseqüències derivades dels riscos ambientals és prevenir.", q:"Quina és la millor manera d'evitar les conseqüències dels riscos ambientals?", opts:["prevenir","sobreexplotar","contaminar","desforestar"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Evitar les zones de risc, és a dir, no establir població on hi ha més probabilitats que es produeixi algun risc.", q:"Què vol dir evitar les zones de risc?", opts:["no establir població on hi ha més probabilitats que es produeixi algun risc","construir habitatges, indústries o carreteres en una llera inundable","pescar exemplars joves que encara no s'han reproduït","extreure petroli com si no s'hagués d'acabar mai"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."}
+,
+      {source:"La pesca il·legal, en llocs on no es pot pescar o bé en èpoques prohibides (...) també perjudiquen la recuperaci? del mar.", q:"Què perjudica la recuperaci? del mar?", opts:["la pesca il·legal, en llocs on no es pot pescar o bé en èpoques prohibides","aprovar els pressupostos de la Generalitat","evitar les zones de risc","adequar les construccions als riscos naturals"], answer:0, explanation:"La pesca il·legal no deixa que el mar es recuperi bé."},
+      {source:"El model energètic actual es basa majoritériament (97%) en el consum de combustibles féssils.", q:"En què es basa majoritériament el model energètic actual?", opts:["en el consum de combustibles féssils","en l'energia del Sol i del vent","en els serveis públics","en les eleccions municipals"], answer:0, explanation:"El PDF destaca que el model actual depèn molt dels combustibles féssils."},
+      {source:"Aquest consum es reparteix en un 38% de carbé, un 40% de petroli i un 19% de gas natural.", q:"Com es reparteix el consum de combustibles féssils segons el PDF?", opts:["38% de carbé, 40% de petroli i 19% de gas natural","40% de carbé, 38% de petroli i 19% de vent","19% de carbé, 40% de Sol i 38% de gas natural","97% d'energia solar i eòlica"], answer:0, explanation:"Recorda els tres percentatges: carbé 38, petroli 40 i gas 19."},
+      {source:"S'estima que el petroli durarà 45 anys més, el gas natural, 65 anys més i el carbé, 230.", q:"Quant s'estima que duraran el petroli, el gas natural i el carbé?", opts:["petroli 45 anys més, gas natural 65 anys més i carbé 230","petroli 230 anys, gas 45 i carbé 65","petroli 65 anys, gas 230 i carbé 45","tots duraran 45 anys"], answer:0, explanation:"és una pregunta de números del PDF: 45, 65 i 230."},
+      {source:"Per a fer front a aquest problema, cal prendre mesures, com la reducci? del consum i el desenvolupament i la utilitzaci? de noves formés d'energies renovables.", q:"Quines mesures cal prendre davant aquest problema energètic?", opts:["la reducci? del consum i la utilitzaci? de noves formés d'energies renovables","pescar en èpoques prohibides","construir en lleres inundables","augmentar la contaminaci? del sòl"], answer:0, explanation:"La soluci? del PDF és consumir menys i usar renovables."},
+      {source:"Aquesta contaminaci? produeix alteracions en el medi fésic, a l'aire, a l'aigua i al sòl.", q:"On produeix alteracions la contaminaci??", opts:["a l'aire, a l'aigua i al sòl","al Parlament, al Govern i als tribunals","a les comarques i províncies","a les cambres del Congrés i el Senat"], answer:0, explanation:"El PDF separa contaminaci? de l'aire, de l'aigua i del sòl."},
+      {source:"La desforestació (...) agreuja les conseqüències de les pluges o les riuades perquè facilita les esllavissades de terra.", q:"Per què la desforestació agreuja les pluges o riuades?", opts:["perquè facilita les esllavissades de terra","perquè escull el president","perquè aprofita la força del vent","perquè conserva el peix en cambres frigorífiques"], answer:0, explanation:"Sense arbres, el terreny es pot desprendre més fàcilment."},
+      {source:"Adequar les construccions als riscos naturals, bastint edificis o infraestructures que puguin suportar forts aiguats o moviments sésmics.", q:"Què vol dir adequar les construccions als riscos naturals?", opts:["bastir edificis o infraestructures que puguin suportar forts aiguats o moviments sésmics","pescar més peix del que es pot reproduir","abocar residus als rius o al mar","fer objectes a mà amb aparells senzills"], answer:0, explanation:"Adequar vol dir construir pensant en el risc del lloc."},
+      {source:"Preveure alguns riscos (...) amb l'ajuda de la tecnologia i protegir la població.", q:"Com es poden preveure alguns riscos?", opts:["amb l'ajuda de la tecnologia i protegint la població","amb pesca il·legal","amb més combustibles féssils","amb adobs i pesticides"], answer:0, explanation:"La tecnologia ajuda a anticipar alguns riscos i avisar la població."}
+    ]
+  },
+  politica: {
+    name: "Organització política", icon: "🏛️", color: "#FF6B6B",
+    questions: [
+      {source:"A Catalunya hi ha 946 ajuntaments.", q:"Quants ajuntaments hi ha a Catalunya?", opts:["946","42","135","17"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Els regidors són escollits cada quatre anys per la població major d'edat de cada municipi en les eleccions municipals.", q:"Qui escull els regidors?", opts:["la població major d'edat de cada municipi","el rei","la Comissió Europea","els tribunals de justícia"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Entre els regidors trien l'alcalde o l'alcaldessa, que és la màxima autoritat del poble o ciutat.", q:"Qui és la màxima autoritat del poble o ciutaté", opts:["l'alcalde o l'alcaldessa","el rei o la reina","el president del Govern","un eurodiputat"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Catalunya, a més, està dividida en 42 comarques.", q:"En quantes comarques està dividida Catalunya?", opts:["42","946","135","754"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"La Generalitat és la màxima institució política de Catalunya.", q:"Quina és la màxima institució política de Catalunya?", opts:["La Generalitat","Les Corts Generals","El Tribunal Constitucional","El Consell de la Unió Europea"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"EL PARLAMENT DE CATALUNYA. És constituït per 135 diputats.", q:"Per quants diputats és constituït el Parlament de Catalunya?", opts:["135 diputats","350 diputats","259 senadors","754 parlamentaris"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"La llei principal de Catalunya és l'Estatut d'Autonomia.", q:"Quina és la llei principal de Catalunya?", opts:["l'Estatut d'Autonomia","la Constitució Espanyola","l'IVA","el Dia d'Europa"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Espanya és un estat democràtic que pren la forma política d'una monarquia parlamentària.", q:"Quina forma política pren Espanya?", opts:["una monarquia parlamentària","una república municipal","una comarca autònoma","una institució europea"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Espanya s'organitza en 17 comunitats autònomes, més les ciutats autònomés de Ceuta i Melilla.", q:"Com s'organitza Espanya?", opts:["en 17 comunitats autònomes, més les ciutats autònomés de Ceuta i Melilla","en 42 comarques","en 946 ajuntaments","en 28 comissaris"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"LES CORTS GENERALS. Aproven les lleis, controlen l'acció del Govern i n'escullen el president.", q:"Què fan les Corts Generals?", opts:["aproven les lleis, controlen l'acció del Govern i n'escullen el president","apliquen les decisions del Consell i el Parlament","s'encarreguen del govern i l'administració de cada comarca","obtenen productes dels arbres"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"Són formades per dues cambres: el Congrés dels Diputats (...) i el Senat (...).", q:"Per quines dues cambres són formades les Corts Generals?", opts:["el Congrés dels Diputats i el Senat","el Parlament Europeu i la Comissió Europea","l'ajuntament i el consell comarcal","la Presidència i el Govern"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"ELS TRIBUNALS DE JUSTÍCIA. S'encarreguen de fer complir les lleis i de penalitzar qui no ho faci.", q:"De què s'encarreguen els tribunals de justícia?", opts:["de fer complir les lleis i de penalitzar qui no ho faci","d'elaborar les lleis i el pressupost","d'aplicar les decisions del Consell i el Parlament","de formar i coordinar el Govern"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"La Unió Europea està basada en tres grans institucions: el Consell de la Unió Europea, la Comissió Europea i el Parlament.", q:"En quines tres grans institucions està basada la Unió Europea?", opts:["el Consell de la Unió Europea, la Comissió Europea i el Parlament","el Congrés, el Senat i els tribunals","la Generalitat, el Parlament i el Govern","els ajuntaments, les comarques i les províncies"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"EL PARLAMENT EUROPEU. Representa els ciutadans de la Unió.", q:"Qui representa els ciutadans de la Unió?", opts:["el Parlament Europeu","el Consell Comarcal","el Cap d'Estat","la ramaderia extensiva"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."},
+      {source:"El dia 9 de maig és el Dia d'Europa.", q:"Quin dia és el Dia d'Europa?", opts:["9 de maig","6 de mesos","4 anys","1950 diputats"], answer:0, explanation:"La frase del PDF conté la resposta correcta; compara-la amb l'opció marcada en verd."}
+,
+      {source:"La Presidència de la Generalitat és la màxima autoritat política de Catalunya i s'ocupa de formar i coordinar el Govern.", q:"De què s'ocupa la Presidència de la Generalitaté", opts:["de formar i coordinar el Govern","de capturar animals que viuen a l'aigua","d'obtenir fusta, llenya, suro i cel·lulosa","de fer objectes a mà"], answer:0, explanation:"La Presidència forma i coordina el Govern catal?."},
+      {source:"El Govern o Consell Executiu és format pel president de la Generalitat i diversos consellers i conselleres.", q:"Qui forma el Govern o Consell Executiu?", opts:["el president de la Generalitat i diversos consellers i conselleres","els regidors de tots els ajuntaments","el Congrés i el Senat","els eurodiputats i els comissaris"], answer:0, explanation:"El Govern catal? esté format pel president i els consellers."},
+      {source:"El Govern aplica les lleis que aprova el Parlament i vetlla pel bon funcionament de l'Administració i dels serveis públics.", q:"Què fa el Govern de Catalunya?", opts:["aplica les lleis que aprova el Parlament i vetlla pel bon funcionament de l'Administració i dels serveis públics","elabora les lleis i el pressupost de la Unió Europea","representa els governs dels estats membres","captura animals aquètics"], answer:0, explanation:"El Govern aplica les lleis; el Parlament les aprova."},
+      {source:"En una monarquia, la màxima autoritat de l'estat és un rei o una reina.", q:"En una monarquia, qui és la màxima autoritat de l'estaté", opts:["un rei o una reina","un alcalde o alcaldessa","un conseller comarcal","un empresari particular"], answer:0, explanation:"Monarquia vol dir que hi ha rei o reina com a cap de l'Estat."},
+      {source:"En un sistema polític parlamentari, les lleis les elabora el parlament, com a representant de la ciutadania.", q:"Qui elabora les lleis en un sistema polític parlamentari?", opts:["el parlament, com a representant de la ciutadania","les centrals hidroelèctriques","la pesca artesanal","els combustibles féssils"], answer:0, explanation:"Parlamentari vol dir que el parlament fa les lleis."},
+      {source:"Cada comunitat auténoma és formada per una o diverses províncies.", q:"Per què és formada cada comunitat auténoma?", opts:["per una o diverses províncies","per 946 ajuntaments sempre","per 754 parlamentaris","per 28 comissaris"], answer:0, explanation:"Les comunitats auténomés agrupen una o més províncies."},
+      {source:"El cap d'Estat és el rei. La seva funció és representativa, i no pren decisions polítiques.", q:"Quina funció té el cap d'Estat a Espanya segons el PDF?", opts:["és representativa, i no pren decisions polítiques","aplica les lleis i administra el pressupost","fa complir les lleis i penalitza qui no ho faci","s'encarrega de la pesca costanera"], answer:0, explanation:"El rei representa l'Estat, per? no pren decisions polítiques."},
+      {source:"El Govern aplica les lleis, administra el pressupost de l'Estat i gestiona l'Administració.", q:"Què fa el Govern d'Espanya?", opts:["aplica les lleis, administra el pressupost de l'Estat i gestiona l'Administració","representa els ciutadans de la Unió","conrea la terra per obtenir productes vegetals","aprova les lleis que proposa la Comissió Europea"], answer:0, explanation:"El Govern espanyol aplica lleis i gestiona l'Administració."},
+      {source:"El Consell de la Unió Europea representa els governs de cada un dels estats membres.", q:"Què representa el Consell de la Unió Europea?", opts:["els governs de cada un dels estats membres","els ciutadans de la Unió","els ajuntaments de Catalunya","les empreses privades"], answer:0, explanation:"El Consell representa els governs dels estats membres."},
+      {source:"La Comissió Europea és el govern de la Unió, que aplica les decisions del Consell i el Parlament.", q:"Què és la Comissió Europea?", opts:["el govern de la Unió, que aplica les decisions del Consell i el Parlament","la màxima autoritat del poble o ciutat","la cambra formada per 350 diputats","l'explotaci? dels boscos"], answer:0, explanation:"La Comissió funciona com el govern de la Unió Europea."},
+      {source:"El Parlament Europeu aprova les lleis que proposa la Comissió i supervisa la seva activitat.", q:"Què fa el Parlament Europeu?", opts:["aprova les lleis que proposa la Comissió i supervisa la seva activitat","escull l'alcalde o alcaldessa","recapta impostos per serveis públics","extreu minerals del subsol"], answer:0, explanation:"El Parlament Europeu aprova lleis europees i controla la Comissió."},
+      {source:"La bandera europea és formada per 12 estrelles grogues disposades en forma de cercle sobre un fons blau.", q:"Com és la bandera europea?", opts:["12 estrelles grogues en forma de cercle sobre un fons blau","42 estrelles verdes sobre un fons groc","135 estrelles blaves sobre un fons blanc","17 estrelles vermelles sobre un fons negre"], answer:0, explanation:"La bandera europea té 12 estrelles grogues en cercle."}
+    ]
+  }
+};
+
+let currentTopic = null;
+let questions = [];
+let qIndex = 0;
+let score = 0;
+let answered = false;
+
+function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
+
+function showWelcome(){
+  currentTopic = null;
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('welcomeScreen').style.display = 'block';
+  document.getElementById('quizContainer').style.display = 'none';
+}
+
+function startTopic(key){
+  currentTopic = key;
+  qIndex = 0;
+  score = 0;
+  answered = false;
+  questions = shuffle(topics[key].questions).slice(0, 12);
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.topic === key));
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('quizContainer').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion(){
+  if(qIndex >= questions.length){ renderResults(); return; }
+  const topic = topics[currentTopic];
+  const q = questions[qIndex];
+  const pct = Math.round((qIndex / questions.length) * 100);
+  const letters = ['A','B','C','D'];
+  answered = false;
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz">
+      <div class="quiz-head">
+        <span class="topic-pill">${topic.icon} ${topic.name}</span>
+        <span class="topic-pill">Pregunta ${qIndex + 1} de ${questions.length}</span>
+      </div>
+      <div class="progress-wrap"><div class="progress" style="width:${pct}%"></div></div>
+      <div class="question-card">
+        <div class="question-num">Tria la resposta correcta</div>
+        <div class="question-text">${q.q}</div>
+        <div class="options">
+          ${q.opts.map((opt,i)=>`<button class="option-btn" onclick="selectAnswer(${i})"><span class="letter">${letters[i]}</span><span>${opt}</span></button>`).join('')}
+        </div>
+        <div class="feedback" id="feedbackBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display:none">${qIndex < questions.length - 1 ? 'Següent pregunta →' : 'Veure resultats 🏆'}</button>
+      </div>
+    </div>`;
+}
+
+function selectAnswer(selected){
+  if(answered) return;
+  answered = true;
+  const q = questions[qIndex];
+  const buttons = document.querySelectorAll('.option-btn');
+  const feedback = document.getElementById('feedbackBox');
+  buttons.forEach(btn => btn.disabled = true);
+  buttons[q.answer].classList.add('correct');
+  if(selected === q.answer){
+    score++;
+    feedback.className = 'feedback ok show';
+    feedback.innerHTML = `<strong>Correcte!</strong> Molt b?.<br><small>${q.explanation || ''}</small><div class="source"><strong>Frase del PDF:</strong> ${q.source}</div>`;
+  }else{
+    buttons[selected].classList.add('wrong');
+    feedback.className = 'feedback ko show';
+    feedback.innerHTML = `<strong>Compte!</strong> La resposta correcta era: ${q.opts[q.answer]}<br><small>${q.explanation || "Fixa't en la frase del PDF: all? hi ha la pista exacta."}</small><div class="source"><strong>Frase del PDF:</strong> ${q.source}</div>`;
+  }
+  document.getElementById('nextBtn').style.display = 'inline-flex';
+}
+
+function nextQuestion(){ qIndex++; renderQuestion(); }
+
+function renderResults(){
+  const pct = Math.round((score / questions.length) * 100);
+  const stars = Math.round((score / questions.length) * 5);
+  const topic = topics[currentTopic];
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="results">
+      <span class="result-emoji">${pct >= 80 ? '🏆' : pct >= 60 ? '💪' : '📚'}</span>
+      <h1>${pct >= 80 ? 'Molt ben preparat!' : 'Seguim practicant!'}</h1>
+      <p class="subtitle">Has encertat ${score} de ${questions.length} preguntes de ${topic.name}.</p>
+      <div class="stars">${'⭐'.repeat(stars)}${'☆'.repeat(5-stars)}</div>
+      <a href="index.html" class="home-btn">Tornar al portal</a>
+      <button class="next-btn" onclick="startTopic('${currentTopic}')">Repetir tema</button>
+      <button class="next-btn" onclick="showWelcome()">Triar un altre tema</button>
+    </div>`;
+}
+</script>
+</body>
+</html>
