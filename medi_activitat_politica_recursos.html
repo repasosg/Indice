@@ -246,7 +246,27 @@ let qIndex = 0;
 let score = 0;
 let answered = false;
 
-function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
+function shuffle(arr){
+  const copy = [...arr];
+  for(let i = copy.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function shuffleQuestionOptions(question){
+  const shuffledOptions = shuffle(question.opts.map((text, index) => ({
+    text,
+    isCorrect: index === question.answer
+  })));
+
+  return {
+    ...question,
+    opts: shuffledOptions.map(option => option.text),
+    answer: shuffledOptions.findIndex(option => option.isCorrect)
+  };
+}
 
 function showWelcome(){
   currentTopic = null;
@@ -260,7 +280,7 @@ function startTopic(key){
   qIndex = 0;
   score = 0;
   answered = false;
-  questions = shuffle(topics[key].questions).slice(0, 12);
+  questions = shuffle(topics[key].questions).slice(0, 12).map(shuffleQuestionOptions);
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.topic === key));
   document.getElementById('welcomeScreen').style.display = 'none';
   document.getElementById('quizContainer').style.display = 'block';
