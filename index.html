@@ -6,506 +6,489 @@
 <title>Portal de Repàs 5è de Primària</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --cream:   #FFFBF0;
-  --ink:     #2D2A3E;
-  --dim:     #7A7590;
-  --castella: #FF6B6B;
-  --catala:   #20C997;
-  --english:  #4D96FF;
-  --mates:    #FFB347;
-  --medi:     #6BCB77;
-  --exam-a:   #FF416C;
-  --exam-b:   #FF4B2B;
+:root{
+  --cream:#FFF8EC;
+  --ink:#27233A;
+  --dim:#766f91;
+  --white:#fff;
+  --line:#ece7ff;
+  --shadow:0 16px 40px rgba(39,35,58,.12);
+  --castella:#FF6B6B;
+  --catala:#20C997;
+  --english:#4D96FF;
+  --mates:#FFB347;
+  --medi:#6BCB77;
+  --purple:#8B5CF6;
+  --pink:#FF4D8D;
+  --blue:#4D96FF;
+  --gold:#FFB703;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--cream);
-  color: var(--ink);
-  min-height: 100vh;
-  overflow-x: hidden;
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Nunito',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,183,3,.30),transparent 28%),
+    radial-gradient(circle at 88% 12%,rgba(77,150,255,.24),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(32,201,151,.16),transparent 40%),
+    var(--cream);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
 }
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, #d0cce0 1.2px, transparent 1.2px);
-  background-size: 28px 28px;
-  opacity: 0.4;
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,#c9c2e9 1.2px,transparent 1.2px);
+  background-size:28px 28px;
+  opacity:.32;
 }
-.page {
-  position: relative; z-index: 1;
-  max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px;
+a{color:inherit}
+.page{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:28px 20px 68px}
+
+/* HERO */
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:34px;
+  padding:30px;
+  background:rgba(255,255,255,.78);
+  border:3px solid rgba(255,255,255,.95);
+  box-shadow:var(--shadow);
+  margin-bottom:24px;
+  animation:popIn .6s cubic-bezier(.36,1.6,.5,1) both;
+}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
+.hero::before{width:210px;height:210px;background:rgba(255,77,141,.12);right:-70px;top:-65px}
+.hero::after{width:160px;height:160px;background:rgba(77,150,255,.13);left:-55px;bottom:-70px}
+.hero-top{position:relative;z-index:1;display:flex;gap:22px;align-items:center;justify-content:space-between}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#27233A;color:white;
+  font-family:'Fredoka One',cursive;
+  letter-spacing:1px;text-transform:uppercase;
+  border-radius:999px;padding:8px 16px;font-size:.82rem;margin-bottom:14px;
+}
+h1{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(2.35rem,6vw,4.35rem);
+  line-height:1.02;
+  background:linear-gradient(135deg,#FF416C,#8B5CF6,#4D96FF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:12px;
+}
+.hero p{font-size:1.13rem;color:var(--dim);font-weight:800;max-width:760px;line-height:1.45}
+.hero-mascot{
+  flex:0 0 auto;
+  width:142px;height:142px;border-radius:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#FFF1F2,#EEF2FF,#ECFDF5);
+  border:3px solid white;
+  font-size:4.4rem;
+  box-shadow:0 12px 28px rgba(39,35,58,.14);
+  transform:rotate(4deg);
+}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:999px;
+  background:white;border:2px solid #f2eaff;
+  font-weight:900;color:#3b3358;
+  box-shadow:0 4px 12px rgba(39,35,58,.06);
 }
 
-/* ── Header ── */
-header {
-  text-align: center; padding: 16px 0 36px;
-  animation: popIn .7s cubic-bezier(.36,1.6,.5,1) both;
+/* BANNER PROPER EXAMEN */
+.banner{
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+  background:linear-gradient(135deg,#FF416C,#FF8A3D,#FFB703);
+  border-radius:32px;
+  padding:28px 32px;
+  box-shadow:0 18px 48px rgba(255,65,108,.30);
+  margin-bottom:28px;
+  color:white;
+  animation:popIn .6s .08s cubic-bezier(.36,1.6,.5,1) both;
 }
-.tag {
-  display: inline-block;
-  background: var(--ink); color: var(--cream);
-  font-family: 'Fredoka One', cursive;
-  font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
-  padding: 5px 18px; border-radius: 30px; margin-bottom: 14px;
+.banner::before{content:'';position:absolute;top:-60px;right:14%;width:230px;height:230px;background:rgba(255,255,255,.10);border-radius:50%}
+.banner::after{content:'';position:absolute;bottom:-75px;left:5%;width:190px;height:190px;background:rgba(255,255,255,.08);border-radius:50%}
+.banner-content{position:relative;z-index:1}
+.banner-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.35);
+  color:white;font-family:'Fredoka One',cursive;
+  font-size:.82rem;letter-spacing:1.4px;text-transform:uppercase;
+  padding:7px 15px;border-radius:999px;margin-bottom:14px;
 }
-header h1 {
-  font-family: 'Fredoka One', cursive;
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
-  line-height: 1.1; margin-bottom: 10px;
-  background: linear-gradient(135deg, #FF416C, #a855f7, #4D96FF);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+.banner h2{font-family:'Fredoka One',cursive;font-size:clamp(1.65rem,3.8vw,2.35rem);line-height:1.1;margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,.18)}
+.banner-sub{font-size:1rem;font-weight:800;color:rgba(255,255,255,.90);max-width:700px;margin-bottom:18px}
+.banner-actions{display:flex;gap:12px;flex-wrap:wrap}
+.banner-btn,.soft-btn{
+  min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:999px;text-decoration:none;font-family:'Fredoka One',cursive;
+  padding:13px 24px;transition:transform .22s,box-shadow .22s;
 }
-header p { color: var(--dim); font-size: 1.05rem; font-weight: 700; }
+.banner-btn{background:white;color:#FF416C;box-shadow:0 6px 20px rgba(0,0,0,.16)}
+.soft-btn{background:rgba(255,255,255,.20);color:white;border:1px solid rgba(255,255,255,.36)}
+.banner-btn:hover,.soft-btn:hover{transform:translateY(-3px) scale(1.03)}
+.banner-emoji{position:relative;z-index:1;font-size:5.4rem;filter:drop-shadow(0 4px 10px rgba(0,0,0,.18));animation:floaty 3.5s ease-in-out infinite}
 
-/* ── BANNER proper examen ── */
-.banner {
-  position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--exam-a), var(--exam-b));
-  border-radius: 28px; padding: 38px 44px;
-  box-shadow: 0 14px 44px rgba(255,65,108,.35);
-  margin-bottom: 44px;
-  animation: popIn .6s .08s cubic-bezier(.36,1.6,.5,1) both;
+/* MISSION MAP */
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:30px 0 16px}
+.section-head h2{font-family:'Fredoka One',cursive;font-size:clamp(1.7rem,4vw,2.35rem);line-height:1.1}
+.section-head p{color:var(--dim);font-weight:800;margin-top:6px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.legend span{background:white;border:2px solid #f0e9ff;border-radius:999px;padding:8px 11px;font-weight:900;font-size:.88rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.card{
+  --subj-color:var(--purple);--subj-bg:#F4EEFF;--subj-btn:var(--purple);--subj-txt:#fff;
+  position:relative;overflow:hidden;
+  background:white;border-radius:28px;
+  border:3px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 26px rgba(39,35,58,.10);
+  animation:popIn .5s cubic-bezier(.36,1.6,.5,1) both;
+  transition:transform .25s,box-shadow .25s;
 }
-.banner::before {
-  content: ''; position: absolute; top: -50px; right: -50px;
-  width: 240px; height: 240px;
-  background: rgba(255,255,255,.08); border-radius: 50%;
+.card:hover{transform:translateY(-6px);box-shadow:0 16px 42px rgba(39,35,58,.16)}
+.card::before{content:'';position:absolute;inset:0 0 auto 0;height:8px;background:var(--subj-color)}
+.card:nth-child(1){animation-delay:.06s}.card:nth-child(2){animation-delay:.11s}.card:nth-child(3){animation-delay:.16s}.card:nth-child(4){animation-delay:.21s}.card:nth-child(5){animation-delay:.26s}
+.card[data-s="castella"]{--subj-color:var(--castella);--subj-bg:#FFEDED;--subj-btn:var(--castella);--subj-txt:white}
+.card[data-s="catala"]{--subj-color:var(--catala);--subj-bg:#E6FAF5;--subj-btn:var(--catala);--subj-txt:white}
+.card[data-s="english"]{--subj-color:var(--english);--subj-bg:#E8F2FF;--subj-btn:var(--english);--subj-txt:white}
+.card[data-s="mates"]{--subj-color:var(--mates);--subj-bg:#FFF5E6;--subj-btn:var(--mates);--subj-txt:#2D2A3E}
+.card[data-s="medi"]{--subj-color:var(--medi);--subj-bg:#EDFAEF;--subj-btn:var(--medi);--subj-txt:#2D2A3E}
+.card-header{padding:24px 24px 16px;display:flex;align-items:center;gap:14px}
+.card-icon{width:58px;height:58px;border-radius:18px;background:var(--subj-bg);display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 4px 12px rgba(39,35,58,.08)}
+.card-title{font-family:'Fredoka One',cursive;font-size:1.55rem;color:var(--subj-color)}
+.card-meta{font-weight:900;color:var(--dim);font-size:.9rem;margin-top:2px}
+.card-body{padding:0 20px 22px;display:flex;flex-direction:column;gap:10px}
+.lbtn{
+  display:block;position:relative;overflow:hidden;
+  text-decoration:none;text-align:left;
+  color:var(--subj-txt);background:var(--subj-btn);
+  border-radius:16px;padding:14px 46px 14px 16px;
+  font-weight:900;font-size:.94rem;line-height:1.25;
+  box-shadow:0 5px 14px rgba(39,35,58,.10);
+  transition:transform .2s,filter .2s,box-shadow .2s;
 }
-.banner::after {
-  content: ''; position: absolute; bottom: -70px; left: 8%;
-  width: 200px; height: 200px;
-  background: rgba(255,255,255,.05); border-radius: 50%;
-}
-.banner-pill {
-  display: inline-block;
-  background: rgba(255,255,255,.25); color: white;
-  font-family: 'Fredoka One', cursive;
-  font-size: .82rem; letter-spacing: 1.5px; text-transform: uppercase;
-  padding: 5px 16px; border-radius: 30px; margin-bottom: 16px;
-}
-.banner h2 {
-  color: white; font-family: 'Fredoka One', cursive;
-  font-size: clamp(1.4rem, 3.5vw, 2.1rem);
-  text-shadow: 0 2px 8px rgba(0,0,0,.2); margin-bottom: 7px;
-}
-.banner-sub {
-  color: rgba(255,255,255,.85); font-size: .95rem; font-weight: 700; margin-bottom: 26px;
-}
-.banner-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: white; color: var(--exam-a);
-  font-family: 'Fredoka One', cursive; font-size: 1.05rem;
-  padding: 13px 30px; border-radius: 50px; text-decoration: none;
-  box-shadow: 0 4px 20px rgba(0,0,0,.15);
-  transition: transform .25s, box-shadow .25s;
-  position: relative; z-index: 2;
-}
-.banner-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 8px 30px rgba(0,0,0,.22); }
-.banner-emoji {
-  font-size: 4rem; position: absolute; right: 48px; top: 50%;
-  transform: translateY(-50%);
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,.2));
-  pointer-events: none;
-}
-@media(max-width:580px){ .banner-emoji { display:none; } .banner { padding:28px 24px; } }
+.lbtn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.18),transparent 55%);opacity:.9}
+.lbtn::after{content:'➜';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.72;transition:right .2s,opacity .2s}
+.lbtn:hover{transform:translateX(5px);filter:brightness(1.06);box-shadow:0 8px 22px rgba(39,35,58,.18)}
+.lbtn:hover::after{right:12px;opacity:1}
+.lbtn.featured{outline:3px solid rgba(255,255,255,.75);box-shadow:0 0 0 3px rgba(32,201,151,.25),0 8px 24px rgba(32,201,151,.20)}
+.badge-mini{display:inline-flex;margin-left:6px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.28);font-size:.72rem;vertical-align:middle}
 
-/* ── Grid ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
 
-/* ── Card ── */
-.card {
-  background: white; border-radius: 22px; overflow: hidden;
-  box-shadow: 0 4px 22px rgba(0,0,0,.08);
-  transition: transform .3s, box-shadow .3s;
-  animation: popIn .5s cubic-bezier(.36,1.6,.5,1) both;
-}
-.card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,.14); }
-.card:nth-child(1){ animation-delay:.06s }
-.card:nth-child(2){ animation-delay:.11s }
-.card:nth-child(3){ animation-delay:.16s }
-.card:nth-child(4){ animation-delay:.21s }
-.card:nth-child(5){ animation-delay:.26s }
 
-.card-header {
-  padding: 22px 24px 18px;
-  display: flex; align-items: center; gap: 12px;
-  border-bottom: 3px solid var(--subj-color);
+/* PROGRÉS GLOBAL */
+.progress-panel{
+  position:relative;overflow:hidden;
+  background:rgba(255,255,255,.86);
+  border:3px solid rgba(255,255,255,.96);
+  border-radius:34px;
+  box-shadow:var(--shadow);
+  padding:24px;
+  margin:24px 0 28px;
+  animation:popIn .6s .12s cubic-bezier(.36,1.6,.5,1) both;
 }
-.card-icon {
-  width: 48px; height: 48px; border-radius: 14px;
-  background: var(--subj-bg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; flex-shrink: 0;
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
-}
-.card-title {
-  font-family: 'Fredoka One', cursive;
-  font-size: 1.4rem; color: var(--subj-color);
-}
-.card-body { padding: 0 20px 22px; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.progress-panel::before{content:'🏆';position:absolute;right:22px;top:14px;font-size:5rem;opacity:.10;transform:rotate(9deg)}
+.progress-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:16px;position:relative;z-index:1}
+.progress-title h2{font-family:'Fredoka One',cursive;font-size:clamp(1.65rem,4vw,2.3rem);line-height:1.08;margin-bottom:6px}
+.progress-title p{font-weight:800;color:var(--dim);line-height:1.45}
+.progress-main{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch;position:relative;z-index:1}
+.progress-card{background:#fff;border:2px solid #f0e9ff;border-radius:24px;padding:18px;box-shadow:0 6px 18px rgba(39,35,58,.07)}
+.progress-bar-wrap{height:20px;background:#e5e7eb;border-radius:999px;overflow:hidden;border:3px solid #fff;margin:12px 0 10px}
+.progress-bar-fill{display:block;width:0%;height:100%;background:linear-gradient(90deg,#FF4D8D,#FFB703,#20C997);transition:width .5s ease}
+.progress-numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.progress-stat{background:#f8f7ff;border:2px solid #ede9fe;border-radius:18px;padding:12px;text-align:center;font-weight:900}
+.progress-stat strong{display:block;font-size:1.35rem;color:var(--purple);font-family:'Fredoka One',cursive}
+.progress-stat span{font-size:.86rem;color:var(--dim)}
+.badge-wall{display:grid;grid-template-columns:1fr;gap:10px}
+.global-badge{display:flex;gap:10px;align-items:center;background:#f8fafc;border:2px solid #e5e7eb;border-radius:18px;padding:12px;font-weight:900;opacity:.72}
+.global-badge.on{background:#fff7ed;border-color:#f59e0b;opacity:1;box-shadow:0 0 0 4px rgba(245,158,11,.10)}
+.global-badge .bicon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:#fff;font-size:1.35rem;flex:0 0 auto}
+.progress-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.progress-action{border:none;cursor:pointer;min-height:46px;border-radius:999px;padding:11px 16px;font-family:'Fredoka One',cursive;font-size:.88rem;background:#27233A;color:white;box-shadow:0 5px 0 rgba(39,35,58,.18)}
+.progress-action.secondary{background:#ececf8;color:#27233A}
+@media(max-width:760px){.progress-main{grid-template-columns:1fr}.progress-top{flex-direction:column}.progress-numbers{grid-template-columns:1fr}.progress-panel{padding:20px 16px;border-radius:28px}}
 
-/* Per-subject theming via custom props on each card */
-.card[data-s="castella"] { --subj-color: var(--castella); --subj-bg: #FFEDED; --subj-btn: var(--castella); --subj-txt: white; }
-.card[data-s="catala"]   { --subj-color: var(--catala);   --subj-bg: #E6FAF5; --subj-btn: var(--catala);   --subj-txt: white; }
-.card[data-s="english"]  { --subj-color: var(--english);  --subj-bg: #E8F2FF; --subj-btn: var(--english);  --subj-txt: white; }
-.card[data-s="mates"]    { --subj-color: var(--mates);    --subj-bg: #FFF5E6; --subj-btn: var(--mates);    --subj-txt: #2D2A3E; }
-.card[data-s="medi"]     { --subj-color: var(--medi);     --subj-bg: #EDFAEF; --subj-btn: var(--medi);     --subj-txt: #2D2A3E; }
+/* FOOTER */
+footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin-top:52px;animation:popIn .5s .45s both}
 
-/* Link button — inherits subject color */
-.lbtn {
-  display: block;
-  padding: 13px 40px 13px 18px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 800; font-size: .91rem;
-  text-align: left;
-  color: var(--subj-txt);
-  background: var(--subj-btn);
-  transition: transform .2s, filter .2s, box-shadow .2s;
-  position: relative; overflow: hidden;
-}
-.lbtn::after {
-  content: '→';
-  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-  font-size: 1rem; opacity: .65;
-  transition: right .2s, opacity .2s;
-}
-.lbtn:hover { transform: translateX(4px); filter: brightness(1.07); box-shadow: 0 4px 18px rgba(0,0,0,.14); }
-.lbtn:hover::after { right: 10px; opacity: 1; }
-
-/* ── Footer ── */
-footer {
-  text-align: center; color: var(--dim);
-  font-size: .88rem; font-weight: 700; margin-top: 52px;
-  animation: popIn .5s .45s both;
-}
-
-/* ── Animations ── */
-@keyframes popIn {
-  from { opacity: 0; transform: scale(.93) translateY(14px); }
-  to   { opacity: 1; transform: scale(1)   translateY(0);    }
-}
-
-/* ── Chatbot ── */
-.chat-btn {
-  position: fixed; bottom: 28px; right: 28px; z-index: 1000;
-  width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer;
-  background: linear-gradient(135deg, #a855f7, #6366f1);
-  color: white; font-size: 26px;
-  box-shadow: 0 6px 24px rgba(168,85,247,.45);
-  transition: transform .3s, box-shadow .3s;
-  animation: chatPulse 2.5s infinite;
-}
-.chat-btn:hover { transform: scale(1.12); }
-@keyframes chatPulse {
-  0%,100%{ box-shadow: 0 6px 24px rgba(168,85,247,.45); }
-  50%    { box-shadow: 0 6px 36px rgba(168,85,247,.75); }
-}
-.chat-box {
-  position: fixed; bottom: 100px; right: 28px; z-index: 999;
-  width: 360px; height: 520px; background: white;
-  border-radius: 24px; box-shadow: 0 12px 48px rgba(0,0,0,.22);
-  display: none; flex-direction: column; overflow: hidden;
-}
-.chat-box.open { display: flex; animation: slideUp .3s ease; }
-@keyframes slideUp {
-  from { opacity:0; transform: translateY(16px); }
-  to   { opacity:1; transform: translateY(0);    }
-}
-.chat-head {
-  background: linear-gradient(135deg, #a855f7, #6366f1); padding: 18px 20px;
-  color: white; display: flex; justify-content: space-between; align-items: center;
-}
-.chat-head h3 { font-family: 'Fredoka One', cursive; font-size: 1.1rem; }
-.chat-close {
-  background: rgba(255,255,255,.2); border: none; color: white; cursor: pointer;
-  width: 30px; height: 30px; border-radius: 50%; font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-}
-.chat-msgs {
-  flex: 1; overflow-y: auto; padding: 18px; background: #f8f7ff;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.msg { display: flex; gap: 8px; animation: popIn .2s; }
-.msg.user { flex-direction: row-reverse; }
-.msg-bubble {
-  max-width: 80%; padding: 11px 14px; border-radius: 16px;
-  font-size: .88rem; line-height: 1.55;
-}
-.msg.bot  .msg-bubble { background: white; box-shadow: 0 2px 8px rgba(0,0,0,.08); border-bottom-left-radius: 4px; }
-.msg.user .msg-bubble { background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border-bottom-right-radius: 4px; }
-.avatar { width:32px; height:32px; border-radius:50%; background: linear-gradient(135deg, #a855f7, #6366f1); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
-.qopts { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-.qopt {
-  padding:6px 12px; background:#f0eeff; border:2px solid #c4b5fd;
-  color:#7c3aed; border-radius:20px; font-size:.78rem; font-weight:700; cursor:pointer;
-  transition:all .2s;
-}
-.qopt:hover { background:#a855f7; color:white; border-color:#a855f7; }
-.chat-link {
-  display:inline-block; margin-top:8px; padding:7px 14px;
-  background:linear-gradient(135deg,#a855f7,#6366f1);
-  color:white; text-decoration:none; border-radius:10px; font-size:.85rem; font-weight:700;
-  transition:transform .2s;
-}
-.chat-link:hover { transform:scale(1.04); }
-.chat-foot {
-  padding:12px 14px; background:white; border-top:1px solid #ede9fe;
-  display:flex; gap:8px;
-}
-.chat-foot input {
-  flex:1; padding:10px 14px; border:2px solid #ede9fe; border-radius:20px;
-  outline:none; font-family:'Nunito',sans-serif; font-size:.9rem; transition:border-color .2s;
-}
-.chat-foot input:focus { border-color:#a855f7; }
-.chat-send {
-  width:42px; height:42px; border-radius:50%; border:none; cursor:pointer;
-  background:linear-gradient(135deg,#a855f7,#6366f1); color:white; font-size:18px; transition:transform .2s;
-}
-.chat-send:hover { transform:scale(1.1); }
-.chat-send:disabled { opacity:.5; cursor:not-allowed; }
-.typing { display:flex; gap:4px; padding:10px 14px; background:white; border-radius:16px; width:fit-content; }
-.dot { width:7px; height:7px; border-radius:50%; background:#a855f7; animation:bounce 1.3s infinite; }
-.dot:nth-child(2){ animation-delay:.2s } .dot:nth-child(3){ animation-delay:.4s }
-@keyframes bounce { 0%,60%,100%{ transform:translateY(0) } 30%{ transform:translateY(-8px) } }
-@media(max-width:480px){ .chat-box{ width:calc(100vw - 32px); right:16px; } .chat-btn{ right:16px; bottom:16px; } }
+/* CHATBOT */
+.chat-btn{position:fixed;bottom:28px;right:28px;z-index:1000;width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,#a855f7,#6366f1);color:white;font-size:28px;box-shadow:0 8px 28px rgba(168,85,247,.45);transition:transform .3s,box-shadow .3s;animation:chatPulse 2.5s infinite}
+.chat-btn:hover{transform:scale(1.12)}
+.chat-box{position:fixed;bottom:104px;right:28px;z-index:999;width:370px;height:540px;background:white;border-radius:26px;box-shadow:0 12px 48px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden}
+.chat-box.open{display:flex;animation:slideUp .3s ease}
+.chat-head{background:linear-gradient(135deg,#a855f7,#6366f1);padding:18px 20px;color:white;display:flex;justify-content:space-between;align-items:center}
+.chat-head h3{font-family:'Fredoka One',cursive;font-size:1.1rem}
+.chat-close{background:rgba(255,255,255,.2);border:none;color:white;cursor:pointer;width:34px;height:34px;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px;background:#f8f7ff;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:8px;animation:popIn .2s}.msg.user{flex-direction:row-reverse}
+.msg-bubble{max-width:80%;padding:11px 14px;border-radius:16px;font-size:.9rem;line-height:1.55}
+.msg.bot .msg-bubble{background:white;box-shadow:0 2px 8px rgba(0,0,0,.08);border-bottom-left-radius:4px}.msg.user .msg-bubble{background:linear-gradient(135deg,#a855f7,#6366f1);color:white;border-bottom-right-radius:4px}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#6366f1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}.qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.qopt{padding:7px 12px;background:#f0eeff;border:2px solid #c4b5fd;color:#7c3aed;border-radius:20px;font-size:.78rem;font-weight:800;cursor:pointer;transition:all .2s}.qopt:hover{background:#a855f7;color:white;border-color:#a855f7}.chat-link{display:inline-block;margin-top:8px;padding:8px 14px;background:linear-gradient(135deg,#a855f7,#6366f1);color:white;text-decoration:none;border-radius:12px;font-size:.86rem;font-weight:800;transition:transform .2s}.chat-link:hover{transform:scale(1.04)}.chat-foot{padding:12px 14px;background:white;border-top:1px solid #ede9fe;display:flex;gap:8px}.chat-foot input{flex:1;padding:11px 14px;border:2px solid #ede9fe;border-radius:20px;outline:none;font-family:'Nunito',sans-serif;font-size:.94rem;transition:border-color .2s}.chat-foot input:focus{border-color:#a855f7}.chat-send{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,#a855f7,#6366f1);color:white;font-size:18px;transition:transform .2s}.chat-send:hover{transform:scale(1.1)}.chat-send:disabled{opacity:.5;cursor:not-allowed}.typing{display:flex;gap:4px;padding:10px 14px;background:white;border-radius:16px;width:fit-content}.dot{width:7px;height:7px;border-radius:50%;background:#a855f7;animation:bounce 1.3s infinite}.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes popIn{from{opacity:0;transform:scale(.94) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-10px) rotate(-2deg)}}
+@keyframes chatPulse{0%,100%{box-shadow:0 8px 28px rgba(168,85,247,.45)}50%{box-shadow:0 8px 42px rgba(168,85,247,.75)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+@media(max-width:760px){.page{padding:18px 14px 58px}.hero{padding:22px 18px;border-radius:28px}.hero-top{align-items:flex-start}.hero-mascot{width:86px;height:86px;border-radius:24px;font-size:2.8rem}.chip{font-size:.9rem}.banner{grid-template-columns:1fr;padding:24px 20px;border-radius:28px}.banner-emoji{position:absolute;right:18px;top:18px;font-size:3.4rem;opacity:.55}.banner-actions a{width:100%}.section-head{align-items:flex-start;flex-direction:column}.legend{justify-content:flex-start}.grid{grid-template-columns:1fr}.chat-box{width:calc(100vw - 32px);right:16px;height:min(540px,calc(100vh - 120px))}.chat-btn{right:16px;bottom:16px}}
 </style>
 </head>
 <body>
 <div class="page">
 
-  <header>
-    <div class="tag">5è de Primària · Curs 2024–25</div>
-    <h1>📚 Portal de Repàs</h1>
-    <p>Tots els recursos per preparar els exàmens en un sol lloc 🚀</p>
-  </header>
-
-  <!-- BANNER PROPER EXAMEN -->
-  <section class="banner">
-    <div class="banner-pill">🔔 Proper examen</div>
-    <h2>Català — P/B, T/D, C/G i polisèmia</h2>
-    <p class="banner-sub">Lletres finals · Paraules primitives · Famílies de paraules · Text descriptiu</p>
-    <a href="Catala_PB_TD_CG_polisèmia_descriptius..html" class="banner-btn">Practicar ara ✨</a>
-    <div class="banner-emoji">🕵️</div>
+  <section class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="kicker">🎒 5è de Primària · Sala de missions</div>
+        <h1>Portal de Repàs</h1>
+        <p>Tria una missió, entra als exercicis i suma punts d’estudi. Aquí cada examen és una aventura curta, clara i una mica més divertida 🚀</p>
+        <div class="hero-chips">
+          <span class="chip">🧠 Entrena</span>
+          <span class="chip">✅ Corregeix</span>
+          <span class="chip">🏆 Puja de nivell</span>
+          <span class="chip">📱 Perfecte per tablet</span>
+          <a class="chip" href="mode_vacances_estiu.html" style="text-decoration:none">🏖️ Mode vacances</a>
+        </div>
+      </div>
+      <div class="hero-mascot">🦊📚</div>
+    </div>
   </section>
 
-  <!-- TARGETES PER ASSIGNATURA -->
-  <div class="grid">
+  <section class="banner">
+    <div class="banner-content">
+      <div class="banner-pill">🔔 Proper examen · Missió principal</div>
+      <h2>Català — P/B, T/D, C/G i polisèmia</h2>
+      <p class="banner-sub">Lletres finals · Paraules primitives · Famílies de paraules · Paraules polisèmiques · Text descriptiu</p>
+      <div class="banner-actions">
+        <a href="Catala_PB_TD_CG_polisèmia_descriptius..html" class="banner-btn">Començar missió ✨</a>
+        <a href="#missions" class="soft-btn">Veure totes les proves 🗺️</a>
+      </div>
+    </div>
+    <div class="banner-emoji">🕵️‍♀️</div>
+  </section>
 
+
+
+  <section class="banner" style="background:linear-gradient(135deg,#20C997,#4D96FF,#8B5CF6);box-shadow:0 18px 48px rgba(77,150,255,.25)">
+    <div class="banner-content">
+      <div class="banner-pill">🏖️ Repàs de vacances · Aleatori</div>
+      <h2>Ruleta de missions d'estiu</h2>
+      <p class="banner-sub">Exercicis curts i barrejats de català, castellà, matemàtiques, medi i anglès. Perfecte per practicar 10 minuts al dia.</p>
+      <div class="banner-actions">
+        <a href="mode_vacances_estiu.html" class="banner-btn">Entrar al mode vacances 🎲</a>
+        <a href="#missions" class="soft-btn">Continuar per assignatures 🗺️</a>
+      </div>
+    </div>
+    <div class="banner-emoji">🏖️</div>
+  </section>
+
+
+
+  <section class="progress-panel" id="progres">
+    <div class="progress-top">
+      <div class="progress-title">
+        <h2>🏆 El meu progrés</h2>
+        <p>Resum comú del Portal de Repàs. Els trofeus i partides es guarden en aquest navegador perquè pugui veure com avança.</p>
+      </div>
+      <div class="chip">🦉 Perfil local</div>
+    </div>
+    <div class="progress-main">
+      <div class="progress-card">
+        <strong id="progressHeadline">Carregant progrés...</strong>
+        <div class="progress-bar-wrap"><span class="progress-bar-fill" id="globalProgressBar"></span></div>
+        <p id="progressAdvice" style="font-weight:800;color:var(--dim)">Quan faci exercicis i guanyi trofeus, aquesta zona s’anirà omplint.</p>
+        <div class="progress-numbers">
+          <div class="progress-stat"><strong id="totalTrophies">0</strong><span>trofeus</span></div>
+          <div class="progress-stat"><strong id="summerGames">0</strong><span>partides d’estiu</span></div>
+          <div class="progress-stat"><strong id="bestScore">0%</strong><span>millor puntuació</span></div>
+        </div>
+        <div class="progress-actions no-print">
+          <button class="progress-action" onclick="refreshGlobalProgress()">Actualitzar progrés 🔄</button>
+          <button class="progress-action secondary" onclick="resetGlobalProgress()">Reiniciar progrés local</button>
+        </div>
+      </div>
+      <div class="progress-card">
+        <div class="badge-wall">
+          <div class="global-badge" data-gbadge="catala"><div class="bicon">🏴</div><div>Català<br><small>Trofeus de lletres i paraules</small></div></div>
+          <div class="global-badge" data-gbadge="vacances"><div class="bicon">🏖️</div><div>Mode vacances<br><small>Partides ràpides d’estiu</small></div></div>
+          <div class="global-badge" data-gbadge="constancia"><div class="bicon">🔥</div><div>Constància<br><small>Ratxa o 5 partides</small></div></div>
+          <div class="global-badge" data-gbadge="perfecte"><div class="bicon">🏆</div><div>Repte perfecte<br><small>Sessió o examen sense errors</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head" id="missions">
+    <div>
+      <h2>🗺️ Tauler de missions</h2>
+      <p>Escull assignatura i salta directament al repàs que toca.</p>
+    </div>
+    <div class="legend">
+      <span>⭐ Recomanat</span>
+      <span>🎯 Examen</span>
+      <span>⚡ Pràctica ràpida</span>
+    </div>
+  </div>
+
+  <div class="grid">
     <div class="card" data-s="castella">
       <div class="card-header">
         <div class="card-icon">🇪🇸</div>
-        <div class="card-title">Castellà</div>
+        <div><div class="card-title">Castellà</div><div class="card-meta">2 missions disponibles</div></div>
       </div>
       <div class="card-body">
-        <a href="castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html" class="lbtn">
-          Invitacions, sinònims i més
-        </a>
-        <a href="castellano_z_s_CC_texto_instructivo.html" class="lbtn">
-          1r examen 2n trimestre · Z, S, CC
-        </a>
+        <a href="castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html" class="lbtn">Invitacions, sinònims i més</a>
+        <a href="castellano_z_s_CC_texto_instructivo.html" class="lbtn">1r examen 2n trimestre · Z, S, CC</a>
       </div>
     </div>
 
     <div class="card" data-s="catala">
       <div class="card-header">
         <div class="card-icon">🏴</div>
-        <div class="card-title">Català</div>
+        <div><div class="card-title">Català</div><div class="card-meta">5 missions disponibles</div></div>
       </div>
       <div class="card-body">
-        <a href="catalan_determinantes_V_B_comic.html" class="lbtn">
-          Determinants, V/B i còmic
-        </a>
-        <a href="catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html" class="lbtn">
-          Plural, singular i tipus de noms
-        </a>
-        <a href="catalan_verbs.html" class="lbtn">
-          Els verbs
-        </a>
-        <a href="catalan_adjectiu_noticia_s_sorda_sonora.html" class="lbtn">
-          1r examen 2n trimestre · La notícia, s sorda/sonora
-        </a>
-        <a href="Catala_PB_TD_CG_polisèmia_descriptius..html" class="lbtn">
-          P/B, T/D, C/G, polisèmia i text descriptiu
-        </a>
+        <a href="Catala_PB_TD_CG_polisèmia_descriptius..html" class="lbtn featured">⭐ Proper examen <span class="badge-mini">nou</span><br>P/B, T/D, C/G, polisèmia i text descriptiu</a>
+        <a href="catalan_determinantes_V_B_comic.html" class="lbtn">Determinants, V/B i còmic</a>
+        <a href="catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html" class="lbtn">Plural, singular i tipus de noms</a>
+        <a href="catalan_verbs.html" class="lbtn">Els verbs</a>
+        <a href="catalan_adjectiu_noticia_s_sorda_sonora.html" class="lbtn">1r examen 2n trimestre · La notícia, s sorda/sonora</a>
       </div>
     </div>
 
     <div class="card" data-s="english">
       <div class="card-header">
         <div class="card-icon">🇬🇧</div>
-        <div class="card-title">Anglès</div>
+        <div><div class="card-title">Anglès</div><div class="card-meta">1 mission available</div></div>
       </div>
       <div class="card-body">
-        <a href="ingles_presentsimple_continuos.html" class="lbtn">
-          Present simple &amp; continuous
-        </a>
+        <a href="ingles_presentsimple_continuos.html" class="lbtn">Present simple &amp; continuous</a>
       </div>
     </div>
 
     <div class="card" data-s="mates">
       <div class="card-header">
         <div class="card-icon">🔢</div>
-        <div class="card-title">Matemàtiques</div>
+        <div><div class="card-title">Matemàtiques</div><div class="card-meta">5 missions disponibles</div></div>
       </div>
       <div class="card-body">
-        <a href="mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html" class="lbtn">
-          Decimals i operacions
-        </a>
-        <a href="mates_diciembre.html" class="lbtn">
-          Exercicis de desembre
-        </a>
-        <a href="mates_sumas_y_restas_rapidas.html" class="lbtn">
-          Sumes i restes ràpides
-        </a>
-        <a href="Mates_primer_examen_segundo_trimestre.html" class="lbtn">
-          1r examen 2n trimestre · Fraccions, divisors, primers, múltiples
-        </a>
-        <a href="mates_fracciones_media_rango.html" class="lbtn">
-          Fraccions i estadística (mitjana, moda, mediana, rang)
-        </a>
+        <a href="mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html" class="lbtn">Decimals i operacions</a>
+        <a href="mates_diciembre.html" class="lbtn">Exercicis de desembre</a>
+        <a href="mates_sumas_y_restas_rapidas.html" class="lbtn">Sumes i restes ràpides ⚡</a>
+        <a href="Mates_primer_examen_segundo_trimestre.html" class="lbtn">1r examen 2n trimestre · Fraccions, divisors, primers, múltiples</a>
+        <a href="mates_fracciones_media_rango.html" class="lbtn">Fraccions i estadística: mitjana, moda, mediana i rang</a>
       </div>
     </div>
 
     <div class="card" data-s="medi">
       <div class="card-header">
         <div class="card-icon">🌍</div>
-        <div class="card-title">Medi</div>
+        <div><div class="card-title">Medi</div><div class="card-meta">2 missions disponibles</div></div>
       </div>
       <div class="card-body">
-        <a href="medi_activitat_politica_recursos.html" class="lbtn">
-          Un món just i sostenible
-        </a>
-        <a href="repas_ciencies.html" class="lbtn">
-          1r examen 2n trimestre
-        </a>
+        <a href="medi_activitat_politica_recursos.html" class="lbtn">🌍 Un món just i sostenible</a>
+        <a href="repas_ciencies.html" class="lbtn">1r examen 2n trimestre</a>
       </div>
     </div>
-
   </div>
 
-  <footer>
-    <p>© 2025 Portal de Repàs 5è de Primària · Fet amb 💜 per estudiar millor</p>
-  </footer>
+  <footer><p>© 2025 Portal de Repàs 5è de Primària · Fet amb 💜 per estudiar millor</p></footer>
 </div>
 
-<!-- CHATBOT -->
 <button class="chat-btn" onclick="toggleChat()" title="Assistent d'estudi">🤖</button>
-
 <div class="chat-box" id="chatBox">
-  <div class="chat-head">
-    <h3>🤖 Assistent d'estudi</h3>
-    <button class="chat-close" onclick="toggleChat()">✕</button>
-  </div>
+  <div class="chat-head"><h3>🤖 Assistent d'estudi</h3><button class="chat-close" onclick="toggleChat()">✕</button></div>
   <div class="chat-msgs" id="chatMsgs">
-    <div class="msg bot">
-      <div class="avatar">🤖</div>
-      <div class="msg-bubble">
-        Hola! Soc el teu assistent d'estudi. Què vols practicar avui?
-        <div class="qopts">
-          <span class="qopt" onclick="sendQ('Vull practicar matemàtiques')">🔢 Matemàtiques</span>
-          <span class="qopt" onclick="sendQ('Ajuda amb castellà')">🇪🇸 Castellà</span>
-          <span class="qopt" onclick="sendQ('Practicar català')">🏴 Català</span>
-          <span class="qopt" onclick="sendQ('Practicar anglès')">🇬🇧 Anglès</span>
-          <span class="qopt" onclick="sendQ('Estudiar medi')">🌍 Medi</span>
-        </div>
-      </div>
-    </div>
+    <div class="msg bot"><div class="avatar">🤖</div><div class="msg-bubble">Hola! Soc el teu assistent d'estudi. Quina missió vols practicar avui?<div class="qopts"><span class="qopt" onclick="sendQ('Vull practicar matemàtiques')">🔢 Matemàtiques</span><span class="qopt" onclick="sendQ('Ajuda amb castellà')">🇪🇸 Castellà</span><span class="qopt" onclick="sendQ('Practicar català')">🏴 Català</span><span class="qopt" onclick="sendQ('Practicar anglès')">🇬🇧 Anglès</span><span class="qopt" onclick="sendQ('Estudiar medi')">🌍 Medi</span><span class="qopt" onclick="sendQ('Mode vacances')">🏖️ Vacances</span></div></div></div>
   </div>
-  <div class="chat-foot">
-    <input type="text" id="chatIn" placeholder="Escriu la teva pregunta..." onkeypress="if(event.key==='Enter')sendMsg()">
-    <button class="chat-send" id="chatSend" onclick="sendMsg()">➤</button>
-  </div>
+  <div class="chat-foot"><input type="text" id="chatIn" placeholder="Escriu la teva pregunta..." onkeypress="if(event.key==='Enter')sendMsg()"><button class="chat-send" id="chatSend" onclick="sendMsg()">➤</button></div>
 </div>
 
 <script>
-const db = {
+const db={
+  vacances:[{name:'Ruleta de missions d\'estiu',url:'mode_vacances_estiu.html',kw:['vacances','estiu','aleatori','ruleta','repàs ràpid','barrejat','random']}],
   castella:[
-    {name:"Invitacions, sinònims i més",     url:"castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html", kw:["invitacions","sinònims","h","tecnicisme","adjectius","castellà"]},
-    {name:"1r examen 2n trim. · Z, S, CC",   url:"castellano_z_s_CC_texto_instructivo.html",                       kw:["z","s","cc","text instructiu","castellà"]}
+    {name:"Invitacions, sinònims i més",url:"castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html",kw:["invitacions","sinònims","h","tecnicisme","adjectius","castellà"]},
+    {name:"1r examen 2n trim. · Z, S, CC",url:"castellano_z_s_CC_texto_instructivo.html",kw:["z","s","cc","text instructiu","castellà"]}
   ],
   catala:[
-    {name:"Determinants, V/B i còmic",        url:"catalan_determinantes_V_B_comic.html",                           kw:["determinants","v","b","còmic","català"]},
-    {name:"Plural, singular i tipus de noms", url:"catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html", kw:["plural","singular","noms","concret","abstracte","article","català"]},
-    {name:"Els verbs",                        url:"catalan_verbs.html",                                             kw:["verbs","català"]},
-    {name:"La notícia, s sorda/sonora",       url:"catalan_adjectiu_noticia_s_sorda_sonora.html",                   kw:["notícia","adjectiu","sorda","sonora","català"]},
-    {name:"P/B, T/D, C/G, polisèmia i text descriptiu", url:"Catala_PB_TD_CG_polisèmia_descriptius..html", kw:["p","b","t","d","c","g","polisèmia","descriptiu","primitiva","família","català"]}
+    {name:"P/B, T/D, C/G, polisèmia i text descriptiu",url:"Catala_PB_TD_CG_polisèmia_descriptius..html",kw:["p","b","t","d","c","g","polisèmia","descriptiu","primitiva","família","català"]},
+    {name:"Determinants, V/B i còmic",url:"catalan_determinantes_V_B_comic.html",kw:["determinants","v","b","còmic","català"]},
+    {name:"Plural, singular i tipus de noms",url:"catalan_plural_singular_tipusnoms_concret_abstracte_indivudual_article.html",kw:["plural","singular","noms","concret","abstracte","article","català"]},
+    {name:"Els verbs",url:"catalan_verbs.html",kw:["verbs","català"]},
+    {name:"La notícia, s sorda/sonora",url:"catalan_adjectiu_noticia_s_sorda_sonora.html",kw:["notícia","adjectiu","sorda","sonora","català"]}
   ],
-  angles:[
-    {name:"Present simple & continuous",      url:"ingles_presentsimple_continuos.html",                            kw:["present","simple","continuous","anglès","english"]}
-  ],
+  angles:[{name:"Present simple & continuous",url:"ingles_presentsimple_continuos.html",kw:["present","simple","continuous","anglès","english"]}],
   mates:[
-    {name:"Decimals i operacions",             url:"mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html", kw:["decimals","sumes","conversions","multiplicacions","divisions","matemàtiques","mates"]},
-    {name:"Exercicis de desembre",             url:"mates_diciembre.html",                                           kw:["desembre","matemàtiques","mates","exercicis"]},
-    {name:"Sumes i restes ràpides",            url:"mates_sumas_y_restas_rapidas.html",                              kw:["sumes","restes","ràpides","matemàtiques","mates"]},
-    {name:"Fraccions, divisors, primers…",     url:"Mates_primer_examen_segundo_trimestre.html",                     kw:["fraccions","divisors","primers","múltiples","matemàtiques","mates"]},
-    {name:"Fraccions i estadística",           url:"mates_fracciones_media_rango.html",                              kw:["fraccions","estadística","mitjana","moda","mediana","rang","matemàtiques","mates"]}
+    {name:"Decimals i operacions",url:"mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html",kw:["decimals","sumes","conversions","multiplicacions","divisions","matemàtiques","mates"]},
+    {name:"Exercicis de desembre",url:"mates_diciembre.html",kw:["desembre","matemàtiques","mates","exercicis"]},
+    {name:"Sumes i restes ràpides",url:"mates_sumas_y_restas_rapidas.html",kw:["sumes","restes","ràpides","matemàtiques","mates"]},
+    {name:"Fraccions, divisors, primers…",url:"Mates_primer_examen_segundo_trimestre.html",kw:["fraccions","divisors","primers","múltiples","matemàtiques","mates"]},
+    {name:"Fraccions i estadística",url:"mates_fracciones_media_rango.html",kw:["fraccions","estadística","mitjana","moda","mediana","rang","matemàtiques","mates"]}
   ],
   medi:[
-    {name:"Un món just i sostenible · Medi", url:"medi_activitat_politica_recursos.html", kw:["medi","activitat econòmica","recursos naturals","contaminació","política","catalunya","espanya","unió europea"]},
-    {name:"1r examen 2n trimestre · Medi",     url:"repas_ciencies.html",                                            kw:["medi","ciències","naturalesa","natura"]}
+    {name:"Un món just i sostenible · Medi",url:"medi_activitat_politica_recursos.html",kw:["medi","activitat econòmica","recursos naturals","contaminació","política","catalunya","espanya","unió europea"]},
+    {name:"1r examen 2n trimestre · Medi",url:"repas_ciencies.html",kw:["medi","ciències","naturalesa","natura"]}
   ]
 };
+function toggleChat(){const b=document.getElementById('chatBox');b.classList.toggle('open');if(b.classList.contains('open'))document.getElementById('chatIn').focus()}
+function sendQ(m){document.getElementById('chatIn').value=m;sendMsg()}
+function addMsg(html,isUser){const d=document.createElement('div');d.className='msg '+(isUser?'user':'bot');d.innerHTML=isUser?`<div class="msg-bubble">${html}</div>`:`<div class="avatar">🤖</div><div class="msg-bubble">${html}</div>`;const ms=document.getElementById('chatMsgs');ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
+function showTyping(){const ms=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='msg bot';d.id='typing';d.innerHTML='<div class="avatar">🤖</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
+function removeTyping(){const t=document.getElementById('typing');if(t)t.remove()}
+function findRes(q){const lq=q.toLowerCase(),found=[];for(const cat in db)db[cat].forEach(r=>{const s=r.kw.filter(k=>lq.includes(k)).length;if(s>0)found.push({...r,s})});return found.sort((a,b)=>b.s-a.s)}
+function getReply(q){const found=findRes(q);if(found.length){const top=found[0];let h=`T'aconsello aquesta missió:<br><br><strong>${top.name}</strong><br><a href="${top.url}" class="chat-link" target="_blank">Anar als exercicis ➜</a>`;if(found.length>1){h+='<br><br>També pots repassar:<br>';for(let i=1;i<Math.min(3,found.length);i++)h+=`• ${found[i].name}<br>`}return h}return 'Hmm, no estic segur quina missió et va millor. Tinc recursos de:<br><br>🔢 Matemàtiques · 🇪🇸 Castellà · 🏴 Català · 🇬🇧 Anglès · 🌍 Medi<br><br>Sobre quin tema vols practicar?'}
+function sendMsg(){const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;addMsg(msg,true);inp.value='';document.getElementById('chatSend').disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(getReply(msg),false);document.getElementById('chatSend').disabled=false;document.getElementById('chatIn').focus()},700+Math.random()*500)}
 
-function toggleChat(){
-  const b=document.getElementById('chatBox');
-  b.classList.toggle('open');
-  if(b.classList.contains('open')) document.getElementById('chatIn').focus();
-}
-function sendQ(m){ document.getElementById('chatIn').value=m; sendMsg(); }
 
-function addMsg(html, isUser){
-  const d=document.createElement('div');
-  d.className='msg '+(isUser?'user':'bot');
-  d.innerHTML=isUser
-    ?`<div class="msg-bubble">${html}</div>`
-    :`<div class="avatar">🤖</div><div class="msg-bubble">${html}</div>`;
-  const ms=document.getElementById('chatMsgs');
-  ms.appendChild(d); ms.scrollTop=ms.scrollHeight;
+function safeJSON(key, fallback){
+  try{return JSON.parse(localStorage.getItem(key)||fallback)}catch(e){return JSON.parse(fallback)}
 }
-function showTyping(){
-  const ms=document.getElementById('chatMsgs');
-  const d=document.createElement('div');
-  d.className='msg bot'; d.id='typing';
-  d.innerHTML=`<div class="avatar">🤖</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-  ms.appendChild(d); ms.scrollTop=ms.scrollHeight;
+function readGlobalProgress(){
+  const cat=safeJSON('catala_pb_td_cg_trofeus','{}');
+  const summer=safeJSON('portal_estiu_stats','{"best":0,"played":0,"streak":0,"t":{}}');
+  const catCount=Object.values(cat).filter(Boolean).length;
+  const summerCount=summer.t?Object.values(summer.t).filter(Boolean).length:0;
+  const total=catCount+summerCount;
+  const max=8;
+  return {cat,summer,catCount,summerCount,total,max,percent:Math.min(100,Math.round(total/max*100))};
 }
-function removeTyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
-
-function findRes(q){
-  const lq=q.toLowerCase(), found=[];
-  for(const cat in db)
-    db[cat].forEach(r=>{ const s=r.kw.filter(k=>lq.includes(k)).length; if(s>0) found.push({...r,s}); });
-  return found.sort((a,b)=>b.s-a.s);
-}
-function getReply(q){
-  const found=findRes(q);
-  if(found.length){
-    const top=found[0];
-    let h=`T'aconsello practicar amb:<br><br><strong>${top.name}</strong><br><a href="${top.url}" class="chat-link" target="_blank">Anar als exercicis ➜</a>`;
-    if(found.length>1){ h+=`<br><br>També pots repassar:<br>`; for(let i=1;i<Math.min(3,found.length);i++) h+=`• ${found[i].name}<br>`; }
-    return h;
+function refreshGlobalProgress(){
+  const p=readGlobalProgress();
+  const bar=document.getElementById('globalProgressBar');
+  if(bar)bar.style.width=p.percent+'%';
+  const totalEl=document.getElementById('totalTrophies');
+  if(totalEl)totalEl.textContent=p.total;
+  const gamesEl=document.getElementById('summerGames');
+  if(gamesEl)gamesEl.textContent=p.summer.played||0;
+  const bestEl=document.getElementById('bestScore');
+  if(bestEl)bestEl.textContent=(p.summer.best||0)+'%';
+  const headline=document.getElementById('progressHeadline');
+  const advice=document.getElementById('progressAdvice');
+  if(headline)headline.textContent=p.total===0?'Encara no hi ha trofeus guardats':('Has guanyat '+p.total+' de '+p.max+' trofeus globals');
+  if(advice){
+    if(p.total===0) advice.textContent='Comença pel proper examen o pel mode vacances per encendre els primers trofeus.';
+    else if(p.percent<50) advice.textContent='Bon inici! Una partida curta de vacances o un exercici de català ja farà pujar el marcador.';
+    else if(p.percent<100) advice.textContent='Molt bé! Ja hi ha una bona col·lecció. Objectiu: completar els trofeus que falten.';
+    else advice.textContent='Portal dominat! Tots els trofeus principals estan aconseguits.';
   }
-  return `Hmm, no estic segur quin exercici et va millor. Tinc recursos de:<br><br>🔢 Matemàtiques · 🇪🇸 Castellà · 🏴 Català · 🇬🇧 Anglès · 🌍 Medi<br><br>Sobre quin tema vols practicar?`;
+  document.querySelectorAll('[data-gbadge]').forEach(el=>el.classList.remove('on'));
+  if(p.catCount>0) document.querySelector('[data-gbadge="catala"]')?.classList.add('on');
+  if((p.summer.played||0)>0) document.querySelector('[data-gbadge="vacances"]')?.classList.add('on');
+  if((p.summer.streak||0)>0 || (p.summer.played||0)>=5) document.querySelector('[data-gbadge="constancia"]')?.classList.add('on');
+  if(p.cat.final || (p.summer.t&&p.summer.t.perfect)) document.querySelector('[data-gbadge="perfecte"]')?.classList.add('on');
 }
-function sendMsg(){
-  const inp=document.getElementById('chatIn');
-  const msg=inp.value.trim(); if(!msg) return;
-  addMsg(msg,true); inp.value='';
-  document.getElementById('chatSend').disabled=true;
-  showTyping();
-  setTimeout(()=>{
-    removeTyping(); addMsg(getReply(msg),false);
-    document.getElementById('chatSend').disabled=false;
-    document.getElementById('chatIn').focus();
-  },900+Math.random()*700);
+function resetGlobalProgress(){
+  if(!confirm('Vols reiniciar el progrés local del Portal de Repàs en aquest navegador?')) return;
+  localStorage.removeItem('catala_pb_td_cg_trofeus');
+  localStorage.removeItem('portal_estiu_stats');
+  refreshGlobalProgress();
 }
+refreshGlobalProgress();
+
 </script>
 </body>
 </html>

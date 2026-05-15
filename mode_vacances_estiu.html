@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mode Vacances · Repàs d'estiu</title>
+<style>
+:root{
+  --cream:#fff8ec;--ink:#27233a;--dim:#766f91;--white:#fff;--line:#ece7ff;
+  --purple:#8b5cf6;--pink:#ff4d8d;--blue:#4d96ff;--gold:#ffb703;--green:#20c997;--red:#ff6b6b;
+  --shadow:0 16px 42px rgba(39,35,58,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--ink);
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,183,3,.28),transparent 28%),
+    radial-gradient(circle at 86% 15%,rgba(77,150,255,.24),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(32,201,151,.18),transparent 42%),
+    var(--cream);
+  font-size:18px;line-height:1.5;
+}
+body:before{content:'';position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(circle,#c9c2e9 1.2px,transparent 1.2px);background-size:28px 28px;opacity:.28}
+.page{position:relative;z-index:1;width:min(100%,1050px);margin:0 auto;padding:22px 16px 70px}
+a{color:inherit}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:#fff;border:2px solid #ede9fe;border-radius:999px;padding:10px 14px;font-weight:900;box-shadow:0 6px 18px rgba(39,35,58,.08)}
+.hero{position:relative;overflow:hidden;background:rgba(255,255,255,.82);border:3px solid rgba(255,255,255,.96);border-radius:34px;padding:26px;box-shadow:var(--shadow);margin-bottom:18px}
+.hero:after{content:'🏖️';position:absolute;right:22px;top:18px;font-size:5.4rem;opacity:.28;transform:rotate(8deg)}
+.kicker{display:inline-flex;gap:8px;align-items:center;background:#27233a;color:white;border-radius:999px;padding:8px 14px;font-weight:900;text-transform:uppercase;font-size:.82rem;letter-spacing:.8px;margin-bottom:12px}
+h1{font-size:clamp(2.1rem,6vw,4.2rem);line-height:1.05;margin-bottom:10px;background:linear-gradient(135deg,#ff416c,#8b5cf6,#4d96ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
+.hero p{font-size:1.08rem;font-weight:800;color:var(--dim);max-width:760px}.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.chip{background:#fff;border:2px solid #f0e9ff;border-radius:999px;padding:9px 12px;font-weight:900;box-shadow:0 4px 12px rgba(39,35,58,.06)}
+.panel{background:#fff;border:2px solid #fff;border-radius:30px;padding:18px;box-shadow:var(--shadow);margin:18px 0}.panel h2{font-size:1.75rem;margin-bottom:8px}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:14px}.control{background:#f8f7ff;border:2px solid #ede9fe;border-radius:18px;padding:12px}.control label{display:block;font-weight:900;margin-bottom:8px}.control select,.control input{width:100%;min-height:46px;border:2px solid #d8d0ff;border-radius:14px;padding:8px 10px;font-size:17px;background:#fff}.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}button{border:0;border-radius:999px;padding:13px 18px;min-height:52px;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 5px 0 rgba(39,35,58,.18);background:#27233a;color:#fff}button:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(39,35,58,.18)}button.secondary{background:#ececf8;color:#27233a}button.green{background:var(--green)}button.gold{background:var(--gold);color:#27233a}.progress{height:18px;background:#e5e7eb;border-radius:999px;overflow:hidden;border:2px solid #fff;margin-top:12px}.progress span{display:block;width:0%;height:100%;background:linear-gradient(90deg,var(--pink),var(--gold),var(--green));transition:width .35s}.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.stat{background:#fff;border:2px solid #f0e9ff;border-radius:18px;padding:10px 12px;font-weight:900}
+.question{background:linear-gradient(180deg,#fff,#fbfaff);border:2px dashed #c4b5fd;border-radius:26px;padding:18px;margin:14px 0;animation:pop .25s ease}.qhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-weight:900;font-size:.85rem}.tag.catala{background:#e6faf5;color:#087f63}.tag.castella{background:#ffeded;color:#c2410c}.tag.mates{background:#fff5e6;color:#92400e}.tag.medi{background:#edfaef;color:#166534}.tag.angles{background:#e8f2ff;color:#1d4ed8}.qtext{font-size:1.25rem;font-weight:900;margin:10px 0}.options{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}.opt{width:100%;text-align:left;border:2px solid #ede9fe;background:#fff;color:#27233a;box-shadow:none;border-radius:18px;min-height:54px}.opt.correct{background:#ecfdf5;border-color:#86efac}.opt.wrong{background:#fef2f2;border-color:#fca5a5}.free{width:100%;border:2px solid #d8d0ff;border-radius:16px;min-height:54px;padding:12px 14px;font-size:18px;margin-top:8px}.feedback{margin-top:12px;font-weight:900}.ok{color:#16a34a}.bad{color:#dc2626}.hint{margin-top:10px;background:#fff7ed;border-left:6px solid #f59e0b;border-radius:16px;padding:12px;font-weight:800}.final{background:linear-gradient(135deg,#fff7ed,#eef2ff);border:3px solid #fde68a;border-radius:30px;padding:22px;text-align:center;box-shadow:var(--shadow);margin-top:18px}.final .big{font-size:3.4rem}.trophy-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:12px}.trophy{background:#f8fafc;border:2px solid #e5e7eb;border-radius:20px;padding:14px;font-weight:900}.trophy.on{background:#fff7ed;border-color:#f59e0b}.float-mascot{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;align-items:flex-end;gap:8px}.owl{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid #fde68a;display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 10px 26px rgba(39,35,58,.18);animation:floaty 3s ease-in-out infinite}.speech{max-width:230px;background:#27233a;color:#fff;border-radius:18px 18px 4px 18px;padding:10px 12px;font-size:14px;font-weight:900}.burst{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;font-size:54px;pointer-events:none}.burst.show{display:flex;animation:pop .45s ease}
+@keyframes pop{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(min-width:760px){.options{grid-template-columns:1fr 1fr}.question{padding:22px}.panel{padding:22px}}@media(max-width:760px){body{font-size:17px}.page{padding:16px 12px 92px}.hero{padding:20px;border-radius:28px}.hero:after{font-size:3.8rem;right:12px;top:12px}.btns button{width:100%}.speech{display:none}.owl{width:58px;height:58px}.qtext{font-size:1.15rem}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><a class="back" href="index.html">← Tornar al portal</a><span class="chip">☀️ Mode estiu</span></div>
+  <section class="hero">
+    <div class="kicker">🏖️ Repàs de vacances · 5è</div>
+    <h1>Ruleta de missions d'estiu</h1>
+    <p>Petites píndoles de repàs amb exercicis aleatoris de català, castellà, mates, medi i anglès. Ideal per fer 10 minuts al dia sense avorrir-se.</p>
+    <div class="chips"><span class="chip">🎲 Preguntes aleatòries</span><span class="chip">🏆 Trofeus</span><span class="chip">📱 Tablet-friendly</span><span class="chip">🔊 Sons opcionals</span></div>
+  </section>
+  <section class="panel">
+    <h2>Configura la partida 🎮</h2>
+    <p>Tria quant vols practicar. El mussol barrejarà preguntes de diferents temes.</p>
+    <div class="controls">
+      <div class="control"><label>Assignatura</label><select id="subject"><option value="all">Totes barrejades</option><option value="catala">Català</option><option value="castella">Castellà</option><option value="mates">Matemàtiques</option><option value="medi">Medi</option><option value="angles">Anglès</option></select></div>
+      <div class="control"><label>Número de preguntes</label><select id="count"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></div>
+      <div class="control"><label>Dificultat</label><select id="level"><option value="all">Totes</option><option value="easy">Fàcil</option><option value="medium">Mitjà</option><option value="hard">Repte</option></select></div>
+    </div>
+    <div class="btns"><button class="green" onclick="startGame()">🚀 Començar repàs</button><button class="secondary" onclick="toggleSound()" id="soundBtn">🔇 Sons: off</button><button class="secondary" onclick="resetSummer()">Reiniciar progrés</button></div>
+    <div class="stats"><div class="stat" id="bestStat">🏅 Millor: 0</div><div class="stat" id="playedStat">📚 Partides: 0</div><div class="stat" id="streakStat">🔥 Ratxa: 0</div></div>
+  </section>
+  <section class="panel" id="gamePanel">
+    <h2>Missió actual 🧭</h2>
+    <div class="progress"><span id="bar"></span></div>
+    <div id="game"><p>Prem <strong>Començar repàs</strong> i apareixeran preguntes sorpresa.</p></div>
+  </section>
+  <section class="panel">
+    <h2>Trofeus d'estiu 🏆</h2>
+    <div class="trophy-row">
+      <div class="trophy" data-t="first">🎲 Primera partida<br><small>Comença una sessió.</small></div>
+      <div class="trophy" data-t="good">⭐ Bona punteria<br><small>Arriba al 70%.</small></div>
+      <div class="trophy" data-t="perfect">🏆 Perfecte<br><small>Fes una sessió sense errors.</small></div>
+      <div class="trophy" data-t="marathon">🌞 Constància<br><small>Juga 5 partides.</small></div>
+    </div>
+  </section>
+</div>
+<div class="float-mascot"><div class="speech" id="speech">10 minuts al dia i el cervell no s’oxida 🦉</div><div class="owl" onclick="tip()">🦉</div></div>
+<div class="burst" id="burst">🎉 ⭐ 🏆 ⭐ 🎉</div>
+<script>
+const bank = [
+ {s:'catala',l:'easy',type:'choice',q:'Completa: cam_',opts:['p','b','t','d'],a:'p',h:'Pensa en camperol: camp.'},
+ {s:'catala',l:'easy',type:'choice',q:'Completa: ver_',opts:['p','b','t','d'],a:'b',h:'Pensa en verbal: verb.'},
+ {s:'catala',l:'medium',type:'choice',q:'Quina és la primitiva de “llampec”?',opts:['llamp','llum','llampar','llampí'],a:'llamp',h:'La paraula mare és llamp.'},
+ {s:'catala',l:'medium',type:'choice',q:'“Banc” pot ser un seient i una entitat de diners. Quin tipus de paraula és?',opts:['sinònima','polisèmica','derivada','abstracta'],a:'polisèmica',h:'Té més d’un significat.'},
+ {s:'catala',l:'hard',type:'input',q:'Escriu l’adjectiu de la família de “flor”.',a:'floral',h:'flor → florir → floral.'},
+ {s:'catala',l:'medium',type:'choice',q:'Quina part del text descriptiu dona els detalls?',opts:['Introducció','Desenvolupament','Tancament','Títol'],a:'Desenvolupament',h:'És la part central del text.'},
+ {s:'castella',l:'easy',type:'choice',q:'Elige el sinónimo de “rápido”.',opts:['veloz','lento','alto','débil'],a:'veloz',h:'Sinónimo = significado parecido.'},
+ {s:'castella',l:'medium',type:'choice',q:'¿Cuál está bien escrita?',opts:['hacer','acer','hazer','azcer'],a:'hacer',h:'El verbo hacer lleva h.'},
+ {s:'castella',l:'medium',type:'choice',q:'Un texto instructivo sirve para...',opts:['contar una historia','dar pasos o instrucciones','describir un lugar','hacer una rima'],a:'dar pasos o instrucciones',h:'Instructivo viene de instrucciones.'},
+ {s:'castella',l:'hard',type:'input',q:'Escribe un antónimo de “triste”.',a:'alegre',h:'Antónimo = significado contrario. Una opción válida es alegre.'},
+ {s:'mates',l:'easy',type:'choice',q:'7 × 8 = ?',opts:['54','56','64','58'],a:'56',h:'7 grupos de 8 son 56.'},
+ {s:'mates',l:'easy',type:'choice',q:'0,5 equivale a...',opts:['1/2','1/4','2/5','5/1'],a:'1/2',h:'0,5 es la mitad.'},
+ {s:'mates',l:'medium',type:'choice',q:'La mitad de 3/4 es...',opts:['3/8','3/2','1/4','6/4'],a:'3/8',h:'Dividir entre 2 equivale a multiplicar por 1/2.'},
+ {s:'mates',l:'medium',type:'input',q:'Media de 4, 6 y 8.',a:'6',h:'Suma 4+6+8=18 y divide entre 3.'},
+ {s:'mates',l:'hard',type:'choice',q:'¿Cuál es un número primo?',opts:['21','27','29','33'],a:'29',h:'Solo se divide por 1 y por sí mismo.'},
+ {s:'medi',l:'easy',type:'choice',q:'Un recurso natural es...',opts:['algo que obtenemos de la naturaleza','una norma del colegio','un tipo de mapa','una operación'],a:'algo que obtenemos de la naturaleza',h:'Agua, madera o minerales son recursos naturales.'},
+ {s:'medi',l:'medium',type:'choice',q:'Reducir, reutilizar y reciclar ayudan a...',opts:['contaminar más','cuidar el medio ambiente','gastar más agua','romper ecosistemas'],a:'cuidar el medio ambiente',h:'Son las tres R.'},
+ {s:'medi',l:'medium',type:'choice',q:'La actividad económica incluye...',opts:['producir, distribuir y consumir','solo jugar','solo dormir','solo leer'],a:'producir, distribuir y consumir',h:'Son fases básicas de la economía.'},
+ {s:'medi',l:'hard',type:'input',q:'Escribe una acción para ahorrar agua.',a:'cerrar el grifo',h:'Ejemplo válido: cerrar el grifo.'},
+ {s:'angles',l:'easy',type:'choice',q:'Choose: She ___ playing football now.',opts:['is','are','am','be'],a:'is',h:'She va con is.'},
+ {s:'angles',l:'easy',type:'choice',q:'Choose: I ___ breakfast every day.',opts:['have','has','having','is'],a:'have',h:'I have.'},
+ {s:'angles',l:'medium',type:'choice',q:'Present continuous is used for...',opts:['actions happening now','habits','past actions','future only'],a:'actions happening now',h:'Now = continuous.'},
+ {s:'angles',l:'medium',type:'input',q:'Complete: He ___ to school on Mondays. (go)',a:'goes',h:'He/she/it añade -s: goes.'}
+];
+const labels={catala:'Català',castella:'Castellà',mates:'Mates',medi:'Medi',angles:'Anglès'};
+const icons={catala:'🏴',castella:'🇪🇸',mates:'🔢',medi:'🌍',angles:'🇬🇧'};
+let sound=false, game=[], idx=0, score=0, answered=false;
+const key='portal_estiu_stats';
+function norm(x){return (x||'').trim().toLowerCase().replace(/[’']/g,"'").replace(/\s+/g,' ')}
+function load(){try{return JSON.parse(localStorage.getItem(key)||'{"best":0,"played":0,"streak":0,"t":{}}')}catch(e){return {best:0,played:0,streak:0,t:{}}}}
+function save(s){localStorage.setItem(key,JSON.stringify(s));paintStats()}
+function paintStats(){const s=load();bestStat.textContent='🏅 Millor: '+s.best+'%';playedStat.textContent='📚 Partides: '+s.played;streakStat.textContent='🔥 Ratxa: '+s.streak;document.querySelectorAll('.trophy').forEach(el=>el.classList.toggle('on',!!s.t[el.dataset.t]));}
+function resetSummer(){localStorage.removeItem(key);paintStats();say('Progrés reiniciat. Nova aventura! 🎮')}
+function toggleSound(){sound=!sound;soundBtn.textContent=sound?'🔊 Sons: on':'🔇 Sons: off';say(sound?'Sons activats, molt fluixet ✨':'Sons apagats. Mode silenci 📚')}
+function beep(){if(!sound)return;try{let C=window.AudioContext||window.webkitAudioContext,c=new C(),o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=760;g.gain.setValueAtTime(.001,c.currentTime);g.gain.exponentialRampToValueAtTime(.07,c.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.18);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.2)}catch(e){}}
+function burst(){const b=document.getElementById('burst');b.classList.add('show');setTimeout(()=>b.classList.remove('show'),850)}
+function say(t){speech.textContent=t}
+function tip(){const a=['Primer llegeix bé la pregunta. Després caça la pista 🕵️','No cal fer-ho perfecte: cal practicar una mica cada dia 🌞','Quan dubtis, elimina opcions impossibles.','Un 70% ja és una bona missió!','Les errades són pistes, no monstres.'];say(a[Math.floor(Math.random()*a.length)])}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startGame(){let sub=subject.value, lev=level.value, n=parseInt(count.value,10);let pool=bank.filter(x=>(sub==='all'||x.s===sub)&&(lev==='all'||x.l===lev));if(pool.length===0) pool=bank; game=shuffle(pool).slice(0,Math.min(n,pool.length)); idx=0;score=0;answered=false;let s=load();s.t.first=true;save(s);showQ();say('Som-hi! Una pregunta cada vegada 🚀')}
+function showQ(){answered=false;bar.style.width=(idx/game.length*100)+'%';if(idx>=game.length){finish();return}let q=game[idx];let html='<div class="question"><div class="qhead"><span class="tag '+q.s+'">'+icons[q.s]+' '+labels[q.s]+'</span><strong>Pregunta '+(idx+1)+'/'+game.length+'</strong></div><div class="qtext">'+q.q+'</div>';if(q.type==='choice'){html+='<div class="options">'+q.opts.map(o=>'<button class="opt" onclick="answerChoice(this,\''+String(o).replace(/'/g,"\\'")+'\')">'+o+'</button>').join('')+'</div>'}else{html+='<input class="free" id="freeAns" placeholder="Escriu la resposta..."><div class="btns"><button onclick="answerInput()">Comprovar</button></div>'}html+='<div class="feedback" id="fb"></div><div class="hint" id="hint" style="display:none"></div></div>';gameDiv().innerHTML=html}
+function gameDiv(){return document.getElementById('game')}
+function answerChoice(btn,val){if(answered)return;answered=true;let q=game[idx], ok=norm(val)===norm(q.a);document.querySelectorAll('.opt').forEach(b=>{if(norm(b.textContent)===norm(q.a))b.classList.add('correct')});if(!ok)btn.classList.add('wrong');afterAnswer(ok)}
+function answerInput(){if(answered)return;let v=document.getElementById('freeAns').value;let q=game[idx];let ok=norm(v)===norm(q.a);answered=true;document.getElementById('freeAns').style.borderColor=ok?'#16a34a':'#dc2626';afterAnswer(ok)}
+function afterAnswer(ok){let q=game[idx];if(ok){score++;fb.innerHTML='<span class="ok">Correcte! ⭐</span>';beep();burst();say('Punt aconseguit!') }else{fb.innerHTML='<span class="bad">Quasi! Resposta: '+q.a+'</span>';hint.style.display='block';hint.textContent='Pista: '+q.h;say('Aquesta era una paraula rebel. La caçarem després!')}bar.style.width=((idx+1)/game.length*100)+'%';setTimeout(()=>{idx++;showQ()}, ok?850:1800)}
+function finish(){let pct=Math.round(score/game.length*100);let s=load();s.played++;s.best=Math.max(s.best,pct);s.streak=pct>=70?s.streak+1:0;if(pct>=70)s.t.good=true;if(pct===100)s.t.perfect=true;if(s.played>=5)s.t.marathon=true;save(s);let msg=pct===100?'Partida perfecta!':pct>=70?'Molt bona partida!':'Bona pràctica!';gameDiv().innerHTML='<div class="final"><div class="big">'+(pct===100?'🏆':pct>=70?'⭐':'🌱')+'</div><h2>'+msg+'</h2><p>Has fet <strong>'+score+'/'+game.length+'</strong> encerts · <strong>'+pct+'%</strong></p><p><strong>Consell del mussol:</strong> '+(pct>=70?'Mantén la ratxa amb una partida curta demà.':'Repeteix amb 5 preguntes fàcils i puja confiança.')+'</p><div class="btns" style="justify-content:center"><button class="green" onclick="startGame()">Nova partida 🎲</button><a class="back" href="index.html">Tornar al portal</a></div></div>';if(pct>=70){burst();beep()}say(pct>=70?'Gran feina, missió d’estiu superada!':'Hem entrenat. Això ja suma!')}
+paintStats();
+</script>
+</body>
+</html>
