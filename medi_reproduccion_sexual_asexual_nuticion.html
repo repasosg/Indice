@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repàs Ciències Naturals PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --card2:#334155;
+  --gold:#facc15;
+  --green:#22c55e;
+  --red:#ef4444;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(180deg,#0f172a,#111827);
+  color:white;
+  min-height:100vh;
+}
+
+header{
+  padding:20px;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,.25);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+header h1{
+  font-family:'Fredoka One',cursive;
+  color:var(--gold);
+  font-size:2rem;
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:40px 20px 80px;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.hero-icon{
+  font-size:5rem;
+  margin-bottom:20px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:#cbd5e1;
+  max-width:700px;
+  margin:auto;
+  line-height:1.7;
+}
+
+.sections{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:rgba(255,255,255,.05);
+  border:2px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  padding:28px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:var(--gold);
+}
+
+.card h3{
+  margin-top:10px;
+  margin-bottom:10px;
+  font-size:1.4rem;
+}
+
+.card p{
+  color:#cbd5e1;
+  margin-bottom:20px;
+  line-height:1.6;
+}
+
+.card button{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  background:linear-gradient(90deg,#22c55e,#16a34a);
+  color:white;
+  font-weight:800;
+  
+}
+
+.quiz-container,
+.flashcards-container{
+  display:none;
+}
+
+.question-card{
+  background:rgba(255,255,255,.05);
+  border-radius:24px;
+  padding:30px;
+}
+
+.question{
+  font-size:1.4rem;
+  font-weight:800;
+  line-height:1.5;
+  margin-bottom:25px;
+}
+
+.answers{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.answer{
+  padding:16px;
+  border-radius:14px;
+  border:2px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  color:white;
+  font-size:1rem;
+  
+  text-align:left;
+  font-weight:700;
+}
+
+.answer:hover:not(:disabled){
+  background:rgba(255,255,255,.1);
+}
+
+.answer.correct{
+  background:rgba(34,197,94,.2);
+  border-color:var(--green);
+}
+
+.answer.wrong{
+  background:rgba(239,68,68,.2);
+  border-color:var(--red);
+}
+
+.feedback{
+  margin-top:20px;
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.06);
+  display:none;
+}
+
+.feedback strong{
+  color:var(--gold);
+}
+
+.next-btn{
+  margin-top:20px;
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(90deg,#f59e0b,#f97316);
+  color:white;
+  font-weight:800;
+  
+  display:none;
+}
+
+.flashcard{
+  background:rgba(255,255,255,.06);
+  border-radius:24px;
+  padding:40px;
+  min-height:320px;
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+.flash-nav{
+  display:flex;
+  gap:15px;
+  margin-top:25px;
+}
+
+.flash-nav button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#22c55e;
+  color:white;
+  font-weight:800;
+  
+}
+
+.back-home{
+  margin-top:30px;
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:#334155;
+  color:white;
+  font-weight:800;
+  
+}
+
+.score{
+  margin-bottom:20px;
+  color:var(--gold);
+  font-weight:800;
+}
+
+@media(max-width:700px){
+
+.hero h2{
+  font-size:2rem;
+}
+
+.question{
+  font-size:1.15rem;
+}
+
+.flash-front{
+  font-size:1.2rem;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧬 Repàs Ciències Naturals PRO</h1>
+</header>
+
+<main>
+
+<div id="home">
+
+  <div class="hero">
+    <div class="hero-icon">🚀</div>
+    <h2>Repàs interactiu complet</h2>
+    <p>
+      Practica amb preguntes tipus test, repassa les idees principals
+      amb flash cards i estudia el nou temari de manera divertida.
+    </p>
+  </div>
+
+  <div class="sections">
+
+    <div class="card">
+      <div style="font-size:3rem;">👶</div>
+      <h3>Reproducció humana</h3>
+      <p>Test complet + resum amb flash cards.</p>
+      <button onclick="startQuiz('reproduccio')">Començar test</button>
+      <br><br>
+      <button onclick="startFlash('reproduccio')">Flash cards</button>
+    </div>
+
+    <div class="card">
+      <div style="font-size:3rem;">🧫</div>
+      <h3>Reproducció sexual i asexual</h3>
+      <p>Conceptes clau i preguntes tipus examen.</p>
+      <button onclick="startQuiz('tipus')">Començar test</button>
+      <br><br>
+      <button onclick="startFlash('tipus')">Flash cards</button>
+    </div>
+
+    <div class="card">
+      <div style="font-size:3rem;">❤️</div>
+      <h3>Nutrició i salut</h3>
+      <p>Repàs complet dels aparells i la salut.</p>
+      <button onclick="startQuiz('salut')">Començar test</button>
+      <br><br>
+      <button onclick="startFlash('salut')">Flash cards</button>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="quizContainer" class="quiz-container">
+
+<div class="score" id="score"></div>
+
+<div class="question-card">
+
+<div class="question" id="question"></div>
+
+<div class="answers" id="answers"></div>
+
+<div class="feedback" id="feedback"></div>
+
+<button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+Següent pregunta ➜
+</button>
+
+</div>
+
+<button class="back-home" onclick="goHome()">
+⬅ Tornar al menú
+</button>
+
+</div>
+
+<div id="flashContainer" class="flashcards-container">
+
+<div class="flashcard" id="flashcard">
+
+<div style="font-size:2rem;margin-bottom:20px;font-weight:900;color:#facc15;" id="flashFront"></div>
+
+<div style="font-size:1.15rem;line-height:1.8;color:#e2e8f0;" id="flashBack"></div>
+
+</div>
+
+<div class="flash-nav">
+<button onclick="prevFlash()">⬅ Anterior</button>
+<button onclick="nextFlashCard()">Següent ➜</button>
+</div>
+
+<button class="back-home" onclick="goHome()">
+⬅ Tornar al menú
+</button>
+
+</div>
+
+</main>
+
+<script>
+
+const quizzes = {
+
+reproduccio:[
+{
+q:"Quin tipus de reproducció té l'espècie humana?",
+a:["Asexual","Sexual","Per espores","Vegetativa"],
+c:1,
+e:"La reproducció humana és sexual perquè necessita dos progenitors."
+},
+{
+q:"On es produeixen els òvuls?",
+a:["Úter","Vagina","Ovaris","Trompes"],
+c:2,
+e:"Els ovaris són els òrgans encarregats de produir òvuls."
+},
+{
+q:"Què és l'ovulació?",
+a:["Expulsió d'orina","Alliberament d'un òvul","Fecundació","Menstruació"],
+c:1,
+e:"L'ovulació és quan un ovari allibera un òvul madur."
+},
+{
+q:"On es desenvolupa el fetus?",
+a:["Úter","Vagina","Escrot","Ovari"],
+c:0,
+e:"El fetus es desenvolupa dins l'úter."
+},
+{
+q:"Quina és la funció dels testicles?",
+a:["Produir orina","Produir òvuls","Produir espermatozoides","Respirar"],
+c:2,
+e:"Els testicles produeixen espermatozoides."
+},
+{
+q:"On es produeix la fecundació?",
+a:["Úter","Trompes de Fal·lopi","Vagina","Pròstata"],
+c:1,
+e:"La fecundació es produeix a les trompes de Fal·lopi."
+},
+{
+q:"Com es diu la primera cèl·lula després de la fecundació?",
+a:["Embrió","Fetus","Zigot","Òvul"],
+c:2,
+e:"Quan un òvul és fecundat es forma el zigot."
+},
+{
+q:"Què forma el semen?",
+a:["Només espermatozoides","Espermatozoides i líquids","Només líquids","Sang"],
+c:1,
+e:"El semen està format per espermatozoides i líquids."
+},
+{
+q:"Quina part dona mobilitat als espermatozoides?",
+a:["Cap","Membrana","Cua","Nucli"],
+c:2,
+e:"La cua permet el moviment."
+},
+{
+q:"Com es diu la part externa femenina?",
+a:["Úter","Ovari","Vulva","Vagina"],
+c:2,
+e:"La vulva és la part externa de l'aparell reproductor femení."
+},
+{
+q:"Quina és la funció de la vagina?",
+a:["Produir òvuls","Comunicar úter i exterior","Produir orina","Produir semen"],
+c:1,
+e:"La vagina comunica l'úter amb l'exterior."
+},
+{
+q:"Què passa si l'òvul no és fecundat?",
+a:["Es forma un fetus","Es produeix la menstruació","Es transforma en semen","Desapareix l'úter"],
+c:1,
+e:"Quan no hi ha fecundació es produeix la menstruació."
+},
+{
+q:"Quin òrgan masculí és extern?",
+a:["Pròstata","Penis","Conductes deferents","Testicles"],
+c:1,
+e:"El penis és l'òrgan extern masculí."
+},
+{
+q:"Quina bossa conté els testicles?",
+a:["Escrot","Uretra","Vulva","Vagina"],
+c:0,
+e:"L'escrot és la bossa que conté els testicles."
+},
+{
+q:"Quin conducte comparteix funció urinària i reproductora?",
+a:["Vagina","Ovari","Uretra","Trompa"],
+c:2,
+e:"La uretra transporta orina i semen."
+}
+],
+
+tipus:[
+{
+q:"Què és la reproducció?",
+a:["Respiració","Procés per crear nous éssers vius","Digestió","Nutrició"],
+c:1,
+e:"La reproducció permet tenir descendència."
+},
+{
+q:"Quants individus participen en la reproducció asexual?",
+a:["Dos","Tres","Un","Cap"],
+c:2,
+e:"Només participa un individu."
+},
+{
+q:"Com són els descendents asexuals?",
+a:["Diferents","Idèntics","Més grans","Més petits"],
+c:1,
+e:"Els descendents són iguals a l'original."
+},
+{
+q:"Quins organismes es divideixen per bipartició?",
+a:["Bacteris","Mamífers","Ocells","Peixos"],
+c:0,
+e:"Els bacteris es divideixen en dues cèl·lules."
+},
+{
+q:"Quines cèl·lules intervenen en la reproducció sexual?",
+a:["Nervis","Gàmetes","Músculs","Plaquetes"],
+c:1,
+e:"Els gàmetes són les cèl·lules sexuals."
+},
+{
+q:"Com s'anomena la unió dels gàmetes?",
+a:["Digestió","Respiració","Fecundació","Circulació"],
+c:2,
+e:"La fecundació uneix gàmetes masculins i femenins."
+},
+{
+q:"La reproducció sexual és més...",
+a:["Ràpida","Lenta","Invisible","Artificial"],
+c:1,
+e:"La reproducció sexual necessita més temps."
+},
+{
+q:"Quin avantatge té la reproducció sexual?",
+a:["Descendents iguals","Més adaptació","No necessita fecundació","És instantània"],
+c:1,
+e:"Els descendents diferents s'adapten millor."
+},
+{
+q:"Les estrelles de mar poden tenir reproducció...",
+a:["Asexual","Només sexual","Cap","Interna"],
+c:0,
+e:"Alguns animals poden tenir reproducció asexual."
+},
+{
+q:"Els fongs poden tenir...",
+a:["Només reproducció sexual","Només asexual","Els dos tipus","Cap tipus"],
+c:2,
+e:"Els fongs poden reproduir-se sexualment i asexualment."
+},
+{
+q:"La reproducció és una...",
+a:["Malaltia","Funció vital","Digestió","Respiració"],
+c:1,
+e:"És una de les funcions vitals."
+},
+{
+q:"La reproducció asexual és...",
+a:["Molt lenta","Molt ràpida","Impossible","Artificial"],
+c:1,
+e:"La reproducció asexual és molt ràpida."
+},
+{
+q:"Com es diuen les cèl·lules sexuals?",
+a:["Teixits","Gàmetes","Òrgans","Nervis"],
+c:1,
+e:"Les cèl·lules sexuals són gàmetes."
+},
+{
+q:"La majoria d'animals tenen reproducció...",
+a:["Asexual","Sexual","Vegetativa","Cap"],
+c:1,
+e:"La majoria d'animals es reprodueixen sexualment."
+},
+{
+q:"Per què és important la reproducció?",
+a:["Per dormir","Per mantenir l'espècie","Per respirar","Per menjar"],
+c:1,
+e:"La reproducció assegura la continuïtat de l'espècie."
+}
+],
+
+salut:[
+{
+q:"Què hem de fer amb els aliments crus?",
+a:["Escalfar-los","Netejar-los bé","No menjar-los","Congelar-los"],
+c:1,
+e:"Els aliments crus s'han de netejar correctament."
+},
+{
+q:"Per què cal raspallar-se les dents?",
+a:["Per evitar càries","Per respirar","Per dormir","Per córrer"],
+c:0,
+e:"Raspallar-se les dents evita càries."
+},
+{
+q:"Què augmenta la capacitat respiratòria?",
+a:["Dormir","Fer exercici","Mirar TV","Menjar sucre"],
+c:1,
+e:"L'exercici ajuda els pulmons."
+},
+{
+q:"Què és perjudicial per a la salut?",
+a:["La fruita","El tabac","L'aigua","L'exercici"],
+c:1,
+e:"El tabac perjudica pulmons i cor."
+},
+{
+q:"Quin aparell transporta la sang?",
+a:["Digestiu","Respiratori","Circulatori","Excretor"],
+c:2,
+e:"L'aparell circulatori mou la sang."
+},
+{
+q:"Què hem d'evitar per protegir els ronyons?",
+a:["Aigua","Excés d'alcohol","Dormir","Fruita"],
+c:1,
+e:"L'alcohol perjudica els ronyons."
+},
+{
+q:"Què afavoreix la formació d'orina?",
+a:["Dormir","Beure aigua","Córrer","Menjar sucre"],
+c:1,
+e:"Beure aigua ajuda a formar orina."
+},
+{
+q:"Com ha de ser la roba?",
+a:["Ajustada","No excessivament ajustada","Pesada","Gruixuda"],
+c:1,
+e:"La roba massa ajustada dificulta la circulació."
+},
+{
+q:"Què hem de fer després de menjar?",
+a:["Dormir","Raspallar-nos les dents","Córrer","No beure"],
+c:1,
+e:"Cal raspallar-se les dents."
+},
+{
+q:"Quin aparell elimina substàncies de rebuig?",
+a:["Digestiu","Respiratori","Excretor","Circulatori"],
+c:2,
+e:"L'aparell excretor elimina residus."
+},
+{
+q:"Què ajuda a enfortir el cor?",
+a:["Fumar","Fer exercici","Dormir poc","Menjar greixos"],
+c:1,
+e:"L'exercici físic enforteix el cor."
+},
+{
+q:"Què cal fer abans d'anar a dormir?",
+a:["Córrer","Orinar","Menjar molt","Fumar"],
+c:1,
+e:"És recomanable orinar abans de dormir."
+},
+{
+q:"Què cal evitar per protegir els vasos sanguinis?",
+a:["Tabac","Aigua","Verdura","Fruita"],
+c:0,
+e:"El tabac perjudica els vasos sanguinis."
+},
+{
+q:"Què ajuda a evitar refredats?",
+a:["No dormir","Vestir-se adequadament","Fumar","Menjar sucre"],
+c:1,
+e:"La roba adequada ajuda a evitar refredats."
+},
+{
+q:"Què afavoreix la circulació de la sang?",
+a:["Fer exercici","Fumar","Dormir","Menjar sucre"],
+c:0,
+e:"L'exercici físic afavoreix la circulació."
+}
+]
+
+};
+
+const flashcards = {
+
+reproduccio:[
+["Ovaris","Produeixen els òvuls."],
+["Úter","Lloc on es desenvolupa el fetus."],
+["Trompes de Fal·lopi","On es produeix la fecundació."],
+["Testicles","Produeixen espermatozoides."],
+["Semen","Mescla d'espermatozoides i líquids."],
+["Menstruació","Expulsió de sang i teixits quan no hi ha fecundació."]
+],
+
+tipus:[
+["Reproducció asexual","Només participa un individu."],
+["Reproducció sexual","Participen gàmetes masculins i femenins."],
+["Gàmetes","Cèl·lules sexuals."],
+["Fecundació","Unió dels gàmetes."],
+["Bipartició","Divisió d'una cèl·lula en dues."],
+["Avantatge sexual","Més capacitat d'adaptació."]
+],
+
+salut:[
+["Aparell digestiu","Transforma aliments."],
+["Aparell respiratori","Intercanvi de gasos."],
+["Aparell circulatori","Transporta la sang."],
+["Aparell excretor","Elimina substàncies de rebuig."],
+["Exercici físic","Millora respiració i circulació."],
+["Tabac","Perjudica pulmons, cor i vasos sanguinis."]
+]
+
+};
+
+let currentQuiz = [];
+let currentQuestion = 0;
+let score = 0;
+
+function startQuiz(topic){
+
+document.getElementById('home').style.display='none';
+document.getElementById('quizContainer').style.display='block';
+
+currentQuiz = quizzes[topic];
+currentQuestion = 0;
+score = 0;
+
+showQuestion();
+
+}
+
+function showQuestion(){
+
+const q = currentQuiz[currentQuestion];
+
+document.getElementById('score').innerHTML =
+`⭐ ${score}/${currentQuiz.length} · Pregunta ${currentQuestion+1}/${currentQuiz.length}`;
+
+document.getElementById('question').textContent = q.q;
+
+const answers = document.getElementById('answers');
+answers.innerHTML='';
+
+document.getElementById('feedback').style.display='none';
+
+q.a.forEach((ans,index)=>{
+
+const btn = document.createElement('button');
+
+btn.className='answer';
+btn.textContent=ans;
+
+btn.onclick=()=>checkAnswer(btn,index);
+
+answers.appendChild(btn);
+
+});
+
+document.getElementById('nextBtn').style.display='none';
+
+}
+
+function checkAnswer(button,index){
+
+const q = currentQuiz[currentQuestion];
+
+const buttons = document.querySelectorAll('.answer');
+
+buttons.forEach(btn=>btn.disabled=true);
+
+if(index===q.c){
+
+button.classList.add('correct');
+
+document.getElementById('feedback').innerHTML =
+`<strong>✅ Correcte!</strong><br><br>${q.e}`;
+
+score++;
+
+}else{
+
+button.classList.add('wrong');
+buttons[q.c].classList.add('correct');
+
+document.getElementById('feedback').innerHTML =
+`<strong>❌ Incorrecte</strong><br><br>${q.e}`;
+
+}
+
+document.getElementById('feedback').style.display='block';
+
+document.getElementById('nextBtn').style.display='block';
+
+document.getElementById('score').innerHTML =
+`⭐ ${score}/${currentQuiz.length} · Pregunta ${currentQuestion+1}/${currentQuiz.length}`;
+
+}
+
+function nextQuestion(){
+
+currentQuestion++;
+
+if(currentQuestion < currentQuiz.length){
+
+showQuestion();
+
+}else{
+
+showResults();
+
+}
+
+}
+
+function showResults(){
+
+document.getElementById('quizContainer').innerHTML = `
+<div class="question-card" style="text-align:center;">
+
+<h2 style="font-size:2rem;margin-bottom:20px;">
+🏆 Test completat!
+</h2>
+
+<p style="font-size:1.3rem;">
+Has encertat <strong>${score}</strong> de <strong>${currentQuiz.length}</strong> preguntes.
+</p>
+
+<button class="back-home" onclick="location.reload()">
+⬅ Tornar al menú
+</button>
+
+</div>
+`;
+
+}
+
+let currentFlash = [];
+let flashIndex = 0;
+
+function startFlash(topic){
+
+document.getElementById('home').style.display='none';
+document.getElementById('flashContainer').style.display='block';
+
+currentFlash = flashcards[topic];
+flashIndex = 0;
+
+showFlash();
+
+}
+
+function showFlash(){
+
+document.getElementById('flashFront').textContent =
+currentFlash[flashIndex][0];
+
+document.getElementById('flashBack').textContent =
+currentFlash[flashIndex][1];
+
+}
+
+
+function nextFlashCard(){
+
+flashIndex++;
+
+if(flashIndex >= currentFlash.length){
+flashIndex = 0;
+}
+
+showFlash();
+
+}
+
+function prevFlash(){
+
+flashIndex--;
+
+if(flashIndex < 0){
+flashIndex = currentFlash.length -1;
+}
+
+showFlash();
+
+}
+
+function goHome(){
+
+location.reload();
+
+}
+
+
+
+// ================= EXTRA QUESTIONS =================
+
+quizzes.reproduccio.push(
+{
+q:"Quina funció tenen les trompes de Fal·lopi?",
+a:["Produir espermatozoides","Comunicar ovaris i úter","Eliminar orina","Produir sang"],
+c:1,
+e:"Les trompes comuniquen els ovaris amb l'úter."
+},
+{
+q:"Com es diu l'òrgan extern masculí?",
+a:["Escrot","Penis","Pròstata","Conducte deferent"],
+c:1,
+e:"El penis és l'òrgan extern de l'aparell reproductor masculí."
+},
+{
+q:"Quina part envolta els orificis de la vagina i la uretra?",
+a:["Trompes","Llavis","Ovaris","Conductes"],
+c:1,
+e:"Els llavis formen part de la vulva."
+},
+{
+q:"Quin tipus de fecundació té l'espècie humana?",
+a:["Externa","Interna","Artificial","Vegetativa"],
+c:1,
+e:"La fecundació humana és interna."
+},
+{
+q:"Què passa amb el zigot després de formar-se?",
+a:["Desapareix","Es divideix moltes vegades","Es converteix en semen","Surt del cos"],
+c:1,
+e:"El zigot es divideix i forma l'embrió."
+},
+{
+q:"Quin òrgan produeix líquids que acompanyen els espermatozoides?",
+a:["Vesícules seminals","Escrot","Úter","Vagina"],
+c:0,
+e:"Les vesícules seminals segreguen líquids del semen."
+},
+{
+q:"Quina és la funció de la pròstata?",
+a:["Produir òvuls","Produir líquids del semen","Filtrar sang","Produir orina"],
+c:1,
+e:"La pròstata produeix líquids que formen part del semen."
+},
+{
+q:"Com es diu el desenvolupament embrionari humà?",
+a:["Ovípar","Vivípar","Asexual","Extern"],
+c:1,
+e:"Els humans tenim desenvolupament vivípar."
+},
+{
+q:"Quina cèl·lula sexual produeix l'aparell reproductor femení?",
+a:["Espermatozoides","Òvuls","Plaquetes","Nervis"],
+c:1,
+e:"L'aparell reproductor femení produeix òvuls."
+},
+{
+q:"Quina cèl·lula sexual produeix l'aparell reproductor masculí?",
+a:["Òvuls","Espermatozoides","Glòbuls vermells","Teixits"],
+c:1,
+e:"L'aparell reproductor masculí produeix espermatozoides."
+}
+);
+
+quizzes.tipus.push(
+{
+q:"Quin tipus de reproducció és més ràpid?",
+a:["Sexual","Asexual","Interna","Vivípara"],
+c:1,
+e:"La reproducció asexual és molt ràpida."
+},
+{
+q:"Els descendents sexuals són...",
+a:["Idèntics","Diferents","Exactament iguals","Clons"],
+c:1,
+e:"Els descendents tenen característiques diferents."
+},
+{
+q:"Quin organisme unicel·lular es reprodueix asexualment?",
+a:["Elefant","Bacteri","Ocell","Humà"],
+c:1,
+e:"Els bacteris tenen reproducció asexual."
+},
+{
+q:"Què assegura la reproducció?",
+a:["La digestió","La continuïtat de l'espècie","La respiració","La circulació"],
+c:1,
+e:"La reproducció permet mantenir les espècies."
+},
+{
+q:"Les molses poden tenir reproducció...",
+a:["Només sexual","Només asexual","Sexual i asexual","Cap"],
+c:2,
+e:"Les molses poden tenir els dos tipus."
+},
+{
+q:"Quin tipus de reproducció necessita fecundació?",
+a:["Asexual","Sexual","Vegetativa","Bipartició"],
+c:1,
+e:"La reproducció sexual necessita fecundació."
+},
+{
+q:"Com s'anomena la divisió d'una cèl·lula en dues?",
+a:["Fecundació","Bipartició","Ovulació","Gestació"],
+c:1,
+e:"La bipartició crea dues cèl·lules filles."
+},
+{
+q:"Per què és favorable que els descendents siguin diferents?",
+a:["Perquè són més iguals","Perquè s'adapten millor","Perquè desapareixen","Perquè no creixen"],
+c:1,
+e:"La diversitat ajuda a adaptar-se."
+},
+{
+q:"Quin tipus de reproducció tenen la majoria d'organismes?",
+a:["Sexual","Asexual","Artificial","Cap"],
+c:0,
+e:"La majoria d'organismes tenen reproducció sexual."
+},
+{
+q:"Què són els gàmetes?",
+a:["Òrgans","Cèl·lules sexuals","Músculs","Teixits"],
+c:1,
+e:"Els gàmetes són les cèl·lules sexuals."
+}
+);
+
+quizzes.salut.push(
+{
+q:"Què convé fer amb els aliments abans de consumir-los?",
+a:["No tocar-los","Assegurar el bon estat","Congelar-los sempre","Escalfar-los molt"],
+c:1,
+e:"Els aliments han d'estar en bon estat."
+},
+{
+q:"Com cal menjar per ajudar l'aparell digestiu?",
+a:["Molt ràpid","Sense mastegar","A poc a poc","Només dolços"],
+c:2,
+e:"Cal menjar lentament i mastegar bé."
+},
+{
+q:"Què hem de fer quan tenim problemes dentals?",
+a:["Ignorar-los","Anar al dentista","No menjar","Dormir"],
+c:1,
+e:"Cal anar al dentista quan sigui necessari."
+},
+{
+q:"Què hem d'evitar respirar?",
+a:["Oxigen","Fum del tabac","Aire net","Vapor d'aigua"],
+c:1,
+e:"El fum del tabac perjudica els pulmons."
+},
+{
+q:"Quin aparell s'encarrega de respirar?",
+a:["Digestiu","Respiratori","Excretor","Reproductor"],
+c:1,
+e:"L'aparell respiratori permet la respiració."
+},
+{
+q:"Què ajuda a evitar l'obstrucció dels vasos sanguinis?",
+a:["Menjar greixos","Menjar aliments baixos en greixos","Fumar","No moure's"],
+c:1,
+e:"Els aliments baixos en greixos protegeixen els vasos."
+},
+{
+q:"Què redueix l'elasticitat dels vasos sanguinis?",
+a:["Fruita","Tabac","Aigua","Exercici"],
+c:1,
+e:"El tabac perjudica els vasos sanguinis."
+},
+{
+q:"Què disminueix la capacitat de filtratge dels ronyons?",
+a:["Aigua","Carn i alcohol en excés","Dormir","Exercici"],
+c:1,
+e:"L'excés de carn i alcohol perjudica els ronyons."
+},
+{
+q:"Què no s'ha de retenir massa temps?",
+a:["La respiració","L'orina","La sang","Els aliments"],
+c:1,
+e:"No és bo retenir l'orina molt temps."
+},
+{
+q:"Què cal netejar regularment?",
+a:["Només les mans","Les parts del cos amb glàndules sudorípares","Només els peus","Només la cara"],
+c:1,
+e:"Cal mantenir una bona higiene corporal."
+}
+);
+
+// ================= END EXTRA QUESTIONS =================
+
+</script>
+
+</body>
+</html>

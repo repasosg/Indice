@@ -60,7 +60,7 @@ También incluye:
 Archivo:
 
 ```text
-Catala_PB_TD_CG_polisèmia_descriptius..html
+catala_pb_td_cg_polisemia_descriptius.html
 ```
 
 Repaso interactivo de:
@@ -87,7 +87,7 @@ Incluye:
 Indice-main/
 ├── index.html
 ├── mode_vacances_estiu.html
-├── Catala_PB_TD_CG_polisèmia_descriptius..html
+├── catala_pb_td_cg_polisemia_descriptius.html
 ├── castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html
 ├── castellano_z_s_CC_texto_instructivo.html
 ├── catalan_adjectiu_noticia_s_sorda_sonora.html
