@@ -234,6 +234,21 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
 @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
 @media(max-width:760px){.page{padding:18px 14px 58px}.hero{padding:22px 18px;border-radius:28px}.hero-top{align-items:flex-start}.hero-mascot{width:86px;height:86px;border-radius:24px;font-size:2.8rem}.chip{font-size:.9rem}.banner{grid-template-columns:1fr;padding:24px 20px;border-radius:28px}.banner-emoji{position:absolute;right:18px;top:18px;font-size:3.4rem;opacity:.55}.banner-actions a{width:100%}.section-head{align-items:flex-start;flex-direction:column}.legend{justify-content:flex-start}.grid{grid-template-columns:1fr}.chat-box{width:calc(100vw - 32px);right:16px;height:min(540px,calc(100vh - 120px))}.chat-btn{right:16px;bottom:16px}}
+
+.review-btn{
+  background:rgba(255,255,255,.10)!important;
+  border:2px solid rgba(255,255,255,.18)!important;
+  color:#5b556e!important;
+  font-weight:800!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#5b556e!important;
+}
+
+.review-btn:hover{
+  background:rgba(255,255,255,.18)!important;
+  transform:translateY(-2px);
+}
+
 </style>
 </head>
 <body>
@@ -257,59 +272,97 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
     </div>
   </section>
 
-  <section class="banner">
-    <div class="banner-content">
-      <div class="banner-pill" id="properExamPill">🔔 Proper examen · Missió principal</div>
-      <h2 id="properExamTitle">Català — P/B, T/D, C/G i polisèmia</h2>
-      <p class="banner-sub" id="properExamTopics">Lletres finals · Paraules primitives · Famílies de paraules · Paraules polisèmiques · Text descriptiu</p>
-      <div class="banner-actions">
-        <a href="catala_pb_td_cg_polisemia_descriptius.html" class="banner-btn" id="properExamStart">Començar missió ✨</a>
-        <a href="catala_pb_td_cg_polisemia_descriptius.html?review=errors#repas-errors" class="soft-btn" id="properExamReview">Repassar errors 🧩</a>
-        <a href="#missions" class="soft-btn">Veure totes les proves 🗺️</a>
+  
+
+
+  
+
+
+  
+
+  
+  
+  <section class="progress-panel" style="margin-top:0;margin-bottom:28px;padding:24px">
+    <div class="section-head" style="margin:0 0 18px">
+      <div>
+        <h2>🔥 Pròxims exàmens</h2>
+        <p>Accés ràpid als exàmens actius d’aquesta setmana.</p>
       </div>
     </div>
-    <div class="banner-emoji">📐</div>
+
+    <div class="grid" style="gap:18px">
+
+      <div class="card" data-s="mates">
+        <div class="card-header">
+          <div class="card-icon">📐</div>
+          <div>
+            <div class="card-title">Matemàtiques</div>
+            <div class="card-meta">Nombres mixtos i àrees</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="mates_mixtos_arees.html" class="lbtn featured">
+            ⭐ Començar missió ✨
+          </a>
+
+          <a href="mates_mixtos_arees.html#app-content"
+             class="lbtn review-btn">
+             🧩 Repassar errors
+          </a>
+        </div>
+      </div>
+
+      <div class="card" data-s="english">
+        <div class="card-header">
+          <div class="card-icon">🇬🇧</div>
+          <div>
+            <div class="card-title">Anglès</div>
+            <div class="card-meta">Past Simple Adventure!</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="ingles_pasado_verbos.html" class="lbtn featured">
+            ⭐ Començar missió ✨
+          </a>
+
+          <a href="ingles_pasado_verbos.html#write"
+             class="lbtn review-btn">
+             🧩 Repassar errors
+          </a>
+        </div>
+      </div>
+
+      <div class="card" data-s="medi">
+        <div class="card-header">
+          <div class="card-icon">🧬</div>
+          <div>
+            <div class="card-title">Medi</div>
+            <div class="card-meta">Reproducció i nutrició</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="medi_reproduccion_sexual_asexual_nuticion.html" class="lbtn featured">
+            ⭐ Començar missió ✨
+          </a>
+
+          <a href="medi_reproduccion_sexual_asexual_nuticion.html?review=errors#repas-errors"
+             class="lbtn review-btn">
+             🧩 Repassar errors
+          </a>
+        </div>
+      </div>
+
+    </div>
   </section>
 
 
-  <section class="banner" style="background:linear-gradient(135deg,#6BCB77,#20C997,#4D96FF);box-shadow:0 18px 48px rgba(32,201,151,.28)">
-    <div class="banner-content">
-      <div class="banner-pill">🧬 Nou examen · Medi</div>
-      <h2>Reproducció sexual i asexual · Nutrició</h2>
-      <p class="banner-sub">Repàs dels éssers vius, tipus de reproducció i funció de nutrició amb exercicis interactius.</p>
-      <div class="banner-actions">
-        <a href="medi_reproduccion_sexual_asexual_nuticion.html" class="banner-btn">
-          Començar missió ✨
-        </a>
-        <a href="medi_reproduccion_sexual_asexual_nuticion.html?review=errors#repas-errors" class="soft-btn">
-          Repassar errors 🧩
-        </a>
-        <a href="#missions" class="soft-btn">
-          Veure totes les proves 🗺️
-        </a>
-      </div>
-    </div>
-    <div class="banner-emoji">🧬</div>
-  </section>
 
 
-  <section class="banner" style="background:linear-gradient(135deg,#20C997,#4D96FF,#8B5CF6);box-shadow:0 18px 48px rgba(77,150,255,.25)">
-    <div class="banner-content">
-      <div class="banner-pill">🏖️ Repàs de vacances · Aleatori</div>
-      <h2>Ruleta de missions d'estiu</h2>
-      <p class="banner-sub">Exercicis curts i barrejats de català, castellà, matemàtiques, medi i anglès. Perfecte per practicar 10 minuts al dia.</p>
-      <div class="banner-actions">
-        <a href="mode_vacances_estiu.html" class="banner-btn">Entrar al mode vacances 🎲</a>
-        <a href="catala_pb_td_cg_polisemia_descriptius.html?review=errors#repas-errors" class="soft-btn" id="properExamReview">Repassar errors 🧩</a>
-        <a href="#missions" class="soft-btn">Continuar per assignatures 🗺️</a>
-      </div>
-    </div>
-    <div class="banner-emoji">🏖️</div>
-  </section>
+  
+  
 
 
-
-  <section class="progress-panel" id="progres">
+<section class="progress-panel" id="progres">
     <div class="progress-top">
       <div class="progress-title">
         <h2>🏆 El meu progrés</h2>
@@ -384,9 +437,10 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
     <div class="card" data-s="english">
       <div class="card-header">
         <div class="card-icon">🇬🇧</div>
-        <div><div class="card-title">Anglès</div><div class="card-meta">1 mission available</div></div>
+        <div><div class="card-title">Anglès</div><div class="card-meta">2 missions available</div></div>
       </div>
       <div class="card-body">
+        <a href="ingles_pasado_verbos.html" class="lbtn featured">⭐ Nou examen <span class="badge-mini">nou</span><br>Past Simple Adventure!</a>
         <a href="ingles_presentsimple_continuos.html" class="lbtn">Present simple &amp; continuous</a>
       </div>
     </div>
