@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Repàs de Mates – Mixtos i Àrees</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0b1e;--card:rgba(255,255,255,.06);--card-border:rgba(255,255,255,.13);
+  --pink:#ff6b9d;--yellow:#ffd93d;--mint:#6bffb8;--purple:#c77dff;--blue:#4d96ff;
+  --white:#fff;--dim:rgba(255,255,255,.55)
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:twinkle var(--dur) ease-in-out infinite;opacity:0}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(1)}50%{opacity:1;transform:scale(1.8)}}
+.container{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:16px 20px 40px}
+.header{text-align:center;padding:28px 0 16px}
+.header h1{font-family:'Fredoka One',cursive;font-size:clamp(1.8rem,5vw,2.8rem);background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.header p{color:var(--dim);font-size:1rem;font-weight:700}
+.tabs{display:flex;gap:6px;margin:16px 0;background:var(--card);border:1px solid var(--card-border);border-radius:20px;padding:6px}
+.tab{flex:1;padding:10px 6px;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;cursor:pointer;transition:all .35s;background:transparent;color:var(--dim)}
+.tab.active{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;box-shadow:0 4px 20px rgba(199,125,255,.4)}
+.score-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.score-badge{background:linear-gradient(135deg,var(--yellow),#ff9f43);color:#1a0533;padding:6px 16px;border-radius:20px;font-weight:800;font-size:.9rem}
+.progress-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.progress-track{background:rgba(255,255,255,.1);border-radius:10px;height:8px;width:160px;overflow:hidden}
+.progress-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--purple),var(--pink));transition:width .4s ease}
+.progress-label{font-size:.8rem;color:var(--dim);font-weight:700}
+.exercise-card{background:var(--card);border:1px solid var(--card-border);border-radius:24px;padding:28px;margin-bottom:16px;backdrop-filter:blur(12px);position:relative;overflow:hidden;animation:cardIn .4s ease}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.exercise-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue))}
+.exercise-label{font-size:.78rem;color:var(--purple);font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+
+/* Mixed numbers display */
+.mixed-display{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 14px;font-family:'Fredoka One',cursive}
+.mixed-num{display:flex;align-items:center;gap:8px}
+.mn-int{font-size:2.2rem;color:var(--yellow);line-height:1}
+.mn-frac{display:flex;flex-direction:column;align-items:center;gap:2px}
+.mn-frac .fn{font-size:1.6rem;color:var(--yellow);line-height:1}
+.mn-frac .fb{width:100%;min-width:28px;height:3px;background:var(--white);border-radius:2px}
+.mn-frac .fd{font-size:1.6rem;color:var(--mint);line-height:1}
+.op-sym{font-size:2.2rem;color:var(--pink)}
+.eq-sym{font-size:2.2rem;color:var(--dim)}
+.q-sym{font-size:1.8rem;color:var(--purple);line-height:1}
+
+/* Answer area */
+.answer-section{margin-top:16px}
+.input-hint{color:var(--dim);font-size:.88rem;font-weight:700;margin-bottom:10px}
+.mixed-input-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mn-input-block{display:flex;align-items:center;gap:8px}
+.mn-int-input input{width:70px;text-align:center;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;color:white;font-family:'Fredoka One',cursive;font-size:1.4rem;padding:6px 4px;transition:border-color .3s}
+.mn-int-input input:focus{outline:none;border-color:var(--yellow)}
+.mn-frac-inputs{display:flex;flex-direction:column;align-items:center;gap:3px}
+.mn-frac-inputs input{width:64px;text-align:center;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:10px;color:white;font-family:'Fredoka One',cursive;font-size:1.3rem;padding:5px 4px;transition:border-color .3s}
+.mn-frac-inputs input:focus{outline:none;border-color:var(--purple)}
+.mn-frac-inputs .ib{width:64px;height:3px;background:var(--white);border-radius:2px}
+.mn-plus-label{font-size:1.2rem;color:var(--dim);font-weight:800}
+
+/* Convex/concave */
+.shape-display{display:flex;justify-content:center;align-items:center;margin:10px 0 10px;min-height:180px}
+.shape-svg{filter:drop-shadow(0 4px 16px rgba(0,0,0,.4))}
+.shape-buttons{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.shape-btn{padding:14px 32px;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:all .25s}
+.shape-btn.convex{background:linear-gradient(135deg,var(--blue),#6bcbff);color:white}
+.shape-btn.concave{background:linear-gradient(135deg,var(--pink),#ff9d6b);color:white}
+.shape-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.shape-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Area exercise */
+.area-display{display:flex;justify-content:center;margin:18px 0 10px}
+.area-svg text{font-family:'Fredoka One',cursive;fill:var(--yellow)}
+.area-input{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.area-input input{width:110px;text-align:center;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:12px;color:white;font-family:'Fredoka One',cursive;font-size:1.5rem;padding:8px 14px;transition:border-color .3s}
+.area-input input:focus{outline:none;border-color:var(--mint)}
+.area-unit{color:var(--dim);font-size:.9rem;font-weight:700}
+
+/* Buttons */
+.btn-check{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;border-radius:14px;padding:13px 28px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:all .3s;box-shadow:0 4px 18px rgba(255,107,157,.3);margin-top:14px;display:block}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,107,157,.55)}
+
+/* Feedback */
+.feedback{border-radius:18px;padding:20px;margin-top:18px;animation:slideIn .35s ease;display:none}
+.feedback.correct{background:rgba(107,255,184,.08);border:2px solid var(--mint)}
+.feedback.incorrect{background:rgba(255,107,157,.08);border:2px solid var(--pink)}
+.fb-title{font-family:'Fredoka One',cursive;font-size:1.25rem;margin-bottom:12px}
+.feedback.correct .fb-title{color:var(--mint)}
+.feedback.incorrect .fb-title{color:var(--pink)}
+.explanation{font-size:.93rem;line-height:1.7}
+.step{background:rgba(255,255,255,.05);border-radius:12px;padding:10px 14px;margin:7px 0;font-size:.9rem;line-height:1.7}
+.step-num{font-weight:900;color:var(--yellow)}
+.btn-next{background:linear-gradient(135deg,var(--blue),var(--mint));color:#0d0b1e;border:none;border-radius:14px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:all .3s;margin-top:14px;display:block}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(107,255,184,.45)}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Inline fraction in explanations */
+.ef{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-family:'Fredoka One',cursive}
+.ef .en{font-size:.85em;line-height:1.1;color:var(--yellow)}
+.ef .eb{width:100%;min-width:16px;height:2px;background:white}
+.ef .ed{font-size:.85em;line-height:1.1;color:var(--mint)}
+
+/* Confetti */
+.cp{position:fixed;width:10px;height:10px;top:-10px;animation:cfFall var(--cd) ease-in forwards;z-index:999;pointer-events:none}
+@keyframes cfFall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* Final */
+.final-screen{text-align:center;padding:40px 20px;animation:cardIn .5s ease}
+.final-screen h2{font-family:'Fredoka One',cursive;font-size:2.4rem;background:linear-gradient(135deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.final-score{font-size:4.5rem;font-family:'Fredoka One',cursive;color:var(--yellow);margin:16px 0 8px}
+.btn-restart{background:linear-gradient(135deg,var(--yellow),#ff9f43);color:#1a0533;border:none;border-radius:14px;padding:14px 32px;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;cursor:pointer;transition:all .3s;margin-top:22px;display:inline-block}
+.btn-restart:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,211,61,.45)}
+.medal{font-size:4rem;margin-bottom:10px;display:block;animation:medalPop .6s .3s both cubic-bezier(.36,1.8,.5,1)}
+@keyframes medalPop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="container">
+  <div class="header">
+    <h1>✨ Repàs de Mates ✨</h1>
+    <p>Nombres mixtos, figures i àrees 💪🌟</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tab-mixtos"  onclick="switchMode('mixtos',this)">🔢 Nombres Mixtos</button>
+    <button class="tab"        id="tab-figures" onclick="switchMode('figures',this)">🔷 Convex / Còncau</button>
+    <button class="tab"        id="tab-arees"   onclick="switchMode('arees',this)">📐 Àrees</button>
+  </div>
+  <div id="app-content"></div>
+</div>
+
+<script>
+// ── MATH HELPERS ──────────────────────────────────────────────────────────────
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);return b===0?a:gcd(b,a%b)}
+function lcm(a,b){return(a*b)/gcd(a,b)}
+function simplify(n,d){if(d===0)return{n:0,d:1};const g=gcd(Math.abs(n),Math.abs(d));return{n:n/g,d:d/g}}
+function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function shuffle(arr){return arr.slice().sort(()=>Math.random()-.5)}
+function frac(n,d){return`<span class="ef"><span class="en">${n}</span><span class="eb"></span><span class="ed">${d}</span></span>`}
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+const TOTAL=20;
+let state={mode:'mixtos',idx:0,score:0,current:null,answered:false};
+
+// ── STARS ──────────────────────────────────────────────────────────────────────
+function createStars(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;`;
+    c.appendChild(s);
+  }
+}
+
+// ── SECTION 1: NOMBRES MIXTOS ─────────────────────────────────────────────────
+const DENOMS=[2,3,4,5,6,8,10];
+
+function genMixed(){
+  let d1=DENOMS[randInt(0,DENOMS.length-1)],d2;
+  do{d2=DENOMS[randInt(0,DENOMS.length-1)]}while(d2===d1);
+  let w1=randInt(1,5),n1=randInt(1,d1-1);
+  let w2=randInt(1,5),n2=randInt(1,d2-1);
+  let op=Math.random()<.5?'+':'-';
+  if(op==='-'){
+    // ensure left > right
+    const lv=w1*d1*d2+n1*d2, rv=w2*d1*d2+n2*d1;
+    if(lv<rv){[w1,n1,d1,w2,n2,d2]=[w2,n2,d2,w1,n1,d1]}
+    if(lv===rv)return genMixed();
+  }
+  return{type:'mixed',w1,n1,d1,w2,n2,d2,op};
+}
+
+function solveMixed(ex){
+  const{w1,n1,d1,w2,n2,d2,op}=ex;
+  const num1=w1*d1+n1, num2=w2*d2+n2;
+  const L=lcm(d1,d2);
+  const rn=op==='+'?num1*(L/d1)+num2*(L/d2):num1*(L/d1)-num2*(L/d2);
+  const whole=Math.floor(rn/L);
+  const rem=rn%L;
+  const s=simplify(rem,L);
+  return{whole,num:s.n,den:s.d};
+}
+
+function explainMixed(ex){
+  const{w1,n1,d1,w2,n2,d2,op}=ex;
+  const imp1=w1*d1+n1, imp2=w2*d2+n2;
+  const L=lcm(d1,d2);
+  const m1=L/d1,m2=L/d2;
+  const rn=op==='+'?imp1*m1+imp2*m2:imp1*m1-imp2*m2;
+  const whole=Math.floor(rn/L),rem=rn%L;
+  const s=simplify(rem,L);
+  const verb=op==='+'?'sumar':'restar';
+  return[
+    `<div class="step"><span class="step-num">Pas 1 🔄</span> Convertim cada nombre mixt en fracció impropia:<br>
+      ${w1} ${frac(n1,d1)} = ${frac(imp1,d1)} &nbsp;&nbsp; (${w1}×${d1}+${n1}=${imp1})<br>
+      ${w2} ${frac(n2,d2)} = ${frac(imp2,d2)} &nbsp;&nbsp; (${w2}×${d2}+${n2}=${imp2})</div>`,
+    `<div class="step"><span class="step-num">Pas 2 🔍</span> Per poder ${verb}-les necessitem el mcm de ${d1} i ${d2}:<br>mcm(${d1},${d2}) = <strong>${L}</strong></div>`,
+    `<div class="step"><span class="step-num">Pas 3 ${op==='+'?'➕':'➖'}</span> Convertim al denominador comú i ${op==='+'?'sumem':'restem'}:<br>
+      ${frac(imp1,d1)} = ${frac(imp1*m1,L)} &nbsp;·&nbsp; ${frac(imp2,d2)} = ${frac(imp2*m2,L)}<br>
+      ${frac(imp1*m1,L)} ${op} ${frac(imp2*m2,L)} = ${frac(rn,L)}</div>`,
+    rem>0
+      ?`<div class="step"><span class="step-num">Pas 4 🔙</span> Convertim el resultat en nombre mixt:<br>${frac(rn,L)} → ${Math.floor(rn/L)} enters i ${rn%L} de ${L} → <strong>${whole} ${frac(s.n,s.d)}</strong></div>`
+      :`<div class="step"><span class="step-num">Pas 4 ✅</span> El resultat ${frac(rn,L)} = <strong>${whole}</strong> (nombre enter exacte)</div>`
+  ].join('');
+}
+
+function mixedHTML(ex){
+  const{w1,n1,d1,w2,n2,d2,op}=ex;
+  return`
+    <div class="mixed-display">
+      <div class="mixed-num">
+        <div class="mn-int">${w1}</div>
+        <div class="mn-frac"><div class="fn">${n1}</div><div class="fb"></div><div class="fd">${d1}</div></div>
+      </div>
+      <div class="op-sym">${op}</div>
+      <div class="mixed-num">
+        <div class="mn-int">${w2}</div>
+        <div class="mn-frac"><div class="fn">${n2}</div><div class="fb"></div><div class="fd">${d2}</div></div>
+      </div>
+      <div class="eq-sym">=</div>
+      <div class="mixed-num">
+        <div class="q-sym">?</div>
+        <div class="mn-frac"><div class="q-sym">?</div><div class="fb"></div><div class="q-sym">?</div></div>
+      </div>
+    </div>
+    <p style="color:var(--dim);font-size:.88rem;text-align:center;margin-bottom:4px">Escriu el resultat com a nombre mixt (enter + fracció simplificada)</p>
+    <div class="answer-section">
+      <div class="mixed-input-row">
+        <div class="mn-int-input"><input type="number" id="ans-w" placeholder="?" min="0" max="99" autocomplete="off"></div>
+        <div class="mn-plus-label">+</div>
+        <div class="mn-frac-inputs">
+          <input type="number" id="ans-n" placeholder="?" min="0" max="99" autocomplete="off">
+          <div class="ib"></div>
+          <input type="number" id="ans-d" placeholder="?" min="1" max="99" autocomplete="off">
+        </div>
+        <button class="btn-check" onclick="checkAns()">✅ Comprovar</button>
+      </div>
+      <p style="color:var(--dim);font-size:.78rem;margin-top:8px">Si el resultat és un enter exacte (sense fracció), deixa els camps de la fracció en blanc o posa 0/1</p>
+    </div>`;
+}
+
+// ── SECTION 2: CONVEX / CÒNCAU ────────────────────────────────────────────────
+// ViewBox: 0 0 300 250. All shapes are flat polygons for classroom use.
+// CONVEX: all interior angles < 180° — no "dents"
+// CONCAVE: at least one interior angle > 180° — has at least one inward "dent"
+const SHAPES=[
+
+  // ── CONVEX ──────────────────────────────────────────────────────────────────
+  {
+    name:"Triangle equilàter", sides:3, type:'convex',
+    info:"3 costats iguals · tots els angles = 60°",
+    pts:"150,25 275,222 25,222", col:"#4D96FF"
+  },
+  {
+    name:"Quadrat", sides:4, type:'convex',
+    info:"4 costats iguals · tots els angles = 90°",
+    pts:"45,35 255,35 255,215 45,215", col:"#FFB347"
+  },
+  {
+    name:"Rectangle", sides:4, type:'convex',
+    info:"4 costats · tots els angles = 90°",
+    pts:"18,72 282,72 282,178 18,178", col:"#6BCB77"
+  },
+  {
+    name:"Pentagon regular", sides:5, type:'convex',
+    info:"5 costats iguals · tots els angles = 108°",
+    pts:"150,25 245,93 210,208 90,208 55,93", col:"#c77dff"
+  },
+  {
+    name:"Hexàgon regular", sides:6, type:'convex',
+    info:"6 costats iguals · tots els angles = 120°",
+    pts:"150,25 238,73 238,172 150,222 62,172 62,73", col:"#ff6b9d"
+  },
+  {
+    name:"Heptàgon regular", sides:7, type:'convex',
+    info:"7 costats iguals · tots els angles ≈ 128,6°",
+    pts:"150,28 225,65 248,150 198,215 102,215 52,150 75,65", col:"#4D96FF"
+  },
+  {
+    name:"Octàgon regular", sides:8, type:'convex',
+    info:"8 costats iguals · tots els angles = 135°",
+    pts:"150,28 218,55 245,125 218,195 150,222 82,195 55,125 82,55", col:"#FFD93D"
+  },
+  {
+    name:"Trapezi isòsceles", sides:4, type:'convex',
+    info:"4 costats · tots els angles menors de 180°",
+    pts:"68,45 232,45 272,208 28,208", col:"#6BCB77"
+  },
+  {
+    name:"Rombe", sides:4, type:'convex',
+    info:"4 costats iguals · tots els angles menors de 180°",
+    pts:"150,20 268,125 150,220 32,125", col:"#c77dff"
+  },
+  {
+    name:"Paral·lelogram", sides:4, type:'convex',
+    info:"4 costats · costats oposats paral·lels i iguals · tots els angles < 180°",
+    pts:"62,205 232,205 238,45 68,45", col:"#ff6b9d"
+  },
+
+  // ── CONCAVE ─────────────────────────────────────────────────────────────────
+  {
+    name:"Estrella de 5 puntes", sides:10, type:'concave',
+    info:"10 costats · 5 angles reflexes (>180°) als vèrtexs interiors",
+    reflex:"vèrtexs interiors de l'estrella",
+    pts:"150,22 172,90 242,90 186,133 210,205 150,160 90,205 114,133 58,90 128,90",
+    col:"#FFD93D"
+  },
+  {
+    name:"Fletxa apuntant a la dreta", sides:7, type:'concave',
+    info:"7 costats · angles reflexes als cantonaments de la cua de la fletxa",
+    reflex:"els dos cantons interiors de la part esquerra (cua de la fletxa)",
+    pts:"20,82 135,82 135,30 275,125 135,220 135,168 20,168",
+    col:"#4D96FF"
+  },
+  {
+    name:"Fletxa apuntant amunt", sides:7, type:'concave',
+    info:"7 costats · angles reflexes als cantonaments de la base de la fletxa",
+    reflex:"els dos cantons interiors de la part baixa (base de la fletxa)",
+    pts:"150,18 235,112 198,112 198,230 102,230 102,112 65,112",
+    col:"#6BCB77"
+  },
+  {
+    name:"Quadrilàter còncau (punta de fletxa)", sides:4, type:'concave',
+    info:"4 costats · un vèrtex forma un angle reflexe (>180°)",
+    reflex:"el vèrtex central inferior que apunta cap a dins",
+    pts:"150,18 242,222 150,158 58,222",
+    col:"#ff6b9d"
+  },
+  {
+    name:"Hexàgon còncau (forma L)", sides:6, type:'concave',
+    info:"6 costats · un angle reflexe al cantonament interior",
+    reflex:"el vèrtex interior on la forma fa el canvi de direcció",
+    pts:"22,22 148,22 148,108 275,108 275,232 22,232",
+    col:"#c77dff"
+  },
+  {
+    name:"Octàgon còncau (forma T)", sides:8, type:'concave',
+    info:"8 costats · angles reflexes als cantonaments interiors de la T",
+    reflex:"els dos cantonaments on el peu de la T es connecta a la barra horitzontal",
+    pts:"22,22 278,22 278,105 198,105 198,232 102,232 102,105 22,105",
+    col:"#FFB347"
+  },
+  {
+    name:"Dodecàgon còncau (forma de creu)", sides:12, type:'concave',
+    info:"12 costats · 4 angles reflexes als cantonaments interiors de la creu",
+    reflex:"els quatre cantonaments interiors on els braços de la creu es troben",
+    pts:"105,22 195,22 195,105 275,105 275,195 195,195 195,230 105,230 105,195 25,195 25,105 105,105",
+    col:"#FFD93D"
+  },
+  {
+    name:"Octàgon còncau (forma C)", sides:8, type:'concave',
+    info:"8 costats · angles reflexes als cantonaments del retall interior dret",
+    reflex:"els dos cantonaments interiors de la part oberta de la C",
+    pts:"22,22 235,22 235,95 105,95 105,158 235,158 235,232 22,232",
+    col:"#4D96FF"
+  },
+  {
+    name:"Pentagon còncau", sides:5, type:'concave',
+    info:"5 costats · un angle reflexe a la part inferior central",
+    reflex:"el vèrtex central inferior que apunta cap a dins",
+    pts:"45,48 255,48 255,158 150,92 45,158",
+    col:"#6BCB77"
+  },
+  {
+    name:"Hexàgon còncau irregular", sides:6, type:'concave',
+    info:"6 costats · un angle reflexe que crea una escotadura a la dreta",
+    reflex:"el vèrtex que s'enfonsa cap a l'interior a la part dreta",
+    pts:"32,50 270,50 270,148 162,95 270,208 32,208",
+    col:"#ff6b9d"
+  },
+];
+
+let shapeQueue=[];
+function buildShapeQueue(){shapeQueue=shuffle(SHAPES).slice(0,TOTAL)}
+buildShapeQueue();
+
+function checkShape(userType){
+  if(state.answered)return;
+  state.answered=true;
+  document.removeEventListener('keydown',enterKey);
+  const ex=state.current;
+  const ok=userType===ex.type;
+  if(ok)state.score++;
+  state.idx++;
+  // disable buttons
+  document.querySelectorAll('.shape-btn').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('feedback');
+  fb.style.display='block';
+  const correctLabel=ex.type==='convex'?'CONVEX':'CÒNCAU';
+  if(ok){
+    const emojis=['🎉','🌟','✨','🎊','🥳','💯','🚀','🏆'];
+    fb.className='feedback correct';
+    fb.innerHTML=`<div class="fb-title">${emojis[randInt(0,emojis.length-1)]} Correcte! És ${correctLabel}!</div>
+    <div class="explanation">${shapeExplain(ex)}</div>
+    <button class="btn-next" onclick="next()">Següent →</button>`;
+    spawnConfetti();
+  } else {
+    fb.className='feedback incorrect';
+    fb.innerHTML=`<div class="fb-title">😅 No del tot... és <strong>${correctLabel}</strong></div>
+    <div class="explanation">${shapeExplain(ex)}</div>
+    <button class="btn-next" onclick="next()">Següent →</button>`;
+  }
+  fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function shapeExplain(ex){
+  const rule = ex.type==='convex'
+    ? `<div class="step"><span class="step-num">✅ Polígon CONVEX</span>
+        Un polígon és <strong>convex</strong> quan <strong>tots els angles interiors mesuren menys de 180°</strong>.
+        Si prolongues qualsevol costat, tota la resta de la figura queda al mateix costat de la recta.<br><br>
+        <strong>${ex.name}</strong> — ${ex.info} → cap angle s'enfonsa cap a dins ✔</div>`
+    : `<div class="step"><span class="step-num">⚠️ Polígon CÒNCAU</span>
+        Un polígon és <strong>còncau</strong> quan <strong>almenys un angle interior mesura més de 180°</strong> (angle reflex).
+        Visiblement, la figura té una o més "escotadures" o "puntes cap endins".<br><br>
+        <strong>${ex.name}</strong> — ${ex.info}<br>
+        🔴 Angle(s) reflex: <em>${ex.reflex}</em></div>`;
+  const tip = ex.type==='convex'
+    ? `<div class="step"><span class="step-num">💡 Truc</span> Comprova que cap vèrtex "s'enfonsa" cap a l'interior de la figura. Si tots apunten cap a fora, és convexa.</div>`
+    : `<div class="step"><span class="step-num">💡 Truc</span> Busca l'escotadura o el "canto interior". Quan la figura té una concavitat cap endins, hi ha almenys un angle reflex → és còncaua.</div>`;
+  return rule + tip;
+}
+
+function ptsToVertices(ptsStr){
+  return ptsStr.trim().split(/\s+/).map(p=>{
+    const [x,y]=p.split(',').map(Number);
+    return{x,y};
+  });
+}
+
+function shapeHTML(ex){
+  const verts = ptsToVertices(ex.pts);
+  // Draw vertex dots
+  const dots = verts.map(v=>
+    `<circle cx="${v.x}" cy="${v.y}" r="5" fill="${ex.col}" stroke="white" stroke-width="1.5" opacity="0.9"/>`
+  ).join('');
+
+  return`
+    <!-- Rule reminder -->
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <div style="flex:1;background:rgba(77,150,255,.12);border:1px solid rgba(77,150,255,.3);border-radius:10px;padding:9px 12px;font-size:.78rem;font-weight:700;color:#7db8ff;min-width:120px">
+        🔵 <strong>CONVEX</strong><br>Tots els angles &lt; 180°.<br>Cap escotadura.
+      </div>
+      <div style="flex:1;background:rgba(255,107,157,.12);border:1px solid rgba(255,107,157,.3);border-radius:10px;padding:9px 12px;font-size:.78rem;font-weight:700;color:#ff9dbe;min-width:120px">
+        🔴 <strong>CÒNCAU</strong><br>Almenys 1 angle > 180°.<br>Té alguna escotadura.
+      </div>
+    </div>
+
+    <p style="color:var(--dim);font-size:.9rem;text-align:center;font-weight:700;margin-bottom:2px">
+      Polígon de <strong style="color:var(--yellow)">${ex.sides} costats</strong> — És convex o còncau?
+    </p>
+
+    <div class="shape-display">
+      <svg class="shape-svg" viewBox="0 0 300 255" width="300" height="255" xmlns="http://www.w3.org/2000/svg">
+        <!-- subtle grid -->
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="300" height="255" fill="url(#grid)"/>
+        <polygon points="${ex.pts}" fill="${ex.col}30" stroke="${ex.col}" stroke-width="2.5" stroke-linejoin="round"/>
+        ${dots}
+      </svg>
+    </div>
+
+    <div class="shape-buttons">
+      <button class="shape-btn convex" onclick="checkShape('convex')">🔵 Convexa</button>
+      <button class="shape-btn concave" onclick="checkShape('concave')">🔴 Còncaua</button>
+    </div>`;
+}
+
+// ── SECTION 3: ÀREES ──────────────────────────────────────────────────────────
+// Cycle: 5 per shape type over 20 exercises
+const AREA_CYCLE = shuffle([
+  'rectangle','triangle','circle','parallelogram',
+  'rectangle','triangle','circle','parallelogram',
+  'rectangle','triangle','circle','parallelogram',
+  'rectangle','triangle','circle','parallelogram',
+  'rectangle','triangle','circle','parallelogram',
+]);
+const PI = 3.14;
+
+function genArea(){
+  const shape = AREA_CYCLE[state.idx % AREA_CYCLE.length];
+  if(shape==='rectangle'){
+    const b=randInt(3,18), h=randInt(2,14);
+    return{type:'area', shape, b, h, answer: b*h};
+  }
+  if(shape==='triangle'){
+    const b=randInt(2,12)*2, h=randInt(3,16); // even base → integer answer
+    return{type:'area', shape, b, h, answer: (b*h)/2};
+  }
+  if(shape==='circle'){
+    const r=randInt(2,10);
+    const answer = Math.round(PI*r*r*100)/100;
+    return{type:'area', shape, r, answer};
+  }
+  // parallelogram
+  const b=randInt(4,18), h=randInt(2,12);
+  return{type:'area', shape, b, h, answer: b*h};
+}
+
+function areaExplain(ex){
+  switch(ex.shape){
+    case 'rectangle':
+      return`
+        <div class="step"><span class="step-num">📐 Fórmula</span> Àrea del rectangle = <strong>base × altura</strong></div>
+        <div class="step"><span class="step-num">🔢 Càlcul</span> A = ${ex.b} × ${ex.h} = <strong>${ex.answer} cm²</strong></div>`;
+    case 'triangle':
+      return`
+        <div class="step"><span class="step-num">📐 Fórmula</span> Àrea del triangle = <strong>(base × altura) ÷ 2</strong><br>
+          L'altura és sempre perpendicular a la base.</div>
+        <div class="step"><span class="step-num">🔢 Càlcul</span> A = (${ex.b} × ${ex.h}) ÷ 2 = ${ex.b*ex.h} ÷ 2 = <strong>${ex.answer} cm²</strong></div>`;
+    case 'circle':
+      return`
+        <div class="step"><span class="step-num">📐 Fórmula</span> Àrea del cercle = <strong>π × r²</strong><br>
+          Fem servir π ≈ 3,14</div>
+        <div class="step"><span class="step-num">🔢 Càlcul</span> A = 3,14 × ${ex.r}² = 3,14 × ${ex.r*ex.r} = <strong>${ex.answer} cm²</strong></div>`;
+    case 'parallelogram':
+      return`
+        <div class="step"><span class="step-num">📐 Fórmula</span> Àrea del paral·lelogram = <strong>base × altura</strong><br>
+          L'altura és la distància perpendicular entre les dues bases (no el costat inclinat).</div>
+        <div class="step"><span class="step-num">🔢 Càlcul</span> A = ${ex.b} × ${ex.h} = <strong>${ex.answer} cm²</strong></div>`;
+  }
+}
+
+function areaSVG(ex){
+  const C='#4d96ff', CT='#6bcb77', CC='#ff6b9d', CP='#c77dff';
+  const DL='#ffd93d'; // dimension label color
+  const HA='#6bffb8'; // height arrow color
+
+  if(ex.shape==='rectangle'){
+    const sc=Math.min(170/ex.b, 120/ex.h);
+    const W=Math.round(ex.b*sc), H=Math.round(ex.h*sc);
+    const ox=Math.round((260-W)/2), oy=Math.round((190-H)/2);
+    return`<svg viewBox="0 0 260 190" width="280" height="204" xmlns="http://www.w3.org/2000/svg">
+      <rect x="${ox}" y="${oy}" width="${W}" height="${H}" fill="${C}22" stroke="${C}" stroke-width="2.5" rx="2"/>
+      <!-- base arrow -->
+      <line x1="${ox}" y1="${oy+H+18}" x2="${ox+W}" y2="${oy+H+18}" stroke="${DL}" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <text x="${ox+W/2}" y="${oy+H+34}" text-anchor="middle" font-family="Fredoka One,cursive" font-size="15" fill="${DL}">${ex.b} cm</text>
+      <!-- height arrow -->
+      <line x1="${ox+W+18}" y1="${oy}" x2="${ox+W+18}" y2="${oy+H}" stroke="${HA}" stroke-width="1.5"/>
+      <text x="${ox+W+30}" y="${oy+H/2+5}" text-anchor="start" font-family="Fredoka One,cursive" font-size="15" fill="${HA}">${ex.h} cm</text>
+      <!-- right angle mark -->
+      <rect x="${ox+W-10}" y="${oy}" width="10" height="10" fill="none" stroke="${C}" stroke-width="1.5"/>
+    </svg>`;
+  }
+
+  if(ex.shape==='triangle'){
+    // scalene-ish: base at bottom, apex offset slightly left
+    const sc=Math.min(180/ex.b, 130/ex.h);
+    const W=Math.round(ex.b*sc), H=Math.round(ex.h*sc);
+    const ox=Math.round((260-W)/2), oy=30;
+    const apexX=ox+Math.round(W*0.35); // apex not centred → looks more natural
+    const baseY=oy+H;
+    // foot of height from apex
+    const footX=apexX;
+    return`<svg viewBox="0 0 260 210" width="280" height="226" xmlns="http://www.w3.org/2000/svg">
+      <!-- triangle -->
+      <polygon points="${apexX},${oy} ${ox},${baseY} ${ox+W},${baseY}"
+        fill="${CT}22" stroke="${CT}" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- height dashed line -->
+      <line x1="${footX}" y1="${oy}" x2="${footX}" y2="${baseY}"
+        stroke="${HA}" stroke-width="2" stroke-dasharray="5,4"/>
+      <!-- right angle mark at foot -->
+      <rect x="${footX}" y="${baseY-10}" width="10" height="10" fill="none" stroke="${HA}" stroke-width="1.5"/>
+      <!-- altura label -->
+      <text x="${footX+10}" y="${oy+H/2+5}" text-anchor="start" font-family="Fredoka One,cursive" font-size="14" fill="${HA}">h = ${ex.h} cm</text>
+      <!-- base arrow below -->
+      <line x1="${ox}" y1="${baseY+18}" x2="${ox+W}" y2="${baseY+18}" stroke="${DL}" stroke-width="1.5"/>
+      <text x="${ox+W/2}" y="${baseY+34}" text-anchor="middle" font-family="Fredoka One,cursive" font-size="15" fill="${DL}">b = ${ex.b} cm</text>
+    </svg>`;
+  }
+
+  if(ex.shape==='circle'){
+    const r=Math.min(80, ex.r*11);
+    const cx=130, cy=100;
+    const radX=cx+r, radY=cy;
+    return`<svg viewBox="0 0 260 210" width="280" height="226" xmlns="http://www.w3.org/2000/svg">
+      <!-- circle -->
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="${CC}22" stroke="${CC}" stroke-width="2.5"/>
+      <!-- center dot -->
+      <circle cx="${cx}" cy="${cy}" r="4" fill="${CC}"/>
+      <!-- radius line -->
+      <line x1="${cx}" y1="${cy}" x2="${radX}" y2="${radY}" stroke="${DL}" stroke-width="2.5"/>
+      <!-- radius label -->
+      <text x="${cx+(r/2)}" y="${cy-10}" text-anchor="middle" font-family="Fredoka One,cursive" font-size="15" fill="${DL}">r = ${ex.r} cm</text>
+      <!-- formula reminder -->
+      <text x="${cx}" y="${cy+r+28}" text-anchor="middle" font-family="Fredoka One,cursive" font-size="13" fill="rgba(255,255,255,0.4)">A = π × r²</text>
+    </svg>`;
+  }
+
+  // parallelogram: offset top-left corner to the right by 'skew'
+  if(ex.shape==='parallelogram'){
+    const sc=Math.min(170/ex.b, 110/ex.h);
+    const W=Math.round(ex.b*sc), H=Math.round(ex.h*sc);
+    const skew=Math.round(H*0.55);
+    const ox=20, oy=30;
+    // BL, BR, TR, TL
+    const BL=[ox+skew, oy+H], BR=[ox+skew+W, oy+H];
+    const TL=[ox, oy],         TR=[ox+W, oy];
+    const pts=`${TL[0]},${TL[1]} ${TR[0]},${TR[1]} ${BR[0]},${BR[1]} ${BL[0]},${BL[1]}`;
+    // foot of height: from TL drop perpendicular to base
+    const footX=TL[0]+skew, footY=BL[1];
+    return`<svg viewBox="0 0 260 210" width="280" height="226" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="${pts}" fill="${CP}22" stroke="${CP}" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- height dashed -->
+      <line x1="${TL[0]}" y1="${TL[1]}" x2="${footX}" y2="${footY}"
+        stroke="${HA}" stroke-width="2" stroke-dasharray="5,4"/>
+      <!-- right angle -->
+      <rect x="${footX}" y="${footY-10}" width="10" height="10" fill="none" stroke="${HA}" stroke-width="1.5"/>
+      <!-- altura label -->
+      <text x="${TL[0]-8}" y="${TL[1]+H/2+5}" text-anchor="end" font-family="Fredoka One,cursive" font-size="14" fill="${HA}">h=${ex.h}</text>
+      <!-- base arrow -->
+      <line x1="${BL[0]}" y1="${BL[1]+18}" x2="${BR[0]}" y2="${BR[1]+18}" stroke="${DL}" stroke-width="1.5"/>
+      <text x="${BL[0]+W/2}" y="${BL[1]+34}" text-anchor="middle" font-family="Fredoka One,cursive" font-size="15" fill="${DL}">b = ${ex.b} cm</text>
+    </svg>`;
+  }
+}
+
+function areaHTML(ex){
+  const names={rectangle:'Rectangle',triangle:'Triangle',circle:'Cercle',parallelogram:'Paral·lelogram'};
+  const isCircle = ex.shape==='circle';
+  const hint = isCircle ? '(fes servir π ≈ 3,14 — pots posar decimals)' : '';
+  return`
+    <p style="color:var(--dim);font-size:.95rem;font-weight:700;margin-bottom:4px">
+      Calcula l'àrea d'aquest <strong style="color:var(--mint)">${names[ex.shape]}</strong>:
+    </p>
+    <div class="area-display">${areaSVG(ex)}</div>
+    <div class="answer-section">
+      <div class="area-input">
+        <input type="number" id="ans-area" placeholder="?" min="0" step="${isCircle?'0.01':'1'}" autocomplete="off">
+        <span class="area-unit">cm²</span>
+        <button class="btn-check" onclick="checkAns()">✅ Comprovar</button>
+      </div>
+      ${hint?`<p style="color:var(--dim);font-size:.78rem;margin-top:6px">${hint}</p>`:''}
+    </div>`;
+}
+
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render(){
+  if(state.idx>=TOTAL){renderFinal();return}
+  let ex;
+  if(state.mode==='mixtos')       ex=genMixed();
+  else if(state.mode==='figures') ex=shapeQueue[state.idx];   // shape objects already have type:'convex'/'concave'
+  else                             ex=genArea();
+  state.current=ex; state.answered=false;
+
+  const pct=Math.round((state.idx/TOTAL)*100);
+  const modeLabel={mixtos:'🔢 Nombres Mixtos',figures:'🔷 Convex / Còncau',arees:'📐 Àrees'}[state.mode];
+
+  // Use state.mode — NOT ex.type — to pick the right template
+  let body='';
+  if(state.mode==='mixtos')       body=mixedHTML(ex);
+  else if(state.mode==='figures') body=shapeHTML(ex);
+  else                             body=areaHTML(ex);
+
+  document.getElementById('app-content').innerHTML=`
+    <div class="score-bar">
+      <div class="score-badge">⭐ ${state.score}/${state.idx} bé</div>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-label">Exercici ${state.idx+1} de ${TOTAL}</div>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <div class="exercise-label">${modeLabel} · Exercici ${state.idx+1}</div>
+      ${body}
+      <div class="feedback" id="feedback"></div>
+    </div>`;
+
+  const first=document.querySelector('#ans-w,#ans-area');
+  if(first) setTimeout(()=>first.focus(),50);
+  document.addEventListener('keydown',enterKey);
+}
+
+function enterKey(e){if(e.key==='Enter'&&!state.answered)checkAns()}
+
+function checkAns(){
+  if(state.answered)return;
+  const ex=state.current;
+  if(ex.type==='figure'){checkShape('');return} // handled by buttons
+  let ok=false;
+
+  if(ex.type==='mixed'){
+    const uw=parseInt(document.getElementById('ans-w').value)||0;
+    const un_raw=document.getElementById('ans-n').value;
+    const ud_raw=document.getElementById('ans-d').value;
+    const un=un_raw===''?0:parseInt(un_raw);
+    const ud=ud_raw===''?1:parseInt(ud_raw);
+    if(isNaN(uw)||isNaN(un)||isNaN(ud)||ud<=0){alert('Omple tots els camps 😊');return}
+    const res=solveMixed(ex);
+    // normalise: user might enter 2+0/x which equals 2+0 = just 2
+    const us=simplify(un,ud);
+    ok=uw===res.whole&&us.n===res.num&&us.d===res.den;
+  } else {
+    const v=parseFloat(document.getElementById('ans-area').value);
+    if(isNaN(v)){alert('Escriu un número 😊');return}
+    // circle and triangle may have decimals — accept within ±0.5
+    const tol = (ex.shape==='circle') ? 0.5 : 0.01;
+    ok = Math.abs(v - ex.answer) <= tol;
+  }
+
+  state.answered=true;
+  document.removeEventListener('keydown',enterKey);
+  if(ok)state.score++;
+  state.idx++;
+
+  const fb=document.getElementById('feedback');
+  fb.style.display='block';
+  const expl=ex.type==='mixed'?explainMixed(ex):areaExplain(ex);
+
+  if(ok){
+    const emojis=['🎉','🌟','✨','🎊','🥳','💯','🚀','🏆','😎','🦄'];
+    fb.className='feedback correct';
+    fb.innerHTML=`<div class="fb-title">${emojis[randInt(0,emojis.length-1)]} Correcte! Genial!</div><div class="explanation">${expl}</div><button class="btn-next" onclick="next()">Següent →</button>`;
+    spawnConfetti();
+  } else {
+    let corr='';
+    if(ex.type==='mixed'){
+      const r=solveMixed(ex);
+      corr=r.num===0?`<strong>${r.whole}</strong>`:`<strong>${r.whole} ${frac(r.num,r.den)}</strong>`;
+    } else {
+      corr=`<strong>${ex.answer} cm²</strong>`;
+    }
+    fb.className='feedback incorrect';
+    fb.innerHTML=`<div class="fb-title">😅 Gairebé! La resposta correcta és ${corr}</div><div class="explanation"><p style="margin-bottom:10px;color:var(--dim)">Et mostro com es fa 👇</p>${expl}</div><button class="btn-next" onclick="next()">Següent →</button>`;
+  }
+  fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function next(){if(state.idx>=TOTAL)renderFinal();else render()}
+
+function renderFinal(){
+  const pct=Math.round((state.score/TOTAL)*100);
+  let msg,medal;
+  if(pct>=90){msg='Ets una crack de les mates! 🏆';medal='🥇'}
+  else if(pct>=70){msg='Molt bon treball! Segueix així 💪';medal='🥈'}
+  else if(pct>=50){msg='Bon esforç! Una mica més de pràctica 📚';medal='🥉'}
+  else{msg="No et rendeixis! La pràctica fa el mestre 💫";medal='⭐'}
+  document.getElementById('app-content').innerHTML=`
+    <div class="final-screen">
+      <span class="medal">${medal}</span>
+      <h2>Has acabat!</h2>
+      <div class="final-score">${state.score} / ${TOTAL}</div>
+      <p style="font-size:1.1rem;color:var(--dim);margin-bottom:6px">${pct}% d'encerts</p>
+      <p style="font-size:1.1rem;color:var(--yellow);font-weight:800">${msg}</p>
+      <button class="btn-restart" onclick="restart()">🔄 Tornar a intentar-ho</button>
+    </div>`;
+  spawnConfetti();spawnConfetti();
+}
+
+function restart(){
+  state.idx=0;state.score=0;state.answered=false;
+  buildShapeQueue();
+  render();
+}
+
+function switchMode(mode,btn){
+  state.mode=mode;state.idx=0;state.score=0;state.answered=false;
+  buildShapeQueue();
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── CONFETTI ──────────────────────────────────────────────────────────────────
+function spawnConfetti(){
+  const cols=['#ff6b9d','#ffd93d','#6bffb8','#c77dff','#4d96ff','#ff9f43','#fff'];
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');el.className='cp';
+    const dur=(2+Math.random()*2).toFixed(1);
+    el.style.cssText=`left:${Math.random()*100}vw;background:${cols[~~(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;--cd:${dur}s;animation-delay:${(Math.random()*.5).toFixed(2)}s;`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),(parseFloat(dur)+1)*1000);
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+createStars();
+render();
+</script>
+</body>
+</html>
