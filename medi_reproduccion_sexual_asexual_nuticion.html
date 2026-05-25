@@ -313,6 +313,14 @@ main{
       <button onclick="startFlash('salut')">Flash cards</button>
     </div>
 
+<div class="card">
+  <div style="font-size:3rem;">🎥</div>
+  <h3>Vídeo explicatiu</h3>
+  <p>Aprèn el temari amb un vídeo resum visual i divertit.</p>
+  <button onclick="showVideo()">Veure vídeo</button>
+</div>
+
+
   </div>
 
 </div>
@@ -361,6 +369,35 @@ Següent pregunta ➜
 </button>
 
 </div>
+
+
+<div id="videoContainer" style="display:none;">
+
+  <div class="question-card" style="text-align:center;">
+
+    <h2 style="font-size:2rem;margin-bottom:20px;">
+      🎬 Vídeo explicatiu
+    </h2>
+
+    <p style="margin-bottom:25px;color:#cbd5e1;">
+      Mira aquest resum del tema abans de fer els tests i les flash cards.
+    </p>
+
+    <video controls preload="auto" playsinline style="width:100%;max-width:850px;border-radius:20px;background:black;min-height:300px;box-shadow:0 0 25px rgba(0,0,0,.4);">
+      
+      <source src="./El_cuerpo_humano(1).mp4" type="video/mp4">
+
+      El teu navegador no suporta vídeo HTML5.
+    </video>
+
+  </div>
+
+  <button class="back-home" onclick="goHome()">
+    ⬅ Tornar al menú
+  </button>
+
+</div>
+
 
 </main>
 
@@ -851,6 +888,15 @@ flashIndex = currentFlash.length -1;
 showFlash();
 
 }
+
+
+function showVideo(){
+
+document.getElementById('home').style.display='none';
+document.getElementById('videoContainer').style.display='block';
+
+}
+
 
 function goHome(){
 
