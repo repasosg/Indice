@@ -157,52 +157,124 @@ function createStars(){
 const DENOMS=[2,3,4,5,6,8,10];
 
 function genMixed(){
-  let d1=DENOMS[randInt(0,DENOMS.length-1)],d2;
-  do{d2=DENOMS[randInt(0,DENOMS.length-1)]}while(d2===d1);
-  let w1=randInt(1,5),n1=randInt(1,d1-1);
-  let w2=randInt(1,5),n2=randInt(1,d2-1);
-  let op=Math.random()<.5?'+':'-';
-  if(op==='-'){
-    // ensure left > right
-    const lv=w1*d1*d2+n1*d2, rv=w2*d1*d2+n2*d1;
-    if(lv<rv){[w1,n1,d1,w2,n2,d2]=[w2,n2,d2,w1,n1,d1]}
-    if(lv===rv)return genMixed();
+  // Exercicis adaptats a 5è de primària:
+  // - Sense fraccions impròpies al resultat
+  // - Sense haver de transformar el resultat final
+  // - Restes sense préstecs
+
+  while(true){
+
+    let d1=DENOMS[randInt(0,DENOMS.length-1)],d2;
+    do{d2=DENOMS[randInt(0,DENOMS.length-1)]}while(d2===d1);
+
+    let w1=randInt(1,5),n1=randInt(1,d1-1);
+    let w2=randInt(1,5),n2=randInt(1,d2-1);
+
+    let op=Math.random()<.5?'+':'-';
+
+    const L=lcm(d1,d2);
+
+    const f1=n1*(L/d1);
+    const f2=n2*(L/d2);
+
+    if(op==='+'){
+      // Evitem fraccions impròpies
+      if(f1+f2 >= L) continue;
+
+      return{type:'mixed',w1,n1,d1,w2,n2,d2,op};
+    }
+
+    // RESTES
+    const left = w1 + (n1/d1);
+    const right = w2 + (n2/d2);
+
+    if(left <= right){
+      [w1,n1,d1,w2,n2,d2]=[w2,n2,d2,w1,n1,d1];
+    }
+
+    const nf1=n1*(L/d1);
+    const nf2=n2*(L/d2);
+
+    // Evitem haver de demanar préstec
+    if(nf1 < nf2) continue;
+
+    return{type:'mixed',w1,n1,d1,w2,n2,d2,op};
   }
-  return{type:'mixed',w1,n1,d1,w2,n2,d2,op};
 }
 
 function solveMixed(ex){
   const{w1,n1,d1,w2,n2,d2,op}=ex;
-  const num1=w1*d1+n1, num2=w2*d2+n2;
+
   const L=lcm(d1,d2);
-  const rn=op==='+'?num1*(L/d1)+num2*(L/d2):num1*(L/d1)-num2*(L/d2);
-  const whole=Math.floor(rn/L);
-  const rem=rn%L;
-  const s=simplify(rem,L);
-  return{whole,num:s.n,den:s.d};
+
+  const f1=n1*(L/d1);
+  const f2=n2*(L/d2);
+
+  const whole = op==='+' ? w1+w2 : w1-w2;
+  const fracNum = op==='+' ? f1+f2 : f1-f2;
+
+  // IMPORTANT:
+  // NO simplifiquem automàticament.
+  // És el mètode escolar de 5è.
+
+  return{
+    whole,
+    num:fracNum,
+    den:L
+  };
 }
 
 function explainMixed(ex){
   const{w1,n1,d1,w2,n2,d2,op}=ex;
-  const imp1=w1*d1+n1, imp2=w2*d2+n2;
+
+  const whole = op==='+' ? w1+w2 : w1-w2;
+
   const L=lcm(d1,d2);
-  const m1=L/d1,m2=L/d2;
-  const rn=op==='+'?imp1*m1+imp2*m2:imp1*m1-imp2*m2;
-  const whole=Math.floor(rn/L),rem=rn%L;
-  const s=simplify(rem,L);
-  const verb=op==='+'?'sumar':'restar';
+
+  const f1=n1*(L/d1);
+  const f2=n2*(L/d2);
+
+  const fracNum = op==='+' ? f1+f2 : f1-f2;
+
+  const s=simplify(fracNum,L);
+
   return[
-    `<div class="step"><span class="step-num">Pas 1 🔄</span> Convertim cada nombre mixt en fracció impropia:<br>
-      ${w1} ${frac(n1,d1)} = ${frac(imp1,d1)} &nbsp;&nbsp; (${w1}×${d1}+${n1}=${imp1})<br>
-      ${w2} ${frac(n2,d2)} = ${frac(imp2,d2)} &nbsp;&nbsp; (${w2}×${d2}+${n2}=${imp2})</div>`,
-    `<div class="step"><span class="step-num">Pas 2 🔍</span> Per poder ${verb}-les necessitem el mcm de ${d1} i ${d2}:<br>mcm(${d1},${d2}) = <strong>${L}</strong></div>`,
-    `<div class="step"><span class="step-num">Pas 3 ${op==='+'?'➕':'➖'}</span> Convertim al denominador comú i ${op==='+'?'sumem':'restem'}:<br>
-      ${frac(imp1,d1)} = ${frac(imp1*m1,L)} &nbsp;·&nbsp; ${frac(imp2,d2)} = ${frac(imp2*m2,L)}<br>
-      ${frac(imp1*m1,L)} ${op} ${frac(imp2*m2,L)} = ${frac(rn,L)}</div>`,
-    rem>0
-      ?`<div class="step"><span class="step-num">Pas 4 🔙</span> Convertim el resultat en nombre mixt:<br>${frac(rn,L)} → ${Math.floor(rn/L)} enters i ${rn%L} de ${L} → <strong>${whole} ${frac(s.n,s.d)}</strong></div>`
-      :`<div class="step"><span class="step-num">Pas 4 ✅</span> El resultat ${frac(rn,L)} = <strong>${whole}</strong> (nombre enter exacte)</div>`
-  ].join('');
+
+    `<div class="step"><span class="step-num">Pas 1 🔢</span>
+      Operem primer la part entera:<br>
+      <strong>${w1} ${op} ${w2} = ${whole}</strong>
+    </div>`,
+
+    d1===d2
+      ? `<div class="step"><span class="step-num">Pas 2 ${op==='+'?'➕':'➖'}</span>
+          Com que les fraccions tenen el mateix denominador, mantenim el ${d1}:<br>
+          ${frac(n1,d1)} ${op} ${frac(n2,d2)} = ${frac(op==='+'?n1+n2:n1-n2,d1)}
+        </div>`
+      : `<div class="step"><span class="step-num">Pas 2 🔄</span>
+          Busquem el mcm de ${d1} i ${d2}:<br>
+          <strong>mcm(${d1},${d2}) = ${L}</strong><br><br>
+
+          ${frac(n1,d1)} = ${frac(f1,L)}<br>
+          ${frac(n2,d2)} = ${frac(f2,L)}
+        </div>`,
+
+    d1!==d2
+      ? `<div class="step"><span class="step-num">Pas 3 ${op==='+'?'➕':'➖'}</span>
+          ${frac(f1,L)} ${op} ${frac(f2,L)} = ${frac(fracNum,L)}
+        </div>`
+      : '',
+
+    s.n>0
+      ? `<div class="step"><span class="step-num">Pas final ✅</span>
+          Ajuntem la part entera i la fracció:<br>
+          <strong>${whole} ${frac(s.n,s.d)}</strong>
+        </div>`
+      : `<div class="step"><span class="step-num">Pas final ✅</span>
+          El resultat és un nombre enter:<br>
+          <strong>${whole}</strong>
+        </div>`
+
+  ].filter(Boolean).join('');
 }
 
 function mixedHTML(ex){
@@ -224,7 +296,7 @@ function mixedHTML(ex){
         <div class="mn-frac"><div class="q-sym">?</div><div class="fb"></div><div class="q-sym">?</div></div>
       </div>
     </div>
-    <p style="color:var(--dim);font-size:.88rem;text-align:center;margin-bottom:4px">Escriu el resultat com a nombre mixt (enter + fracció simplificada)</p>
+    <p style="color:var(--dim);font-size:.88rem;text-align:center;margin-bottom:4px">Escriu el resultat com a nombre mixt (NO cal simplificar la fracció)</p>
     <div class="answer-section">
       <div class="mixed-input-row">
         <div class="mn-int-input"><input type="number" id="ans-w" placeholder="?" min="0" max="99" autocomplete="off"></div>
@@ -692,9 +764,16 @@ function checkAns(){
     const ud=ud_raw===''?1:parseInt(ud_raw);
     if(isNaN(uw)||isNaN(un)||isNaN(ud)||ud<=0){alert('Omple tots els camps 😊');return}
     const res=solveMixed(ex);
-    // normalise: user might enter 2+0/x which equals 2+0 = just 2
-    const us=simplify(un,ud);
-    ok=uw===res.whole&&us.n===res.num&&us.d===res.den;
+
+    // Acceptem tant simplificat com no simplificat
+    // comparem el valor matemàtic
+
+    const correctValue = res.den===0 ? 0 : res.num/res.den;
+    const userValue = ud===0 ? -999 : un/ud;
+
+    ok =
+      uw===res.whole &&
+      Math.abs(correctValue-userValue)<0.0001;
   } else {
     const v=parseFloat(document.getElementById('ans-area').value);
     if(isNaN(v)){alert('Escriu un número 😊');return}
