@@ -827,30 +827,87 @@ function areaSVG(ex){
     </svg>`;
   }
 
-  // parallelogram: offset top-left corner to the right by 'skew'
+  // parallelogram corrected height
   if(ex.shape==='parallelogram'){
     const sc=Math.min(170/ex.b, 110/ex.h);
     const W=Math.round(ex.b*sc), H=Math.round(ex.h*sc);
-    const skew=Math.round(H*0.55);
-    const ox=20, oy=30;
-    // BL, BR, TR, TL
-    const BL=[ox+skew, oy+H], BR=[ox+skew+W, oy+H];
-    const TL=[ox, oy],         TR=[ox+W, oy];
+
+    // inclinació del paral·lelogram
+    const skew=40;
+
+    const ox=40, oy=35;
+
+    // punts
+    const BL=[ox+skew, oy+H];
+    const BR=[ox+skew+W, oy+H];
+    const TL=[ox, oy];
+    const TR=[ox+W, oy];
+
     const pts=`${TL[0]},${TL[1]} ${TR[0]},${TR[1]} ${BR[0]},${BR[1]} ${BL[0]},${BL[1]}`;
-    // foot of height: from TL drop perpendicular to base
-    const footX=TL[0]+skew, footY=BL[1];
-    return`<svg viewBox="0 0 260 210" width="280" height="226" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="${pts}" fill="${CP}22" stroke="${CP}" stroke-width="2.5" stroke-linejoin="round"/>
-      <!-- height dashed -->
-      <line x1="${TL[0]}" y1="${TL[1]}" x2="${footX}" y2="${footY}"
-        stroke="${HA}" stroke-width="2" stroke-dasharray="5,4"/>
-      <!-- right angle -->
-      <rect x="${footX}" y="${footY-10}" width="10" height="10" fill="none" stroke="${HA}" stroke-width="1.5"/>
-      <!-- altura label -->
-      <text x="${TL[0]-8}" y="${TL[1]+H/2+5}" text-anchor="end" font-family="Fredoka One,cursive" font-size="14" fill="${HA}">h=${ex.h}</text>
-      <!-- base arrow -->
-      <line x1="${BL[0]}" y1="${BL[1]+18}" x2="${BR[0]}" y2="${BR[1]+18}" stroke="${DL}" stroke-width="1.5"/>
-      <text x="${BL[0]+W/2}" y="${BL[1]+34}" text-anchor="middle" font-family="Fredoka One,cursive" font-size="15" fill="${DL}">b = ${ex.b} cm</text>
+
+    // altura vertical REAL
+    const heightX = TL[0];
+    const heightTopY = TL[1];
+    const heightBottomY = BL[1];
+
+    return`<svg viewBox="0 0 300 230" width="300" height="230" xmlns="http://www.w3.org/2000/svg">
+
+      <polygon points="${pts}"
+        fill="${CP}22"
+        stroke="${CP}"
+        stroke-width="2.5"
+        stroke-linejoin="round"/>
+
+      <!-- altura REAL -->
+      <line
+        x1="${heightX}"
+        y1="${heightTopY}"
+        x2="${heightX}"
+        y2="${heightBottomY}"
+        stroke="${HA}"
+        stroke-width="2.5"
+        stroke-dasharray="5,4"/>
+
+      <!-- angle recte -->
+      <rect
+        x="${heightX}"
+        y="${heightBottomY-10}"
+        width="10"
+        height="10"
+        fill="none"
+        stroke="${HA}"
+        stroke-width="1.5"/>
+
+      <!-- text altura dins figura -->
+      <text
+        x="${TL[0]+28}"
+        y="${(heightTopY+heightBottomY)/2}"
+        text-anchor="start"
+        font-family="Fredoka One,cursive"
+        font-size="14"
+        fill="${HA}">
+        h = ${ex.h} cm
+      </text>
+
+      <!-- base -->
+      <line
+        x1="${BL[0]}"
+        y1="${BL[1]+20}"
+        x2="${BR[0]}"
+        y2="${BR[1]+20}"
+        stroke="${DL}"
+        stroke-width="2"/>
+
+      <text
+        x="${BL[0]+W/2}"
+        y="${BL[1]+38}"
+        text-anchor="middle"
+        font-family="Fredoka One,cursive"
+        font-size="15"
+        fill="${DL}">
+        b = ${ex.b} cm
+      </text>
+
     </svg>`;
   }
 }
