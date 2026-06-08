@@ -97,7 +97,7 @@ h1{
   box-shadow:0 4px 12px rgba(39,35,58,.06);
 }
 
-/* BANNER ESTAT ACTUAL */
+/* BANNER PROPER EXAMEN */
 .banner{
   position:relative;overflow:hidden;
   display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
@@ -234,21 +234,6 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
 @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
 @media(max-width:760px){.page{padding:18px 14px 58px}.hero{padding:22px 18px;border-radius:28px}.hero-top{align-items:flex-start}.hero-mascot{width:86px;height:86px;border-radius:24px;font-size:2.8rem}.chip{font-size:.9rem}.banner{grid-template-columns:1fr;padding:24px 20px;border-radius:28px}.banner-emoji{position:absolute;right:18px;top:18px;font-size:3.4rem;opacity:.55}.banner-actions a{width:100%}.section-head{align-items:flex-start;flex-direction:column}.legend{justify-content:flex-start}.grid{grid-template-columns:1fr}.chat-box{width:calc(100vw - 32px);right:16px;height:min(540px,calc(100vh - 120px))}.chat-btn{right:16px;bottom:16px}}
-
-.review-btn{
-  background:rgba(255,255,255,.10)!important;
-  border:2px solid rgba(255,255,255,.18)!important;
-  color:#5b556e!important;
-  font-weight:800!important;
-  opacity:1!important;
-  -webkit-text-fill-color:#5b556e!important;
-}
-
-.review-btn:hover{
-  background:rgba(255,255,255,.18)!important;
-  transform:translateY(-2px);
-}
-
 </style>
 </head>
 <body>
@@ -271,23 +256,75 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
       <div class="hero-mascot">🦊📚</div>
     </div>
   </section>
+
+  
+
+
+  
+
+
+  
+
+  
   <section class="progress-panel" style="margin-top:0;margin-bottom:28px;padding:24px">
     <div class="section-head" style="margin:0 0 18px">
       <div>
-        <h2>🎉 Sense exàmens!</h2>
-        <p>La pissarra està neta: cap missió urgent aquesta setmana.</p>
+        <h2>🔥 Pròxims exàmens</h2>
+        <p>Accés ràpid als exàmens actius d’aquesta setmana.</p>
       </div>
     </div>
-    <div class="progress-card" style="text-align:center;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
-      <div style="font-size:3.2rem;line-height:1">🛋️📚</div>
-      <strong style="font-size:1.35rem">El monstre dels exàmens està de vacances.</strong>
-      <p style="color:var(--dim);font-weight:800;max-width:620px">Pots aprofitar per fer una ruleta curta de repàs, caçar errors pendents o simplement respirar una mica. Ben merescut.</p>
-      <div class="banner-actions" style="justify-content:center;margin-top:8px">
-        <a href="mode_vacances_estiu.html" class="banner-btn">Fer una ruleta suau 🎲</a>
-        <a href="#missions" class="soft-btn">Veure totes les missions 🗺️</a>
+
+    <div class="grid" style="gap:18px">
+
+      <div class="card" data-s="mates">
+        <div class="card-header">
+          <div class="card-icon">📐</div>
+          <div>
+            <div class="card-title">Matemàtiques</div>
+            <div class="card-meta">Nombres mixtos i àrees</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="mates_mixtos_arees.html" class="lbtn featured">
+            ⭐ Començar missió
+          </a>
+        </div>
       </div>
+
+      <div class="card" data-s="english">
+        <div class="card-header">
+          <div class="card-icon">🇬🇧</div>
+          <div>
+            <div class="card-title">Anglès</div>
+            <div class="card-meta">Past Simple Adventure!</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="ingles_pasado_verbos.html" class="lbtn featured">
+            ⭐ Començar missió
+          </a>
+        </div>
+      </div>
+
+      <div class="card" data-s="medi">
+        <div class="card-header">
+          <div class="card-icon">🧬</div>
+          <div>
+            <div class="card-title">Medi</div>
+            <div class="card-meta">Reproducció i nutrició</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <a href="medi_reproduccion_sexual_asexual_nuticion.html" class="lbtn featured">
+            ⭐ Començar missió
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
+
+
 <section class="banner" style="background:linear-gradient(135deg,#20C997,#4D96FF,#8B5CF6);box-shadow:0 18px 48px rgba(77,150,255,.25)">
     <div class="banner-content">
       <div class="banner-pill">🏖️ Repàs de vacances · Aleatori</div>
@@ -295,12 +332,17 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
       <p class="banner-sub">Exercicis curts i barrejats de català, castellà, matemàtiques, medi i anglès. Perfecte per practicar 10 minuts al dia.</p>
       <div class="banner-actions">
         <a href="mode_vacances_estiu.html" class="banner-btn">Entrar al mode vacances 🎲</a>
-        <a href="#missions" class="soft-btn">Triar missió curta 🧩</a>
+        <a href="catala_pb_td_cg_polisemia_descriptius.html?review=errors#repas-errors" class="soft-btn" id="properExamReview">Repassar errors 🧩</a>
         <a href="#missions" class="soft-btn">Continuar per assignatures 🗺️</a>
       </div>
     </div>
     <div class="banner-emoji">🏖️</div>
   </section>
+
+
+
+  
+  
 
 
 <section class="progress-panel" id="progres">
@@ -357,7 +399,6 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
       </div>
       <div class="card-body">
         <a href="castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html" class="lbtn">Invitacions, sinònims i més</a>
-        <a href="castellano_tilde_bv_.html" class="lbtn">Ortografia: tildes, B/V, G/J, Z/D/LL</a>
         <a href="castellano_z_s_CC_texto_instructivo.html" class="lbtn">1r examen 2n trimestre · Z, S, CC</a>
       </div>
     </div>
@@ -379,11 +420,10 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
     <div class="card" data-s="english">
       <div class="card-header">
         <div class="card-icon">🇬🇧</div>
-        <div><div class="card-title">Anglès</div><div class="card-meta">3 missions available</div></div>
+        <div><div class="card-title">Anglès</div><div class="card-meta">2 missions available</div></div>
       </div>
       <div class="card-body">
-        <a href="examen_final_academia.html" class="lbtn">English Explorer - Final academy exam</a>
-        <a href="ingles_pasado_verbos.html" class="lbtn">Past Simple Adventure!</a>
+        <a href="ingles_pasado_verbos.html" class="lbtn featured">⭐ Nou examen <span class="badge-mini">nou</span><br>Past Simple Adventure!</a>
         <a href="ingles_presentsimple_continuos.html" class="lbtn">Present simple &amp; continuous</a>
       </div>
     </div>
@@ -391,10 +431,10 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
     <div class="card" data-s="mates">
       <div class="card-header">
         <div class="card-icon">🔢</div>
-        <div><div class="card-title">Matemàtiques</div><div class="card-meta">6 missions disponibles</div></div>
+        <div><div class="card-title">Matemàtiques</div><div class="card-meta">5 missions disponibles</div></div>
       </div>
       <div class="card-body">
-        <a href="mates_mixtos_arees.html" class="lbtn">Nombres mixtos i &agrave;rees</a>
+        <a href="mates_mixtos_arees.html" class="lbtn featured">⭐ Proper examen <span class="badge-mini">nou</span><br>Nombres mixtos i àrees</a>
         <a href="mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html" class="lbtn">Decimals i operacions</a>
         <a href="mates_diciembre.html" class="lbtn">Exercicis de desembre</a>
         <a href="mates_sumas_y_restas_rapidas.html" class="lbtn">Sumes i restes ràpides ⚡</a>
@@ -417,7 +457,7 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
     </div></div>
   </div>
 
-  <footer><p>© 2025 - 2026 Portal de Repàs 5è de Primària · Fet amb 💜 per estudiar millor</p></footer>
+  <footer><p>© 2025 Portal de Repàs 5è de Primària · Fet amb 💜 per estudiar millor</p></footer>
 </div>
 
 <button class="chat-btn" onclick="toggleChat()" title="Assistent d'estudi">🤖</button>
@@ -430,10 +470,18 @@ footer{text-align:center;color:var(--dim);font-size:.9rem;font-weight:800;margin
 </div>
 
 <script>
+const properExam={
+  subject:"Matemàtiques",
+  title:"Nombres mixtos i àrees",
+  shortName:"Nombres mixtos i àrees",
+  url:"mates_mixtos_arees.html",
+  reviewUrl:"mates_mixtos_arees.html#app-content",
+  topics:["Nombres mixtos","Convex i còncau","Àrees de figures"],
+  keywords:["mates","matemàtiques","nombres mixtos","àrees","convex","còncau","figures"]
+};
 const db={
   vacances:[{name:'Ruleta de missions d\'estiu',url:'mode_vacances_estiu.html',kw:['vacances','estiu','aleatori','ruleta','repàs ràpid','barrejat','random']}],
   castella:[
-    {name:"Ortografia: tildes, B/V, G/J, Z/D/LL",url:"castellano_tilde_bv_.html",kw:["castella","castellano","ortografia","ortograf?a","tilde","tildes","b","v","bv","g","j","gj","z","d","ll","plural","plurales","comprension","comprensi?n","lectura","expresion escrita"]},
     {name:"Invitacions, sinònims i més",url:"castellano_invitaciones_sinonimos_laH_tecnicismo_adjetivos.html",kw:["invitacions","sinònims","h","tecnicisme","adjectius","castellà"]},
     {name:"1r examen 2n trim. · Z, S, CC",url:"castellano_z_s_CC_texto_instructivo.html",kw:["z","s","cc","text instructiu","castellà"]}
   ],
@@ -444,11 +492,7 @@ const db={
     {name:"Els verbs",url:"catalan_verbs.html",kw:["verbs","català"]},
     {name:"La notícia, s sorda/sonora",url:"catalan_adjectiu_noticia_s_sorda_sonora.html",kw:["notícia","adjectiu","sorda","sonora","català"]}
   ],
-  angles:[
-    {name:"English Explorer - Final academy exam",url:"examen_final_academia.html",kw:["academy","academia","final","exam","english","angles","sports","food","time","prepositions","there is","there are","present simple","present continuous","can","years","adjectives"]},
-    {name:"Past Simple Adventure",url:"ingles_pasado_verbos.html",kw:["past","simple","verbs","angles","english"]},
-    {name:"Present simple & continuous",url:"ingles_presentsimple_continuos.html",kw:["present","simple","continuous","angles","english"]}
-  ],
+  angles:[{name:"Present simple & continuous",url:"ingles_presentsimple_continuos.html",kw:["present","simple","continuous","anglès","english"]}],
   mates:[
     {name:"Decimals i operacions",url:"mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html",kw:["decimals","sumes","conversions","multiplicacions","divisions","matemàtiques","mates"]},
     {name:"Exercicis de desembre",url:"mates_diciembre.html",kw:["desembre","matemàtiques","mates","exercicis"]},
@@ -462,40 +506,35 @@ const db={
     {name:"1r examen 2n trimestre · Medi",url:"repas_ciencies.html",kw:["medi","ciències","naturalesa","natura"]}
   ]
 };
-const categoryNames={vacances:'Mode vacances',castella:'Castella',catala:'Catala',angles:'Angles',mates:'Matematiques',medi:'Medi'};
-const stopWords=new Set('el la los las un una unos unas de del al a amb con y i o que para per por en es son esta este esto quiero vull necesito necessito practicar repasar repassar ayuda ajuda ejercicios exercicis hacer fer estudiar examen prueba tema me mi mis algo alguna algun sobre hoy ahora'.split(' '));
-const aliases={matematicas:'mates',matematiques:'mates',matematica:'mates',math:'mates',calculo:'mates',calcul:'mates',ingles:'angles',english:'angles',castellano:'castella',lengua:'castella',espanol:'castella',catalan:'catala',catala:'catala',ciencias:'medi',ciencies:'medi',naturales:'medi',sociales:'medi',vacaciones:'vacances',estiu:'vacances',summer:'vacances',fracciones:'fraccions',fraccion:'fraccions',decimales:'decimals',areas:'arees',verbos:'verbs',adjetivos:'adjectius',sinonimos:'sinonims',reproduccion:'reproduccio',nutricion:'nutricio',divisiones:'divisions',division:'divisions',multiplicaciones:'multiplicacions',sumas:'sumes',restas:'restes',rango:'rang',media:'mitjana',rapidas:'rapides',rapida:'rapides'};
-const resourceNotes={
-  'mode_vacances_estiu.html':'Preguntes barrejades de totes les assignatures. Ideal si vols practicar una estona curta.',
-  'examen_final_academia.html':'Preparacio del final d\'angles de l\'academia: sports, food, time, prepositions, there is/are, present simple, can, years, adjectives and present continuous.',
-  'ingles_pasado_verbos.html':'Practica de past simple i verbs en angles.',
-  'ingles_presentsimple_continuos.html':'Diferencia entre present simple i present continuous.',
-  'mates_mixtos_arees.html':'Nombres mixtos, fraccions i calcul d\'arees.',
-  'mates_decimales_sumas_conversiones_multiplicaciones_divisiones.html':'Decimals, sumes, conversions, multiplicacions i divisions.',
-  'mates_sumas_y_restas_rapidas.html':'Calcul mental de sumes i restes rapides.',
-  'mates_fracciones_media_rango.html':'Fraccions, mitjana, moda, mediana i rang.',
-  'medi_reproduccion_sexual_asexual_nuticion.html':'Reproduccio sexual/asexual, nutricio i essers vius.',
-  'medi_activitat_politica_recursos.html':'Activitat economica, recursos naturals, contaminacio i politica.',
-  'castellano_tilde_bv_.html':'Ortografia de castellano: tildes, B/V, G/J, plurales con Z, palabras con LL y comprension lectora.',
-  'catala_pb_td_cg_polisemia_descriptius.html':'Ortografia P/B, T/D, C/G, polisemia, primitives i text descriptiu.'
-};
-function normalizeText(text){return String(text||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[?]/g,"'").replace(/[^a-z0-9'\/]+/g,' ').replace(/\s+/g,' ').trim()}
-function queryTokens(text){return normalizeText(text).split(' ').map(t=>aliases[t]||t).filter(t=>t&&t.length>1&&!stopWords.has(t))}
-function allResources(){const out=[];for(const cat in db)db[cat].forEach(r=>out.push({...r,cat,desc:resourceNotes[r.url]||('Missio de '+(categoryNames[cat]||cat)+'.')}));return out}
-function resourceHaystack(r){return normalizeText([r.name,r.desc,r.cat,...(r.kw||[])].join(' '))}
-function categoryFromQuery(q,tks){const n=normalizeText(q);for(const cat of Object.keys(categoryNames)){if(tks.includes(cat)||n.includes(cat))return cat}return null}
-function scoreResource(r,q,tks){const hay=resourceHaystack(r),n=normalizeText(q);let score=0,reasons=[];if(tks.includes(r.cat)){score+=7;reasons.push(categoryNames[r.cat])}for(const kw of r.kw||[]){const nk=normalizeText(kw);if(!nk||nk.length<3)continue;if(n.includes(nk)){score+=nk.includes(' ')?8:4;reasons.push(kw)}else{const parts=nk.split(' ').filter(Boolean);if(parts.length>1&&parts.every(p=>tks.includes(p))){score+=5;reasons.push(kw)}}}for(const t of tks){if(hay.includes(t)){score+=1.5;if(t.length>4)score+=.7}}if(n.includes('academia')&&r.url.includes('academia'))score+=8;if(n.includes('examen')&&/exam|examen|final|trimestre/.test(hay))score+=4;if((n.includes('facil')||n.includes('10 minuts'))&&r.cat==='vacances')score+=4;return {...r,score,reasons:[...new Set(reasons)].slice(0,3)}}
-function findRes(q){const tks=queryTokens(q),cat=categoryFromQuery(q,tks);let res=allResources().map(r=>scoreResource(r,q,tks));if(cat&&tks.length<=1)res=res.map(r=>({...r,score:r.cat===cat?r.score+4:r.score}));return res.filter(r=>r.score>0).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).slice(0,5)}
-function chatLink(r){return '<a href="'+r.url+'" class="chat-link" target="_blank">'+r.name+'</a>'}
-function linkList(items){return items.map(chatLink).join('')}
-function getReply(q){const n=normalizeText(q),tks=queryTokens(q);if(!n)return 'Digues-me una assignatura o un tema: <strong>angles academia</strong>, <strong>fraccions</strong>, <strong>s sorda</strong> o <strong>medi reproduccio</strong>.';if(/^(hola|bones|buenas|hello|hi)\b/.test(n))return 'Hola! Puc buscar missions per assignatura o per tema. Prova amb <strong>examen angles academia</strong>, <strong>decimals</strong>, <strong>verbs catala</strong> o <strong>mode vacances</strong>.';if(n.includes('sense examens')||n.includes('proxim')||n.includes('proximo')||n.includes('proper'))return 'Ara mateix no hi ha cap examen marcat com a proper. Per mantenir ritme, et recomano:<br>'+linkList(db.vacances.map(r=>({...r,cat:'vacances'})));if(n.includes('llista')||n.includes('todo')||n.includes('tots')||n.includes('todas')){const cat=categoryFromQuery(q,tks);const list=cat?allResources().filter(r=>r.cat===cat):allResources();return (cat?'Aquestes son les missions de '+categoryNames[cat]+':':'Aquestes son algunes missions disponibles:')+'<br>'+linkList(list.slice(0,8));}const found=findRes(q);if(found.length){const top=found[0];let h='Et recomano:<br><strong>'+top.name+'</strong><br><span style="color:#6b5f88;font-weight:800">'+top.desc+'</span><br>'+chatLink(top);if(top.reasons.length)h+='<br><small>Ho he triat per: '+top.reasons.join(', ')+'</small>';const more=found.slice(1).filter(r=>r.cat===top.cat&&r.score>=Math.max(3,top.score*.25)).slice(0,3);if(more.length)h+='<br><br>Altres opcions que tambe encaixen:<br>'+more.map(r=>'- <a href="'+r.url+'" target="_blank">'+r.name+'</a>').join('<br>');return h}return 'No he trobat una coincidencia clara. Prova amb una paraula mes concreta, com <strong>fraccions</strong>, <strong>present continuous</strong>, <strong>there is</strong>, <strong>polisemia</strong>, <strong>reproduccio</strong> o <strong>decimals</strong>.'}
+function applyProperExam(){
+  const title=`${properExam.subject} — ${properExam.title}`;
+  const topics=properExam.topics.join(' · ');
+  const pill=document.getElementById('properExamPill');
+  if(pill) pill.textContent='🔔 Proper examen · Missió principal';
+  const titleEl=document.getElementById('properExamTitle');
+  if(titleEl) titleEl.textContent=title;
+  const topicsEl=document.getElementById('properExamTopics');
+  if(topicsEl) topicsEl.textContent=topics;
+  const start=document.getElementById('properExamStart');
+  if(start){start.href=properExam.url;start.textContent='Començar missió ✨'}
+  const review=document.getElementById('properExamReview');
+  if(review){const n=readProperExamErrors();review.href=properExam.reviewUrl;review.textContent=n?`Repassar ${n} errors 🧩`:'Repassar errors 🧩'}
+  const mission=document.getElementById('properExamMissionLink');
+  if(mission){mission.href=properExam.url;mission.innerHTML=`⭐ Proper examen <span class="badge-mini">nou</span><br>${properExam.shortName}`}
+  if(db.catala&&db.catala[0]) db.catala[0]={name:properExam.shortName,url:properExam.url,kw:properExam.keywords};
+}
+function readProperExamErrors(){
+  try{return JSON.parse(localStorage.getItem('catala_pb_td_cg_errors')||'[]').length}catch(e){return 0}
+}
 function toggleChat(){const b=document.getElementById('chatBox');b.classList.toggle('open');if(b.classList.contains('open'))document.getElementById('chatIn').focus()}
 function sendQ(m){document.getElementById('chatIn').value=m;sendMsg()}
-function safeChatText(text){return String(text).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function addMsg(html,isUser){const d=document.createElement('div');d.className='msg '+(isUser?'user':'bot');d.innerHTML=isUser?'<div class="msg-bubble">'+safeChatText(html)+'</div>':'<div class="avatar">??</div><div class="msg-bubble">'+html+'</div>';const ms=document.getElementById('chatMsgs');ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
-function showTyping(){const ms=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='msg bot';d.id='typing';d.innerHTML='<div class="avatar">??</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
+function addMsg(html,isUser){const d=document.createElement('div');d.className='msg '+(isUser?'user':'bot');d.innerHTML=isUser?`<div class="msg-bubble">${html}</div>`:`<div class="avatar">🤖</div><div class="msg-bubble">${html}</div>`;const ms=document.getElementById('chatMsgs');ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
+function showTyping(){const ms=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='msg bot';d.id='typing';d.innerHTML='<div class="avatar">🤖</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
 function removeTyping(){const t=document.getElementById('typing');if(t)t.remove()}
-function sendMsg(){const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;addMsg(msg,true);inp.value='';document.getElementById('chatSend').disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(getReply(msg),false);document.getElementById('chatSend').disabled=false;document.getElementById('chatIn').focus()},350+Math.random()*350)}
+function findRes(q){const lq=q.toLowerCase(),found=[];for(const cat in db)db[cat].forEach(r=>{const s=r.kw.filter(k=>lq.includes(k)).length;if(s>0)found.push({...r,s})});return found.sort((a,b)=>b.s-a.s)}
+function getReply(q){const found=findRes(q);if(found.length){const top=found[0];let h=`T'aconsello aquesta missió:<br><br><strong>${top.name}</strong><br><a href="${top.url}" class="chat-link" target="_blank">Anar als exercicis ➜</a>`;if(found.length>1){h+='<br><br>També pots repassar:<br>';for(let i=1;i<Math.min(3,found.length);i++)h+=`• ${found[i].name}<br>`}return h}return 'Hmm, no estic segur quina missió et va millor. Tinc recursos de:<br><br>🔢 Matemàtiques · 🇪🇸 Castellà · 🏴 Català · 🇬🇧 Anglès · 🌍 Medi<br><br>Sobre quin tema vols practicar?'}
+function sendMsg(){const inp=document.getElementById('chatIn');const msg=inp.value.trim();if(!msg)return;addMsg(msg,true);inp.value='';document.getElementById('chatSend').disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(getReply(msg),false);document.getElementById('chatSend').disabled=false;document.getElementById('chatIn').focus()},700+Math.random()*500)}
+
 
 function safeJSON(key, fallback){
   try{return JSON.parse(localStorage.getItem(key)||fallback)}catch(e){return JSON.parse(fallback)}
@@ -523,7 +562,7 @@ function refreshGlobalProgress(){
   const advice=document.getElementById('progressAdvice');
   if(headline)headline.textContent=p.total===0?'Encara no hi ha trofeus guardats':('Has guanyat '+p.total+' de '+p.max+' trofeus globals');
   if(advice){
-    if(p.total===0) advice.textContent='Comença pel mode vacances o tria una missió curta per encendre els primers trofeus.';
+    if(p.total===0) advice.textContent='Comença pel proper examen o pel mode vacances per encendre els primers trofeus.';
     else if(p.percent<50) advice.textContent='Bon inici! Una partida curta de vacances o un exercici de català ja farà pujar el marcador.';
     else if(p.percent<100) advice.textContent='Molt bé! Ja hi ha una bona col·lecció. Objectiu: completar els trofeus que falten.';
     else advice.textContent='Portal dominat! Tots els trofeus principals estan aconseguits.';
@@ -538,8 +577,10 @@ function resetGlobalProgress(){
   if(!confirm('Vols reiniciar el progrés local del Portal de Repàs en aquest navegador?')) return;
   localStorage.removeItem('catala_pb_td_cg_trofeus');
   localStorage.removeItem('portal_estiu_stats');
+  applyProperExam();
   refreshGlobalProgress();
 }
+applyProperExam();
 refreshGlobalProgress();
 
 </script>

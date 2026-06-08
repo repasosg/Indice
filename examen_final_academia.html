@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Explorer 🚀 - Practice Time!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #4FC3F7;
+    --sun: #FFD54F;
+    --grass: #66BB6A;
+    --coral: #FF7043;
+    --purple: #AB47BC;
+    --navy: #1A237E;
+    --mint: #80CBC4;
+    --pink: #F48FB1;
+    --white: #FFFFFF;
+    --light: #F0F4FF;
+    --shadow: rgba(26,35,126,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #1A237E 0%, #283593 40%, #1565C0 100%);
+    min-height: 100vh;
+    color: #1A237E;
+  }
+  body::before {
+    content: '⭐✨🌟💫⭐✨🌟💫⭐✨🌟💫⭐✨🌟💫⭐✨🌟💫';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    font-size: 20px;
+    opacity: 0.15;
+    line-height: 2.5;
+    letter-spacing: 30px;
+    word-break: break-all;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+  header { text-align: center; padding: 30px 20px 20px; }
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    color: var(--sun);
+    text-shadow: 3px 3px 0 var(--coral), 6px 6px 0 rgba(0,0,0,0.2);
+    letter-spacing: 2px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  header p { color: var(--sky); font-size: 1.1rem; font-weight: 700; margin-top: 8px; }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border: 2px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+  }
+  .score-display { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: var(--sun); }
+  .score-display span { color: white; font-size: 1rem; margin-right: 5px; }
+  .progress-wrap { flex: 1; margin: 0 20px; height: 12px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--grass), var(--sun)); border-radius: 10px; transition: width 0.5s ease; width: 0%; }
+
+  /* NAV */
+  .nav-menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 30px; }
+  .nav-btn {
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 15px;
+    padding: 10px 8px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .nav-btn:hover, .nav-btn.active { background: var(--sun); color: var(--navy); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,213,79,0.4); border-color: var(--sun); }
+  .nav-btn .emoji { display: block; font-size: 1.4rem; margin-bottom: 3px; }
+
+  /* TOPIC CARD */
+  .topic-card { background: white; border-radius: 25px; padding: 30px; box-shadow: 0 20px 60px var(--shadow); display: none; animation: slideIn 0.4s ease; }
+  .topic-card.active { display: block; }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .topic-title { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--navy); margin-bottom: 5px; }
+  .topic-subtitle { color: #666; font-size: 0.95rem; margin-bottom: 25px; font-weight: 600; }
+
+  /* EXERCISES */
+  .exercise { background: var(--light); border-radius: 18px; padding: 22px; margin-bottom: 18px; border-left: 5px solid var(--sky); }
+  .exercise.purple { border-left-color: var(--purple); }
+  .exercise.green { border-left-color: var(--grass); }
+  .exercise.coral { border-left-color: var(--coral); }
+  .exercise.pink { border-left-color: var(--pink); }
+  .exercise.mint { border-left-color: var(--mint); }
+  .exercise-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 10px; }
+  .exercise h3 { font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: 15px; line-height: 1.4; }
+
+  /* WORD GRID */
+  .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-bottom: 15px; }
+  .word-card { background: white; border-radius: 12px; padding: 10px 8px; text-align: center; font-weight: 700; font-size: 0.85rem; color: var(--navy); box-shadow: 0 3px 10px var(--shadow); border: 2px solid transparent; cursor: pointer; transition: all 0.2s; }
+  .word-card:hover { border-color: var(--sky); transform: scale(1.05); }
+  .word-card .wc-emoji { font-size: 1.5rem; display: block; margin-bottom: 4px; }
+
+  /* MULTIPLE CHOICE */
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .choice-btn { background: white; border: 2.5px solid #dde3f0; border-radius: 12px; padding: 12px 15px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--navy); cursor: pointer; transition: all 0.2s; text-align: left; }
+  .choice-btn:hover:not(:disabled) { border-color: var(--sky); background: #e8f4ff; transform: translateX(3px); }
+  .choice-btn.correct { background: #e8f8e8 !important; border-color: var(--grass) !important; color: #2e7d32 !important; }
+  .choice-btn.wrong { background: #ffeae8 !important; border-color: var(--coral) !important; color: #c62828 !important; }
+  .choice-btn.show-correct { background: #e8f8e8 !important; border-color: var(--grass) !important; color: #2e7d32 !important; font-weight: 800; }
+  .choice-btn:disabled { cursor: default; transform: none !important; }
+
+  /* FILL IN THE BLANK */
+  .blank-sentence { font-size: 1.05rem; font-weight: 700; color: var(--navy); line-height: 2.2; margin-bottom: 10px; }
+  .blank-input { border: none; border-bottom: 3px solid var(--sky); background: transparent; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; color: var(--coral); width: 120px; text-align: center; outline: none; padding: 2px 5px; transition: border-color 0.2s; }
+  .blank-input:focus { border-bottom-color: var(--purple); }
+  .blank-input.correct-input { border-bottom-color: var(--grass); color: #2e7d32; }
+  .blank-input.wrong-input { border-bottom-color: var(--coral); color: #c62828; }
+
+  /* GRAMMAR TABLE */
+  .grammar-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+  .grammar-table th { background: var(--navy); color: white; padding: 10px 14px; font-weight: 800; text-align: left; }
+  .grammar-table th:first-child { border-radius: 10px 0 0 0; }
+  .grammar-table th:last-child { border-radius: 0 10px 0 0; }
+  .grammar-table td { padding: 10px 14px; border-bottom: 1px solid #e0e6f0; font-weight: 600; color: #333; }
+  .grammar-table tr:nth-child(even) td { background: var(--light); }
+
+  /* MATCH */
+  .match-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 12px; }
+  .match-col { display: flex; flex-direction: column; gap: 8px; }
+  .match-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #888; font-weight: 800; margin-bottom: 5px; }
+  .match-item { background: white; border: 2.5px solid #dde3f0; border-radius: 12px; padding: 10px 14px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; color: var(--navy); }
+  .match-item:hover { border-color: var(--purple); background: #f3e8ff; }
+  .match-item.selected { border-color: var(--purple); background: #f3e8ff; transform: scale(1.03); }
+  .match-item.matched { border-color: var(--grass); background: #e8f8e8; color: #2e7d32; cursor: default; }
+  .match-item.wrong-match { border-color: var(--coral); background: #ffeae8; animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+  /* BUTTONS */
+  .check-btn { background: linear-gradient(135deg, var(--grass), #43A047); color: white; border: none; border-radius: 50px; padding: 12px 28px; font-family: 'Fredoka One', cursive; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 15px rgba(102,187,106,0.4); margin-top: 10px; }
+  .check-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(102,187,106,0.5); }
+
+  /* FEEDBACK */
+  .feedback { margin-top: 12px; padding: 12px 18px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; display: none; line-height: 1.6; }
+  .feedback.show { display: block; animation: fadeIn 0.3s; }
+  .feedback.correct-fb { background: #e8f8e8; color: #2e7d32; border: 2px solid var(--grass); }
+  .feedback.wrong-fb { background: #ffeae8; color: #c62828; border: 2px solid var(--coral); }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* TIPS */
+  .tip-box { background: linear-gradient(135deg, #FFF9C4, #FFF3E0); border: 2px solid var(--sun); border-radius: 15px; padding: 15px 18px; margin-bottom: 18px; font-size: 0.9rem; font-weight: 700; color: #5D4037; line-height: 1.7; }
+  .tip-box strong { color: var(--coral); font-size: 1rem; }
+
+  /* PILLS */
+  .pill { display: inline-block; background: var(--navy); color: white; border-radius: 50px; padding: 4px 12px; font-size: 0.8rem; font-weight: 800; margin: 3px; }
+  .pill.sky { background: var(--sky); color: var(--navy); }
+  .pill.coral { background: var(--coral); }
+  .pill.grass { background: var(--grass); }
+  .pill.purple { background: var(--purple); }
+  .pill.sun { background: var(--sun); color: var(--navy); }
+
+  /* SELECT */
+  .nice-select { border: 2.5px solid #dde3f0; border-radius: 10px; padding: 8px 14px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--navy); background: white; cursor: pointer; margin: 4px; outline: none; }
+  .nice-select:focus { border-color: var(--purple); }
+  .nice-select.correct-sel { border-color: var(--grass); background: #e8f8e8; color: #2e7d32; }
+  .nice-select.wrong-sel { border-color: var(--coral); background: #ffeae8; color: #c62828; }
+  .nice-select:disabled { cursor: default; opacity: 0.8; }
+
+  /* CLOCK */
+  .clock-face { display: inline-flex; align-items: center; background: var(--navy); color: var(--sun); font-family: 'Fredoka One', cursive; font-size: 1.6rem; padding: 10px 20px; border-radius: 12px; margin: 10px 0; letter-spacing: 3px; }
+
+  /* WELCOME */
+  #welcome { text-align: center; padding: 20px 0 30px; }
+  #welcome .big-emoji { font-size: 5rem; margin-bottom: 10px; animation: spin 4s linear infinite; }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  #welcome h2 { font-family: 'Fredoka One', cursive; font-size: 2rem; color: white; margin-bottom: 10px; }
+  #welcome p { color: var(--sky); font-weight: 700; font-size: 1rem; max-width: 500px; margin: 0 auto 25px; line-height: 1.6; }
+  .topic-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px; }
+  .topic-chip { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 50px; padding: 7px 15px; color: white; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+  .topic-chip:hover { background: var(--sun); color: var(--navy); border-color: var(--sun); transform: scale(1.05); }
+
+  /* FINAL SCORE PANEL */
+  .final-score-panel {
+    background: linear-gradient(135deg, #1A237E, #283593);
+    border-radius: 25px;
+    padding: 30px;
+    text-align: center;
+    color: white;
+    margin-top: 30px;
+    display: none;
+    animation: slideIn 0.5s ease;
+    border: 3px solid var(--sun);
+  }
+  .final-score-panel.show { display: block; }
+  .final-score-panel h2 { font-family: 'Fredoka One', cursive; font-size: 2rem; color: var(--sun); margin-bottom: 10px; }
+  .final-big-score { font-family: 'Fredoka One', cursive; font-size: 4rem; color: var(--sun); text-shadow: 3px 3px 0 var(--coral); margin: 15px 0; }
+  .final-grade { font-family: 'Fredoka One', cursive; font-size: 1.8rem; margin: 10px 0; padding: 12px 30px; border-radius: 50px; display: inline-block; }
+  .grade-a { background: var(--grass); color: white; }
+  .grade-b { background: var(--sky); color: var(--navy); }
+  .grade-c { background: var(--sun); color: var(--navy); }
+  .grade-d { background: var(--coral); color: white; }
+  .final-message { font-size: 1.1rem; font-weight: 700; margin: 15px 0; line-height: 1.6; color: #cce3ff; }
+  .restart-btn { background: linear-gradient(135deg, var(--coral), #E53935); color: white; border: none; border-radius: 50px; padding: 14px 35px; font-family: 'Fredoka One', cursive; font-size: 1.2rem; cursor: pointer; margin-top: 15px; transition: all 0.2s; }
+  .restart-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255,112,67,0.5); }
+  .score-breakdown { display: flex; justify-content: center; gap: 30px; margin: 20px 0; flex-wrap: wrap; }
+  .score-item { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 15px 20px; min-width: 120px; }
+  .score-item .si-num { font-family: 'Fredoka One', cursive; font-size: 2rem; color: var(--sun); }
+  .score-item .si-label { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.7); margin-top: 4px; }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; top:0;left:0;right:0;bottom:0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: white; border-radius: 30px; padding: 40px; text-align: center; max-width: 380px; width: 90%; animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+  @keyframes popIn { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
+  .modal-emoji { font-size: 4rem; margin-bottom: 15px; }
+  .modal h2 { font-family: 'Fredoka One', cursive; font-size: 2rem; color: var(--navy); margin-bottom: 10px; }
+  .modal p { color: #555; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
+  .modal-close { background: linear-gradient(135deg, var(--coral), #E53935); color: white; border: none; border-radius: 50px; padding: 12px 30px; font-family: 'Fredoka One', cursive; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; }
+  .modal-close:hover { transform: scale(1.05); }
+
+  @media(max-width:600px) {
+    .choices { grid-template-columns: 1fr; }
+    .match-container { grid-template-columns: 1fr; }
+    .word-grid { grid-template-columns: repeat(3,1fr); }
+    .score-breakdown { gap: 15px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>🌍 English Explorer!</h1>
+    <p>✨ Practice makes perfect! Let's study for your exam! ✨</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="score-display"><span>⭐</span><span id="scoreNum">0</span></div>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="score-display"><span>✅</span><span id="correctNum">0</span>/<span id="totalNum">0</span></div>
+  </div>
+
+  <!-- WELCOME -->
+  <div id="welcome">
+    <div class="big-emoji">🎓</div>
+    <h2>Hello, English Explorer!</h2>
+    <p>Choose a topic from the menu and start practising! Answer every question to get your final score and grade. Good luck! 💪</p>
+    <div class="topic-chips">
+      <span class="topic-chip" onclick="showTopic('sports')">⚽ Sports &amp; Food</span>
+      <span class="topic-chip" onclick="showTopic('time')">🕐 Time &amp; Prepositions</span>
+      <span class="topic-chip" onclick="showTopic('there')">🏠 There is/There are</span>
+      <span class="topic-chip" onclick="showTopic('rooms')">🛋️ Rooms &amp; Furniture</span>
+      <span class="topic-chip" onclick="showTopic('prepositions')">📍 Prepositions of Place</span>
+      <span class="topic-chip" onclick="showTopic('present')">📝 Present Simple</span>
+      <span class="topic-chip" onclick="showTopic('years')">📅 Years</span>
+      <span class="topic-chip" onclick="showTopic('can')">💪 Can &amp; Can't</span>
+      <span class="topic-chip" onclick="showTopic('adjnouns')">🎨 Adjectives &amp; Nouns</span>
+      <span class="topic-chip" onclick="showTopic('continuous')">🏃 Present Continuous</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-menu" id="navMenu">
+    <button class="nav-btn" onclick="showTopic('sports')"><span class="emoji">⚽</span>Sports &amp; Food</button>
+    <button class="nav-btn" onclick="showTopic('time')"><span class="emoji">🕐</span>Time &amp; Preps</button>
+    <button class="nav-btn" onclick="showTopic('there')"><span class="emoji">🏠</span>There is/are</button>
+    <button class="nav-btn" onclick="showTopic('rooms')"><span class="emoji">🛋️</span>Rooms &amp; Furniture</button>
+    <button class="nav-btn" onclick="showTopic('prepositions')"><span class="emoji">📍</span>Prep of Place</button>
+    <button class="nav-btn" onclick="showTopic('present')"><span class="emoji">📝</span>Present Simple</button>
+    <button class="nav-btn" onclick="showTopic('years')"><span class="emoji">📅</span>Years</button>
+    <button class="nav-btn" onclick="showTopic('can')"><span class="emoji">💪</span>Can &amp; Can't</button>
+    <button class="nav-btn" onclick="showTopic('adjnouns')"><span class="emoji">🎨</span>Adj + Nouns</button>
+    <button class="nav-btn" onclick="showTopic('continuous')"><span class="emoji">🏃</span>Pres. Continuous</button>
+  </nav>
+
+  <!-- ===== TOPIC 1: SPORTS & FOOD ===== -->
+  <div class="topic-card" id="topic-sports">
+    <div class="topic-title">⚽ Sports, Food &amp; Drinks</div>
+    <div class="topic-subtitle">Vocabulary — Learn and practise!</div>
+    <div class="exercise">
+      <div class="exercise-label">📚 Vocabulary</div>
+      <h3>Sports — Click a word to see it in a sentence!</h3>
+      <div class="word-grid">
+        <div class="word-card" onclick="showWord(this,'I play football every Saturday.')"><span class="wc-emoji">⚽</span>football</div>
+        <div class="word-card" onclick="showWord(this,'She plays tennis with her sister.')"><span class="wc-emoji">🎾</span>tennis</div>
+        <div class="word-card" onclick="showWord(this,'He goes swimming at the pool.')"><span class="wc-emoji">🏊</span>swimming</div>
+        <div class="word-card" onclick="showWord(this,'They play basketball at school.')"><span class="wc-emoji">🏀</span>basketball</div>
+        <div class="word-card" onclick="showWord(this,'I go cycling on Sundays.')"><span class="wc-emoji">🚴</span>cycling</div>
+        <div class="word-card" onclick="showWord(this,'She does gymnastics.')"><span class="wc-emoji">🤸</span>gymnastics</div>
+        <div class="word-card" onclick="showWord(this,'We play volleyball on the beach.')"><span class="wc-emoji">🏐</span>volleyball</div>
+        <div class="word-card" onclick="showWord(this,'He goes running every day.')"><span class="wc-emoji">🏃</span>running</div>
+      </div>
+      <div id="wordSentence" style="display:none;background:var(--light);border-radius:10px;padding:10px 15px;font-weight:700;color:var(--purple);margin-top:8px;border-left:4px solid var(--purple)"></div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">📚 Vocabulary</div>
+      <h3>Food &amp; Drinks — Learn the words!</h3>
+      <div class="word-grid">
+        <div class="word-card"><span class="wc-emoji">🍎</span>apple</div>
+        <div class="word-card"><span class="wc-emoji">🍕</span>pizza</div>
+        <div class="word-card"><span class="wc-emoji">🥛</span>milk</div>
+        <div class="word-card"><span class="wc-emoji">🥗</span>salad</div>
+        <div class="word-card"><span class="wc-emoji">🧃</span>juice</div>
+        <div class="word-card"><span class="wc-emoji">🍞</span>bread</div>
+        <div class="word-card"><span class="wc-emoji">🍳</span>eggs</div>
+        <div class="word-card"><span class="wc-emoji">🍰</span>cake</div>
+        <div class="word-card"><span class="wc-emoji">🥩</span>meat</div>
+        <div class="word-card"><span class="wc-emoji">🍚</span>rice</div>
+        <div class="word-card"><span class="wc-emoji">🥕</span>carrot</div>
+        <div class="word-card"><span class="wc-emoji">☕</span>coffee</div>
+      </div>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">🎯 Exercise 1 — Multiple Choice</div>
+      <h3>What sport uses a racket?</h3>
+      <div class="choices" id="q-sports1">
+        <button class="choice-btn" onclick="checkMC(this,'q-sports1',false,'Tennis 🎾')">A) Football ⚽</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-sports1',true,'Tennis 🎾')">B) Tennis 🎾</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-sports1',false,'Tennis 🎾')">C) Swimming 🏊</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-sports1',false,'Tennis 🎾')">D) Cycling 🚴</button>
+      </div>
+    </div>
+    <div class="exercise purple">
+      <div class="exercise-label">🎯 Exercise 2 — Multiple Choice</div>
+      <h3>Which one is a drink?</h3>
+      <div class="choices" id="q-sports2">
+        <button class="choice-btn" onclick="checkMC(this,'q-sports2',false,'Milk 🥛')">A) Apple 🍎</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-sports2',false,'Milk 🥛')">B) Bread 🍞</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-sports2',true,'Milk 🥛')">C) Milk 🥛</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-sports2',false,'Milk 🥛')">D) Salad 🥗</button>
+      </div>
+    </div>
+    <div class="exercise mint">
+      <div class="exercise-label">✏️ Exercise 3 — Fill in the Blank</div>
+      <h3>Complete the sentences:</h3>
+      <div class="blank-sentence">1. I play <input class="blank-input" id="b-s1" placeholder="?"> every Saturday. (hint: ⚽)</div>
+      <div class="blank-sentence">2. She drinks orange <input class="blank-input" id="b-s2" placeholder="?"> in the morning. (hint: 🧃)</div>
+      <div class="blank-sentence">3. He goes <input class="blank-input" id="b-s3" placeholder="?"> at the swimming pool. (hint: 🏊)</div>
+      <button class="check-btn" onclick="checkBlanks(['b-s1','b-s2','b-s3'],['football','juice','swimming'],'fb-sports')">✅ Check Answers</button>
+      <div class="feedback" id="fb-sports"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 2: TIME ===== -->
+  <div class="topic-card" id="topic-time">
+    <div class="topic-title">🕐 Telling the Time &amp; Prepositions of Time</div>
+    <div class="topic-subtitle">In, At, On — and how to tell the time!</div>
+    <div class="tip-box">
+      <strong>⏰ Telling the Time:</strong><br>
+      <span class="pill sky">1:00</span> It's one o'clock &nbsp;
+      <span class="pill sky">1:15</span> It's quarter past one<br>
+      <span class="pill sun">1:30</span> It's half past one &nbsp;
+      <span class="pill sun">1:45</span> It's quarter to two<br>
+      <span class="pill coral">2:10</span> It's ten past two &nbsp;
+      <span class="pill coral">2:50</span> It's ten to three
+    </div>
+    <div class="tip-box">
+      <strong>📅 Prepositions of Time:</strong><br>
+      <span class="pill grass">IN</span> months, seasons, years → <em>in January, in summer, in 2024</em><br>
+      <span class="pill purple">AT</span> times, special times → <em>at 3 o'clock, at night, at the weekend</em><br>
+      <span class="pill coral">ON</span> days, dates → <em>on Monday, on 5th June, on Christmas Day</em>
+    </div>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — What time is it?</div>
+      <h3>Choose the correct time:</h3>
+      <div style="text-align:center;margin:10px 0"><div class="clock-face">⏰ 3:15</div></div>
+      <div class="choices" id="q-time1">
+        <button class="choice-btn" onclick="checkMC(this,'q-time1',false,'Quarter past three')">A) Three o'clock</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-time1',true,'Quarter past three')">B) Quarter past three</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-time1',false,'Quarter past three')">C) Half past three</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-time1',false,'Quarter past three')">D) Quarter to three</button>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 2 — Choose IN, AT or ON</div>
+      <h3>Select the correct preposition:</h3>
+      <p style="font-weight:700;color:#333;line-height:2.5;font-size:1rem;">
+        1. I go to school <select class="nice-select" id="ts1"><option value="">?</option><option>in</option><option>at</option><option>on</option></select> Monday.<br>
+        <span id="ts1-fb" style="font-size:0.85rem;"></span>
+        2. My birthday is <select class="nice-select" id="ts2"><option value="">?</option><option>in</option><option>at</option><option>on</option></select> July.<br>
+        <span id="ts2-fb" style="font-size:0.85rem;"></span>
+        3. The film starts <select class="nice-select" id="ts3"><option value="">?</option><option>in</option><option>at</option><option>on</option></select> 7 o'clock.<br>
+        <span id="ts3-fb" style="font-size:0.85rem;"></span>
+        4. We have a picnic <select class="nice-select" id="ts4"><option value="">?</option><option>in</option><option>at</option><option>on</option></select> the weekend.<br>
+        <span id="ts4-fb" style="font-size:0.85rem;"></span>
+        5. School finishes <select class="nice-select" id="ts5"><option value="">?</option><option>in</option><option>at</option><option>on</option></select> summer.
+        <span id="ts5-fb" style="font-size:0.85rem;"></span>
+      </p>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">✏️ Exercise 3 — Write the time in words</div>
+      <h3>Complete the sentences about the time:</h3>
+      <div class="blank-sentence">1. <span class="clock-face" style="font-size:1rem;padding:6px 12px;">5:30</span> → It's <input class="blank-input" id="b-t1" placeholder="half"> past <input class="blank-input" id="b-t1b" placeholder="five">.</div>
+      <div class="blank-sentence">2. <span class="clock-face" style="font-size:1rem;padding:6px 12px;">8:45</span> → It's quarter <input class="blank-input" id="b-t2" placeholder="to/past"> <input class="blank-input" id="b-t2b" placeholder="nine">.</div>
+      <button class="check-btn" onclick="checkBlanks(['b-t1','b-t1b','b-t2','b-t2b'],['half','five','to','nine'],'fb-time')">✅ Check Answers</button>
+      <div class="feedback" id="fb-time"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 3: THERE IS / THERE ARE ===== -->
+  <div class="topic-card" id="topic-there">
+    <div class="topic-title">🏠 There is &amp; There are</div>
+    <div class="topic-subtitle">Affirmative, negative and questions!</div>
+    <div class="tip-box">
+      <strong>📌 Rules:</strong><br>
+      <span class="pill grass">THERE IS</span> singular → <em>There is a cat on the sofa.</em><br>
+      <span class="pill sky">THERE ARE</span> plural → <em>There are two books on the table.</em><br>
+      <span class="pill coral">THERE ISN'T</span> negative singular → <em>There isn't a TV in the kitchen.</em><br>
+      <span class="pill purple">THERE AREN'T</span> negative plural → <em>There aren't any chairs here.</em>
+    </div>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — Choose the correct form</div>
+      <h3>Select "There is", "There are", "There isn't" or "There aren't":</h3>
+      <p style="font-weight:700;color:#333;line-height:2.5;font-size:1rem;">
+        1. <select class="nice-select" id="th1"><option value="">?</option><option>There is</option><option>There are</option><option>There isn't</option><option>There aren't</option></select> a dog in the garden.<br>
+        <span id="th1-fb" style="font-size:0.85rem;"></span>
+        2. <select class="nice-select" id="th2"><option value="">?</option><option>There is</option><option>There are</option><option>There isn't</option><option>There aren't</option></select> three windows in this room.<br>
+        <span id="th2-fb" style="font-size:0.85rem;"></span>
+        3. <select class="nice-select" id="th3"><option value="">?</option><option>There is</option><option>There are</option><option>There isn't</option><option>There aren't</option></select> a supermarket near here. (negative)<br>
+        <span id="th3-fb" style="font-size:0.85rem;"></span>
+        4. <select class="nice-select" id="th4"><option value="">?</option><option>There is</option><option>There are</option><option>There isn't</option><option>There aren't</option></select> any trees in the park. (negative)<br>
+        <span id="th4-fb" style="font-size:0.85rem;"></span>
+        5. <select class="nice-select" id="th5"><option value="">?</option><option>There is</option><option>There are</option><option>There isn't</option><option>There aren't</option></select> five students in the classroom.
+        <span id="th5-fb" style="font-size:0.85rem;"></span>
+      </p>
+    </div>
+    <div class="exercise purple">
+      <div class="exercise-label">🎯 Exercise 2 — Multiple Choice</div>
+      <h3>_____ a big park near the school.</h3>
+      <div class="choices" id="q-there1">
+        <button class="choice-btn" onclick="checkMC(this,'q-there1',false,'There is')">A) There are</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-there1',true,'There is')">B) There is</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-there1',false,'There is')">C) There aren't</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-there1',false,'There is')">D) Are there</button>
+      </div>
+    </div>
+    <div class="exercise mint">
+      <div class="exercise-label">✏️ Exercise 3 — Fill in: is / are / isn't / aren't</div>
+      <h3>Complete the sentences:</h3>
+      <div class="blank-sentence">1. There <input class="blank-input" id="b-th1" placeholder="?"> a lamp on the table.</div>
+      <div class="blank-sentence">2. There <input class="blank-input" id="b-th2" placeholder="?"> four chairs in the kitchen.</div>
+      <div class="blank-sentence">3. There <input class="blank-input" id="b-th3" placeholder="?"> any pictures on the wall. (negative)</div>
+      <button class="check-btn" onclick="checkBlanks(['b-th1','b-th2','b-th3'],['is','are',"aren't"],'fb-there')">✅ Check Answers</button>
+      <div class="feedback" id="fb-there"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 4: ROOMS & FURNITURE ===== -->
+  <div class="topic-card" id="topic-rooms">
+    <div class="topic-title">🛋️ Rooms &amp; Furniture</div>
+    <div class="topic-subtitle">Vocabulary for the house!</div>
+    <div class="exercise">
+      <div class="exercise-label">📚 Vocabulary — Rooms</div>
+      <h3>Rooms of the house:</h3>
+      <div class="word-grid">
+        <div class="word-card"><span class="wc-emoji">🛋️</span>living room</div>
+        <div class="word-card"><span class="wc-emoji">🍳</span>kitchen</div>
+        <div class="word-card"><span class="wc-emoji">🛏️</span>bedroom</div>
+        <div class="word-card"><span class="wc-emoji">🚿</span>bathroom</div>
+        <div class="word-card"><span class="wc-emoji">🍽️</span>dining room</div>
+        <div class="word-card"><span class="wc-emoji">🏡</span>garden</div>
+        <div class="word-card"><span class="wc-emoji">🚗</span>garage</div>
+        <div class="word-card"><span class="wc-emoji">🪜</span>hallway</div>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">📚 Vocabulary — Furniture</div>
+      <h3>Furniture and objects:</h3>
+      <div class="word-grid">
+        <div class="word-card"><span class="wc-emoji">🛋️</span>sofa</div>
+        <div class="word-card"><span class="wc-emoji">🪑</span>chair</div>
+        <div class="word-card"><span class="wc-emoji">🛏️</span>bed</div>
+        <div class="word-card"><span class="wc-emoji">📺</span>TV</div>
+        <div class="word-card"><span class="wc-emoji">🚪</span>door</div>
+        <div class="word-card"><span class="wc-emoji">🪟</span>window</div>
+        <div class="word-card"><span class="wc-emoji">🪞</span>mirror</div>
+        <div class="word-card"><span class="wc-emoji">📚</span>bookshelf</div>
+        <div class="word-card"><span class="wc-emoji">🛁</span>bath</div>
+        <div class="word-card"><span class="wc-emoji">🚿</span>shower</div>
+        <div class="word-card"><span class="wc-emoji">👗</span>wardrobe</div>
+        <div class="word-card"><span class="wc-emoji">💡</span>lamp</div>
+      </div>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">🎯 Exercise — Match furniture to room</div>
+      <h3>Click a furniture item, then click its room!</h3>
+      <div id="matchRooms">
+        <div class="match-container">
+          <div class="match-col">
+            <h4>🪑 Furniture</h4>
+            <div class="match-item" id="m1" onclick="selectMatch('m1','left')">bath 🛁</div>
+            <div class="match-item" id="m2" onclick="selectMatch('m2','left')">sofa 🛋️</div>
+            <div class="match-item" id="m3" onclick="selectMatch('m3','left')">wardrobe 👗</div>
+            <div class="match-item" id="m4" onclick="selectMatch('m4','left')">fridge 🧊</div>
+          </div>
+          <div class="match-col">
+            <h4>🏠 Room</h4>
+            <div class="match-item" id="r1" onclick="selectMatch('r1','right')">living room</div>
+            <div class="match-item" id="r2" onclick="selectMatch('r2','right')">kitchen</div>
+            <div class="match-item" id="r3" onclick="selectMatch('r3','right')">bedroom</div>
+            <div class="match-item" id="r4" onclick="selectMatch('r4','right')">bathroom</div>
+          </div>
+        </div>
+        <div class="feedback" id="match-fb"></div>
+      </div>
+    </div>
+    <div class="exercise purple">
+      <div class="exercise-label">🎯 Exercise — Multiple Choice</div>
+      <h3>Where do you usually find a "bookshelf"?</h3>
+      <div class="choices" id="q-rooms1">
+        <button class="choice-btn" onclick="checkMC(this,'q-rooms1',false,'Living room / Bedroom')">A) Bathroom</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-rooms1',false,'Living room / Bedroom')">B) Kitchen</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-rooms1',true,'Living room / Bedroom')">C) Living room / Bedroom</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-rooms1',false,'Living room / Bedroom')">D) Garage</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 5: PREPOSITIONS OF PLACE ===== -->
+  <div class="topic-card" id="topic-prepositions">
+    <div class="topic-title">📍 Prepositions of Place</div>
+    <div class="topic-subtitle">Where is everything?</div>
+    <div class="tip-box">
+      <strong>📌 Prepositions of Place:</strong><br>
+      <span class="pill sky">IN</span> inside → <em>The cat is in the box.</em><br>
+      <span class="pill grass">ON</span> on top → <em>The book is on the table.</em><br>
+      <span class="pill coral">UNDER</span> below → <em>The dog is under the chair.</em><br>
+      <span class="pill purple">NEXT TO</span> beside → <em>The lamp is next to the sofa.</em><br>
+      <span class="pill sun">BEHIND</span> at the back → <em>The tree is behind the house.</em><br>
+      <span class="pill">IN FRONT OF</span> at the front → <em>The car is in front of the house.</em><br>
+      <span class="pill sky">BETWEEN</span> in the middle of two things → <em>The shop is between the school and the park.</em>
+    </div>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — Multiple Choice</div>
+      <h3>The cat is _____ the sofa. (it's sleeping on top of it)</h3>
+      <div class="choices" id="q-prep1">
+        <button class="choice-btn" onclick="checkMC(this,'q-prep1',false,'on')">A) under</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-prep1',false,'on')">B) behind</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-prep1',true,'on')">C) on</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-prep1',false,'on')">D) between</button>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 2 — Select the correct preposition</div>
+      <h3>Complete with the right preposition:</h3>
+      <p style="font-weight:700;color:#333;line-height:2.5;font-size:1rem;">
+        1. The ball is <select class="nice-select" id="pp1"><option value="">?</option><option>in</option><option>on</option><option>under</option><option>behind</option></select> the table. 🎾⬇️<br>
+        <span id="pp1-fb" style="font-size:0.85rem;"></span>
+        2. The books are <select class="nice-select" id="pp2"><option value="">?</option><option>in</option><option>on</option><option>under</option><option>next to</option></select> the shelf. 📚<br>
+        <span id="pp2-fb" style="font-size:0.85rem;"></span>
+        3. The park is <select class="nice-select" id="pp3"><option value="">?</option><option>in front of</option><option>between</option><option>behind</option><option>on</option></select> the school and the supermarket. 🏫🌳🏪<br>
+        <span id="pp3-fb" style="font-size:0.85rem;"></span>
+        4. The TV is <select class="nice-select" id="pp4"><option value="">?</option><option>in front of</option><option>under</option><option>behind</option><option>in</option></select> the sofa. (you watch TV facing it) 📺🛋️
+        <span id="pp4-fb" style="font-size:0.85rem;"></span>
+      </p>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">✏️ Exercise 3 — Fill in</div>
+      <h3>Use: in, on, under, next to, behind</h3>
+      <div class="blank-sentence">1. My shoes are <input class="blank-input" id="b-p1" placeholder="?"> the bed.</div>
+      <div class="blank-sentence">2. The flowers are <input class="blank-input" id="b-p2" placeholder="?"> the vase.</div>
+      <div class="blank-sentence">3. The car is parked <input class="blank-input" id="b-p3" placeholder="?"> the house.</div>
+      <button class="check-btn" onclick="checkBlanks(['b-p1','b-p2','b-p3'],['under','in','behind'],'fb-preps')">✅ Check Answers</button>
+      <div class="feedback" id="fb-preps"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 6: PRESENT SIMPLE ===== -->
+  <div class="topic-card" id="topic-present">
+    <div class="topic-title">📝 Present Simple</div>
+    <div class="topic-subtitle">Habits, routines, and facts!</div>
+    <div class="tip-box">
+      <strong>📌 Present Simple Rules:</strong><br>
+      <span class="pill grass">I / You / We / They</span> → base verb → <em>I play, They eat</em><br>
+      <span class="pill coral">He / She / It</span> → verb + <strong>S</strong> → <em>He plays, She eats</em><br>
+      Special: watch→watch<strong>es</strong> | go→go<strong>es</strong> | have→ha<strong>s</strong> | study→studi<strong>es</strong><br>
+      <span class="pill sky">NEGATIVE:</span> don't / doesn't + verb → <em>I don't like. She doesn't go.</em><br>
+      <span class="pill purple">QUESTION:</span> Do / Does + subject + verb? → <em>Do you play? Does she go?</em>
+    </div>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — Conjugation</div>
+      <h3>She _____ (go) to school by bus.</h3>
+      <div class="choices" id="q-ps1">
+        <button class="choice-btn" onclick="checkMC(this,'q-ps1',false,'goes')">A) go</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-ps1',true,'goes')">B) goes</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-ps1',false,'goes')">C) going</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-ps1',false,'goes')">D) goed</button>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 2 — Select the right form</div>
+      <h3>Complete the sentences:</h3>
+      <p style="font-weight:700;color:#333;line-height:2.5;font-size:1rem;">
+        1. I <select class="nice-select" id="pss1"><option value="">?</option><option>don't</option><option>doesn't</option><option>isn't</option></select> like vegetables.<br>
+        <span id="pss1-fb" style="font-size:0.85rem;"></span>
+        2. He <select class="nice-select" id="pss2"><option value="">?</option><option>don't</option><option>doesn't</option><option>isn't</option></select> play tennis.<br>
+        <span id="pss2-fb" style="font-size:0.85rem;"></span>
+        3. They <select class="nice-select" id="pss3"><option value="">?</option><option>study</option><option>studies</option><option>studys</option></select> every day.<br>
+        <span id="pss3-fb" style="font-size:0.85rem;"></span>
+        4. My mum <select class="nice-select" id="pss4"><option value="">?</option><option>have</option><option>has</option><option>haves</option></select> a car.
+        <span id="pss4-fb" style="font-size:0.85rem;"></span>
+      </p>
+    </div>
+    <div class="exercise purple">
+      <div class="exercise-label">✏️ Exercise 3 — Write the correct form</div>
+      <h3>Write the correct form of the verb:</h3>
+      <div class="blank-sentence">1. Tom <input class="blank-input" id="b-ps1" placeholder="watch..."> (watch) TV every night.</div>
+      <div class="blank-sentence">2. We <input class="blank-input" id="b-ps2" placeholder="eat..."> (eat) breakfast at 8am.</div>
+      <div class="blank-sentence">3. She <input class="blank-input" id="b-ps3" placeholder="have..."> (have) two brothers.</div>
+      <button class="check-btn" onclick="checkBlanks(['b-ps1','b-ps2','b-ps3'],['watches','eat','has'],'fb-present')">✅ Check Answers</button>
+      <div class="feedback" id="fb-present"></div>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">🎯 Exercise 4 — Question Form</div>
+      <h3>_____ she like chocolate?</h3>
+      <div class="choices" id="q-ps2">
+        <button class="choice-btn" onclick="checkMC(this,'q-ps2',false,'Does')">A) Do</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-ps2',true,'Does')">B) Does</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-ps2',false,'Does')">C) Is</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-ps2',false,'Does')">D) Has</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 7: YEARS ===== -->
+  <div class="topic-card" id="topic-years">
+    <div class="topic-title">📅 How to say Years</div>
+    <div class="topic-subtitle">Talking about dates and years in English!</div>
+    <div class="tip-box">
+      <strong>📌 How to say years:</strong><br>
+      Split the year into two pairs of numbers:<br>
+      <span class="pill grass">1985</span> → nineteen + eighty-five &nbsp;
+      <span class="pill sky">2000</span> → two thousand<br>
+      <span class="pill coral">2005</span> → two thousand and five &nbsp;
+      <span class="pill purple">2024</span> → twenty twenty-four<br>
+      <span class="pill sun">1900</span> → nineteen hundred
+    </div>
+    <table class="grammar-table">
+      <tr><th>Year</th><th>How to say it</th></tr>
+      <tr><td>1776</td><td>seventeen seventy-six</td></tr>
+      <tr><td>1900</td><td>nineteen hundred</td></tr>
+      <tr><td>1999</td><td>nineteen ninety-nine</td></tr>
+      <tr><td>2000</td><td>two thousand</td></tr>
+      <tr><td>2001</td><td>two thousand and one</td></tr>
+      <tr><td>2015</td><td>twenty fifteen</td></tr>
+      <tr><td>2024</td><td>twenty twenty-four</td></tr>
+    </table>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — Multiple Choice</div>
+      <h3>How do you say "1999"?</h3>
+      <div class="choices" id="q-yr1">
+        <button class="choice-btn" onclick="checkMC(this,'q-yr1',false,'nineteen ninety-nine')">A) one thousand nine hundred ninety-nine</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-yr1',true,'nineteen ninety-nine')">B) nineteen ninety-nine</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-yr1',false,'nineteen ninety-nine')">C) nineteen nine nine</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-yr1',false,'nineteen ninety-nine')">D) nineteen hundred ninety-nine</button>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 2 — Multiple Choice</div>
+      <h3>How do you say "2005"?</h3>
+      <div class="choices" id="q-yr2">
+        <button class="choice-btn" onclick="checkMC(this,'q-yr2',false,'two thousand and five')">A) twenty zero five</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-yr2',false,'two thousand and five')">B) two hundred five</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-yr2',true,'two thousand and five')">C) two thousand and five</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-yr2',false,'two thousand and five')">D) twenty oh five</button>
+      </div>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">✏️ Exercise 3 — Write it out</div>
+      <h3>Complete the year in words:</h3>
+      <div class="blank-sentence">1. 2024 → twenty <input class="blank-input" id="b-yr1" placeholder="?"> - <input class="blank-input" id="b-yr1b" placeholder="?"></div>
+      <div class="blank-sentence">2. 1900 → nineteen <input class="blank-input" id="b-yr2" placeholder="?"></div>
+      <button class="check-btn" onclick="checkBlanks(['b-yr1','b-yr1b','b-yr2'],['twenty','four','hundred'],'fb-years')">✅ Check Answers</button>
+      <div class="feedback" id="fb-years"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 8: CAN & CAN'T ===== -->
+  <div class="topic-card" id="topic-can">
+    <div class="topic-title">💪 Can &amp; Can't</div>
+    <div class="topic-subtitle">Ability — what can you do?</div>
+    <div class="tip-box">
+      <strong>📌 CAN / CAN'T Rules:</strong><br>
+      <span class="pill grass">CAN</span> ability → <em>I can swim. She can speak French.</em><br>
+      <span class="pill coral">CAN'T / CANNOT</span> no ability → <em>He can't fly. They can't drive.</em><br>
+      ⚡ <strong>Important:</strong> CAN never changes! → She <strong>can</strong> (NOT she cans!)<br>
+      <span class="pill sky">QUESTION:</span> Can + subject + verb? → <em>Can you swim? Can she dance?</em><br>
+      Short answers: Yes, I can. / No, I can't.
+    </div>
+    <table class="grammar-table">
+      <tr><th>Affirmative</th><th>Negative</th><th>Question</th></tr>
+      <tr><td>I can swim</td><td>I can't swim</td><td>Can I swim?</td></tr>
+      <tr><td>She can sing</td><td>She can't sing</td><td>Can she sing?</td></tr>
+      <tr><td>They can run</td><td>They can't run</td><td>Can they run?</td></tr>
+    </table>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — Multiple Choice</div>
+      <h3>She _____ play the piano very well.</h3>
+      <div class="choices" id="q-can1">
+        <button class="choice-btn" onclick="checkMC(this,'q-can1',false,'can')">A) cans</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-can1',true,'can')">B) can</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-can1',false,'can')">C) is can</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-can1',false,'can')">D) does can</button>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 2 — Can or Can't?</div>
+      <h3>Choose the correct option:</h3>
+      <p style="font-weight:700;color:#333;line-height:2.5;font-size:1rem;">
+        1. Birds <select class="nice-select" id="can1"><option value="">?</option><option>can</option><option>can't</option></select> fly. 🐦✈️<br>
+        <span id="can1-fb" style="font-size:0.85rem;"></span>
+        2. Fish <select class="nice-select" id="can2"><option value="">?</option><option>can</option><option>can't</option></select> climb trees. 🐟🌳<br>
+        <span id="can2-fb" style="font-size:0.85rem;"></span>
+        3. Dogs <select class="nice-select" id="can3"><option value="">?</option><option>can</option><option>can't</option></select> swim. 🐕🏊<br>
+        <span id="can3-fb" style="font-size:0.85rem;"></span>
+        4. Cats <select class="nice-select" id="can4"><option value="">?</option><option>can</option><option>can't</option></select> speak English. 🐱💬
+        <span id="can4-fb" style="font-size:0.85rem;"></span>
+      </p>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">✏️ Exercise 3 — Write sentences</div>
+      <h3>Use can or can't:</h3>
+      <div class="blank-sentence">1. I <input class="blank-input" id="b-can1" placeholder="?"> ride a bike. ✅</div>
+      <div class="blank-sentence">2. She <input class="blank-input" id="b-can2" placeholder="?"> drive a car. ❌ (she's 11!)</div>
+      <div class="blank-sentence">3. <input class="blank-input" id="b-can3" placeholder="?"> you speak Spanish? ❓</div>
+      <button class="check-btn" onclick="checkBlanks(['b-can1','b-can2','b-can3'],['can',"can't",'Can'],'fb-can')">✅ Check Answers</button>
+      <div class="feedback" id="fb-can"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 9: ADJECTIVES + NOUNS ===== -->
+  <div class="topic-card" id="topic-adjnouns">
+    <div class="topic-title">🎨 Adjectives &amp; Nouns</div>
+    <div class="topic-subtitle">Describing things!</div>
+    <div class="tip-box">
+      <strong>📌 Adjective + Noun Order in English:</strong><br>
+      In English, adjectives come <strong>BEFORE</strong> the noun!<br>
+      <span class="pill grass">✅</span> a <strong>big</strong> house &nbsp; <span class="pill coral">❌</span> a house big<br>
+      <span class="pill grass">✅</span> a <strong>red</strong> car &nbsp; <span class="pill coral">❌</span> a car red<br>
+      <span class="pill sky">Adjectives describe:</span> size (big, small), colour (red, blue), age (old, new), shape (round, flat), opinion (nice, horrible)
+    </div>
+    <div class="exercise">
+      <div class="exercise-label">📚 Vocabulary — Common Adjectives</div>
+      <div class="word-grid">
+        <div class="word-card"><span class="wc-emoji">🔴</span>red</div>
+        <div class="word-card"><span class="wc-emoji">🔵</span>blue</div>
+        <div class="word-card"><span class="wc-emoji">🟢</span>green</div>
+        <div class="word-card"><span class="wc-emoji">🟡</span>yellow</div>
+        <div class="word-card"><span class="wc-emoji">🐘</span>big</div>
+        <div class="word-card"><span class="wc-emoji">🐭</span>small</div>
+        <div class="word-card"><span class="wc-emoji">⚡</span>fast</div>
+        <div class="word-card"><span class="wc-emoji">🐌</span>slow</div>
+        <div class="word-card"><span class="wc-emoji">☀️</span>hot</div>
+        <div class="word-card"><span class="wc-emoji">❄️</span>cold</div>
+        <div class="word-card"><span class="wc-emoji">😊</span>happy</div>
+        <div class="word-card"><span class="wc-emoji">😢</span>sad</div>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 1 — Correct order</div>
+      <h3>Which sentence is in the correct order?</h3>
+      <div class="choices" id="q-adj1">
+        <button class="choice-btn" onclick="checkMC(this,'q-adj1',true,'I have a big, black dog.')">A) I have a big, black dog.</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-adj1',false,'I have a big, black dog.')">B) I have a dog big black.</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-adj1',false,'I have a big, black dog.')">C) I have a dog, big and black.</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-adj1',false,'I have a big, black dog.')">D) I have black big a dog.</button>
+      </div>
+    </div>
+    <div class="exercise purple">
+      <div class="exercise-label">✏️ Exercise 2 — Reorder the words</div>
+      <h3>Put the words in the right order:</h3>
+      <div class="blank-sentence">1. house / a / white / big = a <input class="blank-input" id="b-adj1" placeholder="?"> <input class="blank-input" id="b-adj1b" placeholder="?"> house</div>
+      <div class="blank-sentence">2. red / old / car / an = an <input class="blank-input" id="b-adj2" placeholder="?"> <input class="blank-input" id="b-adj2b" placeholder="?"> car</div>
+      <button class="check-btn" onclick="checkBlanks(['b-adj1','b-adj1b','b-adj2','b-adj2b'],['big','white','old','red'],'fb-adj')">✅ Check Answers</button>
+      <div class="feedback" id="fb-adj"></div>
+    </div>
+    <div class="exercise mint">
+      <div class="exercise-label">🎯 Exercise 3 — Multiple Choice</div>
+      <h3>Which sentence is correct?</h3>
+      <div class="choices" id="q-adj2">
+        <button class="choice-btn" onclick="checkMC(this,'q-adj2',false,'She has blue eyes.')">A) She has eyes blue.</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-adj2',true,'She has blue eyes.')">B) She has blue eyes.</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-adj2',false,'She has blue eyes.')">C) She blue has eyes.</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-adj2',false,'She has blue eyes.')">D) Blue she has eyes.</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOPIC 10: PRESENT CONTINUOUS ===== -->
+  <div class="topic-card" id="topic-continuous">
+    <div class="topic-title">🏃 Present Continuous</div>
+    <div class="topic-subtitle">What is happening RIGHT NOW?</div>
+    <div class="tip-box">
+      <strong>📌 Present Continuous = BE + VERB+ING:</strong><br>
+      <span class="pill grass">I</span> am playing → I'm playing<br>
+      <span class="pill sky">He / She / It</span> is reading → He's reading<br>
+      <span class="pill coral">We / You / They</span> are running → They're running<br>
+      <span class="pill purple">NEGATIVE:</span> I'm not, He isn't, They aren't + verb+ing<br>
+      <span class="pill sun">QUESTION:</span> Am I? Is he? Are they? + verb+ing?<br>
+      <strong>Spelling:</strong> run→runn<strong>ing</strong> | swim→swimm<strong>ing</strong> | write→writ<strong>ing</strong> (drop the e)
+    </div>
+    <table class="grammar-table">
+      <tr><th>Subject</th><th>Affirmative</th><th>Negative</th><th>Question</th></tr>
+      <tr><td>I</td><td>I'm eating</td><td>I'm not eating</td><td>Am I eating?</td></tr>
+      <tr><td>He/She/It</td><td>She's dancing</td><td>She isn't dancing</td><td>Is she dancing?</td></tr>
+      <tr><td>We/You/They</td><td>They're running</td><td>They aren't running</td><td>Are they running?</td></tr>
+    </table>
+    <div class="exercise">
+      <div class="exercise-label">🎯 Exercise 1 — Multiple Choice</div>
+      <h3>Look! They _____ football in the park right now.</h3>
+      <div class="choices" id="q-pc1">
+        <button class="choice-btn" onclick="checkMC(this,'q-pc1',false,'are playing')">A) play</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc1',false,'are playing')">B) plays</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc1',true,'are playing')">C) are playing</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc1',false,'are playing')">D) is playing</button>
+      </div>
+    </div>
+    <div class="exercise green">
+      <div class="exercise-label">🎯 Exercise 2 — Choose the right form</div>
+      <h3>Select the correct present continuous form:</h3>
+      <p style="font-weight:700;color:#333;line-height:2.5;font-size:1rem;">
+        1. She <select class="nice-select" id="pc1"><option value="">?</option><option>is reading</option><option>are reading</option><option>am reading</option></select> a book now. 📖<br>
+        <span id="pc1-fb" style="font-size:0.85rem;"></span>
+        2. We <select class="nice-select" id="pc2"><option value="">?</option><option>is watching</option><option>are watching</option><option>am watching</option></select> a film. 🎬<br>
+        <span id="pc2-fb" style="font-size:0.85rem;"></span>
+        3. I <select class="nice-select" id="pc3"><option value="">?</option><option>is not sleeping</option><option>are not sleeping</option><option>am not sleeping</option></select>. I'm awake! 😴❌<br>
+        <span id="pc3-fb" style="font-size:0.85rem;"></span>
+        4. <select class="nice-select" id="pc4"><option value="">?</option><option>Am</option><option>Is</option><option>Are</option></select> your mum cooking dinner? 👩‍🍳
+        <span id="pc4-fb" style="font-size:0.85rem;"></span>
+      </p>
+    </div>
+    <div class="exercise coral">
+      <div class="exercise-label">✏️ Exercise 3 — Write the correct form</div>
+      <h3>Write the correct present continuous:</h3>
+      <div class="blank-sentence">1. The dog <input class="blank-input" id="b-pc1" placeholder="run..."> (run) in the garden.</div>
+      <div class="blank-sentence">2. My dad <input class="blank-input" id="b-pc2" placeholder="sit..."> (sit) on the sofa.</div>
+      <div class="blank-sentence">3. She <input class="blank-input" id="b-pc3" placeholder="write..."> (write) a letter.</div>
+      <button class="check-btn" onclick="checkBlanks(['b-pc1','b-pc2','b-pc3'],['is running','is sitting','is writing'],'fb-continuous')">✅ Check Answers</button>
+      <div class="feedback" id="fb-continuous"></div>
+    </div>
+    <div class="exercise purple">
+      <div class="exercise-label">🎯 Exercise 4 — Present Simple vs Continuous</div>
+      <h3>Which tense is correct?</h3>
+      <div style="background:white;border-radius:12px;padding:15px;margin-bottom:12px;">
+        <p style="font-weight:700;color:var(--navy);line-height:2;">
+          <span class="pill grass">Every day</span> I <strong>eat</strong> breakfast. → Present Simple (habit)<br>
+          <span class="pill coral">Right now</span> I <strong>am eating</strong> breakfast. → Present Continuous (now!)
+        </p>
+      </div>
+      <div class="choices" id="q-pc2">
+        <div style="grid-column:1/-1;font-weight:700;color:#555;margin-bottom:5px;">Listen! The birds _____ outside. (right now)</div>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc2',false,'are singing')">A) sing</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc2',true,'are singing')">B) are singing</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc2',false,'are singing')">C) is singing</button>
+        <button class="choice-btn" onclick="checkMC(this,'q-pc2',false,'are singing')">D) sings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL SCORE PANEL -->
+  <div class="final-score-panel" id="finalPanel">
+    <div style="font-size:3rem;margin-bottom:10px" id="finalEmoji">🎓</div>
+    <h2>Final Score!</h2>
+    <div class="final-big-score" id="finalBigScore">0 / 0</div>
+    <div class="score-breakdown">
+      <div class="score-item">
+        <div class="si-num" id="finalCorrect">0</div>
+        <div class="si-label">✅ Correct</div>
+      </div>
+      <div class="score-item">
+        <div class="si-num" id="finalWrong">0</div>
+        <div class="si-label">❌ Wrong</div>
+      </div>
+      <div class="score-item">
+        <div class="si-num" id="finalPct">0%</div>
+        <div class="si-label">📊 Percentage</div>
+      </div>
+    </div>
+    <div class="final-grade" id="finalGrade">—</div>
+    <div class="final-message" id="finalMessage"></div>
+    <button class="restart-btn" onclick="restartAll()">🔄 Start Again!</button>
+  </div>
+
+</div><!-- /container -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-emoji" id="modalEmoji">🎉</div>
+    <h2 id="modalTitle">Well done!</h2>
+    <p id="modalText">Keep going!</p>
+    <button class="modal-close" onclick="closeModal()">Keep studying! 📚</button>
+  </div>
+</div>
+
+<script>
+  let score = 0;
+  let correct = 0;
+  let total = 0;
+
+  // All select-based exercises: id -> correct answer
+  const selectAnswers = {
+    ts1:'on', ts2:'in', ts3:'at', ts4:'at', ts5:'in',
+    th1:'There is', th2:'There are', th3:"There isn't", th4:"There aren't", th5:'There are',
+    pp1:'under', pp2:'on', pp3:'between', pp4:'in front of',
+    pss1:"don't", pss2:"doesn't", pss3:'study', pss4:'has',
+    can1:'can', can2:"can't", can3:'can', can4:"can't",
+    pc1:'is reading', pc2:'are watching', pc3:'am not sleeping', pc4:'Is'
+  };
+
+  // Attach select listeners on load
+  window.addEventListener('DOMContentLoaded', () => {
+    Object.entries(selectAnswers).forEach(([id, answer]) => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', function(){ checkSelect(this, answer, id+'-fb'); });
+    });
+  });
+
+  function showTopic(id) {
+    document.getElementById('welcome').style.display = 'none';
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const card = document.getElementById('topic-' + id);
+    if (card) { card.classList.add('active'); card.scrollIntoView({behavior:'smooth',block:'start'}); }
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+id+"'")) b.classList.add('active');
+    });
+    // Show final score panel always below content
+    checkShowFinal();
+  }
+
+  function updateScore() {
+    document.getElementById('scoreNum').textContent = score;
+    document.getElementById('correctNum').textContent = correct;
+    document.getElementById('totalNum').textContent = total;
+    const totalPossible = 65; // approximate max
+    const pct = Math.min((score / totalPossible) * 100, 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    checkShowFinal();
+  }
+
+  function checkShowFinal() {
+    if (total >= 10) {
+      showFinalScore();
+    }
+  }
+
+  function showFinalScore() {
+    const panel = document.getElementById('finalPanel');
+    panel.classList.add('show');
+    const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+    document.getElementById('finalBigScore').textContent = correct + ' / ' + total;
+    document.getElementById('finalCorrect').textContent = correct;
+    document.getElementById('finalWrong').textContent = total - correct;
+    document.getElementById('finalPct').textContent = pct + '%';
+
+    let grade, gradeClass, emoji, message;
+    if (pct >= 90) {
+      grade = '⭐ A+ Excellent!'; gradeClass = 'grade-a'; emoji = '🏆';
+      message = 'Wow! You are an English superstar! You really know your stuff. Your teacher will be so impressed! 🌟';
+    } else if (pct >= 75) {
+      grade = '🎉 B Very Good!'; gradeClass = 'grade-b'; emoji = '😄';
+      message = 'Great job! You know most of the grammar really well. Review the topics you got wrong and you will be perfect! 💪';
+    } else if (pct >= 60) {
+      grade = '👍 C Good!'; gradeClass = 'grade-c'; emoji = '😊';
+      message = 'Good work! You understand the basics. Keep practising the exercises you found difficult and you will improve a lot! 📚';
+    } else if (pct >= 40) {
+      grade = '📖 D Keep Studying!'; gradeClass = 'grade-d'; emoji = '🤔';
+      message = 'Keep trying! Go back to the grammar tips and read them carefully, then try the exercises again. You can do it! 🌈';
+    } else {
+      grade = '🔄 Try Again!'; gradeClass = 'grade-d'; emoji = '💡';
+      message = "Don't worry! Learning takes practice. Read the yellow tip boxes for each topic, then try the exercises again. You'll get there! 🚀";
+    }
+    document.getElementById('finalEmoji').textContent = emoji;
+    const gradeEl = document.getElementById('finalGrade');
+    gradeEl.textContent = grade;
+    gradeEl.className = 'final-grade ' + gradeClass;
+    document.getElementById('finalMessage').textContent = message;
+    panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  // ── MULTIPLE CHOICE ──
+  function checkMC(btn, groupId, isCorrect, correctAnswer) {
+    const group = document.getElementById(groupId);
+    if (!group) return;
+    const btns = group.querySelectorAll('.choice-btn');
+    if (btns[0].disabled) return; // already answered
+    btns.forEach(b => b.disabled = true);
+    total++;
+    if (isCorrect) {
+      btn.classList.add('correct');
+      score += 2;
+      correct++;
+    } else {
+      btn.classList.add('wrong');
+      // Highlight the correct answer
+      btns.forEach(b => {
+        if (b.textContent.trim().toLowerCase().includes(correctAnswer.toLowerCase()) ||
+            (b !== btn && !b.classList.contains('wrong') && b.getAttribute('onclick') && b.getAttribute('onclick').includes('true'))) {
+          b.classList.add('show-correct');
+        }
+      });
+      // Also find by correct answer text
+      btns.forEach(b => {
+        if (!b.classList.contains('wrong') && !b.classList.contains('show-correct')) {
+          const onclickStr = b.getAttribute('onclick') || '';
+          if (onclickStr.includes(',true,')) b.classList.add('show-correct');
+        }
+      });
+    }
+    updateScore();
+  }
+
+  // ── SELECT ──
+  function checkSelect(sel, answer, fbId) {
+    if (sel.dataset.answered) return;
+    sel.dataset.answered = 'true';
+    sel.disabled = true;
+    total++;
+    const fb = document.getElementById(fbId);
+    if (sel.value === answer) {
+      sel.classList.add('correct-sel');
+      if (fb) { fb.textContent = '✅ Correct!'; fb.style.color = '#2e7d32'; fb.style.fontWeight='800'; }
+      score += 2;
+      correct++;
+    } else {
+      sel.classList.add('wrong-sel');
+      if (fb) { fb.innerHTML = '❌ Wrong. The correct answer is: <strong style="color:#2e7d32">' + answer + '</strong>'; fb.style.fontWeight='700'; }
+    }
+    updateScore();
+  }
+
+  // ── FILL IN THE BLANK ──
+  function checkBlanks(ids, answers, fbId) {
+    // Prevent double-checking
+    const firstInput = document.getElementById(ids[0]);
+    if (firstInput && firstInput.dataset.checked) return;
+    
+    let numCorrect = 0;
+    const wrongOnes = [];
+    ids.forEach((id, i) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+      input.dataset.checked = 'true';
+      input.disabled = true;
+      const val = input.value.trim().toLowerCase();
+      const ans = answers[i].toLowerCase();
+      if (val === ans) {
+        input.classList.remove('wrong-input');
+        input.classList.add('correct-input');
+        numCorrect++;
+      } else {
+        input.classList.remove('correct-input');
+        input.classList.add('wrong-input');
+        // Show correct answer below input
+        let hint = input.nextElementSibling;
+        if (!hint || !hint.classList.contains('inline-answer')) {
+          hint = document.createElement('span');
+          hint.className = 'inline-answer';
+          hint.style.cssText = 'color:#2e7d32;font-weight:800;font-size:0.85rem;margin-left:5px;';
+          input.parentNode.insertBefore(hint, input.nextSibling);
+        }
+        hint.textContent = '→ ' + answers[i];
+        wrongOnes.push(answers[i]);
+      }
+    });
+
+    const fb = document.getElementById(fbId);
+    if (!fb) return;
+    fb.classList.remove('correct-fb','wrong-fb');
+    fb.classList.add('show');
+    total++;
+    if (numCorrect === ids.length) {
+      fb.classList.add('correct-fb');
+      fb.textContent = '🎉 All correct! Brilliant! ⭐';
+      score += 3;
+      correct++;
+    } else {
+      fb.classList.add('wrong-fb');
+      fb.innerHTML = '❌ ' + numCorrect + '/' + ids.length + ' correct. Wrong answers are shown in <strong style="color:#2e7d32">green</strong> next to each blank.';
+      score += Math.floor((numCorrect / ids.length) * 3);
+    }
+    updateScore();
+  }
+
+  // ── WORD CARDS ──
+  function showWord(el, sentence) {
+    const box = document.getElementById('wordSentence');
+    box.style.display = 'block';
+    box.textContent = '💬 ' + sentence;
+  }
+
+  // ── MATCH EXERCISE ──
+  let matchSelected = null;
+  let matchSide = null;
+  const matchPairs = { m1:'r4', m2:'r1', m3:'r3', m4:'r2' };
+  const matchAnswers = { m1:'bathroom', m2:'living room', m3:'bedroom', m4:'kitchen' };
+
+  function selectMatch(id, side) {
+    const el = document.getElementById(id);
+    if (el.classList.contains('matched')) return;
+    if (side === 'left') {
+      if (matchSelected && matchSide === 'left') document.getElementById(matchSelected).classList.remove('selected');
+      if (matchSelected && matchSide === 'right') { tryMatch(id, matchSelected); return; }
+      matchSelected = id; matchSide = 'left'; el.classList.add('selected');
+    } else {
+      if (matchSelected && matchSide === 'right') document.getElementById(matchSelected).classList.remove('selected');
+      if (matchSelected && matchSide === 'left') { tryMatch(matchSelected, id); return; }
+      matchSelected = id; matchSide = 'right'; el.classList.add('selected');
+    }
+  }
+
+  function tryMatch(leftId, rightId) {
+    const leftEl = document.getElementById(leftId);
+    const rightEl = document.getElementById(rightId);
+    leftEl.classList.remove('selected'); rightEl.classList.remove('selected');
+    matchSelected = null; matchSide = null;
+    if (matchPairs[leftId] === rightId) {
+      leftEl.classList.add('matched'); rightEl.classList.add('matched');
+      score += 1; correct++; total++;
+      updateScore();
+      const allMatched = Object.keys(matchPairs).every(k => document.getElementById(k).classList.contains('matched'));
+      if (allMatched) {
+        const fb = document.getElementById('match-fb');
+        fb.classList.add('show','correct-fb');
+        fb.textContent = '🎉 All matched! Perfect!';
+      }
+    } else {
+      leftEl.classList.add('wrong-match'); rightEl.classList.add('wrong-match');
+      // Show the correct answer
+      const correctRoom = matchPairs[leftId];
+      const correctRoomEl = document.getElementById(correctRoom);
+      setTimeout(() => {
+        leftEl.classList.remove('wrong-match'); rightEl.classList.remove('wrong-match');
+        const fb = document.getElementById('match-fb');
+        fb.classList.add('show','wrong-fb');
+        fb.innerHTML = '❌ Not quite! Hint: <strong>' + leftEl.textContent + '</strong> goes in the <strong>' + matchAnswers[leftId] + '</strong>.';
+      }, 600);
+      total++;
+      updateScore();
+    }
+  }
+
+  // ── MODAL ──
+  function showModal(emoji, title, text) {
+    document.getElementById('modalEmoji').textContent = emoji;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalText').textContent = text;
+    document.getElementById('modalOverlay').classList.add('show');
+  }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+
+  // ── RESTART ──
+  function restartAll() {
+    score = 0; correct = 0; total = 0;
+    updateScore();
+    document.getElementById('finalPanel').classList.remove('show');
+    document.getElementById('progressBar').style.width = '0%';
+
+    // Reset all choices
+    document.querySelectorAll('.choice-btn').forEach(b => {
+      b.disabled = false;
+      b.classList.remove('correct','wrong','show-correct');
+    });
+    // Reset selects
+    document.querySelectorAll('.nice-select').forEach(s => {
+      s.value = ''; s.disabled = false;
+      s.dataset.answered = '';
+      s.classList.remove('correct-sel','wrong-sel');
+    });
+    // Reset select feedbacks
+    document.querySelectorAll('[id$="-fb"]').forEach(el => {
+      el.textContent = ''; el.style.color=''; el.style.fontWeight='';
+    });
+    // Reset blanks
+    document.querySelectorAll('.blank-input').forEach(i => {
+      i.value = ''; i.disabled = false; i.dataset.checked = '';
+      i.classList.remove('correct-input','wrong-input');
+    });
+    // Remove inline answer hints
+    document.querySelectorAll('.inline-answer').forEach(e => e.remove());
+    // Reset feedbacks
+    document.querySelectorAll('.feedback').forEach(f => {
+      f.classList.remove('show','correct-fb','wrong-fb');
+      f.textContent = '';
+    });
+    // Reset match
+    matchSelected = null; matchSide = null;
+    ['m1','m2','m3','m4','r1','r2','r3','r4'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('matched','selected','wrong-match');
+    });
+    document.getElementById('match-fb').classList.remove('show','correct-fb','wrong-fb');
+    document.getElementById('match-fb').textContent = '';
+
+    // Back to welcome
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('welcome').style.display = 'block';
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repaso de Castellano – 5º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #4FC3F7;
+    --sun: #FFD54F;
+    --grass: #66BB6A;
+    --coral: #FF7043;
+    --purple: #7C4DFF;
+    --white: #FFFDE7;
+    --dark: #1A237E;
+    --card-bg: #ffffffee;
+    --radius: 18px;
+    --shadow: 0 6px 24px rgba(76,63,255,.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(160deg, #e0f7fa 0%, #fff9c4 50%, #e8f5e9 100%);
+    min-height: 100vh;
+    color: var(--dark);
+    padding-bottom: 60px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(90deg, var(--purple) 0%, var(--sky) 100%);
+    padding: 28px 20px 22px;
+    text-align: center;
+    border-bottom: 6px solid var(--sun);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '⭐✏️📚🎒✨';
+    font-size: 2rem;
+    position: absolute; top: 8px; left: 0; right: 0;
+    text-align: center; opacity: .25; letter-spacing: 18px;
+  }
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: #fff;
+    text-shadow: 3px 3px 0 var(--purple);
+    position: relative;
+  }
+  header p {
+    color: var(--sun);
+    font-weight: 700;
+    margin-top: 6px;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  /* ── NAV TABS ── */
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 16px 6px;
+  }
+  .tab-btn {
+    font-family: 'Fredoka One', cursive;
+    font-size: .95rem;
+    padding: 10px 18px;
+    border: 3px solid transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all .2s;
+    background: var(--card-bg);
+    color: var(--dark);
+    box-shadow: var(--shadow);
+  }
+  .tab-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+  .tab-btn.active { background: var(--purple); color: #fff; border-color: var(--sun); }
+  .tab-btn span { margin-right: 6px; }
+
+  /* ── SCORE BAR ── */
+  #score-bar {
+    display: none;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.15rem;
+    color: var(--purple);
+    animation: fadeIn .4s;
+  }
+  #score-bar.visible { display: block; }
+
+  /* ── SECTIONS ── */
+  .section { display: none; padding: 16px; max-width: 860px; margin: 0 auto; animation: fadeIn .4s; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--purple);
+  }
+  .card.green  { border-left-color: var(--grass); }
+  .card.orange { border-left-color: var(--coral); }
+  .card.blue   { border-left-color: var(--sky); }
+  .card.yellow { border-left-color: var(--sun); }
+
+  .card h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card p, .card li { font-size: 1rem; line-height: 1.65; }
+  .card ol, .card ul { padding-left: 20px; }
+
+  /* ── INPUTS ── */
+  input[type="text"], textarea, select {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    padding: 9px 14px;
+    border: 2px solid #c5cae9;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 6px;
+    background: #f8f8ff;
+    transition: border .2s;
+    outline: none;
+  }
+  input[type="text"]:focus, textarea:focus { border-color: var(--purple); }
+  textarea { resize: vertical; min-height: 120px; }
+
+  .inline-input {
+    display: inline-block;
+    width: 130px;
+    margin: 0 4px;
+    padding: 4px 10px;
+    font-size: .95rem;
+  }
+
+  /* ── RADIO/CHECKBOX ── */
+  .option-label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid #e0e0e0;
+    margin-bottom: 8px;
+    font-size: .97rem;
+    transition: all .18s;
+    background: #f9f9f9;
+  }
+  .option-label:hover { border-color: var(--purple); background: #ede7f6; }
+  .option-label input { accent-color: var(--purple); width: 18px; height: 18px; }
+
+  /* ── BUTTON ── */
+  .btn {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.05rem;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: all .2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
+  .btn-primary { background: var(--purple); color: #fff; }
+  .btn-primary:hover { background: #5e35b1; transform: translateY(-2px); }
+  .btn-secondary { background: var(--sun); color: var(--dark); }
+  .btn-secondary:hover { background: #ffca28; transform: translateY(-2px); }
+  .btn-reset { background: var(--coral); color: #fff; margin-left: 10px; }
+  .btn-reset:hover { background: #e64a19; transform: translateY(-2px); }
+
+  /* ── FEEDBACK ── */
+  .feedback { display: none; margin-top: 18px; animation: fadeIn .3s; }
+  .feedback.show { display: block; }
+  .result-item {
+    padding: 9px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: .96rem;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .result-item.correct { background: #e8f5e9; border-left: 4px solid var(--grass); }
+  .result-item.wrong   { background: #fbe9e7; border-left: 4px solid var(--coral); }
+  .result-item .icon   { font-size: 1.1rem; flex-shrink: 0; }
+
+  .score-badge {
+    display: inline-block;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    padding: 8px 22px;
+    border-radius: 50px;
+    margin-top: 12px;
+  }
+  .score-badge.great  { background: var(--grass); color: #fff; }
+  .score-badge.ok     { background: var(--sun);   color: var(--dark); }
+  .score-badge.poor   { background: var(--coral);  color: #fff; }
+
+  /* ── READING TEXT ── */
+  .reading-text {
+    background: #fff8e1;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 2px dashed #ffd54f;
+    font-size: .98rem;
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+
+  /* ── WORD SORT ── */
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin: 12px 0;
+  }
+  .word-chip {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    padding: 6px 16px;
+    border-radius: 50px;
+    background: var(--purple);
+    color: #fff;
+    cursor: grab;
+    user-select: none;
+    border: 2px solid transparent;
+    transition: all .15s;
+  }
+  .word-chip:active { cursor: grabbing; transform: scale(1.08); }
+  .word-chip.used { background: #bdbdbd; cursor: default; }
+
+  .drop-zone {
+    min-height: 52px;
+    border: 2px dashed #9e9e9e;
+    border-radius: 12px;
+    padding: 8px 14px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    background: #f5f5f5;
+    margin-top: 8px;
+    transition: background .2s;
+  }
+  .drop-zone.over { background: #ede7f6; border-color: var(--purple); }
+
+  .drop-category { margin-bottom: 14px; }
+  .drop-category label { font-weight: 700; font-size: 1rem; display: block; margin-bottom: 4px; }
+
+  /* ── PROGRESS ── */
+  .progress-overview {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  .progress-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    min-width: 150px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .progress-card .big-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+  }
+  .progress-card small { font-size: .85rem; color: #666; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .card { padding: 16px 14px; }
+    .inline-input { width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📝 Repaso de Castellano</h1>
+  <p>5º de Primaria · ¡Tú puedes! 🌟</p>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showSection('ortografia')" data-section="ortografia"><span>✏️</span>Ortografía</button>
+  <button class="tab-btn" onclick="showSection('palabras')" data-section="palabras"><span>🔤</span>Palabras (-z, -d, -ll)</button>
+  <button class="tab-btn" onclick="showSection('lectura')" data-section="lectura"><span>📖</span>Comprensión</button>
+  <button class="tab-btn" onclick="showSection('escritura')" data-section="escritura"><span>🏙️</span>Expresión escrita</button>
+  <button class="tab-btn" onclick="showSection('resultados')" data-section="resultados"><span>🏆</span>Mis notas</button>
+</nav>
+
+<div id="score-bar"></div>
+
+<!-- ══════════════════════════════════════
+     SECCIÓN 1 · ORTOGRAFÍA
+══════════════════════════════════════ -->
+<div id="ortografia" class="section active">
+
+  <!-- 1a: Completa con b/v -->
+  <div class="card">
+    <h2>🔡 Completa con <em>b</em> o <em>v</em></h2>
+    <p style="margin-bottom:14px">Escribe la letra correcta en cada hueco:</p>
+    <div id="bv-form">
+      <p>1. El niño su__ió la escalera de__olando.</p>
+      <input type="text" class="inline-input bv-ans" maxlength="2" placeholder="b/v" data-ans="b" style="width:60px">
+      <input type="text" class="inline-input bv-ans" maxlength="2" placeholder="b/v" data-ans="v" style="width:60px">
+
+      <p style="margin-top:10px">2. Es__ribió una car__ta muy __onita.</p>
+      <input type="text" class="inline-input bv-ans" maxlength="2" placeholder="b/v" data-ans="c" style="display:none"><!-- truco: las respuestas están hardcoded abajo -->
+
+      <!-- Usamos preguntas de selección múltiple para más claridad -->
+    </div>
+
+    <!-- Ejercicio con select -->
+    <div id="bv-ej" style="margin-top:6px">
+      <div class="bv-question" data-correct="b">
+        <p style="margin-bottom:6px">1. La ni__a ju__ilada vi__ió en el pue__lo.</p>
+        <select class="bv-select" style="max-width:200px">
+          <option value="">-- elige --</option>
+          <option value="b-v-v-b">b / v / v / b</option>
+          <option value="v-b-b-v">v / b / b / v</option>
+          <option value="b-v-b-b">b / v / b / b</option>
+        </select>
+        <small style="color:#888;display:block;margin-top:4px">Orden: 1ª, 2ª, 3ª y 4ª letra</small>
+      </div>
+
+      <div class="bv-question" style="margin-top:14px" data-correct="v-b-v">
+        <p style="margin-bottom:6px">2. __olé muy __ien en el a__ión.</p>
+        <select class="bv-select" style="max-width:200px">
+          <option value="">-- elige --</option>
+          <option value="b-v-v">b / v / v</option>
+          <option value="v-b-v">v / b / v</option>
+          <option value="v-v-b">v / v / b</option>
+        </select>
+      </div>
+
+      <div class="bv-question" style="margin-top:14px" data-correct="b-v-b">
+        <p style="margin-bottom:6px">3. El __arco na__egó con __astante fuerza.</p>
+        <select class="bv-select" style="max-width:200px">
+          <option value="">-- elige --</option>
+          <option value="b-v-b">b / v / b</option>
+          <option value="v-b-v">v / b / v</option>
+          <option value="b-b-v">b / b / v</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="checkBV()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSection('bv')">Reiniciar</button>
+    <div class="feedback" id="bv-feedback"></div>
+  </div>
+
+  <!-- 1b: Tildes -->
+  <div class="card green">
+    <h2>´ Coloca la tilde correcta</h2>
+    <p style="margin-bottom:12px">¿Cuál es la forma correcta? Marca la opción.</p>
+    <div id="tilde-form">
+      <div class="tilde-q" data-correct="c">
+        <p style="font-weight:700;margin-bottom:6px">1. ¿Cuándo vino?</p>
+        <label class="option-label"><input type="radio" name="t1" value="a"> cuando</label>
+        <label class="option-label"><input type="radio" name="t1" value="b"> cuándo (afirmativa)</label>
+        <label class="option-label"><input type="radio" name="t1" value="c"> cuándo (interrogativa / exclamativa)</label>
+      </div>
+      <div class="tilde-q" style="margin-top:14px" data-correct="b">
+        <p style="font-weight:700;margin-bottom:6px">2. Completa: "El libro es ___ él."</p>
+        <label class="option-label"><input type="radio" name="t2" value="a"> de</label>
+        <label class="option-label"><input type="radio" name="t2" value="b"> de (preposición, sin tilde)</label>
+        <label class="option-label"><input type="radio" name="t2" value="c"> dé (subjuntivo)</label>
+      </div>
+      <div class="tilde-q" style="margin-top:14px" data-correct="b">
+        <p style="font-weight:700;margin-bottom:6px">3. La palabra "árbol" es:</p>
+        <label class="option-label"><input type="radio" name="t3" value="a"> Aguda</label>
+        <label class="option-label"><input type="radio" name="t3" value="b"> Llana (grave)</label>
+        <label class="option-label"><input type="radio" name="t3" value="c"> Esdrújula</label>
+      </div>
+      <div class="tilde-q" style="margin-top:14px" data-correct="c">
+        <p style="font-weight:700;margin-bottom:6px">4. La palabra "música" es:</p>
+        <label class="option-label"><input type="radio" name="t4" value="a"> Aguda</label>
+        <label class="option-label"><input type="radio" name="t4" value="b"> Llana (grave)</label>
+        <label class="option-label"><input type="radio" name="t4" value="c"> Esdrújula</label>
+      </div>
+      <div class="tilde-q" style="margin-top:14px" data-correct="a">
+        <p style="font-weight:700;margin-bottom:6px">5. La palabra "café" es:</p>
+        <label class="option-label"><input type="radio" name="t5" value="a"> Aguda (lleva tilde porque acaba en vocal)</label>
+        <label class="option-label"><input type="radio" name="t5" value="b"> Llana</label>
+        <label class="option-label"><input type="radio" name="t5" value="c"> Esdrújula</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="checkTildes()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSection('tilde')">Reiniciar</button>
+    <div class="feedback" id="tilde-feedback"></div>
+  </div>
+
+  <!-- 1c: g/j -->
+  <div class="card orange">
+    <h2>🧩 Completa con <em>g</em> o <em>j</em></h2>
+    <p style="margin-bottom:12px">Escribe la letra que falta:</p>
+    <div id="gj-form">
+      <div class="gj-row" data-word="viaje" data-gap="j">
+        <span>1. via__e</span>
+        <input type="text" maxlength="1" style="width:50px;margin-left:10px" placeholder="g/j">
+      </div>
+      <div class="gj-row" style="margin-top:10px" data-word="girasol" data-gap="g">
+        <span>2. __irasol</span>
+        <input type="text" maxlength="1" style="width:50px;margin-left:10px" placeholder="g/j">
+      </div>
+      <div class="gj-row" style="margin-top:10px" data-word="lejano" data-gap="j">
+        <span>3. le__ano</span>
+        <input type="text" maxlength="1" style="width:50px;margin-left:10px" placeholder="g/j">
+      </div>
+      <div class="gj-row" style="margin-top:10px" data-word="girar" data-gap="g">
+        <span>4. __irar</span>
+        <input type="text" maxlength="1" style="width:50px;margin-left:10px" placeholder="g/j">
+      </div>
+      <div class="gj-row" style="margin-top:10px" data-word="jugar" data-gap="j">
+        <span>5. __u__ar</span>
+        <input type="text" maxlength="1" style="width:50px;margin-left:10px" placeholder="g/j">
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="checkGJ()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSection('gj')">Reiniciar</button>
+    <div class="feedback" id="gj-feedback"></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     SECCIÓN 2 · PALABRAS -z, -d, -ll
+══════════════════════════════════════ -->
+<div id="palabras" class="section">
+
+  <!-- Clasificación drag-and-drop -->
+  <div class="card blue">
+    <h2>🗂️ Clasifica las palabras</h2>
+    <p style="margin-bottom:12px">Arrastra cada palabra a la columna correcta según cómo terminan:</p>
+    <div class="word-bank" id="word-bank">
+      <!-- chips insertados por JS -->
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px">
+      <div class="drop-category">
+        <label>Terminan en <strong>-Z</strong> 🔴</label>
+        <div class="drop-zone" id="drop-z" ondragover="onDragOver(event)" ondrop="onDrop(event,'z')"></div>
+      </div>
+      <div class="drop-category">
+        <label>Terminan en <strong>-D</strong> 🔵</label>
+        <div class="drop-zone" id="drop-d" ondragover="onDragOver(event)" ondrop="onDrop(event,'d')"></div>
+      </div>
+      <div class="drop-category">
+        <label>Terminan en <strong>-LL</strong> 🟢</label>
+        <div class="drop-zone" id="drop-ll" ondragover="onDragOver(event)" ondrop="onDrop(event,'ll')"></div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="checkSort()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSort()">Reiniciar</button>
+    <div class="feedback" id="sort-feedback"></div>
+  </div>
+
+  <!-- Singular / plural z→ces -->
+  <div class="card">
+    <h2>📝 Singular ↔ Plural (z → ces)</h2>
+    <p style="margin-bottom:12px">Escribe el plural o singular según corresponda:</p>
+    <div id="plural-form">
+      <table style="width:100%;border-collapse:collapse">
+        <tr><th style="text-align:left;padding:8px 4px;border-bottom:2px solid #e0e0e0">Singular</th><th style="text-align:left;padding:8px 4px;border-bottom:2px solid #e0e0e0">Plural</th></tr>
+        <tr>
+          <td style="padding:8px 4px">pez</td>
+          <td><input type="text" data-ans="peces" placeholder="escribe el plural..."></td>
+        </tr>
+        <tr>
+          <td style="padding:8px 4px">nariz</td>
+          <td><input type="text" data-ans="narices" placeholder="escribe el plural..."></td>
+        </tr>
+        <tr>
+          <td style="padding:8px 4px">vez</td>
+          <td><input type="text" data-ans="veces" placeholder="escribe el plural..."></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-ans="feliz" placeholder="escribe el singular..."></td>
+          <td style="padding:8px 4px">felices</td>
+        </tr>
+        <tr>
+          <td><input type="text" data-ans="actriz" placeholder="escribe el singular..."></td>
+          <td style="padding:8px 4px">actrices</td>
+        </tr>
+      </table>
+    </div>
+    <button class="btn btn-primary" onclick="checkPlural()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSection('plural')">Reiniciar</button>
+    <div class="feedback" id="plural-feedback"></div>
+  </div>
+
+  <!-- Escribir palabras con ll -->
+  <div class="card green">
+    <h2>🦋 Palabras con <em>ll</em></h2>
+    <p style="margin-bottom:12px">Define estas palabras con <strong>ll</strong> eligiendo su significado correcto:</p>
+    <div id="ll-form">
+      <div class="ll-q" data-correct="b" style="margin-bottom:14px">
+        <p style="font-weight:700">1. <em>orilla</em></p>
+        <label class="option-label"><input type="radio" name="ll1" value="a"> Animal de cuatro patas</label>
+        <label class="option-label"><input type="radio" name="ll1" value="b"> Borde de un río, lago o mar</label>
+        <label class="option-label"><input type="radio" name="ll1" value="c"> Tipo de flor</label>
+      </div>
+      <div class="ll-q" data-correct="a" style="margin-bottom:14px">
+        <p style="font-weight:700">2. <em>llave</em></p>
+        <label class="option-label"><input type="radio" name="ll2" value="a"> Instrumento para abrir cerraduras</label>
+        <label class="option-label"><input type="radio" name="ll2" value="b"> Tipo de sombrero</label>
+        <label class="option-label"><input type="radio" name="ll2" value="c"> Parte de un árbol</label>
+      </div>
+      <div class="ll-q" data-correct="c" style="margin-bottom:14px">
+        <p style="font-weight:700">3. <em>silla</em></p>
+        <label class="option-label"><input type="radio" name="ll3" value="a"> Herramienta de cocina</label>
+        <label class="option-label"><input type="radio" name="ll3" value="b"> Ventana pequeña</label>
+        <label class="option-label"><input type="radio" name="ll3" value="c"> Mueble para sentarse</label>
+      </div>
+      <div class="ll-q" data-correct="b" style="margin-bottom:14px">
+        <p style="font-weight:700">4. <em>pastilla</em></p>
+        <label class="option-label"><input type="radio" name="ll4" value="a"> Un tipo de pasta italiana</label>
+        <label class="option-label"><input type="radio" name="ll4" value="b"> Comprimido de medicina o de jabón</label>
+        <label class="option-label"><input type="radio" name="ll4" value="c"> Personaje de cuento</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="checkLL()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSection('ll')">Reiniciar</button>
+    <div class="feedback" id="ll-feedback"></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     SECCIÓN 3 · COMPRENSIÓN LECTORA
+══════════════════════════════════════ -->
+<div id="lectura" class="section">
+  <div class="card yellow">
+    <h2>📖 Lee el texto</h2>
+    <div class="reading-text">
+      <p><strong>Una tarde en la ciudad</strong></p>
+      <br>
+      <p>Lucía y su abuelo Manuel paseaban por el centro de la ciudad un soleado sábado por la tarde. Las calles estaban llenas de gente que iba de compras, tomaba un helado o simplemente disfrutaba del buen tiempo.</p>
+      <br>
+      <p>—Abuelo, ¿cuántos años tiene esta fuente? —preguntó Lucía señalando una gran fuente de piedra rodeada de palomas.</p>
+      <br>
+      <p>—Más de doscientos años —respondió el abuelo con orgullo—. La construyeron cuando el rey ordenó embellecer la ciudad. Entonces no había coches, solo carros tirados por caballos.</p>
+      <br>
+      <p>Lucía se imaginó la misma plaza sin semáforos ni tiendas modernas, con señoras de vestidos largos y niños jugando con aros de madera. Le pareció un mundo mágico y lejano.</p>
+      <br>
+      <p>—¿Te gustaría haber vivido en esa época? —preguntó el abuelo.</p>
+      <br>
+      <p>Lucía pensó un momento y respondió sonriendo:</p>
+      <br>
+      <p>—Solo si podía volver para contarte todo lo que vi.</p>
+      <br>
+      <p>El abuelo rio con ganas y los dos siguieron caminando entre el suave rumor de la fuente y el olor a churros recién hechos.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>❓ Preguntas de comprensión</h2>
+    <div id="comp-form">
+
+      <div class="comp-q" data-correct="b" style="margin-bottom:18px">
+        <p style="font-weight:700">1. ¿Con quién paseaba Lucía?</p>
+        <label class="option-label"><input type="radio" name="c1" value="a"> Con su madre</label>
+        <label class="option-label"><input type="radio" name="c1" value="b"> Con su abuelo Manuel</label>
+        <label class="option-label"><input type="radio" name="c1" value="c"> Con su amiga</label>
+      </div>
+
+      <div class="comp-q" data-correct="a" style="margin-bottom:18px">
+        <p style="font-weight:700">2. ¿Qué había alrededor de la fuente?</p>
+        <label class="option-label"><input type="radio" name="c2" value="a"> Palomas</label>
+        <label class="option-label"><input type="radio" name="c2" value="b"> Perros</label>
+        <label class="option-label"><input type="radio" name="c2" value="c"> Flores</label>
+      </div>
+
+      <div class="comp-q" data-correct="c" style="margin-bottom:18px">
+        <p style="font-weight:700">3. ¿Cuántos años tiene la fuente aproximadamente?</p>
+        <label class="option-label"><input type="radio" name="c3" value="a"> Más de cien años</label>
+        <label class="option-label"><input type="radio" name="c3" value="b"> Menos de cien años</label>
+        <label class="option-label"><input type="radio" name="c3" value="c"> Más de doscientos años</label>
+      </div>
+
+      <div class="comp-q" data-correct="b" style="margin-bottom:18px">
+        <p style="font-weight:700">4. ¿Qué se imaginó Lucía?</p>
+        <label class="option-label"><input type="radio" name="c4" value="a"> La plaza llena de coches modernos</label>
+        <label class="option-label"><input type="radio" name="c4" value="b"> La plaza sin semáforos, con señoras de vestidos largos y niños jugando</label>
+        <label class="option-label"><input type="radio" name="c4" value="c"> Una batalla de caballeros</label>
+      </div>
+
+      <div class="comp-q" data-correct="c" style="margin-bottom:18px">
+        <p style="font-weight:700">5. ¿Por qué Lucía quería volver si viviera en esa época?</p>
+        <label class="option-label"><input type="radio" name="c5" value="a"> Para traer comida moderna</label>
+        <label class="option-label"><input type="radio" name="c5" value="b"> Porque no le gustaba esa época</label>
+        <label class="option-label"><input type="radio" name="c5" value="c"> Para contarle todo al abuelo</label>
+      </div>
+
+      <div class="comp-q" data-correct="a" style="margin-bottom:18px">
+        <p style="font-weight:700">6. ¿Qué olor había al final del paseo?</p>
+        <label class="option-label"><input type="radio" name="c6" value="a"> A churros recién hechos</label>
+        <label class="option-label"><input type="radio" name="c6" value="b"> A flores del jardín</label>
+        <label class="option-label"><input type="radio" name="c6" value="c"> A lluvia</label>
+      </div>
+
+      <div style="margin-top:14px">
+        <p style="font-weight:700">7. ¿Qué tipo de texto es este? Explícalo brevemente (2-3 líneas):</p>
+        <textarea id="tipo-texto" placeholder="Escribe aquí tu respuesta..." rows="3"></textarea>
+        <small style="color:#888">Pista: ¿Es narrativo, descriptivo, informativo...?</small>
+      </div>
+
+    </div>
+    <button class="btn btn-primary" onclick="checkComp()">Corregir ✔️</button>
+    <button class="btn btn-reset" onclick="resetSection('comp')">Reiniciar</button>
+    <div class="feedback" id="comp-feedback"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECCIÓN 4 · EXPRESIÓN ESCRITA
+══════════════════════════════════════ -->
+<div id="escritura" class="section">
+  <div class="card">
+    <h2>🏙️ Descripción de una ciudad</h2>
+    <p style="margin-bottom:14px">En la descripción de una ciudad debemos incluir:</p>
+    <ul style="margin-bottom:16px;padding-left:20px">
+      <li>📍 <strong>Localización y nombre</strong> de la ciudad.</li>
+      <li>🏛️ <strong>Monumentos y lugares</strong> importantes.</li>
+      <li>🌿 <strong>Entorno y naturaleza</strong> (ríos, montañas, parques…).</li>
+      <li>👥 <strong>Ambiente y gente</strong> (animada, tranquila…).</li>
+      <li>🎉 <strong>Actividades y costumbres</strong> típicas.</li>
+      <li>💬 <strong>Adjetivos y recursos</strong> para hacer la descripción viva.</li>
+    </ul>
+    <div class="card orange" style="border-left:none;background:#fff3e0;border-radius:12px;padding:14px">
+      <p><strong>📌 Ejemplo de inicio:</strong></p>
+      <p><em>"Barcelona es una ciudad mediterránea llena de vida. Sus calles amplias y sus playas doradas la convierten en un lugar único. Entre sus monumentos destaca la Sagrada Família, una catedral impresionante que…"</em></p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h2>✍️ ¡Ahora escribe tú!</h2>
+    <p style="margin-bottom:12px">Escribe una descripción de una ciudad que conozcas o que imagines. Recuerda usar los elementos del cuadro anterior. (Mínimo 80 palabras)</p>
+    <textarea id="escritura-text" placeholder="Escribe aquí tu descripción..." rows="10"></textarea>
+    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <button class="btn btn-primary" onclick="checkEscritura()">Revisar y puntuar ✔️</button>
+      <button class="btn btn-reset" onclick="document.getElementById('escritura-text').value='';document.getElementById('escritura-feedback').classList.remove('show')">Borrar</button>
+      <span id="word-count" style="font-size:.9rem;color:#888">Palabras: 0</span>
+    </div>
+    <div class="feedback" id="escritura-feedback"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECCIÓN 5 · MIS NOTAS
+══════════════════════════════════════ -->
+<div id="resultados" class="section">
+  <div class="card">
+    <h2>🏆 Resumen de puntuaciones</h2>
+    <div class="progress-overview" id="scores-overview">
+      <p style="color:#888">Todavía no has corregido ningún ejercicio.</p>
+    </div>
+    <button class="btn btn-secondary" onclick="showSection('ortografia')">Volver a empezar 🔄</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════ */
+const scores = {};
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector(`[data-section="${id}"]`).classList.add('active');
+  if (id === 'resultados') renderScores();
+  window.scrollTo(0,0);
+}
+
+function renderScores() {
+  const el = document.getElementById('scores-overview');
+  if (!Object.keys(scores).length) {
+    el.innerHTML = '<p style="color:#888">Todavía no has corregido ningún ejercicio.</p>';
+    return;
+  }
+  const labels = {
+    bv: 'B / V', tilde: 'Tildes', gj: 'G / J',
+    sort: 'Clasificar palabras', plural: 'Plural -z/-ces', ll: 'Palabras con LL',
+    comp: 'Comprensión lectora', escritura: 'Expresión escrita'
+  };
+  let total = 0, max = 0;
+  el.innerHTML = Object.entries(scores).map(([k,[got,outOf]]) => {
+    const pct = Math.round(got/outOf*100);
+    total += got; max += outOf;
+    const col = pct >= 70 ? 'var(--grass)' : pct >= 50 ? 'var(--sun)' : 'var(--coral)';
+    return `<div class="progress-card">
+      <div class="big-num" style="color:${col}">${got}/${outOf}</div>
+      <div style="font-weight:700">${labels[k]||k}</div>
+      <small>${pct}%</small>
+    </div>`;
+  }).join('');
+  const totalPct = Math.round(total/max*100);
+  const badge = totalPct >= 70 ? 'great' : totalPct >= 50 ? 'ok' : 'poor';
+  const emoji = totalPct >= 70 ? '🌟 ¡Genial!' : totalPct >= 50 ? '👍 Bien' : '💪 ¡Sigue practicando!';
+  el.innerHTML += `<div style="width:100%;text-align:center;margin-top:10px">
+    <span class="score-badge ${badge}">Total: ${total}/${max} (${totalPct}%) ${emoji}</span>
+  </div>`;
+}
+
+function showFeedback(id, items, got, outOf, key) {
+  scores[key] = [got, outOf];
+  const fb = document.getElementById(id);
+  fb.classList.add('show');
+  const badge = (got/outOf)>=.7 ? 'great' : (got/outOf)>=.5 ? 'ok' : 'poor';
+  const msg = (got/outOf)>=.7 ? '¡Muy bien! 🌟' : (got/outOf)>=.5 ? 'Bien, pero repasa 👍' : '¡Sigue practicando! 💪';
+  fb.innerHTML = items.join('') +
+    `<span class="score-badge ${badge}">Puntuación: ${got}/${outOf} – ${msg}</span>`;
+}
+
+function item(ok, text, corrTxt) {
+  return `<div class="result-item ${ok?'correct':'wrong'}">
+    <span class="icon">${ok?'✅':'❌'}</span>
+    <span>${text}${!ok && corrTxt ? ` <em>(Correcto: <strong>${corrTxt}</strong>)</em>` : ''}</span>
+  </div>`;
+}
+
+function normalize(str) { return str.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+function resetSection(key) {
+  const ids = {
+    bv:['bv-feedback','bv-ej'],
+    tilde:['tilde-feedback','tilde-form'],
+    gj:['gj-feedback','gj-form'],
+    plural:['plural-feedback','plural-form'],
+    ll:['ll-feedback','ll-form'],
+    comp:['comp-feedback','comp-form']
+  };
+  const [fbId] = ids[key]||[];
+  if (fbId) { document.getElementById(fbId).classList.remove('show'); document.getElementById(fbId).innerHTML=''; }
+  // reset inputs/selects/radios
+  document.querySelectorAll(`#${ids[key]?.[1]||''} input, #${ids[key]?.[1]||''} select`).forEach(el => {
+    if (el.type==='radio'||el.type==='checkbox') el.checked=false;
+    else el.value='';
+  });
+  delete scores[key];
+}
+
+/* ═══════════════════════════════════════════
+   B / V
+═══════════════════════════════════════════ */
+function checkBV() {
+  const qs = document.querySelectorAll('.bv-question');
+  const correct = ['b-v-v-b','v-b-v','b-v-b'];
+  const labels = [
+    'ni<b>b</b>a ju<b>b</b>ilada vi<b>v</b>ió en el pue<b>b</b>lo → b/v/v/b',
+    '<b>v</b>olé muy <b>b</b>ien en el a<b>v</b>ión → v/b/v',
+    'El <b>b</b>arco na<b>v</b>egó con <b>b</b>astante fuerza → b/v/b'
+  ];
+  let got = 0; const items = [];
+  qs.forEach((q, i) => {
+    const sel = q.querySelector('.bv-select');
+    const ok = sel && sel.value === correct[i];
+    if (ok) got++;
+    items.push(item(ok, `Frase ${i+1}: ${sel ? sel.options[sel.selectedIndex].text : '–'}`, labels[i]));
+  });
+  showFeedback('bv-feedback', items, got, qs.length, 'bv');
+}
+
+/* ═══════════════════════════════════════════
+   TILDES
+═══════════════════════════════════════════ */
+function checkTildes() {
+  const qs = document.querySelectorAll('.tilde-q');
+  const labels = [
+    '"cuándo" interrogativo/exclamativo lleva tilde diacrítica',
+    '"de" preposición NO lleva tilde; "dé" (subjuntivo) sí',
+    '"árbol" es llana acabada en consonante distinta de n/s → lleva tilde',
+    '"música" es esdrújula → siempre lleva tilde',
+    '"café" es aguda acabada en vocal → lleva tilde'
+  ];
+  let got = 0; const items = [];
+  qs.forEach((q, i) => {
+    const sel = q.querySelector(`input[name="t${i+1}"]:checked`);
+    const ok = sel && sel.value === q.dataset.correct;
+    if (ok) got++;
+    items.push(item(ok, `Pregunta ${i+1}: ${sel ? sel.parentElement.textContent.trim() : 'Sin respuesta'}`, labels[i]));
+  });
+  showFeedback('tilde-feedback', items, got, qs.length, 'tilde');
+}
+
+/* ═══════════════════════════════════════════
+   G / J
+═══════════════════════════════════════════ */
+function checkGJ() {
+  const rows = document.querySelectorAll('.gj-row');
+  let got = 0; const items = [];
+  rows.forEach(row => {
+    const ans = row.querySelector('input').value.toLowerCase().trim();
+    const correct = row.dataset.gap;
+    const ok = ans === correct;
+    if (ok) got++;
+    items.push(item(ok, `"${row.dataset.word}": escribiste "${ans||'–'}"`, correct));
+  });
+  showFeedback('gj-feedback', items, got, rows.length, 'gj');
+}
+
+/* ═══════════════════════════════════════════
+   DRAG & DROP SORT
+═══════════════════════════════════════════ */
+const wordData = [
+  {word:'pez',cat:'z'},{word:'nariz',cat:'z'},{word:'nuez',cat:'z'},
+  {word:'ciudad',cat:'d'},{word:'verdad',cat:'d'},{word:'libertad',cat:'d'},
+  {word:'castillo',cat:'ll'},{word:'orilla',cat:'ll'},{word:'cuchillo',cat:'ll'}
+];
+let dragging = null;
+
+function buildWordBank() {
+  const bank = document.getElementById('word-bank');
+  bank.innerHTML = '';
+  const shuffled = [...wordData].sort(()=>Math.random()-.5);
+  shuffled.forEach(w => {
+    const chip = document.createElement('span');
+    chip.className = 'word-chip';
+    chip.textContent = w.word;
+    chip.draggable = true;
+    chip.dataset.word = w.word;
+    chip.addEventListener('dragstart', e => { dragging = chip; chip.style.opacity='.4'; });
+    chip.addEventListener('dragend', e => { chip.style.opacity='1'; });
+    // touch support
+    chip.addEventListener('touchstart', touchStart, {passive:true});
+    chip.addEventListener('touchmove', touchMove, {passive:false});
+    chip.addEventListener('touchend', touchEnd);
+    bank.appendChild(chip);
+  });
+}
+
+function onDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('over'); }
+function onDrop(e, cat) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('over');
+  if (!dragging) return;
+  dragging.dataset.cat = cat;
+  e.currentTarget.appendChild(dragging);
+  dragging = null;
+}
+document.querySelectorAll('.drop-zone').forEach(z => {
+  z.addEventListener('dragleave', () => z.classList.remove('over'));
+});
+
+// Touch drag
+let touchChip = null, clone = null;
+function touchStart(e) {
+  touchChip = e.currentTarget;
+}
+function touchMove(e) {
+  e.preventDefault();
+  if (!touchChip) return;
+  const t = e.touches[0];
+  if (!clone) {
+    clone = touchChip.cloneNode(true);
+    clone.style.cssText = 'position:fixed;pointer-events:none;opacity:.7;z-index:9999;font-family:Fredoka One,cursive;font-size:1rem;padding:6px 16px;border-radius:50px;background:var(--purple);color:#fff';
+    document.body.appendChild(clone);
+  }
+  clone.style.left = (t.clientX - 40) + 'px';
+  clone.style.top  = (t.clientY - 20) + 'px';
+}
+function touchEnd(e) {
+  if (!touchChip) return;
+  if (clone) { document.body.removeChild(clone); clone = null; }
+  const t = e.changedTouches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  const zone = el?.closest('.drop-zone');
+  if (zone) {
+    const cat = zone.id.replace('drop-','');
+    touchChip.dataset.cat = cat;
+    zone.appendChild(touchChip);
+  }
+  touchChip = null;
+}
+
+function checkSort() {
+  let got = 0; const items = [];
+  wordData.forEach(w => {
+    const chip = document.querySelector(`.word-chip[data-word="${w.word}"]`);
+    const placed = chip ? chip.dataset.cat : null;
+    const ok = placed === w.cat;
+    if (ok) got++;
+    items.push(item(ok, `"${w.word}" → colocaste en: ${placed||'sin colocar'}`, `-${w.cat.toUpperCase()}`));
+  });
+  showFeedback('sort-feedback', items, got, wordData.length, 'sort');
+}
+
+function resetSort() {
+  buildWordBank();
+  ['drop-z','drop-d','drop-ll'].forEach(id => document.getElementById(id).innerHTML='');
+  const fb = document.getElementById('sort-feedback');
+  fb.classList.remove('show'); fb.innerHTML='';
+  delete scores['sort'];
+}
+
+/* ═══════════════════════════════════════════
+   PLURAL -z / -ces
+═══════════════════════════════════════════ */
+function checkPlural() {
+  const inputs = document.querySelectorAll('#plural-form input');
+  let got = 0; const items = [];
+  inputs.forEach((inp, i) => {
+    const ok = normalize(inp.value) === normalize(inp.dataset.ans);
+    if (ok) got++;
+    items.push(item(ok, `Fila ${i+1}: escribiste "${inp.value||'–'}"`, inp.dataset.ans));
+  });
+  showFeedback('plural-feedback', items, got, inputs.length, 'plural');
+}
+
+/* ═══════════════════════════════════════════
+   LL
+═══════════════════════════════════════════ */
+function checkLL() {
+  const qs = document.querySelectorAll('.ll-q');
+  let got = 0; const items = [];
+  const words = ['orilla','llave','silla','pastilla'];
+  qs.forEach((q, i) => {
+    const sel = q.querySelector(`input[name="ll${i+1}"]:checked`);
+    const ok = sel && sel.value === q.dataset.correct;
+    if (ok) got++;
+    items.push(item(ok, `"${words[i]}": ${sel ? sel.parentElement.textContent.trim() : 'Sin respuesta'}`));
+  });
+  showFeedback('ll-feedback', items, got, qs.length, 'll');
+}
+
+/* ═══════════════════════════════════════════
+   COMPRENSIÓN
+═══════════════════════════════════════════ */
+function checkComp() {
+  const qs = document.querySelectorAll('.comp-q');
+  let got = 0; const items = [];
+  const qTexts = [
+    '¿Con quién paseaba?','¿Alrededor de la fuente?','¿Años de la fuente?',
+    '¿Qué imaginó Lucía?','¿Por qué quería volver?','¿Qué olor había?'
+  ];
+  qs.forEach((q, i) => {
+    const sel = q.querySelector(`input[name="c${i+1}"]:checked`);
+    const ok = sel && sel.value === q.dataset.correct;
+    if (ok) got++;
+    items.push(item(ok, `P${i+1} (${qTexts[i]}): ${sel ? sel.parentElement.textContent.trim() : 'Sin respuesta'}`));
+  });
+  // P7 libre: si escribió algo, dar punto
+  const libre = document.getElementById('tipo-texto').value.trim();
+  const libreOk = libre.length > 10;
+  if (libreOk) got++;
+  items.push(item(libreOk, `P7 (tipo de texto): "${libre || 'Sin respuesta'}"${libreOk ? '' : ' — Recuerda indicar si es narrativo, descriptivo…'}`));
+  showFeedback('comp-feedback', items, got, qs.length + 1, 'comp');
+}
+
+/* ═══════════════════════════════════════════
+   EXPRESIÓN ESCRITA
+═══════════════════════════════════════════ */
+const escritura = document.getElementById('escritura-text');
+escritura.addEventListener('input', () => {
+  const words = escritura.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('word-count').textContent = `Palabras: ${words}`;
+});
+
+function checkEscritura() {
+  const text = escritura.value.trim();
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const fb = document.getElementById('escritura-feedback');
+  fb.classList.add('show');
+
+  let got = 0; const items = [];
+
+  // Criterios automáticos
+  const critera = [
+    { label: 'Longitud mínima (≥80 palabras)', ok: words >= 80, tip: `Tienes ${words} palabras. Añade más detalles.` },
+    { label: 'Menciona el nombre de la ciudad', ok: /ciudad|pueblo|barrio|[A-ZÁÉÍÓÚ][a-záéíóú]{2,}/u.test(text) },
+    { label: 'Usa adjetivos descriptivos', ok: /(bonita|grande|antigua|moderna|animada|tranquila|hermosa|impresionante|especial|colorida|luminosa|histórica)/i.test(text) },
+    { label: 'Menciona lugares o monumentos', ok: /(plaza|calle|parque|iglesia|museo|fuente|monumento|mercado|edificio|catedral|puerto|playa)/i.test(text) },
+    { label: 'Habla de la gente o ambiente', ok: /(gente|habitantes|turistas|vecinos|animad|bulliciosa|tranquila|llena|vida)/i.test(text) },
+    { label: 'Usa conectores o puntuación variada', ok: /(además|también|sin embargo|aunque|por eso|primero|después|finalmente|,|;)/i.test(text) },
+  ];
+
+  critera.forEach(c => {
+    if (c.ok) got++;
+    items.push(item(c.ok, c.label, c.tip||null));
+  });
+
+  const badge = got >= 5 ? 'great' : got >= 3 ? 'ok' : 'poor';
+  const msg = got >= 5 ? '¡Descripción excelente! 🌟' : got >= 3 ? 'Bien, pero puedes mejorar 👍' : '¡Repasa los elementos de la descripción! 💪';
+
+  fb.innerHTML = `<p style="font-weight:700;margin-bottom:10px">Criterios evaluados automáticamente:</p>` +
+    items.join('') +
+    `<p style="margin-top:10px;color:#555;font-size:.9rem">⚠️ La revisión completa la hará tu profesor/a, pero esto te da una idea. (${words} palabras escritas)</p>` +
+    `<span class="score-badge ${badge}">Puntuación automática: ${got}/6 – ${msg}</span>`;
+
+  scores['escritura'] = [got, 6];
+}
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+buildWordBank();
+</script>
+</body>
+</html>
